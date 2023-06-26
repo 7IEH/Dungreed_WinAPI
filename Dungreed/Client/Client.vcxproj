@@ -139,8 +139,17 @@
     <ResourceCompile Include="Client.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Game_Icon.ico" />
+    <Image Include="C:\Users\youki\OneDrive\바탕 화면\Texture2D\BasicCursor.png" />
+    <Image Include="C:\Users\youki\OneDrive\바탕 화면\Texture2D\Game_Icon.png" />
+    <Image Include="C:\Users\youki\OneDrive\바탕 화면\Texture2D\ShootingCursor2.png" />
     <Image Include="Client.ico" />
+    <Image Include="Game_Icon.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BasicCursor.cur" />
+    <None Include="cursor1.cur" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

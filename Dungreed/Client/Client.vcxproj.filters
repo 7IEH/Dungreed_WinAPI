@@ -32,6 +32,11 @@
     <Image Include="small.ico">
       <Filter>Window\Resource</Filter>
     </Image>
+    <Image Include="C:\Users\youki\OneDrive\바탕 화면\Texture2D\Game_Icon.png" />
+    <Image Include="C:\Users\youki\OneDrive\바탕 화면\Texture2D\ShootingCursor2.png" />
+    <Image Include="C:\Users\youki\OneDrive\바탕 화면\Texture2D\BasicCursor.png" />
+    <Image Include="..\Game_Icon.ico" />
+    <Image Include="Game_Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
@@ -40,5 +45,9 @@
     <ResourceCompile Include="Client.rc">
       <Filter>Window\Resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BasicCursor.cur" />
+    <None Include="cursor1.cur" />
   </ItemGroup>
 </Project>
