@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Window">
+      <UniqueIdentifier>{1d5fae6f-df09-4d2a-ac49-515844d533e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\Resource">
+      <UniqueIdentifier>{4128f5c2-838b-4e16-9ae0-f12638310efe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\Header">
+      <UniqueIdentifier>{15b3ff5b-1ab3-49ee-9aaa-9cbd9c289f0e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Client.h">
+      <Filter>Window\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Window\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Window\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Window\Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Client.ico">
+      <Filter>Window\Resource</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>Window\Resource</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Client.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>Window\Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
