@@ -50,7 +50,6 @@
     <Image Include="small.ico">
       <Filter>Window\Resource</Filter>
     </Image>
-    <Image Include="C:\Users\youki\OneDrive\바탕 화면\Texture2D\BasicCursor.png" />
     <Image Include="Game_Icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +64,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="BasicCursor.cur" />
+    <None Include="Resources\cursor.cur" />
   </ItemGroup>
 </Project>

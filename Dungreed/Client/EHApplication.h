@@ -18,6 +18,10 @@ namespace EH
 		HWND mHwnd;
 		HDC mHdc;
 
+		// double buffering test
+		HBITMAP mHbit;
+		HDC mHmemdc;
+
 		// update test
 		Vector2 mPlayerPos;
 	};
