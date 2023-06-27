@@ -10,6 +10,15 @@
     <Filter Include="Window\Header">
       <UniqueIdentifier>{15b3ff5b-1ab3-49ee-9aaa-9cbd9c289f0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{a5ccad99-8b17-4a5f-b272-a2a783450027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Common">
+      <UniqueIdentifier>{8b433587-28e5-4de9-830d-30968f6a23c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\High Level Interface">
+      <UniqueIdentifier>{6638c37b-5e9c-4c8c-b902-5d53dcec92ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -24,6 +33,15 @@
     <ClInclude Include="targetver.h">
       <Filter>Window\Header</Filter>
     </ClInclude>
+    <ClInclude Include="Commoninclude.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="EHMath.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="EHApplication.h">
+      <Filter>Engine\High Level Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -32,14 +50,14 @@
     <Image Include="small.ico">
       <Filter>Window\Resource</Filter>
     </Image>
-    <Image Include="C:\Users\youki\OneDrive\바탕 화면\Texture2D\Game_Icon.png" />
-    <Image Include="C:\Users\youki\OneDrive\바탕 화면\Texture2D\ShootingCursor2.png" />
     <Image Include="C:\Users\youki\OneDrive\바탕 화면\Texture2D\BasicCursor.png" />
-    <Image Include="..\Game_Icon.ico" />
     <Image Include="Game_Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="EHApplication.cpp">
+      <Filter>Engine\High Level Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -48,6 +66,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BasicCursor.cur" />
-    <None Include="cursor1.cur" />
   </ItemGroup>
 </Project>

@@ -3,13 +3,16 @@
 
 #include "framework.h"
 #include "Client.h"
+#include "EHApplication.h"
 
 #define MAX_LOADSTRING 100
+using EH::Application;
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
+Application application;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -69,6 +72,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // ( 게임 실행 )
+            application.Run();
         }
     }
 
@@ -122,8 +126,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
+   // 기본 핸들 크기
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+      CW_USEDEFAULT, 0, 1920, 1080, nullptr, nullptr, hInstance, nullptr);
+
+   application.Initialize(hWnd);
 
    if (!hWnd)
    {
@@ -150,6 +157,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    // update test
+    /*case WM_KEYDOWN:
+    {
+        switch (wParam)
+        {
+        case VK_LEFT:
+            application.mPlayerPos -= Vector2(10.f, 0.f);
+            break;
+
+        case VK_RIGHT:
+            application.mPlayerPos += Vector2(10.f, 0.f);
+            break;
+
+        case VK_DOWN:
+            application.mPlayerPos += Vector2(0.f, 10.f);
+            break;
+
+        case VK_UP:
+            application.mPlayerPos -= Vector2(0.f, 10.f);
+            break;
+
+        default:
+            break;
+        }
+    }*/
+
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -173,7 +206,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
 
-            Rectangle(hdc, 100, 100, 200, 200);
+            // Rectangle(hdc, 100, 100, 200, 200);
 
             EndPaint(hWnd, &ps);
         }
