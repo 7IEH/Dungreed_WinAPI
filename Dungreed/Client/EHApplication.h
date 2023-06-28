@@ -9,7 +9,7 @@ namespace EH
 	public:
 		Application();
 		~Application();
-		void Initialize(HWND hWnd);
+		void Initialize(HWND hWnd,HINSTANCE hInst);
 		void Run();
 		void Update();
 		void Render();
@@ -17,6 +17,7 @@ namespace EH
 	private:
 		HWND mHwnd;
 		HDC mHdc;
+		HINSTANCE mHinst;
 
 		// double buffering test
 		HBITMAP mHbit;

@@ -105,7 +105,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
     wcex.hCursor        = LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR1));
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_CLIENT);
+    wcex.lpszMenuName   = nullptr;//MAKEINTRESOURCEW(IDC_CLIENT);
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1));
 
@@ -128,9 +128,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    // 기본 핸들 크기
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, 1280, 720, nullptr, nullptr, hInstance, nullptr);
+      200, 200, 1280, 760, nullptr, nullptr, hInstance, nullptr);
 
-   application.Initialize(hWnd);
+   application.Initialize(hWnd, hInstance);
 
    if (!hWnd)
    {

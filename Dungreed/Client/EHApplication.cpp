@@ -8,6 +8,7 @@ namespace EH
 		, mPlayerPos(100.f,100.f)
 		, mHbit(nullptr)
 		, mHmemdc(nullptr)
+		, mHinst(nullptr)
 	{
 	}
 
@@ -15,9 +16,10 @@ namespace EH
 	{
 	}
 
-	void Application::Initialize(HWND hWnd)
+	void Application::Initialize(HWND hWnd,HINSTANCE hInst)
 	{
 		mHwnd = hWnd;
+		mHinst = hInst;
 		mHdc = GetDC(hWnd);
 
 		// Double buffering을 위한 bitmap과 여분의 DC
@@ -75,7 +77,7 @@ namespace EH
 		HBRUSH hOldBrush = (HBRUSH)SelectObject(mHmemdc, hNewBrush);
 
 		// 화면 clear
-		Rectangle(mHmemdc, 0, 0, 1280, 720);
+		Rectangle(mHmemdc, 0, 0, 1280, 760);
 
 		SelectObject(mHmemdc, hOldPen);
 		DeleteObject(hNewPen);
@@ -84,7 +86,13 @@ namespace EH
 
 		// 위치는 중점으로 생각하고 크기를 뺌 
 		// 즉, 만들어진 사각형은 중점을 mPlayerPos로 잡은 크기가 가로 30 세로 30 짜리 사각형
-		Rectangle(mHmemdc, mPlayerPos.x - 15.f, mPlayerPos.y - 15.f, mPlayerPos.x + 15.f, mPlayerPos.y + 15.f);
+		/*Rectangle(mHmemdc, mPlayerPos.x - 15.f, mPlayerPos.y - 15.f, mPlayerPos.x + 15.f, mPlayerPos.y + 15.f);*/
+		
+		// MAIN LOGO, PLAY, OPTION, EXIT 1280 760
+		Rectangle(mHmemdc, 320, 140, 955, 450);
+		CreateWindow(L"button", L"Start", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 570, 490, 140, 42, mHwnd, (HMENU)0, mHinst, NULL);
+		CreateWindow(L"button", L"Option", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 610, 537, 62, 42, mHwnd, (HMENU)0, mHinst, NULL);
+		CreateWindow(L"button", L"Exit", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 610, 586, 62, 42, mHwnd, (HMENU)0, mHinst, NULL);
 
 		// double buffering
 		// memdc를 통해 그린 bitmap을 메인 핸들로 옮기는 과정

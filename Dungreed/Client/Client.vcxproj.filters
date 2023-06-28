@@ -64,6 +64,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\cursor.cur" />
+    <None Include="Resources\UI\cursor.cur" />
   </ItemGroup>
 </Project>
