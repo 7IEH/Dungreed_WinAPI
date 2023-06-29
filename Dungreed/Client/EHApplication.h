@@ -26,6 +26,8 @@ namespace EH
 
 		// update test
 		Vector2 mPlayerPos;
+		Vector2 mBossPos;
+		Vector2 mAttackPos;
 	};
 }
 

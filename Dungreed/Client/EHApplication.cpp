@@ -5,7 +5,9 @@ namespace EH
 	Application::Application()
 		: mHwnd(nullptr)
 		, mHdc(nullptr)
-		, mPlayerPos(100.f,100.f)
+		, mPlayerPos(100.f, 100.f)
+		, mBossPos(640.f, 300.f)
+		, mAttackPos(940.f, 300.f)
 		, mHbit(nullptr)
 		, mHmemdc(nullptr)
 		, mHinst(nullptr)
@@ -72,6 +74,20 @@ namespace EH
 		{
 			mPlayerPos.x += 0.5f;
 		}
+		
+
+		// 좀 더 해보기
+		if(mAttackPos.x>=340.f&&mAttackPos.y >= 300.f)
+		{
+			mAttackPos.x -= 0.5f;
+			mAttackPos.y = (double)sqrt((double)90000.f - (double)((mAttackPos.x - 640.f) * (mAttackPos.x - 640.f))) + 300.f;
+		}
+		else if (mAttackPos.x >= 340.f&& mAttackPos.y < 300.f)
+		{
+			mAttackPos.x += 0.5f;
+			double a = 90000.f - (mAttackPos.x - 640.f) * (mAttackPos.x - 640.f);
+			mAttackPos.y = -1 * (double)sqrt((double)90000.f - (double)((mAttackPos.x - 640.f) * (mAttackPos.x - 640.f))) + 300.f;
+		}
 	}
 
 	void Application::Render()
@@ -102,6 +118,11 @@ namespace EH
 		//CreateWindow(L"button", L"Exit", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 610, 586, 62, 42, mHwnd, (HMENU)0, mHinst, NULL);
 
 		Rectangle(mHmemdc, (int)mPlayerPos.x, (int)mPlayerPos.y, (int)(mPlayerPos.x+100.f), (int)(mPlayerPos.y + 100.f));
+
+
+		Ellipse(mHmemdc, (int)(mBossPos.x - 150.f), (int)(mBossPos.y - 150.f), (int)(mBossPos.x + 150.f), (int)(mBossPos.y + 150.f));
+
+		Ellipse(mHmemdc, (int)(mAttackPos.x - 30), (int)(mAttackPos.y - 30.f), (int)(mAttackPos.x + 30.f), (int)(mAttackPos.y + 30.f));
 
 		// double buffering
 		// memdc를 통해 그린 bitmap을 메인 핸들로 옮기는 과정
