@@ -131,6 +131,7 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="Commoninclude.h" />
     <ClInclude Include="EHApplication.h" />
+    <ClInclude Include="EHInput.h" />
     <ClInclude Include="EHMath.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
@@ -139,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EHApplication.cpp" />
+    <ClCompile Include="EHInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

@@ -19,6 +19,9 @@
     <Filter Include="Engine\High Level Interface">
       <UniqueIdentifier>{6638c37b-5e9c-4c8c-b902-5d53dcec92ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{78fb0fc0-c864-497e-9635-2c38f05b8458}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -42,6 +45,9 @@
     <ClInclude Include="EHApplication.h">
       <Filter>Engine\High Level Interface</Filter>
     </ClInclude>
+    <ClInclude Include="EHInput.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -56,6 +62,9 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EHApplication.cpp">
       <Filter>Engine\High Level Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="EHInput.cpp">
+      <Filter>Engine\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

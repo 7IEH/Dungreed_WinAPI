@@ -1,5 +1,6 @@
 #pragma once
 #include "Commoninclude.h"
+#include "EHInput.h"
 using EH::Math::Vector2;
 
 namespace EH
