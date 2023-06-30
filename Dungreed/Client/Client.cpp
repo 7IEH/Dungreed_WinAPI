@@ -7,6 +7,7 @@
 
 #define MAX_LOADSTRING 100
 using EH::Application;
+LPPOINT MousePos;
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -182,7 +183,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             break;
         }
     }*/
-
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);

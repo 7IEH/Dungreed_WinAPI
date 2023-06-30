@@ -22,6 +22,9 @@
     <Filter Include="Engine\Input">
       <UniqueIdentifier>{78fb0fc0-c864-497e-9635-2c38f05b8458}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Time">
+      <UniqueIdentifier>{cfce122e-1e8f-4e4e-854f-cd3ded30d193}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -48,6 +51,9 @@
     <ClInclude Include="EHInput.h">
       <Filter>Engine\Input</Filter>
     </ClInclude>
+    <ClInclude Include="EHTime.h">
+      <Filter>Engine\Time</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -65,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="EHInput.cpp">
       <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTime.cpp">
+      <Filter>Engine\Time</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

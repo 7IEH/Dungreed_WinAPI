@@ -5,7 +5,7 @@ namespace EH
 	Application::Application()
 		: mHwnd(nullptr)
 		, mHdc(nullptr)
-		, mPlayerPos(100.f, 100.f)
+		, mPlayerPos(100.f, 500.f)
 		, mBossPos(640.f, 300.f)
 		, mAttackPos(940.f, 300.f)
 		, mHbit(nullptr)
@@ -25,7 +25,8 @@ namespace EH
 		mHwnd = hWnd;
 		mHinst = hInst;
 		mHdc = GetDC(hWnd);
-
+		// Time Initialize
+		Time::Initialize();
 		// Input Initialize
 		Input::Initialize();
 
@@ -54,6 +55,7 @@ namespace EH
 	void Application::Update()
 	{
 		// Input test
+		Time::Update();
 		Input::Update();
 		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
 		{
@@ -73,20 +75,32 @@ namespace EH
 		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
 		{
 			mPlayerPos.x += 0.5f;
-		}
-		
+		}		
 
-		// 좀 더 해보기
+
 		if(mAttackPos.x>=340.f&&mAttackPos.y >= 300.f)
 		{
+			double temp = (double)90000.f - (double)((mAttackPos.x - 640.f) * (mAttackPos.x - 640.f));
+			if (temp < 0)
+			{
+				temp *= -1;
+			}
+			mAttackPos.y = (double)sqrt(temp) + 300.f;
 			mAttackPos.x -= 0.5f;
-			mAttackPos.y = (double)sqrt((double)90000.f - (double)((mAttackPos.x - 640.f) * (mAttackPos.x - 640.f))) + 300.f;
 		}
-		else if (mAttackPos.x >= 340.f&& mAttackPos.y < 300.f)
+		else if (mAttackPos.x >= 339.5f&& mAttackPos.y <= 300.f)
 		{
 			mAttackPos.x += 0.5f;
-			double a = 90000.f - (mAttackPos.x - 640.f) * (mAttackPos.x - 640.f);
+			if (mAttackPos.x == 940.5f)
+			{
+				mAttackPos.x -= 0.5f;
+			}
 			mAttackPos.y = -1 * (double)sqrt((double)90000.f - (double)((mAttackPos.x - 640.f) * (mAttackPos.x - 640.f))) + 300.f;
+			if (mAttackPos.x == 940.f)
+			{
+				mAttackPos.y = 300.5f;
+			}
+			mAttackPos.y -= 0.1f;
 		}
 	}
 
@@ -100,7 +114,8 @@ namespace EH
 		//HBRUSH hOldBrush = (HBRUSH)SelectObject(mHmemdc, hNewBrush);
 
 		// 화면 clear
-		Rectangle(mHmemdc, 0, 0, 1280, 760);
+		//Rectangle(mHmemdc, 0, 0, 1280, 760);
+		Time::Render(mHmemdc);
 
 		//SelectObject(mHmemdc, hOldPen);
 		//DeleteObject(hNewPen);

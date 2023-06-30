@@ -1,6 +1,7 @@
 #pragma once
 #include "Commoninclude.h"
 #include "EHInput.h"
+#include "EHTime.h"
 using EH::Math::Vector2;
 
 namespace EH
@@ -14,6 +15,12 @@ namespace EH
 		void Run();
 		void Update();
 		void Render();
+
+		void SetPos(int posX,int posY)
+		{
+			mPlayerPos.x = posX;
+			mPlayerPos.y = posY;
+		}
 
 	private:
 		HWND mHwnd;
