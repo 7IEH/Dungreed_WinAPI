@@ -4,7 +4,6 @@
 #include "framework.h"
 #include "Client.h"
 #include "EHApplication.h"
-
 #define MAX_LOADSTRING 100
 using EH::Application;
 LPPOINT MousePos;
@@ -126,6 +125,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
+
 
    // 기본 핸들 크기
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,

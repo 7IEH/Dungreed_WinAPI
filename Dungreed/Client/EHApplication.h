@@ -30,12 +30,16 @@ namespace EH
 		// double buffering test
 		HBITMAP mHbit;
 		HDC mHmemdc;
-		Vector2 mWinSize;
+		Vector2<int> mWinSize;
 
 		// update test
-		Vector2 mPlayerPos;
-		Vector2 mBossPos;
-		Vector2 mAttackPos;
+		Vector2<float> mPlayerPos;
+		Vector2<float> mBossPos;
+		Vector2<float> mAttackPos;
+
+		// GDI+
+		ULONG_PTR gdiplusToken;
+		Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 	};
 }
 

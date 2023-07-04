@@ -1,14 +1,17 @@
 #include "EHApplication.h"
+#pragma comment(lib, "gdiplus.lib") 
 
 namespace EH
 {
 	Application::Application()
 		: mHwnd(nullptr)
 		, mHdc(nullptr)
-		, mWinSize(0.f, 0.f)
+		, mWinSize(0, 0)
 		, mHbit(nullptr)
 		, mHmemdc(nullptr)
 		, mHinst(nullptr)
+		, gdiplusToken(0)
+		, gdiplusStartupInput{}
 		, mPlayerPos(100.f, 500.f)
 		, mBossPos(640.f, 300.f)
 		, mAttackPos(940.f, 300.f)
@@ -26,9 +29,11 @@ namespace EH
 		mHwnd = hWnd;
 		mHinst = hInst;
 		mHdc = GetDC(hWnd);
+		Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
-		mWinSize.x = 1280.f;
-		mWinSize.y = 720.f;
+
+		mWinSize.x = 1280;
+		mWinSize.y = 720;
 		RECT rt = {0,0,mWinSize.x, mWinSize.y };
 		AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
 		SetWindowPos(hWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
@@ -135,10 +140,18 @@ namespace EH
 		///*Rectangle(mHmemdc, mPlayerPos.x - 15.f, mPlayerPos.y - 15.f, mPlayerPos.x + 15.f, mPlayerPos.y + 15.f);*/
 		//
 		//// MAIN LOGO, PLAY, OPTION, EXIT 1280 760
-		Rectangle(mHmemdc, 320, 140, 955, 450);
+		/*Rectangle(mHmemdc, 320, 140, 955, 450);
 		CreateWindow(L"button", L"Start", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 570, 490, 140, 42, mHwnd, (HMENU)0, mHinst, NULL);
 		CreateWindow(L"button", L"Option", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 610, 537, 62, 42, mHwnd, (HMENU)0, mHinst, NULL);
-		CreateWindow(L"button", L"Exit", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 610, 586, 62, 42, mHwnd, (HMENU)0, mHinst, NULL);
+		CreateWindow(L"button", L"Exit", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 610, 586, 62, 42, mHwnd, (HMENU)0, mHinst, NULL);*/
+
+		// GDI+
+		Image* image = Image::FromFile(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\Example.png");
+		::Graphics g(mHmemdc);
+
+		g.DrawImage(image, 0, 0, 1280, 720);
+		
+		delete image;
 
 		//Rectangle(mHmemdc, (int)mPlayerPos.x, (int)mPlayerPos.y, (int)(mPlayerPos.x+100.f), (int)(mPlayerPos.y + 100.f));
 

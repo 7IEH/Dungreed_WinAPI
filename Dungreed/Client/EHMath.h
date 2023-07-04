@@ -2,29 +2,21 @@
 
 namespace EH::Math
 {
+	template <typename T>
 	struct Vector2
 	{
-		float x;
-		float y;
+		T x;
+		T y;
 
-		Vector2()
-			: x(0.f)
-			, y(0.f)
-		{
-
-		}
-
-
-		Vector2(float x, float y)
+		Vector2(T x = 0,T y = 0)
 			: x(x)
 			, y(y)
 		{
-
 		}
 
-
+		template <typename T>
 		// vector 연산자 오버로딩
-		Vector2 operator+(Vector2 other)
+		Vector2<T> operator+(Vector2<T> other)
 		{
 			Vector2 temp;
 			temp.x = x + other.x;
@@ -32,7 +24,7 @@ namespace EH::Math
 			return temp;
 		}
 
-		Vector2 operator-(Vector2 other)
+		Vector2<T> operator-(Vector2<T> other)
 		{
 			Vector2 temp;
 			temp.x = x - other.x;
@@ -40,13 +32,13 @@ namespace EH::Math
 			return temp;
 		}
 
-		void operator+=(Vector2 other)
+		void operator+=(Vector2<T> other)
 		{
 			x += other.x;
 			y += other.y;
 		}
 
-		void operator-=(Vector2 other)
+		void operator-=(Vector2<T> other)
 		{
 			x -= other.x;
 			y -= other.y;
