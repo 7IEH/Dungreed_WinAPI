@@ -129,7 +129,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    // 기본 핸들 크기
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      200, 200, 1280, 760, nullptr, nullptr, hInstance, nullptr);
+      0, 0, 1280, 720, nullptr, nullptr, hInstance, nullptr);
 
    application.Initialize(hWnd, hInstance);
 

@@ -30,6 +30,7 @@ namespace EH
 		// double buffering test
 		HBITMAP mHbit;
 		HDC mHmemdc;
+		Vector2 mWinSize;
 
 		// update test
 		Vector2 mPlayerPos;

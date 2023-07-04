@@ -14,12 +14,14 @@ namespace EH::Math
 
 		}
 
+
 		Vector2(float x, float y)
 			: x(x)
 			, y(y)
 		{
 
 		}
+
 
 		// vector 연산자 오버로딩
 		Vector2 operator+(Vector2 other)
