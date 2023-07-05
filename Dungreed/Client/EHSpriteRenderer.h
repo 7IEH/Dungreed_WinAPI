@@ -15,7 +15,13 @@ namespace EH
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
+
+		void SetSrcPos(Math::Vector2<float> srcpos) { mSrcPos = srcpos; }
+		void SetSrcScale(Math::Vector2<float> srcscale) { mSrcScale = srcscale; }
+
 	private:
+		Math::Vector2<float> mSrcPos;
+		Math::Vector2<float> mSrcScale;
 	};
 }
 

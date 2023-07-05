@@ -55,8 +55,61 @@ namespace EH
 		DeleteObject(hOldBit);
 
 		Scene Enter;
-		GameObject* player = new GameObject();
-		Enter.SetLayer(enums::eLayerType::Player, player);
+		// Main Logo
+		GameObject* MainLogo = new GameObject();
+		MainLogo->GetComponent<Transform>()->SetPos(Math::Vector2<float>(320.f,140.f));
+		MainLogo->GetComponent<Transform>()->SetScale(Math::Vector2<float>(635.f, 310.f));
+		MainLogo->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(0.f, 0.f));
+		MainLogo->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(156.f, 75.f));
+		MainLogo->SetImagePath(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\MainLogo.png");
+
+		// Start
+		GameObject* Start = new GameObject();
+		Start->GetComponent<Transform>()->SetPos(Math::Vector2<float>(570.f, 490.f));
+		Start->GetComponent<Transform>()->SetScale(Math::Vector2<float>(140.f, 42.f));
+		Start->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(0.f, 0.f));
+		Start->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(36.f, 12.f));
+		Start->SetImagePath(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\PlayOff_Kor.png");
+
+		// Option
+		GameObject* Option = new GameObject();
+		Option->GetComponent<Transform>()->SetPos(Math::Vector2<float>(610.f, 537.f));
+		Option->GetComponent<Transform>()->SetScale(Math::Vector2<float>(62.f, 42.f));
+		Option->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(0.f, 0.f));
+		Option->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(20.f, 12.f));
+		Option->SetImagePath(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\OptionOff_Kor.png");
+
+		// Exit
+		GameObject* Exit = new GameObject();
+		Exit->GetComponent<Transform>()->SetPos(Math::Vector2<float>(610.f, 586.f));
+		Exit->GetComponent<Transform>()->SetScale(Math::Vector2<float>(62.f, 42.f));
+		Exit->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(0.f, 0.f));
+		Exit->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(21.f, 12.f));
+		Exit->SetImagePath(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\ExitOff_Kor.png");
+
+		// BackCloud
+		GameObject* BackCloud = new GameObject();
+		BackCloud->GetComponent<Transform>()->SetPos(Math::Vector2<float>(0.f, 0.f));
+		BackCloud->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 720.f));
+		BackCloud->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(160.f, 0.f));
+		BackCloud->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(300.f, 180.f));
+		BackCloud->SetImagePath(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\BackCloud.png");
+
+		// FrontCloud
+		GameObject* FrontCloud = new GameObject();
+		FrontCloud->GetComponent<Transform>()->SetPos(Math::Vector2<float>(0.f, 0.f));
+		FrontCloud->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 720.f));
+		FrontCloud->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(130.f, 0.f));
+		FrontCloud->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(390.f, 180.f));
+		FrontCloud->SetImagePath(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\FrontCloud.png");
+
+		Enter.SetLayer(enums::eLayerType::UI, BackCloud);
+		Enter.SetLayer(enums::eLayerType::UI, FrontCloud);
+		Enter.SetLayer(enums::eLayerType::UI, MainLogo);
+		Enter.SetLayer(enums::eLayerType::UI, Start);
+		Enter.SetLayer(enums::eLayerType::UI, Option);
+		Enter.SetLayer(enums::eLayerType::UI, Exit);
+
 		mScene.push_back(Enter);
 	}
 
@@ -120,7 +173,8 @@ namespace EH
 		g.DrawImage(image2, 570, 490,140,42);
 		g.DrawImage(image3, 610, 537,62,42);
 		g.DrawImage(image4, 610, 586,62,42);*/
-		
+
+
 		//delete image;
 	}
 }

@@ -3,6 +3,8 @@
 namespace EH
 {
 	GameObject::GameObject()
+		:
+		mPath(L"")
 	{
 		mComponents.push_back(new Transform());
 		mComponents.push_back(new SpriteRenderer());

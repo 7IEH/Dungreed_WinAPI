@@ -17,6 +17,9 @@ namespace EH
 		virtual void Update();
 		virtual void Render(HDC hdc);
 
+		void SetImagePath(std::wstring path) { mPath = path; }
+		std::wstring GetImagePath() { return mPath; }
+
 		template <typename T>
 		T* GetComponent()
 		{
@@ -29,8 +32,8 @@ namespace EH
 			}
 			return temp;
 		}
-
 	private:
 		std::vector<Component*> mComponents;
+		std::wstring mPath;
 	};
 }

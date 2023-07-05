@@ -5,6 +5,8 @@ namespace EH
 	SpriteRenderer::SpriteRenderer()
 		:
 		Component(enums::eComponentType::SpriteRenderer)
+		, mSrcPos(0.f,0.f)
+		, mSrcScale(0.f,0.f)
 	{
 	}
 	SpriteRenderer::~SpriteRenderer()
@@ -20,7 +22,17 @@ namespace EH
 	{
 		Transform* tf = GetOwner()->GetComponent<Transform>();
 		Math::Vector2<float> pos = tf->Getpos();
-
-		Rectangle(hdc, pos.x + 100.f, pos.y + 100.f, pos.x + 200.f, pos.y + 200.f);
+		Math::Vector2<float> scale = tf->GetScale();
+		std::wstring path = GetOwner()->GetImagePath();
+		if (path == L"")
+		{
+			Rectangle(hdc, pos.x,pos.y,pos.x+ scale.x,pos.y+scale.y);
+		}
+		else
+		{
+			Image* img = Image::FromFile(path.c_str());
+			::Graphics g(hdc);
+			g.DrawImage(img,Rect(pos.x, pos.y, scale.x, scale.y), mSrcPos.x, mSrcPos.y, mSrcScale.x, mSrcScale.y,UnitPixel);
+		}
 	}
 }
