@@ -207,6 +207,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
 
             // Rectangle(hdc, 100, 100, 200, 200);
+            
 
             EndPaint(hWnd, &ps);
         }

@@ -22,8 +22,29 @@
     <Filter Include="Engine\Input">
       <UniqueIdentifier>{78fb0fc0-c864-497e-9635-2c38f05b8458}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Time">
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{8729c580-f09e-41cf-a6b0-ab67dbcaabfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Common\Time">
       <UniqueIdentifier>{cfce122e-1e8f-4e4e-854f-cd3ded30d193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Entity">
+      <UniqueIdentifier>{dd6df946-c5e8-49b0-b014-6def96868c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Layer">
+      <UniqueIdentifier>{1e03c53d-92c9-4d70-969a-7476937da996}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject">
+      <UniqueIdentifier>{77044daa-8511-4fdb-a5be-2c186167a234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component">
+      <UniqueIdentifier>{71b8a121-4ea6-4c9e-8672-1dd38bd5c7be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Transform">
+      <UniqueIdentifier>{d19343c2-bf88-49f6-94c0-257718ccec47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\SpriteRenderer">
+      <UniqueIdentifier>{11a00378-70fc-4e0a-b9f3-87fc154b6cb9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,7 +73,28 @@
       <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="EHTime.h">
-      <Filter>Engine\Time</Filter>
+      <Filter>Engine\Common\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="EHScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="EHEntity.h">
+      <Filter>Engine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="EHLayer.h">
+      <Filter>Engine\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="EHGameObject.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EHComponent.h">
+      <Filter>Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="EHTransform.h">
+      <Filter>Engine\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="EHSpriteRenderer.h">
+      <Filter>Engine\Component\SpriteRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -73,7 +115,28 @@
       <Filter>Engine\Input</Filter>
     </ClCompile>
     <ClCompile Include="EHTime.cpp">
-      <Filter>Engine\Time</Filter>
+      <Filter>Engine\Common\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="EHScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="EHEntity.cpp">
+      <Filter>Engine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="EHLayer.cpp">
+      <Filter>Engine\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGameObject.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="EHComponent.cpp">
+      <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTransform.cpp">
+      <Filter>Engine\Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSpriteRenderer.cpp">
+      <Filter>Engine\Component\SpriteRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

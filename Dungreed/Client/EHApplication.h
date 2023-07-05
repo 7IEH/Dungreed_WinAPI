@@ -2,6 +2,7 @@
 #include "Commoninclude.h"
 #include "EHInput.h"
 #include "EHTime.h"
+#include "EHScene.h"
 using EH::Math::Vector2;
 
 namespace EH
@@ -27,10 +28,13 @@ namespace EH
 		HDC mHdc;
 		HINSTANCE mHinst;
 
-		// double buffering test
+		// double buffering
 		HBITMAP mHbit;
 		HDC mHmemdc;
 		Vector2<int> mWinSize;
+
+		// Scene
+		std::vector<Scene> mScene;
 
 		// update test
 		Vector2<float> mPlayerPos;

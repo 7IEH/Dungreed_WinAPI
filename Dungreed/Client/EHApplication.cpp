@@ -1,5 +1,4 @@
 #include "EHApplication.h"
-#pragma comment(lib, "gdiplus.lib") 
 
 namespace EH
 {
@@ -12,9 +11,6 @@ namespace EH
 		, mHinst(nullptr)
 		, gdiplusToken(0)
 		, gdiplusStartupInput{}
-		, mPlayerPos(100.f, 500.f)
-		, mBossPos(640.f, 300.f)
-		, mAttackPos(940.f, 300.f)
 	{
 	}
 
@@ -40,7 +36,7 @@ namespace EH
 		ShowWindow(hWnd, true);
 		// Time Initialize
 		Time::Initialize();
-		// Input Initialize
+		// Input Initializes
 		Input::Initialize();
 
 		// Double buffering을 위한 bitmap과 여분의 DC
@@ -57,6 +53,11 @@ namespace EH
 		HBITMAP hOldBit = (HBITMAP)SelectObject(mHmemdc, mHbit);
 		// 아까말한 1pixel bitmap 파괴
 		DeleteObject(hOldBit);
+
+		Scene Enter;
+		GameObject* player = new GameObject();
+		Enter.SetLayer(enums::eLayerType::Player, player);
+		mScene.push_back(Enter);
 	}
 
 	void Application::Run()
@@ -70,51 +71,11 @@ namespace EH
 		// Input test
 		Time::Update();
 		Input::Update();
-		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
+
+		for (Scene scene : mScene)
 		{
-			mPlayerPos.x -= 300.f * Time::GetDeltaTime();
+			scene.Update();
 		}
-
-		if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
-		{
-			mPlayerPos.y += 300.f * Time::GetDeltaTime();
-		}
-
-		if (Input::Getkey(eKeyCode::W).state == eKeyState::PRESSED)
-		{
-			mPlayerPos.y -= 300.f * Time::GetDeltaTime();
-		}
-
-		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
-		{
-			mPlayerPos.x += 300.f * Time::GetDeltaTime();
-		}		
-
-
-		/*if(mAttackPos.x>=340.f&&mAttackPos.y >= 300.f)
-		{
-			double temp = (double)90000.f - (double)((mAttackPos.x - 640.f) * (mAttackPos.x - 640.f));
-			if (temp < 0)
-			{
-				temp *= -1;
-			}
-			mAttackPos.y = (double)sqrt(temp) + 300.f;
-			mAttackPos.x -= 0.5f;
-		}
-		else if (mAttackPos.x >= 339.5f&& mAttackPos.y <= 300.f)
-		{
-			mAttackPos.x += 0.5f;
-			if (mAttackPos.x == 940.5f)
-			{
-				mAttackPos.x -= 0.5f;
-			}
-			mAttackPos.y = -1 * (double)sqrt((double)90000.f - (double)((mAttackPos.x - 640.f) * (mAttackPos.x - 640.f))) + 300.f;
-			if (mAttackPos.x == 940.f)
-			{
-				mAttackPos.y = 300.5f;
-			}
-			mAttackPos.y -= 0.1f;
-		}*/
 	}
 
 	void Application::Render()
@@ -135,33 +96,31 @@ namespace EH
 		SelectObject(mHmemdc, hOldBrush);
 		DeleteObject(hNewBrush);
 
-		//// 위치는 중점으로 생각하고 크기를 뺌 
-		//// 즉, 만들어진 사각형은 중점을 mPlayerPos로 잡은 크기가 가로 30 세로 30 짜리 사각형
-		///*Rectangle(mHmemdc, mPlayerPos.x - 15.f, mPlayerPos.y - 15.f, mPlayerPos.x + 15.f, mPlayerPos.y + 15.f);*/
-		//
-		//// MAIN LOGO, PLAY, OPTION, EXIT 1280 760
-		/*Rectangle(mHmemdc, 320, 140, 955, 450);
-		CreateWindow(L"button", L"Start", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 570, 490, 140, 42, mHwnd, (HMENU)0, mHinst, NULL);
-		CreateWindow(L"button", L"Option", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 610, 537, 62, 42, mHwnd, (HMENU)0, mHinst, NULL);
-		CreateWindow(L"button", L"Exit", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, 610, 586, 62, 42, mHwnd, (HMENU)0, mHinst, NULL);*/
-
-		// GDI+
-		Image* image = Image::FromFile(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\Example.png");
-		::Graphics g(mHmemdc);
-
-		g.DrawImage(image, 0, 0, 1280, 720);
-		
-		delete image;
-
-		//Rectangle(mHmemdc, (int)mPlayerPos.x, (int)mPlayerPos.y, (int)(mPlayerPos.x+100.f), (int)(mPlayerPos.y + 100.f));
-
-
-		//Ellipse(mHmemdc, (int)(mBossPos.x - 150.f), (int)(mBossPos.y - 150.f), (int)(mBossPos.x + 150.f), (int)(mBossPos.y + 150.f));
-
-		//Ellipse(mHmemdc, (int)(mAttackPos.x - 30), (int)(mAttackPos.y - 30.f), (int)(mAttackPos.x + 30.f), (int)(mAttackPos.y + 30.f));
+		for (Scene scene : mScene)
+		{
+			scene.Render(mHmemdc);
+		}
 
 		// double buffering
 		// memdc를 통해 그린 bitmap을 메인 핸들로 옮기는 과정
 		BitBlt(mHdc, 0, 0, 1280, 720, mHmemdc, 0, 0, SRCCOPY);
+		// GDI+
+		/*Image* image = Image::FromFile(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\MainLogo.png");
+		::Graphics g(mHmemdc);
+		Image* image2 = Image::FromFile(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\PlayOff_Kor.png");
+		Image* image3 = Image::FromFile(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\OptionOff_Kor.png");
+		Image* image4 = Image::FromFile(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\ExitOff_Kor.png");
+		Image* image5 = Image::FromFile(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\FrontCloud.png");
+		Image* image6 = Image::FromFile(L"D:\\C++\\API\\Dungreed_API\\Dungreed\\Client\\Resources\\EnterScene\\BackCloud.png");
+
+
+		g.DrawImage(image6, Gdiplus::Rect(0, 0, 1280, 720), 160, 0, 300, 180, UnitPixel);
+		g.DrawImage(image5, Gdiplus::Rect(0, 0, 1280, 720), 130, 0, 390, 180, UnitPixel);
+		g.DrawImage(image, Gdiplus::Rect(320, 140, 635, 310), 0, 0, 156, 75, UnitPixel);
+		g.DrawImage(image2, 570, 490,140,42);
+		g.DrawImage(image3, 610, 537,62,42);
+		g.DrawImage(image4, 610, 586,62,42);*/
+		
+		//delete image;
 	}
 }
