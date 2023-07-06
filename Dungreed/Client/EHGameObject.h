@@ -32,6 +32,16 @@ namespace EH
 			}
 			return temp;
 		}
+
+		template <typename T>
+		T* AddComponent()
+		{
+			T* comp = new T();
+			mComponents.push_back(comp);
+			comp->SetOwner(this);
+			return comp;
+		}
+
 	private:
 		std::vector<Component*> mComponents;
 		std::wstring mPath;

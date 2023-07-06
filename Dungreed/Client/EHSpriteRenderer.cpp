@@ -9,15 +9,19 @@ namespace EH
 		, mSrcScale(0.f,0.f)
 	{
 	}
+
 	SpriteRenderer::~SpriteRenderer()
 	{
 	}
+
 	void SpriteRenderer::Initialize()
 	{
 	}
+
 	void SpriteRenderer::Update()
 	{
 	}
+
 	void SpriteRenderer::Render(HDC hdc)
 	{
 		Transform* tf = GetOwner()->GetComponent<Transform>();
@@ -30,7 +34,13 @@ namespace EH
 		}
 		else
 		{
-			Image* img = Image::FromFile(path.c_str());
+			wchar_t temp[100] = L"";
+			for (int i = 0;i < 100;i++)
+			{
+				temp[i] = Path::GetPath()[i];
+			}
+			std::wstring absPath = temp + path;
+			Image* img = Image::FromFile(absPath.c_str());
 			::Graphics g(hdc);
 			g.DrawImage(img,Rect(pos.x, pos.y, scale.x, scale.y), mSrcPos.x, mSrcPos.y, mSrcScale.x, mSrcScale.y,UnitPixel);
 		}

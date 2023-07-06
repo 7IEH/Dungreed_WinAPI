@@ -7,6 +7,8 @@
 #include <string>
 #include "framework.h"
 
+#define MAX 100
+
 // DX11
 #include<imgui.h>
 

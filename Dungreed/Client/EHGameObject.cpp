@@ -6,13 +6,7 @@ namespace EH
 		:
 		mPath(L"")
 	{
-		mComponents.push_back(new Transform());
-		mComponents.push_back(new SpriteRenderer());
-
-		for (Component* temp : mComponents)
-		{
-			temp->SetOwner(this);
-		}
+		AddComponent<Transform>();
 	}
 
 	GameObject::~GameObject()

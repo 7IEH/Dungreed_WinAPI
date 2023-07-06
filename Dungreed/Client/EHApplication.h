@@ -3,6 +3,7 @@
 #include "EHInput.h"
 #include "EHTime.h"
 #include "EHScene.h"
+#include "EHPath.h"
 using EH::Math::Vector2;
 
 namespace EH
@@ -17,12 +18,6 @@ namespace EH
 		void Update();
 		void Render();
 
-		void SetPos(int posX,int posY)
-		{
-			mPlayerPos.x = posX;
-			mPlayerPos.y = posY;
-		}
-
 	private:
 		HWND mHwnd;
 		HDC mHdc;
@@ -32,14 +27,6 @@ namespace EH
 		HBITMAP mHbit;
 		HDC mHmemdc;
 		Vector2<int> mWinSize;
-
-		// Scene
-		std::vector<Scene> mScene;
-
-		// update test
-		Vector2<float> mPlayerPos;
-		Vector2<float> mBossPos;
-		Vector2<float> mAttackPos;
 
 		// GDI+
 		ULONG_PTR gdiplusToken;
