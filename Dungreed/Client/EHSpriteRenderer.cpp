@@ -53,7 +53,22 @@ namespace EH
 		Math::Vector2<float> scale = tf->GetScale();
 		if (GetOwner()->GetImagePath() == L"")
 		{
-			Rectangle(hdc, pos.x,pos.y,pos.x+ scale.x,pos.y+scale.y);
+			if(GetOwner()->GetName()==L"Player")
+			{
+				HBRUSH hNewBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
+				HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc,hNewBrush);
+				HPEN hNewPen = (HPEN)CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+				HPEN hOldPen = (HPEN)SelectObject(hdc, hNewPen);
+				Rectangle(hdc, pos.x, pos.y, pos.x + scale.x, pos.y + scale.y);
+				SelectObject(hdc, hOldBrush);
+				SelectObject(hdc, hOldPen);
+				DeleteObject(hNewBrush);
+				DeleteObject(hNewPen);
+			}
+			else
+			{
+				Rectangle(hdc, pos.x, pos.y, pos.x + scale.x, pos.y + scale.y);
+			}
 		}
 		else
 		{

@@ -150,6 +150,7 @@ namespace EH
         FloorUnder->GetComponent<SpriteRenderer>()->AddImg(L"\\Resources\\TownScene\\Map2.png", L"FloorUnder");
         FloorUnder->GetComponent<SpriteRenderer>()->SetImg(L"FloorUnder");
 
+        // Player
         Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
         player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(300.f, 630.f));
         player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(52.f, 84.f));
@@ -157,6 +158,7 @@ namespace EH
         player->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(32.f, 32.f));
         player->GetComponent<SpriteRenderer>()->AddImg(L"\\Resources\\Player\\Basic\\Idle\\CharIdle0.png", L"player");
         player->GetComponent<SpriteRenderer>()->SetImg(L"player");
+        player->SetName(L"Player");
     }
 
     void TownScene::Update()
