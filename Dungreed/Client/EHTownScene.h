@@ -15,7 +15,6 @@ namespace EH
 		virtual void Render(HDC hdc)override;
 
 	private:
-
 	};
 }
 
