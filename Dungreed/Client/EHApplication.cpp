@@ -80,10 +80,8 @@ namespace EH
 	{
 		// 화면 clear
 		Rectangle(mHmemdc, -1, -1, mWinSize.x+1, mWinSize.y+1);
-		Time::Render(mHmemdc);
-
 		SceneManager::Render(mHmemdc);
-
+		Time::Render(mHmemdc);
 		// double buffering
 		// memdc를 통해 그린 bitmap을 메인 핸들로 옮기는 과정
 		BitBlt(mHdc, 0, 0, 1280, 720, mHmemdc, 0, 0, SRCCOPY);

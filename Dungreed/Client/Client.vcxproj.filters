@@ -73,6 +73,9 @@
     <Filter Include="Contents\GameObject\Image">
       <UniqueIdentifier>{ea2b4011-bb82-4d74-93ef-d2ede5894ef4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Player">
+      <UniqueIdentifier>{65243745-a050-46d3-b053-7f8a353a5ddb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -144,6 +147,9 @@
     <ClInclude Include="EHTownScene.h">
       <Filter>Contents\Scene\3.TownScene</Filter>
     </ClInclude>
+    <ClInclude Include="EHPlayer.h">
+      <Filter>Contents\GameObject\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -203,6 +209,9 @@
     </ClCompile>
     <ClCompile Include="EHTownScene.cpp">
       <Filter>Contents\Scene\3.TownScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EHPlayer.cpp">
+      <Filter>Contents\GameObject\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

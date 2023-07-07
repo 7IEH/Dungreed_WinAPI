@@ -24,7 +24,6 @@ namespace EH
 		}
 
 		static Scene* LoadScene(const std::wstring& name);
-
 		static Scene* GetCurScene() { return mCurScene; }
 
 	private:

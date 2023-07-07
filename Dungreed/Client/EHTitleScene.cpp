@@ -22,7 +22,8 @@ namespace EH
 		BackCloud->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 720.f));
 		BackCloud->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(160.f, 0.f));
 		BackCloud->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(300.f, 180.f));
-		BackCloud->SetImagePath(L"\\Resources\\EnterScene\\BackCloud.png");
+		BackCloud->GetComponent<SpriteRenderer>()->AddImg(L"\\Resources\\EnterScene\\BackCloud.png", L"BackCloud");
+		BackCloud->GetComponent<SpriteRenderer>()->SetImg(L"BackCloud");
 
 		// FrontCloud
 		Image* FrontCloud = object::Instantiate<Image>(enums::eLayerType::UI);
@@ -30,7 +31,8 @@ namespace EH
 		FrontCloud->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 720.f));
 		FrontCloud->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(130.f, 0.f));
 		FrontCloud->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(390.f, 180.f));
-		FrontCloud->SetImagePath(L"\\Resources\\EnterScene\\FrontCloud.png");
+		FrontCloud->GetComponent<SpriteRenderer>()->AddImg(L"\\Resources\\EnterScene\\FrontCloud.png", L"FrontCloud");
+		FrontCloud->GetComponent<SpriteRenderer>()->SetImg(L"FrontCloud");
 
 		// Main Logo
 		Image* MainLogo = object::Instantiate<Image>(enums::eLayerType::UI);
@@ -38,7 +40,8 @@ namespace EH
 		MainLogo->GetComponent<Transform>()->SetScale(Math::Vector2<float>(624.f, 300.f));
 		MainLogo->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(0.f, 0.f));
 		MainLogo->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(624.f, 300.f));
-		MainLogo->SetImagePath(L"\\Resources\\EnterScene\\MainLogo.png");
+		MainLogo->GetComponent<SpriteRenderer>()->AddImg(L"\\Resources\\EnterScene\\MainLogo.png", L"MainLogo");
+		MainLogo->GetComponent<SpriteRenderer>()->SetImg(L"MainLogo");
 
 		// Start
 		Image* Start = object::Instantiate<Image>(enums::eLayerType::UI);
@@ -46,7 +49,8 @@ namespace EH
 		Start->GetComponent<Transform>()->SetScale(Math::Vector2<float>(140.f, 42.f));
 		Start->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(0.f, 0.f));
 		Start->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(36.f, 12.f));
-		Start->SetImagePath(L"\\Resources\\EnterScene\\PlayOff_Kor.png");
+		Start->GetComponent<SpriteRenderer>()->AddImg(L"\\Resources\\EnterScene\\PlayOff_Kor.png", L"Start");
+		Start->GetComponent<SpriteRenderer>()->SetImg(L"Start");
 
 		// Option
 		Image* Option = object::Instantiate<Image>(enums::eLayerType::UI);
@@ -54,7 +58,8 @@ namespace EH
 		Option->GetComponent<Transform>()->SetScale(Math::Vector2<float>(62.f, 42.f));
 		Option->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(0.f, 0.f));
 		Option->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(20.f, 12.f));
-		Option->SetImagePath(L"\\Resources\\EnterScene\\OptionOff_Kor.png");
+		Option->GetComponent<SpriteRenderer>()->AddImg(L"\\Resources\\EnterScene\\OptionOff_Kor.png", L"Option");
+		Option->GetComponent<SpriteRenderer>()->SetImg(L"Option");
 
 		// Exit
 		Image* Exit = object::Instantiate<Image>(enums::eLayerType::UI);
@@ -62,7 +67,8 @@ namespace EH
 		Exit->GetComponent<Transform>()->SetScale(Math::Vector2<float>(62.f, 42.f));
 		Exit->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(0.f, 0.f));
 		Exit->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(21.f, 12.f));
-		Exit->SetImagePath(L"\\Resources\\EnterScene\\ExitOff_Kor.png");	
+		Exit->GetComponent<SpriteRenderer>()->AddImg(L"\\Resources\\EnterScene\\ExitOff_Kor.png", L"Exit");
+		Exit->GetComponent<SpriteRenderer>()->SetImg(L"Exit");
 	}
 
 	void TitleScene::Update()

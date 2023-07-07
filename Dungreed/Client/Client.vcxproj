@@ -140,6 +140,7 @@
     <ClInclude Include="EHMath.h" />
     <ClInclude Include="EHObject.h" />
     <ClInclude Include="EHPath.h" />
+    <ClInclude Include="EHPlayer.h" />
     <ClInclude Include="EHScene.h" />
     <ClInclude Include="EHSceneManager.h" />
     <ClInclude Include="EHSelectScene.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="EHInput.cpp" />
     <ClCompile Include="EHLayer.cpp" />
     <ClCompile Include="EHPath.cpp" />
+    <ClCompile Include="EHPlayer.cpp" />
     <ClCompile Include="EHScene.cpp" />
     <ClCompile Include="EHSceneManager.cpp" />
     <ClCompile Include="EHSelectScene.cpp" />

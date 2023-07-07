@@ -20,9 +20,17 @@ namespace EH
 		void SetSrcPos(Math::Vector2<float> srcpos) { mSrcPos = srcpos; }
 		void SetSrcScale(Math::Vector2<float> srcscale) { mSrcScale = srcscale; }
 
+		void AddImg(const std::wstring& path, const std::wstring& name);
+
+		void SetImg(const std::wstring& name);
+
 	private:
 		Math::Vector2<float> mSrcPos;
 		Math::Vector2<float> mSrcScale;
+
+		// test
+		Gdiplus::Image* mCurImg;
+		std::map<std::wstring, Gdiplus::Image*> mImg;
 	};
 }
 
