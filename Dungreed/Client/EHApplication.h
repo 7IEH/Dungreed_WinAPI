@@ -6,6 +6,10 @@
 #include "EHPath.h"
 using EH::Math::Vector2;
 
+// sound ¿ë
+#pragma comment(lib,"winmm.lib")
+
+
 namespace EH
 {
 	class Application
@@ -31,6 +35,9 @@ namespace EH
 		// GDI+
 		ULONG_PTR gdiplusToken;
 		Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+
+		// Direct Sound
+		MCIDEVICEID pSound;
 	};
 }
 

@@ -6,6 +6,7 @@
 #include <functional>
 #include <string>
 #include "framework.h"
+#include <mmsystem.h>
 
 #define MAX 100
 

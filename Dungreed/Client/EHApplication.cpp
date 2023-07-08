@@ -12,6 +12,7 @@ namespace EH
 		, mHinst(nullptr)
 		, gdiplusToken(0)
 		, gdiplusStartupInput{}
+		, pSound(0)
 	{
 	}
 
@@ -27,7 +28,6 @@ namespace EH
 		mHinst = hInst;
 		mHdc = GetDC(hWnd);
 		Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
-
 
 		mWinSize.x = 1280;
 		mWinSize.y = 720;
@@ -46,19 +46,27 @@ namespace EH
 		// SceneMgr Initialize
 		SceneManager::Initialize();
 
-		// Double buffering을 위한 bitmap과 여분의 DC
-		// 새로운 bitmap 조성
-		mHbit = CreateCompatibleBitmap(mHdc, 1280, 720);
-		// DC는 만들어질때 DEFAULT 값으로 1pixel의 bitmap을 가짐
-		// 현재 window의 dc가 활용하는 cpu, gpu를 활용하는 다른 dc를 만듬
-		// 이는 현재 window의 handle dc가 아니기 때문에 이 dc를 통해 그려도 화면상에 보이지 않음
-		// 이는 window의 main dc와 다르게 releasedc가 아닌 deletedc를 통해서만 해제가 가능
-		mHmemdc = CreateCompatibleDC(mHdc);
+		// Sounde Test
+		MCI_OPEN_PARMSA Data = {};
+		MCIERROR Error = 0;
+		std::string pathstr = "";
+		std::wstring absPath = Path::GetPath();
+		pathstr.assign(absPath.begin(), absPath.end());
+		pathstr += "\\Resources\\Sound\\title.wav";
 
-		// 만든 bitmap 위에서 dc를 활용할 수 있게 설정
-		// brush, pen 을 설정할때와 마찬가지로 기존에 dc가 가지고 있던 bitmap은 뱉어낸다.
+		Data.lpstrDeviceType = "WaveAudio";
+		Data.lpstrElementName = pathstr.c_str();
+		
+		Error = mciSendCommandA(0, MCI_OPEN, MCI_OPEN_TYPE | MCI_OPEN_ELEMENT, (DWORD_PTR)&Data);
+
+		pSound = Data.wDeviceID;
+
+		MCI_OPEN_PARMSA Play = {};
+		mciSendCommandA(pSound, MCI_PLAY, MCI_NOTIFY, (DWORD_PTR)&Play);
+
+		mHbit = CreateCompatibleBitmap(mHdc, 1280, 720);
+		mHmemdc = CreateCompatibleDC(mHdc);
 		HBITMAP hOldBit = (HBITMAP)SelectObject(mHmemdc, mHbit);
-		// 아까말한 1pixel bitmap 파괴
 		DeleteObject(hOldBit);
 	}
 
