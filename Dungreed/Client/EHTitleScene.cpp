@@ -37,16 +37,16 @@ namespace EH
 		// Main Logo
 		Image* MainLogo = object::Instantiate<Image>(enums::eLayerType::UI);
 		MainLogo->GetComponent<Transform>()->SetPos(Math::Vector2<float>(320.f,140.f));
-		MainLogo->GetComponent<Transform>()->SetScale(Math::Vector2<float>(624.f, 300.f));
+		MainLogo->GetComponent<Transform>()->SetScale(Math::Vector2<float>(624.f, 270.f));
 		MainLogo->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(0.f, 0.f));
-		MainLogo->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(624.f, 300.f));
+		MainLogo->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(156.f, 75.f));
 		MainLogo->GetComponent<SpriteRenderer>()->AddImg(L"\\Resources\\EnterScene\\MainLogo.png", L"MainLogo");
 		MainLogo->GetComponent<SpriteRenderer>()->SetImg(L"MainLogo");
 
 		// Start
 		Image* Start = object::Instantiate<Image>(enums::eLayerType::UI);
-		Start->GetComponent<Transform>()->SetPos(Math::Vector2<float>(570.f, 490.f));
-		Start->GetComponent<Transform>()->SetScale(Math::Vector2<float>(140.f, 42.f));
+		Start->GetComponent<Transform>()->SetPos(Math::Vector2<float>(565.f, 460.f));
+		Start->GetComponent<Transform>()->SetScale(Math::Vector2<float>(144.f, 48.f));
 		Start->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(0.f, 0.f));
 		Start->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(36.f, 12.f));
 		Start->GetComponent<SpriteRenderer>()->AddImg(L"\\Resources\\EnterScene\\PlayOff_Kor.png", L"Start");
@@ -54,8 +54,8 @@ namespace EH
 
 		// Option
 		Image* Option = object::Instantiate<Image>(enums::eLayerType::UI);
-		Option->GetComponent<Transform>()->SetPos(Math::Vector2<float>(610.f, 537.f));
-		Option->GetComponent<Transform>()->SetScale(Math::Vector2<float>(62.f, 42.f));
+		Option->GetComponent<Transform>()->SetPos(Math::Vector2<float>(595.f, 507.f));
+		Option->GetComponent<Transform>()->SetScale(Math::Vector2<float>(84.f, 48.f));
 		Option->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(0.f, 0.f));
 		Option->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(20.f, 12.f));
 		Option->GetComponent<SpriteRenderer>()->AddImg(L"\\Resources\\EnterScene\\OptionOff_Kor.png", L"Option");
@@ -63,8 +63,8 @@ namespace EH
 
 		// Exit
 		Image* Exit = object::Instantiate<Image>(enums::eLayerType::UI);
-		Exit->GetComponent<Transform>()->SetPos(Math::Vector2<float>(610.f, 586.f));
-		Exit->GetComponent<Transform>()->SetScale(Math::Vector2<float>(62.f, 42.f));
+		Exit->GetComponent<Transform>()->SetPos(Math::Vector2<float>(595.f, 556.f));
+		Exit->GetComponent<Transform>()->SetScale(Math::Vector2<float>(84.f, 48.f));
 		Exit->GetComponent<SpriteRenderer>()->SetSrcPos(Math::Vector2<float>(0.f, 0.f));
 		Exit->GetComponent<SpriteRenderer>()->SetSrcScale(Math::Vector2<float>(21.f, 12.f));
 		Exit->GetComponent<SpriteRenderer>()->AddImg(L"\\Resources\\EnterScene\\ExitOff_Kor.png", L"Exit");

@@ -1,4 +1,5 @@
 #include "EHSpriteRenderer.h"
+#include "EHSceneManager.h"
 
 namespace EH
 {
@@ -51,8 +52,14 @@ namespace EH
 		Transform* tf = GetOwner()->GetComponent<Transform>();
 		Math::Vector2<float> pos = tf->Getpos();
 		Math::Vector2<float> scale = tf->GetScale();
-		if (GetOwner()->GetImagePath() == L"")
+		if (GetOwner()->GetImagePath()==L"")//mCurImg==nullptr
 		{
+			wchar_t szFloat[50] = {};
+
+			swprintf_s(szFloat, 50, SceneManager::GetCurScene()->GetName().c_str());
+			int strLen = wcsnlen_s(szFloat, 50);
+
+			TextOut(hdc, 20, 20, szFloat, strLen);
 			if(GetOwner()->GetName()==L"Player")
 			{
 				HBRUSH hNewBrush = (HBRUSH)CreateSolidBrush(RGB(255, 0, 0));
@@ -73,7 +80,8 @@ namespace EH
 		else
 		{
 			::Graphics g(hdc);
-			g.DrawImage(mCurImg,Rect(pos.x, pos.y, scale.x, scale.y), mSrcPos.x, mSrcPos.y, mSrcScale.x, mSrcScale.y,UnitPixel);
+			g.DrawImage(mCurImg,Rect(pos.x, pos.y, scale.x, scale.y), mSrcPos.x, mSrcPos.y, mSrcScale.x, mSrcScale.y, UnitPixel);
+			//delete g;
 		}
 	}
 }

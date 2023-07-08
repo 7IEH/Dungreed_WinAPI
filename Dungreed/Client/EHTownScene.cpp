@@ -163,6 +163,10 @@ namespace EH
 
     void TownScene::Update()
     {
+        if (Input::Getkey(eKeyCode::Z).state == eKeyState::DOWN)
+        {
+            SceneManager::LoadScene(L"TitleScene");
+        }
         Scene::Update();
     }
 
