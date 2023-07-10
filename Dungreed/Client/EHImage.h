@@ -1,19 +1,25 @@
 #pragma once
-#include "EHGameObject.h"
+#include "Commoninclude.h"
+#include "EHResource.h"
 
 namespace EH
 {
-	class Image : public GameObject
+	class Image : public Resource
 	{
 	public:
 		Image();
 		virtual ~Image();
 
-		virtual void Initialize() override;
-		virtual void Update() override;
-		virtual void Render(HDC hdc) override;
+		virtual HRESULT Load() override;
+
+		int GetWidth() { return mWidth; }
+		int GetHeight() { return mHeight; }
+		Gdiplus::Image* GetImage() { return mImg; }
 
 	private:
+		Gdiplus::Image* mImg;
+		int mWidth;
+		int mHeight;
 	};
 }
 

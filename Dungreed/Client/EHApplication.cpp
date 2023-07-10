@@ -12,7 +12,6 @@ namespace EH
 		, mHinst(nullptr)
 		, gdiplusToken(0)
 		, gdiplusStartupInput{}
-		, pSound(0)
 	{
 	}
 
@@ -45,24 +44,6 @@ namespace EH
 
 		// SceneMgr Initialize
 		SceneManager::Initialize();
-
-		// Sounde Test
-		MCI_OPEN_PARMSA Data = {};
-		MCIERROR Error = 0;
-		std::string pathstr = "";
-		std::wstring absPath = Path::GetPath();
-		pathstr.assign(absPath.begin(), absPath.end());
-		pathstr += "\\Resources\\Sound\\title.wav";
-
-		Data.lpstrDeviceType = "WaveAudio";
-		Data.lpstrElementName = pathstr.c_str();
-		
-		Error = mciSendCommandA(0, MCI_OPEN, MCI_OPEN_TYPE | MCI_OPEN_ELEMENT, (DWORD_PTR)&Data);
-
-		pSound = Data.wDeviceID;
-
-		MCI_OPEN_PARMSA Play = {};
-		//mciSendCommandA(pSound, MCI_PLAY, MCI_NOTIFY, (DWORD_PTR)&Play);
 
 		mHbit = CreateCompatibleBitmap(mHdc, 1280, 720);
 		mHmemdc = CreateCompatibleDC(mHdc);

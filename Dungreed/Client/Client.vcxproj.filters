@@ -70,11 +70,20 @@
     <Filter Include="Contents\Scene\3.TownScene">
       <UniqueIdentifier>{7b302741-5e19-4937-8125-9b1bc60afa59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\Image">
-      <UniqueIdentifier>{ea2b4011-bb82-4d74-93ef-d2ede5894ef4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObject\Player">
       <UniqueIdentifier>{65243745-a050-46d3-b053-7f8a353a5ddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource">
+      <UniqueIdentifier>{b0eaeb8f-81c3-4396-8226-2781fea3a463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Image">
+      <UniqueIdentifier>{c84e1d63-cbe5-4433-9c59-0b6900f5574e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Sound">
+      <UniqueIdentifier>{f1e22723-569f-4a11-b204-50646fe11600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\BackGround">
+      <UniqueIdentifier>{a2b23ba5-7e46-45fa-b8ed-b07601611866}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -138,9 +147,6 @@
     <ClInclude Include="EHTitleScene.h">
       <Filter>Contents\Scene\1.TitleScene</Filter>
     </ClInclude>
-    <ClInclude Include="EHImage.h">
-      <Filter>Contents\GameObject\Image</Filter>
-    </ClInclude>
     <ClInclude Include="EHSelectScene.h">
       <Filter>Contents\Scene\2.SelectScene</Filter>
     </ClInclude>
@@ -149,6 +155,21 @@
     </ClInclude>
     <ClInclude Include="EHPlayer.h">
       <Filter>Contents\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="EHResource.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="EHResources.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="EHImage.h">
+      <Filter>Engine\Resource\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="EHSound.h">
+      <Filter>Engine\Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="EHBackGround.h">
+      <Filter>Contents\GameObject\BackGround</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -201,9 +222,6 @@
     <ClCompile Include="EHTitleScene.cpp">
       <Filter>Contents\Scene\1.TitleScene</Filter>
     </ClCompile>
-    <ClCompile Include="EHImage.cpp">
-      <Filter>Contents\GameObject\Image</Filter>
-    </ClCompile>
     <ClCompile Include="EHSelectScene.cpp">
       <Filter>Contents\Scene\2.SelectScene</Filter>
     </ClCompile>
@@ -212,6 +230,21 @@
     </ClCompile>
     <ClCompile Include="EHPlayer.cpp">
       <Filter>Contents\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="EHResource.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="EHResources.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="EHImage.cpp">
+      <Filter>Engine\Resource\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSound.cpp">
+      <Filter>Engine\Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="EHBackGround.cpp">
+      <Filter>Contents\GameObject\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

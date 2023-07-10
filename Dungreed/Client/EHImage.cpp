@@ -3,25 +3,31 @@
 namespace EH
 {
 	Image::Image()
+		:
+		mImg(nullptr),
+		mWidth(0.f),
+		mHeight(0.f)
 	{
-		AddComponent<SpriteRenderer>();
 	}
 
 	Image::~Image()
 	{
+
 	}
 
-	void Image::Initialize()
+	HRESULT Image::Load()
 	{
-	}
+		mImg = Gdiplus::Image::FromFile(GetPath().c_str());
+		if (mImg == nullptr)
+		{
+			return  S_FALSE;
+		}
 
-	void Image::Update()
-	{
-		GameObject::Update();
-	}
 
-	void Image::Render(HDC hdc)
-	{
-		GameObject::Render(hdc);
+		mHeight = mImg->GetHeight();
+		mWidth = mImg->GetWidth();
+
+
+		return S_OK;
 	}
 }

@@ -131,6 +131,7 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="Commoninclude.h" />
     <ClInclude Include="EHApplication.h" />
+    <ClInclude Include="EHBackGround.h" />
     <ClInclude Include="EHComponent.h" />
     <ClInclude Include="EHEntity.h" />
     <ClInclude Include="EHGameObject.h" />
@@ -144,6 +145,7 @@
     <ClInclude Include="EHScene.h" />
     <ClInclude Include="EHSceneManager.h" />
     <ClInclude Include="EHSelectScene.h" />
+    <ClInclude Include="EHSound.h" />
     <ClInclude Include="EHSpriteRenderer.h" />
     <ClInclude Include="EHTime.h" />
     <ClInclude Include="EHTitleScene.h" />
@@ -152,10 +154,13 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="EHResource.h" />
+    <ClInclude Include="EHResources.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EHApplication.cpp" />
+    <ClCompile Include="EHBackGround.cpp" />
     <ClCompile Include="EHComponent.cpp" />
     <ClCompile Include="EHEntity.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
@@ -167,11 +172,14 @@
     <ClCompile Include="EHScene.cpp" />
     <ClCompile Include="EHSceneManager.cpp" />
     <ClCompile Include="EHSelectScene.cpp" />
+    <ClCompile Include="EHSound.cpp" />
     <ClCompile Include="EHSpriteRenderer.cpp" />
     <ClCompile Include="EHTime.cpp" />
     <ClCompile Include="EHTitleScene.cpp" />
     <ClCompile Include="EHTownScene.cpp" />
     <ClCompile Include="EHTransform.cpp" />
+    <ClCompile Include="EHResource.cpp" />
+    <ClCompile Include="EHResources.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

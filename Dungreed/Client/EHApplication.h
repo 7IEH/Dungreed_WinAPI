@@ -35,9 +35,6 @@ namespace EH
 		// GDI+
 		ULONG_PTR gdiplusToken;
 		Gdiplus::GdiplusStartupInput gdiplusStartupInput;
-
-		// Direct Sound
-		MCIDEVICEID pSound;
 	};
 }
 
