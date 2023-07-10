@@ -62,7 +62,7 @@ namespace EH
 		pSound = Data.wDeviceID;
 
 		MCI_OPEN_PARMSA Play = {};
-		mciSendCommandA(pSound, MCI_PLAY, MCI_NOTIFY, (DWORD_PTR)&Play);
+		//mciSendCommandA(pSound, MCI_PLAY, MCI_NOTIFY, (DWORD_PTR)&Play);
 
 		mHbit = CreateCompatibleBitmap(mHdc, 1280, 720);
 		mHmemdc = CreateCompatibleDC(mHdc);
