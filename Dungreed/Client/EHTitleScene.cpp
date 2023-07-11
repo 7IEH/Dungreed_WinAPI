@@ -1,6 +1,6 @@
 #include "EHTitleScene.h"
 #include "EHObject.h"
-#include "EHImage.h"
+#include "EHTexture.h"
 #include "EHInput.h"
 #include "EHBackGround.h"
 #include "EHResources.h"
@@ -24,12 +24,12 @@ namespace EH
 		Sound* BGM = Resources::Load<Sound>(L"BGM", L"..\\\\Resources\\Sound\\title.wav");
 		BGM->Play();
 
-		Image* temp = nullptr;
+		Texture* temp = nullptr;
 		// BackCloud
 		BackGround* BackCloud = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		BackCloud->GetComponent<Transform>()->SetPos(Math::Vector2<float>(0.f, 0.f));
 		BackCloud->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 720.f));
-		temp = Resources::Load<Image>(L"BackCloud",L"..\\Client\\Resources\\EnterScene\\BackCloud.png");
+		temp = Resources::Load<Texture>(L"BackCloud",L"..\\Client\\Resources\\EnterScene\\BackCloud.png");
 		BackCloud->GetComponent<SpriteRenderer>()->SetImg(temp);
 
 
@@ -37,7 +37,7 @@ namespace EH
 		BackGround* FrontCloud = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		FrontCloud->GetComponent<Transform>()->SetPos(Math::Vector2<float>(0.f, 0.f));
 		FrontCloud->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 720.f));
-		temp = Resources::Load<Image>(L"FrontCloud", L"..\\Resources\\EnterScene\\FrontCloud.png");
+		temp = Resources::Load<Texture>(L"FrontCloud", L"..\\Resources\\EnterScene\\FrontCloud.png");
 		FrontCloud->GetComponent<SpriteRenderer>()->SetImg(temp);
 
 
@@ -45,28 +45,28 @@ namespace EH
 		BackGround* MainLogo = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		MainLogo->GetComponent<Transform>()->SetPos(Math::Vector2<float>(320.f,140.f));
 		MainLogo->GetComponent<Transform>()->SetScale(Math::Vector2<float>(624.f, 270.f));
-		temp = Resources::Load<Image>(L"MainLogo", L"..\\Resources\\EnterScene\\MainLogo.png");
+		temp = Resources::Load<Texture>(L"MainLogo", L"..\\Resources\\EnterScene\\MainLogo.png");
 		MainLogo->GetComponent<SpriteRenderer>()->SetImg(temp);
 
 		// Start
 		BackGround* Start = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		Start->GetComponent<Transform>()->SetPos(Math::Vector2<float>(565.f, 460.f));
 		Start->GetComponent<Transform>()->SetScale(Math::Vector2<float>(144.f, 48.f));
-		temp = Resources::Load<Image>(L"Start_Btn", L"..\\Resources\\EnterScene\\PlayOff_Kor.png");
+		temp = Resources::Load<Texture>(L"Start_Btn", L"..\\Resources\\EnterScene\\PlayOff_Kor.png");
 		Start->GetComponent<SpriteRenderer>()->SetImg(temp);
 
 		// Option
 		BackGround* Option = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		Option->GetComponent<Transform>()->SetPos(Math::Vector2<float>(595.f, 507.f));
 		Option->GetComponent<Transform>()->SetScale(Math::Vector2<float>(84.f, 48.f));
-		temp = Resources::Load<Image>(L"Option_Btn", L"..\\Resources\\EnterScene\\OptionOff_Kor.png");
+		temp = Resources::Load<Texture>(L"Option_Btn", L"..\\Resources\\EnterScene\\OptionOff_Kor.png");
 		Option->GetComponent<SpriteRenderer>()->SetImg(temp);
 
 		// Exit
 		BackGround* Exit = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		Exit->GetComponent<Transform>()->SetPos(Math::Vector2<float>(595.f, 556.f));
 		Exit->GetComponent<Transform>()->SetScale(Math::Vector2<float>(84.f, 48.f));
-		temp = Resources::Load<Image>(L"Exit_Btn", L"..\\Resources\\EnterScene\\ExitOff_Kor.png");
+		temp = Resources::Load<Texture>(L"Exit_Btn", L"..\\Resources\\EnterScene\\ExitOff_Kor.png");
 		Exit->GetComponent<SpriteRenderer>()->SetImg(temp);
 	}
 

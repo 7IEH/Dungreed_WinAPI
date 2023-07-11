@@ -3,7 +3,7 @@
 #include "EHComponent.h"
 #include "EHGameObject.h"
 #include "EHTransform.h"
-#include "EHImage.h"
+#include "EHTexture.h"
 #include "EHPath.h"
 
 namespace EH
@@ -18,10 +18,10 @@ namespace EH
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 
-		void SetImg(Image* img) { mImg = img; }
+		void SetImg(Texture* texture) { mTexture = texture; }
 
 	private:
-		Image* mImg;
+		Texture* mTexture;
 	};
 }
 

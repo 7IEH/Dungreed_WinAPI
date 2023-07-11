@@ -19,6 +19,9 @@
 using namespace Gdiplus;
 #pragma comment(lib, "gdiplus.lib") 
 
+// WindowGraphic
+#pragma comment(lib, "msimg32.lib")
+
 // EH
 #include "EHMath.h"
 

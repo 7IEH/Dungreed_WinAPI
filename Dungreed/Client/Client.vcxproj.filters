@@ -162,7 +162,7 @@
     <ClInclude Include="EHResources.h">
       <Filter>Engine\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="EHImage.h">
+    <ClInclude Include="EHTexture.h">
       <Filter>Engine\Resource\Image</Filter>
     </ClInclude>
     <ClInclude Include="EHSound.h">
@@ -237,7 +237,7 @@
     <ClCompile Include="EHResources.cpp">
       <Filter>Engine\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="EHImage.cpp">
+    <ClCompile Include="EHTexture.cpp">
       <Filter>Engine\Resource\Image</Filter>
     </ClCompile>
     <ClCompile Include="EHSound.cpp">

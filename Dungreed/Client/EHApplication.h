@@ -22,6 +22,9 @@ namespace EH
 		void Update();
 		void Render();
 
+		HDC GetMainDC() { return mHdc; }
+		Vector2<int> GetWinSize(){ return mWinSize; }
+
 	private:
 		HWND mHwnd;
 		HDC mHdc;

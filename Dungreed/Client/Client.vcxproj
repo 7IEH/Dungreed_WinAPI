@@ -135,7 +135,7 @@
     <ClInclude Include="EHComponent.h" />
     <ClInclude Include="EHEntity.h" />
     <ClInclude Include="EHGameObject.h" />
-    <ClInclude Include="EHImage.h" />
+    <ClInclude Include="EHTexture.h" />
     <ClInclude Include="EHInput.h" />
     <ClInclude Include="EHLayer.h" />
     <ClInclude Include="EHMath.h" />
@@ -164,7 +164,7 @@
     <ClCompile Include="EHComponent.cpp" />
     <ClCompile Include="EHEntity.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
-    <ClCompile Include="EHImage.cpp" />
+    <ClCompile Include="EHTexture.cpp" />
     <ClCompile Include="EHInput.cpp" />
     <ClCompile Include="EHLayer.cpp" />
     <ClCompile Include="EHPath.cpp" />

@@ -1,6 +1,5 @@
 #pragma once
 #include "EHScene.h"
-#include "EHImage.h"
 
 namespace EH
 {
