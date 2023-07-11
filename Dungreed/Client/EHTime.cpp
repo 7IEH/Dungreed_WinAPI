@@ -44,6 +44,7 @@ namespace EH
 			swprintf_s(szFloat, 50, L"FPS : %f", fps);
 			int strLen = wcsnlen_s(szFloat, 50);
 
+
 			TextOut(hdc, 10, 10, szFloat, strLen);
 			TimeCheck = 0.f;
 		}

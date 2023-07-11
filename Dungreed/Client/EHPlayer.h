@@ -1,5 +1,6 @@
 #pragma once
 #include "EHGameObject.h"
+#include "EHBackGround.h"
 
 namespace EH
 {
@@ -14,5 +15,11 @@ namespace EH
 		virtual void Render(HDC hdc) override;
 
 	private:
+		UINT Level;
+		UINT MaxHP;
+		UINT CurHp;
+		UINT Gold;
+		UINT Food;
+		BackGround* mHp;
 	};
 }

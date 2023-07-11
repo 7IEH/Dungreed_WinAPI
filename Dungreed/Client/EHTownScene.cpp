@@ -47,21 +47,22 @@ namespace EH
         // HP
         BackGround* HPBack = object::Instantiate<BackGround>(enums::eLayerType::UI);
         HPBack->GetComponent<Transform>()->SetPos(Math::Vector2<float>(9.f, 10.f));
-        HPBack->GetComponent<Transform>()->SetScale(Math::Vector2<float>(300.f, 66.f));
+        HPBack->GetComponent<Transform>()->SetScale(Math::Vector2<float>(296.f, 64.f));
         temp = Resources::Load<Texture>(L"HPBack", L"..\\Resources\\UI\\PlayerLifeBack.png");
         HPBack->GetComponent<SpriteRenderer>()->SetImg(temp);
-        
+
+        BackGround* HPBase = object::Instantiate<BackGround>(enums::eLayerType::UI);
+        HPBase->GetComponent<Transform>()->SetPos(Math::Vector2<float>(9.f, 10.f));
+        HPBase->GetComponent<Transform>()->SetScale(Math::Vector2<float>(296.f, 64.f));
+        temp = Resources::Load<Texture>(L"HPBase", L"..\\Resources\\UI\\PlayerLifeBase 1.png");
+        HPBase->GetComponent<SpriteRenderer>()->SetImg(temp);
+
+
         BackGround* SecondFloor1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         SecondFloor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(-800.f, 0.f));
         SecondFloor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(3470.f, 720.f));
         temp = Resources::Load<Texture>(L"SecondFloor1", L"..\\Resources\\TownScene\\SecondFloor3.png");
         SecondFloor1->GetComponent<SpriteRenderer>()->SetImg(temp);
-
-        BackGround* HPBase = object::Instantiate<BackGround>(enums::eLayerType::UI);
-        HPBase->GetComponent<Transform>()->SetPos(Math::Vector2<float>(9.f, 10.f));
-        HPBase->GetComponent<Transform>()->SetScale(Math::Vector2<float>(300.f, 66.f));
-        temp = Resources::Load<Texture>(L"HPBase", L"..\\Resources\\UI\\PlayerLifeBase 1.png");
-        HPBase->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         // DASH
         BackGround* DashBase = object::Instantiate<BackGround>(enums::eLayerType::UI);
