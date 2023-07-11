@@ -31,9 +31,10 @@ namespace EH::enums
 	enum class eLayerType
 	{
 		BackGround,
-		Player,
 		Enemy,
 		UI,
+		Npc,
+		Player,
 		End,
 	};
 

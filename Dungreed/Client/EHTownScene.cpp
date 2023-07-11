@@ -5,6 +5,8 @@
 #include "EHPlayer.h"
 #include "EHBackGround.h"
 #include "EHResources.h"
+#include "EHSound.h"
+#include "EHNpc.h"
 
 namespace EH
 {
@@ -18,6 +20,8 @@ namespace EH
 
     void TownScene::Initialize()
     {
+        //Sound* pSound = Resources::Load<Sound>(L"TownBGM", L"..\\Resources\\Sound\\0.Town.wav");
+        //pSound->Play();
         Texture* temp = nullptr;
         // sky
         BackGround* Sky = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
@@ -46,7 +50,12 @@ namespace EH
         HPBack->GetComponent<Transform>()->SetScale(Math::Vector2<float>(300.f, 66.f));
         temp = Resources::Load<Texture>(L"HPBack", L"..\\Resources\\UI\\PlayerLifeBack.png");
         HPBack->GetComponent<SpriteRenderer>()->SetImg(temp);
-
+        
+        BackGround* SecondFloor1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+        SecondFloor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(-800.f, 0.f));
+        SecondFloor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(3470.f, 720.f));
+        temp = Resources::Load<Texture>(L"SecondFloor1", L"..\\Resources\\TownScene\\SecondFloor3.png");
+        SecondFloor1->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         BackGround* HPBase = object::Instantiate<BackGround>(enums::eLayerType::UI);
         HPBase->GetComponent<Transform>()->SetPos(Math::Vector2<float>(9.f, 10.f));
@@ -82,7 +91,6 @@ namespace EH
         temp = Resources::Load<Texture>(L"WeaponSlot", L"..\\Resources\\UI\\EquippedWeaponBase.png");
         WeaponSlot->GetComponent<SpriteRenderer>()->SetImg(temp);
 
-
         BackGround* WeaponSlot2 = object::Instantiate<BackGround>(enums::eLayerType::UI);
         WeaponSlot2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1120.f, 606.f));
         WeaponSlot2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(140.f, 102.f));
@@ -97,6 +105,9 @@ namespace EH
         Floor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(0.f, 510.f));
         Floor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(320.f, 120.f));
         temp = Resources::Load<Texture>(L"TownFloor", L"..\\Resources\\TownScene\\Map.png");
+        temp->SetPos(Math::Vector2<int>(352, 0));
+        temp->SetWidth(79);
+        temp->SetHeight(30);
         Floor1->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         BackGround* Floor2 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
@@ -123,10 +134,41 @@ namespace EH
         temp = Resources::Load<Texture>(L"FloorUnder", L"..\\Resources\\TownScene\\Map2.png");
         FloorUnder->GetComponent<SpriteRenderer>()->SetImg(temp);
 
+        BackGround* TrainingSchool = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+        TrainingSchool->GetComponent<Transform>()->SetPos(Math::Vector2<float>(100.f, 267.f));
+        TrainingSchool->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1080.f, 308.f));
+        temp = Resources::Load<Texture>(L"TrainingSchool", L"..\\Resources\\TownScene\\TrainingSchool.png");
+        TrainingSchool->GetComponent<SpriteRenderer>()->SetImg(temp);
+
+        BackGround* StreetLight1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+        StreetLight1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(0.f, 335.f));
+        StreetLight1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(120.f, 240.f));
+        temp = Resources::Load<Texture>(L"StreetLight1", L"..\\Resources\\TownScene\\StreetLight.png");
+        temp->SetWidth(30);
+        temp->SetHeight(60);
+        StreetLight1->GetComponent<SpriteRenderer>()->SetImg(temp);
+
+        BackGround* OneWay1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+        OneWay1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1226.f, 205.f));
+        OneWay1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(256.f, 64.f));
+        temp = Resources::Load<Texture>(L"OneWay", L"..\\Resources\\TownScene\\SecondFloor_OneWay.png");
+        temp->SetWidth(64);
+        temp->SetHeight(16);
+        OneWay1->GetComponent<SpriteRenderer>()->SetImg(temp);
+
+        //Npc
+        Npc* Commander = object::Instantiate<Npc>(enums::eLayerType::Npc);
+        Commander->GetComponent<Transform>()->SetPos(Math::Vector2<float>(616.f, 475.f));
+        Commander->GetComponent<Transform>()->SetScale(Math::Vector2<float>(92.f, 100.f));
+        temp = Resources::Load<Texture>(L"Commander0", L"..\\Resources\\TownScene\\NPC_Commander0.png");
+        temp->SetWidth(23);
+        temp->SetHeight(25);
+        Commander->GetComponent<SpriteRenderer>()->SetImg(temp);
+
         // Player
         Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
         player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(300.f, 630.f));
-        player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(52.f, 84.f));
+        player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(96.f, 96.f));
         temp = Resources::Load<Texture>(L"player", L"..\\Resources\\Player\\Basic\\Idle\\CharIdle0.png");
         player->GetComponent<SpriteRenderer>()->SetImg(temp);
     }
@@ -135,6 +177,7 @@ namespace EH
     {
         if (Input::Getkey(eKeyCode::Z).state == eKeyState::DOWN)
         {
+            
             SceneManager::LoadScene(L"TitleScene");
         }
         Scene::Update();

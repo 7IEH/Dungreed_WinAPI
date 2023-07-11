@@ -28,6 +28,7 @@ namespace EH
 
 	void Sound::Stop()
 	{
+		mciSendCommandA(mSoundBuffer, MCI_PAUSE, 0,0 );
 	}
 
 	void Sound::SetVolume(int volume)

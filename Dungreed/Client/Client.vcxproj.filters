@@ -85,6 +85,9 @@
     <Filter Include="Contents\GameObject\BackGround">
       <UniqueIdentifier>{a2b23ba5-7e46-45fa-b8ed-b07601611866}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Npc">
+      <UniqueIdentifier>{f3f60cb8-43bb-4762-8784-6c90c25eda7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -171,6 +174,9 @@
     <ClInclude Include="EHBackGround.h">
       <Filter>Contents\GameObject\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="EHNpc.h">
+      <Filter>Contents\GameObject\Npc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -245,6 +251,9 @@
     </ClCompile>
     <ClCompile Include="EHBackGround.cpp">
       <Filter>Contents\GameObject\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="EHNpc.cpp">
+      <Filter>Contents\GameObject\Npc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

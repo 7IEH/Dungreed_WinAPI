@@ -21,14 +21,14 @@ namespace EH
 	void TitleScene::Initialize()
 	{
 		// Sound
-		Sound* BGM = Resources::Load<Sound>(L"BGM", L"..\\\\Resources\\Sound\\title.wav");
+		Sound* BGM = Resources::Load<Sound>(L"BGM", L"..\\Resources\\Sound\\title.wav");
 		BGM->Play();
 
 		Texture* temp = nullptr;
 		// BackCloud
 		BackGround* BackCloud = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		BackCloud->GetComponent<Transform>()->SetPos(Math::Vector2<float>(0.f, 0.f));
-		BackCloud->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 720.f));
+		BackCloud->GetComponent<Transform>()->SetScale(Math::Vector2<float>(2560.f, 720.f));
 		temp = Resources::Load<Texture>(L"BackCloud",L"..\\Client\\Resources\\EnterScene\\BackCloud.png");
 		BackCloud->GetComponent<SpriteRenderer>()->SetImg(temp);
 
@@ -36,7 +36,7 @@ namespace EH
 		// FrontCloud
 		BackGround* FrontCloud = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		FrontCloud->GetComponent<Transform>()->SetPos(Math::Vector2<float>(0.f, 0.f));
-		FrontCloud->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 720.f));
+		FrontCloud->GetComponent<Transform>()->SetScale(Math::Vector2<float>(2560.f, 720.f));
 		temp = Resources::Load<Texture>(L"FrontCloud", L"..\\Resources\\EnterScene\\FrontCloud.png");
 		FrontCloud->GetComponent<SpriteRenderer>()->SetImg(temp);
 
@@ -44,7 +44,7 @@ namespace EH
 		// Main Logo
 		BackGround* MainLogo = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		MainLogo->GetComponent<Transform>()->SetPos(Math::Vector2<float>(320.f,140.f));
-		MainLogo->GetComponent<Transform>()->SetScale(Math::Vector2<float>(624.f, 270.f));
+		MainLogo->GetComponent<Transform>()->SetScale(Math::Vector2<float>(624.f, 300.f));
 		temp = Resources::Load<Texture>(L"MainLogo", L"..\\Resources\\EnterScene\\MainLogo.png");
 		MainLogo->GetComponent<SpriteRenderer>()->SetImg(temp);
 

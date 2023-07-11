@@ -12,13 +12,18 @@ namespace EH
 		mHeight(0.f),
 		mType(eTextureType::None),
 		mHdc(nullptr),
-		mBitmap(nullptr)
+		mBitmap(nullptr),
+		mPos(0,0)
 	{
 	}
 
 	Texture::~Texture()
 	{
+		delete mImg;
+		mImg = nullptr;
 
+		DeleteObject(mBitmap);
+		mBitmap = NULL;
 	}
 
 	HRESULT Texture::Load()

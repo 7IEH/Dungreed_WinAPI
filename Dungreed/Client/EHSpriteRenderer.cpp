@@ -34,12 +34,12 @@ namespace EH
 		}
 		else if (mTexture->GetType() == eTextureType::Bmp)
 		{
-			TransparentBlt(hdc, pos.x, pos.y, scale.x, scale.y, mTexture->GetHDC(), 0, 0, mTexture->GetWidth(), mTexture->GetHeight(), RGB(255, 0, 255));
+			TransparentBlt(hdc, pos.x, pos.y, scale.x, scale.y, mTexture->GetHDC(), mTexture->GetPos().x, mTexture->GetPos().y, mTexture->GetWidth(), mTexture->GetHeight(), RGB(255, 0, 255));
 		}
 		else if (mTexture->GetType() == eTextureType::Png)
 		{
 			::Graphics g(hdc);
-			g.DrawImage(mTexture->GetImage(), Rect(pos.x, pos.y, scale.x, scale.y), 0, 0, mTexture->GetWidth(), mTexture->GetHeight(), UnitPixel);
+			g.DrawImage(mTexture->GetImage(), Rect(pos.x, pos.y, scale.x, scale.y), mTexture->GetPos().x, mTexture->GetPos().y, mTexture->GetWidth(), mTexture->GetHeight(), UnitPixel);
 		}		
 	}
 }
