@@ -88,6 +88,24 @@
     <Filter Include="Contents\GameObject\Npc">
       <UniqueIdentifier>{f3f60cb8-43bb-4762-8784-6c90c25eda7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon">
+      <UniqueIdentifier>{3b0effa5-cf99-477e-bbb0-063203192337}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\2.IceField">
+      <UniqueIdentifier>{ddcc4209-f045-4633-b0bc-ee97bd031df0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene">
+      <UniqueIdentifier>{52a7e731-2032-4fee-8f10-6f9558c5305d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailPrevBossScene">
+      <UniqueIdentifier>{77824f21-c5b1-4bc1-888a-7b9e70d13750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailBossScene">
+      <UniqueIdentifier>{fb20b007-9411-49f1-80a8-b6d06dd17ba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Camera">
+      <UniqueIdentifier>{36f68158-d0e5-40d2-a4f2-7ca343d91b52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -177,6 +195,18 @@
     <ClInclude Include="EHNpc.h">
       <Filter>Contents\GameObject\Npc</Filter>
     </ClInclude>
+    <ClInclude Include="EHJailScene.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailPrevBossScene.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailPrevBossScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailBossScene.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailBossScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EHCamera.h">
+      <Filter>Engine\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -254,6 +284,18 @@
     </ClCompile>
     <ClCompile Include="EHNpc.cpp">
       <Filter>Contents\GameObject\Npc</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailScene.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailPrevBossScene.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailPrevBossScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailBossScene.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailBossScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCamera.cpp">
+      <Filter>Engine\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

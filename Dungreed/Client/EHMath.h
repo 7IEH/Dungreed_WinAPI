@@ -18,7 +18,7 @@ namespace EH::Math
 		// vector 연산자 오버로딩
 		Vector2<T> operator+(Vector2<T> other)
 		{
-			Vector2 temp;
+			Vector2<T> temp;
 			temp.x = x + other.x;
 			temp.y = y + other.y;
 			return temp;
@@ -26,7 +26,7 @@ namespace EH::Math
 
 		Vector2<T> operator-(Vector2<T> other)
 		{
-			Vector2 temp;
+			Vector2<T> temp;
 			temp.x = x - other.x;
 			temp.y = y - other.y;
 			return temp;
@@ -42,6 +42,14 @@ namespace EH::Math
 		{
 			x -= other.x;
 			y -= other.y;
+		}
+
+		Vector2<T> operator/(float other)
+		{
+			Vector2<T> temp;
+			temp.x = x / other;
+			temp.y = y / other;
+			return temp;
 		}
 	};
 }

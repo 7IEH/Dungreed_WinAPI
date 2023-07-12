@@ -17,11 +17,12 @@ namespace EH
 		AddComponent<SpriteRenderer>();
 		Texture* temp = Resources::Load<Texture>(L"HPRed", L"..\\Resources\\UI\\PlayerLife.png");
 		mHp = EH::object::Instantiate<BackGround>(enums::eLayerType::UI);
-		mHp->GetComponent<Transform>()->SetPos(Math::Vector2<float>(99.f, 24.f));
+		mHp->GetComponent<Transform>()->SetPos(Math::Vector2<float>(195.f, 42.f));
 		mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f, 36.f));
 		temp->SetWidth(48);
 		temp->SetHeight(9);
 		mHp->GetComponent<SpriteRenderer>()->SetImg(temp);
+		mHp->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 	}
 
 	Player::~Player()
@@ -58,6 +59,12 @@ namespace EH
 		if (Input::Getkey(eKeyCode::P).state == eKeyState::DOWN)
 		{
 			CurHp -= 5;
+			mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f * ((float)CurHp / (float)MaxHP), 36.f));
+		}
+
+		if (Input::Getkey(eKeyCode::O).state == eKeyState::DOWN)
+		{
+			CurHp += 5;
 			mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f * ((float)CurHp / (float)MaxHP), 36.f));
 		}
 

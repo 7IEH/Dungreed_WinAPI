@@ -2,6 +2,9 @@
 #include "EHTitleScene.h"
 #include "EHSelectScene.h"
 #include "EHTownScene.h"
+#include "EHJailScene.h"
+#include "EHJailPrevBossScene.h"
+#include "EHJailBossScene.h"
 
 namespace EH
 {
@@ -14,6 +17,9 @@ namespace EH
 		CreateScene<TitleScene>(L"TitleScene");
 		CreateScene<SelectScene>(L"SelectScene");
 		CreateScene<TownScene>(L"TownScene");
+		CreateScene<JailScene>(L"JailScene");
+		CreateScene<JailPrevBossScene>(L"JailPrevBossScene");
+		CreateScene<JailBossScene>(L"JailBossScene");
 
 		LoadScene(L"TitleScene");
 	}

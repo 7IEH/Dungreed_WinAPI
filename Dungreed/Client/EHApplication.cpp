@@ -1,5 +1,6 @@
 #include "EHApplication.h"
 #include "EHSceneManager.h"
+#include "EHCamera.h"
 
 namespace EH
 {
@@ -42,6 +43,9 @@ namespace EH
 		// Path Initialize
 		Path::Initialize();
 
+		// Camera
+		Camera::Initialize();
+
 		// SceneMgr Initialize
 		SceneManager::Initialize();
 
@@ -62,6 +66,7 @@ namespace EH
 		// Input test
 		Time::Update();
 		Input::Update();
+		Camera::Update();
 		SceneManager::Update();
 	}
 
