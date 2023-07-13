@@ -70,14 +70,17 @@ namespace EH
 		else if (mTexture->GetType() == eTextureType::Png)
 		{
 			Gdiplus::ImageAttributes imageAtt = {};
-			//imageAtt.SetColorKey(Gdiplus::Color(0, 0, 0), Gdiplus::Color(0, 0, 0));
+
+			if(mTexture->GetName()==L"TownBackGround" || mTexture->GetName() == L"TownBG" || mTexture->GetName() == L"TownLayer")
+				imageAtt.SetColorKey(Gdiplus::Color(0, 255, 255,255), Gdiplus::Color(0, 255, 255, 255));
 
 			::Graphics g(hdc);
+			g.SetInterpolationMode(Gdiplus::InterpolationModeNearestNeighbor);
 			g.DrawImage(mTexture->GetImage(),
 				Rect(pos.x - scale.x/2.f, pos.y - scale.y/2.f, scale.x, scale.y),
 				mTexture->GetPos().x, mTexture->GetPos().y,
 				mTexture->GetWidth(), mTexture->GetHeight(),
-				UnitPixel,
+				Gdiplus::UnitPixel,
 				&imageAtt);
 		}		
 	}

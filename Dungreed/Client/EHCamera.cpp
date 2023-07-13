@@ -17,17 +17,32 @@ namespace EH
 		mResolution.y = application.GetWinSize().y;
 
 		mLookAt.x = application.GetWinSize().x / 2.f;
-		mLookAt.y = application.GetWinSize().y / 2.f;
+		mLookAt.y = application.GetWinSize().y / 2.f + 96.f;
 	}
 
 	void Camera::Update()
 	{
+		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
+		{
+			mLookAt.x -= 300.f * Time::GetDeltaTime();
+		}
+		if (Input::Getkey(eKeyCode::W).state == eKeyState::PRESSED)
+		{
+			mLookAt.y -= 300.f * Time::GetDeltaTime();
+		}
+		if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
+		{
+			mLookAt.y += 300.f * Time::GetDeltaTime();
+		}
+		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
+		{
+			mLookAt.x += 300.f * Time::GetDeltaTime();
+		}
+
 		if (mTarget)
 		{
 			mLookAt = mTarget->GetComponent<Transform>()->Getpos();
 		}
-
-		Vector2<float> test = mResolution / 2.f;
 		mDiffDistance = mLookAt - (mResolution / 2.f);
 	}
 

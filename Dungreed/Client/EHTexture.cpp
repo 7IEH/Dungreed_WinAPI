@@ -34,7 +34,9 @@ namespace EH
 		{
 			mType = eTextureType::Bmp;
 			Math::Vector2<int> winsize = application.GetWinSize();
+			std::wstring test = GetPath();
 			mBitmap = (HBITMAP)LoadImageW(nullptr, GetPath().c_str(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+			int a = 0;
 			if (mBitmap == nullptr)
 			{
 				return S_FALSE;
