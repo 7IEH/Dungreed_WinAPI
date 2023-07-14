@@ -106,6 +106,12 @@
     <Filter Include="Engine\Camera">
       <UniqueIdentifier>{36f68158-d0e5-40d2-a4f2-7ca343d91b52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Component\Animator">
+      <UniqueIdentifier>{4e086541-74f0-4fa0-a0b8-47a69c2a3b3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Animation">
+      <UniqueIdentifier>{c8c458a9-a6c0-42dc-9030-182f4a26eeb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -207,6 +213,12 @@
     <ClInclude Include="EHCamera.h">
       <Filter>Engine\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="EHAnimator.h">
+      <Filter>Engine\Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="EHAnimation.h">
+      <Filter>Engine\Resource\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -296,6 +308,12 @@
     </ClCompile>
     <ClCompile Include="EHCamera.cpp">
       <Filter>Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="EHAnimator.cpp">
+      <Filter>Engine\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="EHAnimation.cpp">
+      <Filter>Engine\Resource\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

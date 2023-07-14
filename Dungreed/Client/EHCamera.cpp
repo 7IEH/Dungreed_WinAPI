@@ -22,19 +22,19 @@ namespace EH
 
 	void Camera::Update()
 	{
-		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
+		if (Input::Getkey(eKeyCode::LEFT).state == eKeyState::PRESSED)
 		{
 			mLookAt.x -= 300.f * Time::GetDeltaTime();
 		}
-		if (Input::Getkey(eKeyCode::W).state == eKeyState::PRESSED)
+		if (Input::Getkey(eKeyCode::UP).state == eKeyState::PRESSED)
 		{
 			mLookAt.y -= 300.f * Time::GetDeltaTime();
 		}
-		if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
+		if (Input::Getkey(eKeyCode::DOWN).state == eKeyState::PRESSED)
 		{
 			mLookAt.y += 300.f * Time::GetDeltaTime();
 		}
-		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
+		if (Input::Getkey(eKeyCode::RIGHT).state == eKeyState::PRESSED)
 		{
 			mLookAt.x += 300.f * Time::GetDeltaTime();
 		}

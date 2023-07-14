@@ -3,6 +3,7 @@
 #include "EHBackGround.h"
 #include "EHResources.h"
 #include "EHObject.h"
+#include "EHPlayer.h"
 
 
 namespace EH
@@ -17,10 +18,69 @@ namespace EH
 
 	void JailBossScene::Initialize()
 	{
+		// HP
+		BackGround* HPBack = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		HPBack->GetComponent<Transform>()->SetPos(Math::Vector2<float>(157.f, 42.f));
+		HPBack->GetComponent<Transform>()->SetScale(Math::Vector2<float>(296.f, 64.f));
+		Texture* temp = Resources::Load<Texture>(L"HPBack", L"..\\Resources\\UI\\PlayerLifeBack.png");
+		HPBack->GetComponent<SpriteRenderer>()->SetImg(temp);
+		HPBack->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+		BackGround* HPBase = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		HPBase->GetComponent<Transform>()->SetPos(Math::Vector2<float>(157.f, 42.f));
+		HPBase->GetComponent<Transform>()->SetScale(Math::Vector2<float>(296.f, 64.f));
+		temp = Resources::Load<Texture>(L"HPBase", L"..\\Resources\\UI\\PlayerLifeBase 1.png");
+		HPBase->GetComponent<SpriteRenderer>()->SetImg(temp);
+		HPBase->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+		// DASH
+		BackGround* DashBase = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		DashBase->GetComponent<Transform>()->SetPos(Math::Vector2<float>(135.f, 97.f));
+		DashBase->GetComponent<Transform>()->SetScale(Math::Vector2<float>(252.f, 34.f));
+		temp = Resources::Load<Texture>(L"DashBase", L"..\\Resources\\UI\\DashCountBase.png");
+		DashBase->GetComponent<SpriteRenderer>()->SetImg(temp);
+		DashBase->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+		// COIN
+		BackGround* Coin = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		Coin->GetComponent<Transform>()->SetPos(Math::Vector2<float>(29.f, 657.f));
+		Coin->GetComponent<Transform>()->SetScale(Math::Vector2<float>(17.f, 14.f));
+		temp = Resources::Load<Texture>(L"CoinUI", L"..\\Resources\\UI\\Coin.png");
+		Coin->GetComponent<SpriteRenderer>()->SetImg(temp);
+		Coin->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+		// FOOD
+		BackGround* Food = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		Food->GetComponent<Transform>()->SetPos(Math::Vector2<float>(29.f, 690.f));
+		Food->GetComponent<Transform>()->SetScale(Math::Vector2<float>(34.f, 28.f));
+		temp = Resources::Load<Texture>(L"FoodUI", L"..\\Resources\\UI\\Food.png");
+		Food->GetComponent<SpriteRenderer>()->SetImg(temp);
+		Food->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+		// Weapon Swap
+		BackGround* WeaponSlot = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		WeaponSlot->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1210.f, 641.f));
+		WeaponSlot->GetComponent<Transform>()->SetScale(Math::Vector2<float>(140.f, 102.f));
+		temp = Resources::Load<Texture>(L"WeaponSlot", L"..\\Resources\\UI\\EquippedWeaponBase.png");
+		WeaponSlot->GetComponent<SpriteRenderer>()->SetImg(temp);
+		WeaponSlot->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+		BackGround* WeaponSlot2 = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		WeaponSlot2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1190.f, 657.f));
+		WeaponSlot2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(140.f, 102.f));
+		temp = Resources::Load<Texture>(L"WeaponSlot", L"..\\Resources\\UI\\EquippedWeaponBase.png");
+		WeaponSlot2->GetComponent<SpriteRenderer>()->SetImg(temp);
+		WeaponSlot2->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+		BackGround* Minimap = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		Minimap->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1105.f, 58.f));
+		Minimap->GetComponent<Transform>()->SetScale(Math::Vector2<float>(350.f, 85.f));
+		Minimap->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
 		BackGround* JailBossBackGround = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		JailBossBackGround->GetComponent<Transform>()->SetPos(Math::Vector2<float>(720.f, 660.f));
 		JailBossBackGround->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1440.f, 1320.f));
-		Texture* temp = Resources::Load<Texture>(L"JailBossBackGround", L"..\\Resources\\Dungeon\\Belial\\Boss.png");
+		temp = Resources::Load<Texture>(L"JailBossBackGround", L"..\\Resources\\Dungeon\\Belial\\Boss.png");
 		JailBossBackGround->GetComponent<SpriteRenderer>()->SetImg(temp);
 		//JailBossBackGround->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
@@ -129,6 +189,13 @@ namespace EH
 		BossRightHand->GetComponent<Transform>()->SetScale(Math::Vector2<float>(228.f, 276.f));
 		temp = Resources::Load<Texture>(L"BossRightHand", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleRight\\SkellBossRightHandIdle0.png");
 		BossRightHand->GetComponent<SpriteRenderer>()->SetImg(temp);
+
+		// Player
+		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
+		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(300.f, 630.f));
+		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		temp = Resources::Load<Texture>(L"player", L"..\\Resources\\Player\\Basic\\Idle\\CharIdle0.png");
+		player->GetComponent<SpriteRenderer>()->SetImg(temp);
 
 	}
 

@@ -42,6 +42,7 @@ namespace EH::enums
 	{
 		Transform,
 		SpriteRenderer,
+		Animator,
 		End,
 	};
 }

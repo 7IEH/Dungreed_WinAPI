@@ -4,6 +4,7 @@
 #include "EHComponent.h"
 #include "EHTransform.h"
 #include "EHSpriteRenderer.h"
+#include "EHAnimator.h"
 
 namespace EH
 {

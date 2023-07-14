@@ -130,6 +130,8 @@
   <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="Commoninclude.h" />
+    <ClInclude Include="EHAnimation.h" />
+    <ClInclude Include="EHAnimator.h" />
     <ClInclude Include="EHApplication.h" />
     <ClInclude Include="EHBackGround.h" />
     <ClInclude Include="EHCamera.h" />
@@ -164,6 +166,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="EHAnimation.cpp" />
+    <ClCompile Include="EHAnimator.cpp" />
     <ClCompile Include="EHApplication.cpp" />
     <ClCompile Include="EHBackGround.cpp" />
     <ClCompile Include="EHCamera.cpp" />

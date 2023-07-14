@@ -139,6 +139,43 @@ namespace EH
         temp = Resources::Load<Texture>(L"StreetLight1", L"..\\Resources\\TownScene\\StreetLight.png");
         StreetLight2->GetComponent<SpriteRenderer>()->SetImg(temp);
 
+        BackGround* Well1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+        Well1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5758.f, 1202.f));
+        Well1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(196.f, 196.f));
+        temp = Resources::Load<Texture>(L"Well", L"..\\Resources\\TownScene\\Well.png");
+        Well1->GetComponent<SpriteRenderer>()->SetImg(temp);
+
+        BackGround* DungeonSign1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+        DungeonSign1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3212.f, 1256.f));
+        DungeonSign1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
+        temp = Resources::Load<Texture>(L"DungeonSign", L"..\\Resources\\TownScene\\DungeonSign.png");
+        DungeonSign1->GetComponent<SpriteRenderer>()->SetImg(temp);
+
+        BackGround* DungeonSign2 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+        DungeonSign2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(4392.f, 1256.f));
+        DungeonSign2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
+        temp = Resources::Load<Texture>(L"DungeonSignReverse", L"..\\Resources\\TownScene\\DungeonSignReverse.png");
+        DungeonSign2->GetComponent<SpriteRenderer>()->SetImg(temp);
+
+        BackGround* Tree2 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+        Tree2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5094.f, 1084.f));
+        Tree2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(268.f, 308.f));
+        temp = Resources::Load<Texture>(L"Tree1", L"..\\Resources\\TownScene\\Tree1.png");
+        Tree2->GetComponent<SpriteRenderer>()->SetImg(temp);
+
+        BackGround* Tree3 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+        Tree3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5626.f, 1178.f));
+        Tree3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(204.f, 244.f));
+        temp = Resources::Load<Texture>(L"Tree2", L"..\\Resources\\TownScene\\Tree0.png");
+        Tree3->GetComponent<SpriteRenderer>()->SetImg(temp);
+
+        // °íÃÄ¾ßµÊ
+        BackGround* Tree4 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+        Tree4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(7086.f, 1206.f));
+        Tree4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(204.f, 244.f));
+        temp = Resources::Load<Texture>(L"Tree2", L"..\\Resources\\TownScene\\Tree0.png");
+        Tree4->GetComponent<SpriteRenderer>()->SetImg(temp);
+
         /*BackGround* OneWay1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         OneWay1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1226.f, 205.f));
         OneWay1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(256.f, 64.f));
