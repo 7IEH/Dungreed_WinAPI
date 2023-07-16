@@ -1,5 +1,7 @@
 #include "EHSpriteRenderer.h"
 #include "EHSceneManager.h"
+#include "EHGameObject.h"
+#include "EHAnimator.h"
 #include "EHCamera.h"
 
 namespace EH
@@ -27,6 +29,11 @@ namespace EH
 
 	void SpriteRenderer::Render(HDC hdc)
 	{
+		if (mTexture == nullptr)
+		{
+			return;
+		}
+
 		Transform* tf = GetOwner()->GetComponent<Transform>();
 		Math::Vector2<float> pos = tf->Getpos();
 		Math::Vector2<float> scale = tf->GetScale();
@@ -34,13 +41,9 @@ namespace EH
 		if(mAffectCamera)
 			pos = Camera::CaculatePos(pos);
 
-		if (mTexture == nullptr)
+		if (mTexture->GetType() == eTextureType::Bmp)
 		{
-			Rectangle(hdc, pos.x - scale.x/2.f, pos.y - scale.x / 2.f, pos.x + scale.x, pos.y + scale.y);
-		}
-		else if (mTexture->GetType() == eTextureType::Bmp)
-		{
-			if (mAlpha < 1.0f)
+			if (mAlpha <= 1.0f)
 			{
 				BLENDFUNCTION func = {};
 				func.BlendOp = AC_SRC_OVER;

@@ -188,17 +188,17 @@ namespace EH
         Npc* Commander = object::Instantiate<Npc>(enums::eLayerType::Npc);
         Commander->GetComponent<Transform>()->SetPos(Math::Vector2<float>(638.f, 1250.f));
         Commander->GetComponent<Transform>()->SetScale(Math::Vector2<float>(92.f, 100.f));
-        temp = Resources::Load<Texture>(L"Commander0", L"..\\Resources\\TownScene\\NPC_Commander0.png");
-        temp->SetWidth(23);
-        temp->SetHeight(25);
-        Commander->GetComponent<SpriteRenderer>()->SetImg(temp);
+        temp = Resources::Load<Texture>(L"Commander0", L"..\\Resources\\NPC\\NPC_CommanderSheet.bmp");
+        Commander->AddComponent<Animator>();
+        Commander->GetComponent<Animator>()->CreateAnimation(L"CommanderIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(23.f, 25.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+        Commander->GetComponent<Animator>()->PlayAnimation(L"CommanderIdle", true);
 
         // Player
-        Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
+        /*Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
         player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(300.f, 630.f));
         player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
         temp = Resources::Load<Texture>(L"player", L"..\\Resources\\Player\\Basic\\Idle\\CharIdle0.png");
-        player->GetComponent<SpriteRenderer>()->SetImg(temp);
+        player->GetComponent<SpriteRenderer>()->SetImg(temp);*/
         //Camera::SetTarget(player);
     }
 

@@ -15,11 +15,13 @@ namespace EH
 		virtual void Render(HDC hdc) override;
 
 	private:
-		UINT Level;
-		UINT MaxHP;
-		UINT CurHp;
-		UINT Gold;
-		UINT Food;
+		UINT mLevel;
+		UINT mMaxHP;
+		UINT mCurHp;
+		UINT mGold;
+		UINT mFood;
 		BackGround* mHp;
+		bool mIsRight;
+		bool mIsDead;
 	};
 }

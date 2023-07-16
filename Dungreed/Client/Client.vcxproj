@@ -176,6 +176,7 @@
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHJailBossScene.cpp" />
     <ClCompile Include="EHJailScene.cpp" />
+    <ClCompile Include="EHMath.cpp" />
     <ClCompile Include="EHNpc.cpp" />
     <ClCompile Include="EHTexture.cpp" />
     <ClCompile Include="EHInput.cpp" />

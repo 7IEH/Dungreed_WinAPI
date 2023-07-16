@@ -59,11 +59,11 @@ namespace EH
 
 		if (mTexture == nullptr)
 		{
-			Rectangle(hdc, pos.x - scale.x / 2.f, pos.y - scale.x / 2.f, pos.x + scale.x, pos.y + scale.y);
+			//Rectangle(hdc, pos.x - scale.x / 2.f, pos.y - scale.x / 2.f, pos.x + scale.x, pos.y + scale.y);
 		}
 		else if (mTexture->GetType() == eTextureType::Bmp)
 		{
-			if (mAnimator->GetAlpha() < 1.0f)
+			if (mAnimator->GetAlpha() <= 1.0f)
 			{
 				BLENDFUNCTION func = {};
 				func.BlendOp = AC_SRC_OVER;

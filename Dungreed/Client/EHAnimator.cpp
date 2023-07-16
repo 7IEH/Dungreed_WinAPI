@@ -1,5 +1,6 @@
 #include "EHAnimator.h"
 #include "EHResources.h"
+#include "EHGameObject.h"
 
 namespace EH
 {
@@ -72,6 +73,9 @@ namespace EH
 	{
 		Animation* anim = FindAnimation(name);
 		if (anim == nullptr)
+			return;
+
+		if (anim == mActiveAnimation)
 			return;
 
 		mActiveAnimation = anim;

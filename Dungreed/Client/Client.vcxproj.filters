@@ -315,6 +315,9 @@
     <ClCompile Include="EHAnimation.cpp">
       <Filter>Engine\Resource\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="EHMath.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">

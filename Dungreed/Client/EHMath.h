@@ -51,5 +51,10 @@ namespace EH::Math
 			temp.y = y / other;
 			return temp;
 		}
+
+		bool operator==(Vector2<T> other)
+		{
+			return (this->x == other.x) && (this->y == other.y);
+		}
 	};
 }
