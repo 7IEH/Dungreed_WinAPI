@@ -174,28 +174,36 @@ namespace EH
 		BackGround* Boss1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		Boss1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(704.f, 598.f));
 		Boss1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(280.f, 396.f));
-		temp = Resources::Load<Texture>(L"Boss1", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Idle\\SkellBossIdle0.png");
-		Boss1->GetComponent<SpriteRenderer>()->SetImg(temp);
-		//Boss1->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		temp = Resources::Load<Texture>(L"BossIdle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Idle\\SkellBossIdleSheet.bmp");
+		Boss1->AddComponent<Animator>();
+		Boss1->GetComponent<Animator>()->CreateAnimation(L"BossIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(70.f, 99.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		Boss1->GetComponent<Animator>()->PlayAnimation(L"BossIdle", true);
+		Boss1->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		BackGround* BossLeftHand = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		BossLeftHand->GetComponent<Transform>()->SetPos(Math::Vector2<float>(370.f, 822.f));
 		BossLeftHand->GetComponent<Transform>()->SetScale(Math::Vector2<float>(228.f, 276.f));
-		temp = Resources::Load<Texture>(L"BossLeftHand", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleLeft\\SkellBossLeftHandIdle0.png");
-		BossLeftHand->GetComponent<SpriteRenderer>()->SetImg(temp);
+		temp = Resources::Load<Texture>(L"BossLeftHandIdle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleLeft\\SkellBossLeftHandIdleSheet.bmp");
+		BossLeftHand->AddComponent<Animator>();
+		BossLeftHand->GetComponent<Animator>()->CreateAnimation(L"BossLeftHandIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 69.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		BossLeftHand->GetComponent<Animator>()->PlayAnimation(L"BossLeftHandIdle", true);
+		BossLeftHand->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		BackGround* BossRightHand = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		BossRightHand->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1106.f, 542.f));
 		BossRightHand->GetComponent<Transform>()->SetScale(Math::Vector2<float>(228.f, 276.f));
-		temp = Resources::Load<Texture>(L"BossRightHand", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleRight\\SkellBossRightHandIdle0.png");
-		BossRightHand->GetComponent<SpriteRenderer>()->SetImg(temp);
+		temp = Resources::Load<Texture>(L"BossRightHand", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleRight\\SkellBossRightHandIdleSheet.bmp");
+		BossRightHand->AddComponent<Animator>();
+		BossRightHand->GetComponent<Animator>()->CreateAnimation(L"BossRightHand", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 69.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		BossRightHand->GetComponent<Animator>()->PlayAnimation(L"BossRightHand", true);
+		BossRightHand->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		// Player
-		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
+		/*Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(300.f, 630.f));
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 		temp = Resources::Load<Texture>(L"player", L"..\\Resources\\Player\\Basic\\Idle\\CharIdle0.png");
-		player->GetComponent<SpriteRenderer>()->SetImg(temp);
+		player->GetComponent<SpriteRenderer>()->SetImg(temp);*/
 
 	}
 

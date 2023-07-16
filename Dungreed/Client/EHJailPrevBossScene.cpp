@@ -127,11 +127,92 @@ namespace EH
 		//Skull1->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
 		// Player
-		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
+		/*Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(300.f, 630.f));
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 		temp = Resources::Load<Texture>(L"player", L"..\\Resources\\Player\\Basic\\Idle\\CharIdle0.png");
-		player->GetComponent<SpriteRenderer>()->SetImg(temp);
+		player->GetComponent<SpriteRenderer>()->SetImg(temp);*/
+
+		BackGround* Banshee1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		Banshee1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(300.f, 400.f));
+		Banshee1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
+		temp = Resources::Load<Texture>(L"BansheeIdle", L"..\\Resources\\Enemy\\JailField\\Banshee\\Idle\\BansheeIdleSheet.bmp");
+		Banshee1->AddComponent<Animator>();
+		Banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		Banshee1->GetComponent<Animator>()->PlayAnimation(L"BansheeIdle", true);
+		Banshee1->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		BackGround* Bat1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		Bat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 400.f));
+		Bat1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		temp = Resources::Load<Texture>(L"Bat", L"..\\Resources\\Enemy\\JailField\\Bat\\Bat\\Idle\\BatSheet.bmp");
+		Bat1->AddComponent<Animator>();
+		Bat1->GetComponent<Animator>()->CreateAnimation(L"Bat", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		Bat1->GetComponent<Animator>()->PlayAnimation(L"Bat", true);
+		Bat1->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		BackGround* RedBat1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		RedBat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(550.f, 400.f));
+		RedBat1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		temp = Resources::Load<Texture>(L"RedBat", L"..\\Resources\\Enemy\\JailField\\Bat\\BatRed\\Idle\\RedBatSheet.bmp");
+		RedBat1->AddComponent<Animator>();
+		RedBat1->GetComponent<Animator>()->CreateAnimation(L"RedBat", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		RedBat1->GetComponent<Animator>()->PlayAnimation(L"RedBat", true);
+		RedBat1->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		BackGround* BombBat1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		BombBat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(650.f, 400.f));
+		BombBat1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(76.f, 48.f));
+		temp = Resources::Load<Texture>(L"BombBat", L"..\\Resources\\Enemy\\JailField\\Bat\\BombBat\\Idle\\BombBatSheet.bmp");
+		BombBat1->AddComponent<Animator>();
+		BombBat1->GetComponent<Animator>()->CreateAnimation(L"BombBat", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(19.f, 12.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		BombBat1->GetComponent<Animator>()->PlayAnimation(L"BombBat", true);
+		BombBat1->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		BackGround* GiantBat1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		GiantBat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(800.f, 400.f));
+		GiantBat1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(256.f, 256.f));
+		temp = Resources::Load<Texture>(L"GiantBat", L"..\\Resources\\Enemy\\JailField\\Bat\\GiantBat\\Idle\\GiantBatSheet.bmp");
+		GiantBat1->AddComponent<Animator>();
+		GiantBat1->GetComponent<Animator>()->CreateAnimation(L"GiantBat", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(64.f, 64.f), Math::Vector2<float>(0.f, 0.f), 7, 0.1f);
+		GiantBat1->GetComponent<Animator>()->PlayAnimation(L"GiantBat", true);
+		GiantBat1->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		BackGround* RedGiantBat1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		RedGiantBat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(950.f, 400.f));
+		RedGiantBat1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(256.f, 256.f));
+		temp = Resources::Load<Texture>(L"RedGiantBat", L"..\\Resources\\Enemy\\JailField\\Bat\\RedGiantBat\\Idle\\RedBatSheet.bmp");
+		RedGiantBat1->AddComponent<Animator>();
+		RedGiantBat1->GetComponent<Animator>()->CreateAnimation(L"RedGiantBat", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(64.f, 64.f), Math::Vector2<float>(0.f, 0.f), 7, 0.1f);
+		RedGiantBat1->GetComponent<Animator>()->PlayAnimation(L"RedGiantBat", true);
+		RedGiantBat1->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		BackGround* LittleGhost1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		LittleGhost1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(300.f, 300.f));
+		LittleGhost1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 80.f));
+		temp = Resources::Load<Texture>(L"LittleGhost", L"..\\Resources\\Enemy\\JailField\\Ghost\\LittleGhost\\Idle\\LittleGhostIdleSheet.bmp");
+		LittleGhost1->AddComponent<Animator>();
+		LittleGhost1->GetComponent<Animator>()->CreateAnimation(L"LittleGhost", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 20.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		LittleGhost1->GetComponent<Animator>()->PlayAnimation(L"LittleGhost", true);
+		LittleGhost1->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		BackGround* BigWhiteSkel1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		BigWhiteSkel1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(450.f, 300.f));
+		BigWhiteSkel1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(132.f, 120.f));
+		temp = Resources::Load<Texture>(L"BigWhiteSkel", L"..\\Resources\\Enemy\\JailField\\Skell\\BigWhiteSkel\\Idle\\BigWhiteSkelIdleSheet.bmp");
+		BigWhiteSkel1->AddComponent<Animator>();
+		BigWhiteSkel1->GetComponent<Animator>()->CreateAnimation(L"BigWhiteSkel", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(33.f, 30.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		BigWhiteSkel1->GetComponent<Animator>()->PlayAnimation(L"BigWhiteSkel", true);
+		BigWhiteSkel1->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		BackGround* SkelDog1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		SkelDog1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(650.f, 300.f));
+		SkelDog1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 72.f));
+		temp = Resources::Load<Texture>(L"SkelDog", L"..\\Resources\\Enemy\\JailField\\Skell\\SkelDog\\Idle\\SkelDogIdleSheet.bmp");
+		SkelDog1->AddComponent<Animator>();
+		SkelDog1->GetComponent<Animator>()->CreateAnimation(L"SkelDog", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 18.f), Math::Vector2<float>(0.f, 0.f), 5, 0.1f);
+		SkelDog1->GetComponent<Animator>()->PlayAnimation(L"SkelDog", true);
+		SkelDog1->GetComponent<Animator>()->SetAffectedCamera(true);
 	}
 
 	void JailPrevBossScene::Update()
