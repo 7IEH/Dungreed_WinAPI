@@ -11,6 +11,7 @@ namespace EH
 		None,
 	};
 
+	class GameObject;
 	class Texture : public Resource
 	{
 	public:
@@ -25,10 +26,15 @@ namespace EH
 		Gdiplus::Image* GetImage() { return mImg; }
 		eTextureType GetType() { return mType; }
 		HDC GetHDC() { return mHdc; }
+		void Render(HDC hdc, GameObject* obj,
+			bool affectedcamera,
+			Math::Vector2<float> size,
+			Math::Vector2<float> lefttop = Math::Vector2<float>(0.f,0.f), 
+			Math::Vector2<float> offset = Math::Vector2<float>(0.f, 0.f),
+			float alpha = 1.f);
 
 		void SetWidth(UINT width) { mWidth = width; }
 		void SetHeight(UINT height) { mHeight = height; }
-
 		void SetPos(Math::Vector2<int> pos) { mPos = pos; }
 
 	private:

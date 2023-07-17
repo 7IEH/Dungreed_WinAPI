@@ -3,8 +3,8 @@
 #include "EHComponent.h"
 #include "EHGameObject.h"
 #include "EHTransform.h"
-#include "EHTexture.h"
 #include "EHPath.h"
+#include "EHTexture.h"
 
 namespace EH
 {
