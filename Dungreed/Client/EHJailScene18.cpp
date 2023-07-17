@@ -1,4 +1,4 @@
-#include "EHJailScene.h"
+#include "EHJailScene18.h"
 #include "EHSceneManager.h"
 #include "EHBackGround.h"
 #include "EHResources.h"
@@ -7,15 +7,15 @@
 
 namespace EH
 {
-	JailScene::JailScene()
+	JailScene18::JailScene18()
 	{
 	}
 
-	JailScene::~JailScene()
+	JailScene18::~JailScene18()
 	{
 	}
 
-	void JailScene::Initialize()
+	void JailScene18::Initialize()
 	{
 		// HP
 		BackGround* HPBack = object::Instantiate<BackGround>(enums::eLayerType::UI);
@@ -134,7 +134,7 @@ namespace EH
 		//player->GetComponent<SpriteRenderer>()->SetImg(temp);
 	}
 
-	void JailScene::Update()
+	void JailScene18::Update()
 	{
 		if (Input::Getkey(eKeyCode::Z).state == eKeyState::DOWN)
 		{
@@ -143,7 +143,7 @@ namespace EH
 		Scene::Update();
 	}
 
-	void JailScene::Render(HDC hdc)
+	void JailScene18::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
 		TextOut(hdc, 10, 10, L"JailScene", 10);

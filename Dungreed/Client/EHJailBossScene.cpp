@@ -211,7 +211,7 @@ namespace EH
 	{
 		if (Input::Getkey(eKeyCode::Z).state == eKeyState::DOWN)
 		{
-			SceneManager::LoadScene(L"TitleScene");
+			SceneManager::LoadScene(L"JailScene1");
 		}
 		Scene::Update();
 	}

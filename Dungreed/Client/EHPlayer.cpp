@@ -62,14 +62,6 @@ namespace EH
 			}
 			else if (!mIsRight && pos - initPos == Math::Vector2<float>(0.f, 0.f))
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftIdle", true);
-			if (Input::Getkey(eKeyCode::W).state == eKeyState::PRESSED)
-			{
-				if(mIsRight)
-					GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", true);
-				else
-					GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", true);
-				pos.y -= 300.f * Time::GetDeltaTime();
-			}
 			if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
@@ -83,6 +75,15 @@ namespace EH
 			}
 			else if (mIsRight && pos - initPos == Math::Vector2<float>(0.f,0.f))
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightIdle", true);
+
+			if (Input::Getkey(eKeyCode::W).state == eKeyState::PRESSED)
+			{
+				if (mIsRight)
+					GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", true);
+				else
+					GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", true);
+				pos.y -= 300.f * Time::GetDeltaTime();
+			}
 			
 
 			if (Input::Getkey(eKeyCode::P).state == eKeyState::DOWN)

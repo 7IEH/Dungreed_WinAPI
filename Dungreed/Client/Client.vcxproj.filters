@@ -112,6 +112,24 @@
     <Filter Include="Engine\Resource\Animation">
       <UniqueIdentifier>{c8c458a9-a6c0-42dc-9030-182f4a26eeb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField">
+      <UniqueIdentifier>{b0a3a7bf-ce5e-4707-862c-9d461b0f8f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField1">
+      <UniqueIdentifier>{28b062ce-1ad2-4d65-83b4-acbf7ea279b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField2">
+      <UniqueIdentifier>{9f51d4ee-5965-49ba-8344-5fd729631d02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField3">
+      <UniqueIdentifier>{edcd0cf1-1152-4677-a695-ba285c267dd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField4">
+      <UniqueIdentifier>{7e192282-4f74-4f4b-8b4e-125e9fb36886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField18">
+      <UniqueIdentifier>{418cdbfc-9227-4b90-95a3-dbdddb9ed415}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -201,9 +219,6 @@
     <ClInclude Include="EHNpc.h">
       <Filter>Contents\GameObject\Npc</Filter>
     </ClInclude>
-    <ClInclude Include="EHJailScene.h">
-      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene</Filter>
-    </ClInclude>
     <ClInclude Include="EHJailPrevBossScene.h">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailPrevBossScene</Filter>
     </ClInclude>
@@ -218,6 +233,21 @@
     </ClInclude>
     <ClInclude Include="EHAnimation.h">
       <Filter>Engine\Resource\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailScene18.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField18</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailScene1.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField1</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailScene2.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField2</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailScene3.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField3</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailScene4.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField4</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -297,9 +327,6 @@
     <ClCompile Include="EHNpc.cpp">
       <Filter>Contents\GameObject\Npc</Filter>
     </ClCompile>
-    <ClCompile Include="EHJailScene.cpp">
-      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene</Filter>
-    </ClCompile>
     <ClCompile Include="EHJailPrevBossScene.cpp">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailPrevBossScene</Filter>
     </ClCompile>
@@ -317,6 +344,21 @@
     </ClCompile>
     <ClCompile Include="EHMath.cpp">
       <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailScene18.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField18</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailScene1.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField1</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailScene2.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField2</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailScene3.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField3</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailScene4.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

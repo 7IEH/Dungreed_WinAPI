@@ -139,7 +139,11 @@
     <ClInclude Include="EHEntity.h" />
     <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHJailBossScene.h" />
-    <ClInclude Include="EHJailScene.h" />
+    <ClInclude Include="EHJailScene1.h" />
+    <ClInclude Include="EHJailScene18.h" />
+    <ClInclude Include="EHJailScene2.h" />
+    <ClInclude Include="EHJailScene3.h" />
+    <ClInclude Include="EHJailScene4.h" />
     <ClInclude Include="EHNpc.h" />
     <ClInclude Include="EHTexture.h" />
     <ClInclude Include="EHInput.h" />
@@ -175,7 +179,11 @@
     <ClCompile Include="EHEntity.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHJailBossScene.cpp" />
-    <ClCompile Include="EHJailScene.cpp" />
+    <ClCompile Include="EHJailScene1.cpp" />
+    <ClCompile Include="EHJailScene18.cpp" />
+    <ClCompile Include="EHJailScene2.cpp" />
+    <ClCompile Include="EHJailScene3.cpp" />
+    <ClCompile Include="EHJailScene4.cpp" />
     <ClCompile Include="EHMath.cpp" />
     <ClCompile Include="EHNpc.cpp" />
     <ClCompile Include="EHTexture.cpp" />

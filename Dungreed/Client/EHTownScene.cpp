@@ -28,7 +28,7 @@ namespace EH
         BackGround* Sky = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         Sky->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f,360.f));
         Sky->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 720.f));
-        temp = Resources::Load<Texture>(L"Sky", L"..\\Resources\\TownScene\\Sky_Day.png");
+        temp = Resources::Load<Texture>(L"Sky", L"..\\Resources\\TownScene\\Sky_Day.bmp");
         Sky->GetComponent<SpriteRenderer>()->SetImg(temp);
         Sky->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
@@ -36,26 +36,26 @@ namespace EH
         BackGround* Back = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         Back->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3770.f, 720.f));
         Back->GetComponent<Transform>()->SetScale(Math::Vector2<float>(7540.f, 1440.f));
-        temp = Resources::Load<Texture>(L"TownBG", L"..\\Resources\\TownScene\\TownBG.png");
+        temp = Resources::Load<Texture>(L"TownBG", L"..\\Resources\\TownScene\\TownBG.bmp");
         Back->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         // Tree
         BackGround* Tree = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         Tree->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3770.f, 720.f));
         Tree->GetComponent<Transform>()->SetScale(Math::Vector2<float>(7540.f, 1440.f));
-        temp = Resources::Load<Texture>(L"TownLayer", L"..\\Resources\\TownScene\\TownLayer.png");
+        temp = Resources::Load<Texture>(L"TownLayer", L"..\\Resources\\TownScene\\TownLayer.bmp");
         Tree->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         BackGround* Tree1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         Tree1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2162.f, 1146.f));
         Tree1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(268.f, 308.f));
-        temp = Resources::Load<Texture>(L"Tree1", L"..\\Resources\\TownScene\\Tree1.png");
+        temp = Resources::Load<Texture>(L"Tree1", L"..\\Resources\\TownScene\\Tree1.bmp");
         Tree1->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         BackGround* TownBackGround = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         TownBackGround->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3770.f, 720.f));
         TownBackGround->GetComponent<Transform>()->SetScale(Math::Vector2<float>(7540.f, 1440.f));
-        temp = Resources::Load<Texture>(L"TownBackGround", L"..\\Resources\\TownScene\\TownBackGround.png");
+        temp = Resources::Load<Texture>(L"TownBackGround", L"..\\Resources\\TownScene\\TownBackGround.bmp");
         TownBackGround->GetComponent<SpriteRenderer>()->SetImg(temp);
         TownBackGround->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
 
@@ -122,13 +122,13 @@ namespace EH
         BackGround* TrainingSchool = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         TrainingSchool->GetComponent<Transform>()->SetPos(Math::Vector2<float>(632.f, 1146.f));
         TrainingSchool->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1080.f, 308.f));
-        temp = Resources::Load<Texture>(L"TrainingSchool", L"..\\Resources\\TownScene\\TrainingSchool.png");
+        temp = Resources::Load<Texture>(L"TrainingSchool", L"..\\Resources\\TownScene\\TrainingSchool.bmp");
         TrainingSchool->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         BackGround* StreetLight1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         StreetLight1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(64.f, 1180.f));
         StreetLight1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(120.f, 240.f));
-        temp = Resources::Load<Texture>(L"StreetLight1", L"..\\Resources\\TownScene\\StreetLight.png");
+        temp = Resources::Load<Texture>(L"StreetLight1", L"..\\Resources\\TownScene\\StreetLight.bmp");
         temp->SetWidth(30);
         temp->SetHeight(60);
         StreetLight1->GetComponent<SpriteRenderer>()->SetImg(temp);
@@ -136,44 +136,44 @@ namespace EH
         BackGround* StreetLight2 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         StreetLight2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1824.f, 1180.f));
         StreetLight2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(120.f, 240.f));
-        temp = Resources::Load<Texture>(L"StreetLight1", L"..\\Resources\\TownScene\\StreetLight.png");
+        temp = Resources::Load<Texture>(L"StreetLight1", L"..\\Resources\\TownScene\\StreetLight.bmp");
         StreetLight2->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         BackGround* Well1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         Well1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5758.f, 1202.f));
         Well1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(196.f, 196.f));
-        temp = Resources::Load<Texture>(L"Well", L"..\\Resources\\TownScene\\Well.png");
+        temp = Resources::Load<Texture>(L"Well", L"..\\Resources\\TownScene\\Well.bmp");
         Well1->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         BackGround* DungeonSign1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         DungeonSign1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3212.f, 1256.f));
         DungeonSign1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
-        temp = Resources::Load<Texture>(L"DungeonSign", L"..\\Resources\\TownScene\\DungeonSign.png");
+        temp = Resources::Load<Texture>(L"DungeonSign", L"..\\Resources\\TownScene\\DungeonSign.bmp");
         DungeonSign1->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         BackGround* DungeonSign2 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         DungeonSign2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(4392.f, 1256.f));
         DungeonSign2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
-        temp = Resources::Load<Texture>(L"DungeonSignReverse", L"..\\Resources\\TownScene\\DungeonSignReverse.png");
+        temp = Resources::Load<Texture>(L"DungeonSignReverse", L"..\\Resources\\TownScene\\DungeonSignReverse.bmp");
         DungeonSign2->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         BackGround* Tree2 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         Tree2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5094.f, 1084.f));
         Tree2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(268.f, 308.f));
-        temp = Resources::Load<Texture>(L"Tree1", L"..\\Resources\\TownScene\\Tree1.png");
+        temp = Resources::Load<Texture>(L"Tree1", L"..\\Resources\\TownScene\\Tree1.bmp");
         Tree2->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         BackGround* Tree3 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         Tree3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5626.f, 1178.f));
         Tree3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(204.f, 244.f));
-        temp = Resources::Load<Texture>(L"Tree2", L"..\\Resources\\TownScene\\Tree0.png");
+        temp = Resources::Load<Texture>(L"Tree2", L"..\\Resources\\TownScene\\Tree0.bmp");
         Tree3->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         // °íÃÄ¾ßµÊ
         BackGround* Tree4 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         Tree4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(7086.f, 1206.f));
         Tree4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(204.f, 244.f));
-        temp = Resources::Load<Texture>(L"Tree2", L"..\\Resources\\TownScene\\Tree0.png");
+        temp = Resources::Load<Texture>(L"Tree2", L"..\\Resources\\TownScene\\Tree0.bmp");
         Tree4->GetComponent<SpriteRenderer>()->SetImg(temp);
 
         /*BackGround* OneWay1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
@@ -206,7 +206,7 @@ namespace EH
     {
         if (Input::Getkey(eKeyCode::Z).state == eKeyState::DOWN)
         {
-            SceneManager::LoadScene(L"JailScene");
+            SceneManager::LoadScene(L"JailScene18");
         }
         Scene::Update();
     }

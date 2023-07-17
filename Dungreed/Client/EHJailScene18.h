@@ -3,11 +3,11 @@
 
 namespace EH
 {
-	class JailScene : public Scene
+	class JailScene18 : public Scene
 	{
 	public:
-		JailScene();
-		virtual ~JailScene();
+		JailScene18();
+		virtual ~JailScene18();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
