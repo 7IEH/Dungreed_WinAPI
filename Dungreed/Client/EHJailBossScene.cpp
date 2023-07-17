@@ -80,7 +80,7 @@ namespace EH
 		BackGround* JailBossBackGround = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		JailBossBackGround->GetComponent<Transform>()->SetPos(Math::Vector2<float>(720.f, 660.f));
 		JailBossBackGround->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1440.f, 1320.f));
-		temp = Resources::Load<Texture>(L"JailBossBackGround", L"..\\Resources\\Dungeon\\Belial\\Boss.png");
+		temp = Resources::Load<Texture>(L"JailBossBackGround", L"..\\Resources\\Dungeon\\Belial\\Boss.bmp");
 		JailBossBackGround->GetComponent<SpriteRenderer>()->SetImg(temp);
 		//JailBossBackGround->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 

@@ -60,6 +60,8 @@ namespace EH
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 				pos.x -= 300.f * Time::GetDeltaTime();
 			}
+			else if (!mIsRight && pos - initPos == Math::Vector2<float>(0.f, 0.f))
+				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftIdle", true);
 			if (Input::Getkey(eKeyCode::W).state == eKeyState::PRESSED)
 			{
 				if(mIsRight)
@@ -79,11 +81,9 @@ namespace EH
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
 				pos.x += 300.f * Time::GetDeltaTime();
 			}
-
-			if (mIsRight && pos-initPos == Math::Vector2<float>(0.f,0.f))
+			else if (mIsRight && pos - initPos == Math::Vector2<float>(0.f,0.f))
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightIdle", true);
-			else if (!mIsRight && pos - initPos == Math::Vector2<float>(0.f, 0.f))
-				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftIdle", true);
+			
 
 			if (Input::Getkey(eKeyCode::P).state == eKeyState::DOWN)
 			{

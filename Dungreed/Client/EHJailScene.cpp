@@ -79,7 +79,7 @@ namespace EH
 		BackGround* JailBossPrevBackGround = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		JailBossPrevBackGround->GetComponent<Transform>()->SetPos(Math::Vector2<float>(760.f, 416.f));
 		JailBossPrevBackGround->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1520.f, 832.f));
-		temp = Resources::Load<Texture>(L"Jailprevprev", L"..\\Resources\\Dungeon\\Belial\\Bossprevprev.png");
+		temp = Resources::Load<Texture>(L"Jailprevprev", L"..\\Resources\\Dungeon\\Belial\\Bossprevprev.bmp");
 		JailBossPrevBackGround->GetComponent<SpriteRenderer>()->SetImg(temp);
 
 		BackGround* Candle1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
