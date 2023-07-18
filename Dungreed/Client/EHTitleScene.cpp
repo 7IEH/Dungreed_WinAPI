@@ -6,6 +6,7 @@
 #include "EHResources.h"
 #include "EHPath.h"
 #include "EHSound.h"
+#include "EHCamera.h"
 
 namespace EH
 {
@@ -21,8 +22,8 @@ namespace EH
 	void TitleScene::Initialize()
 	{
 		// Sound
-		Sound* BGM = Resources::Load<Sound>(L"BGM", L"..\\Resources\\Sound\\title.wav");
-		BGM->Play();
+		// Sound* BGM = Resources::Load<Sound>(L"BGM", L"..\\Resources\\Sound\\title.wav");
+		// BGM->Play();
 
 		Texture* temp = nullptr;
 		// BackCloud
@@ -78,6 +79,7 @@ namespace EH
 	{
 		if (Input::Getkey(EH::eKeyCode::Z).state == eKeyState::DOWN)
 		{
+			Camera::SetLookAt(Math::Vector2<float>(640.f, 360.f));
 			SceneManager::LoadScene(L"SelectScene");
 		}
 		Scene::Update();

@@ -12,6 +12,8 @@ namespace EH
 
 		static void SetTarget(GameObject* target) { mTarget = target; }
 		static Math::Vector2<float> CaculatePos(Math::Vector2<float> pos) { return pos - mDiffDistance; }
+		static void SetLookAt(Math::Vector2<float> lookat) { mLookAt = lookat; }
+
 
 	private:
 		static Math::Vector2<float> mResolution;

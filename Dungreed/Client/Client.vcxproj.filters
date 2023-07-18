@@ -130,6 +130,18 @@
     <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField18">
       <UniqueIdentifier>{418cdbfc-9227-4b90-95a3-dbdddb9ed415}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField5">
+      <UniqueIdentifier>{55ff80fa-fa95-4e8e-8521-63630b4ad888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField6">
+      <UniqueIdentifier>{834d2ab3-cf7e-4567-af29-5ac4ce48a210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField7">
+      <UniqueIdentifier>{3e355429-bd41-4e2b-a075-df47c2b30cfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField8">
+      <UniqueIdentifier>{7cf6e9d2-e76c-4a8c-8320-843d6ab3ded5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -249,6 +261,18 @@
     <ClInclude Include="EHJailScene4.h">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField4</Filter>
     </ClInclude>
+    <ClInclude Include="EHJailField5.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField5</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailField6.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField6</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailField7.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField7</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailField8.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField8</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -359,6 +383,18 @@
     </ClCompile>
     <ClCompile Include="EHJailScene4.cpp">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField4</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailField5.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField5</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailField6.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField6</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailField7.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField7</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailField8.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField8</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

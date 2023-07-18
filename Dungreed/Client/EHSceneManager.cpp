@@ -9,6 +9,10 @@
 #include "EHJailScene2.h"
 #include "EHJailScene3.h"
 #include "EHJailScene4.h"
+#include "EHJailField5.h"
+#include "EHJailField6.h"
+#include "EHJailField7.h"
+#include "EHJailField8.h"
 
 namespace EH
 {
@@ -28,6 +32,10 @@ namespace EH
 		CreateScene<JailScene2>(L"JailScene2");
 		CreateScene<JailScene3>(L"JailScene3");
 		CreateScene<JailScene4>(L"JailScene4");
+		CreateScene<JailField5>(L"JailScene5");
+		CreateScene<JailField6>(L"JailScene6");
+		CreateScene<JailField7>(L"JailScene7");
+		CreateScene<JailField8>(L"JailScene8");
 
 		LoadScene(L"TitleScene");
 	}
