@@ -8,6 +8,7 @@ namespace EH
 {
 	void JailScene1::Initialize()
 	{
+		SetSize(Math::Vector2<float>(1280.f, 720.f));
 		BackGround* JailBG1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		JailBG1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f, 360.f));
 		JailBG1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 720.f));

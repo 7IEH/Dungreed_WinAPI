@@ -17,6 +17,7 @@ namespace EH
 
     void SelectScene::Initialize()
     {
+		SetSize(Math::Vector2<float>(1280.f, 720.f));
 		Texture* temp = nullptr;
 		// Back
 		BackGround* Back = object::Instantiate<BackGround>(enums::eLayerType::UI);

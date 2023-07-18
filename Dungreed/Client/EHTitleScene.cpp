@@ -24,6 +24,7 @@ namespace EH
 		// Sound
 		// Sound* BGM = Resources::Load<Sound>(L"BGM", L"..\\Resources\\Sound\\title.wav");
 		// BGM->Play();
+		SetSize(Math::Vector2<float>(1280.f, 720.f));
 
 		Texture* temp = nullptr;
 		// BackCloud

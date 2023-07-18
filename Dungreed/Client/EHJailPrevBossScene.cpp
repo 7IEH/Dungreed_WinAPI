@@ -19,6 +19,7 @@ namespace EH
 
 	void JailPrevBossScene::Initialize()
 	{
+		SetSize(Math::Vector2<float>(1400.f, 720.f));
 		// HP
 		BackGround* HPBack = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		HPBack->GetComponent<Transform>()->SetPos(Math::Vector2<float>(157.f, 42.f));

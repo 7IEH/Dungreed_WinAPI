@@ -15,6 +15,9 @@ namespace EH
 		virtual void Update();
 		virtual void Render(HDC hdc);
 
+		Math::Vector2<float> GetSize() { return mSceneSize; }
+		void SetSize(Math::Vector2<float> scenesize) { mSceneSize = scenesize; }
+
 		void SetLayer(enums::eLayerType type, GameObject* obj)
 		{
 			mLayers[(UINT)type].SetObject(obj);
@@ -22,5 +25,6 @@ namespace EH
 
 	private:
 		std::vector<Layer> mLayers;
+		Math::Vector2<float> mSceneSize;
 	};
 }

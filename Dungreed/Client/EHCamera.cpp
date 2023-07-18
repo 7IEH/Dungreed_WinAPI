@@ -1,5 +1,6 @@
 #include "EHCamera.h"
 #include "EHApplication.h"
+#include "EHSceneManager.h"
 
 extern EH::Application application;
 
@@ -38,6 +39,28 @@ namespace EH
 		{
 			mLookAt.x += 300.f * Time::GetDeltaTime();
 		}
+
+
+		if (mLookAt.x < 640.f)
+		{
+			mLookAt.x = 640.f;
+		}
+		
+		if (mLookAt.y < 360.f)
+		{
+			mLookAt.y = 360.f;
+		}
+
+		if (mLookAt.x > SceneManager::GetCurScene()->GetSize().x - 640.f)	
+		{
+			mLookAt.x = SceneManager::GetCurScene()->GetSize().x - 640.f;
+		}
+
+		if (mLookAt.y > SceneManager::GetCurScene()->GetSize().y - 360.f)
+		{
+			mLookAt.y = SceneManager::GetCurScene()->GetSize().y - 360.f;
+		}
+		
 
 		if (mTarget)
 		{

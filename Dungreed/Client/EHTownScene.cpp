@@ -23,6 +23,8 @@ namespace EH
     {
         //Sound* pSound = Resources::Load<Sound>(L"TownBGM", L"..\\Resources\\Sound\\0.Town.wav");
         //pSound->Play();
+
+        SetSize(Math::Vector2<float>(7540.f, 1440.f));
         Texture* temp = nullptr;
         // sky
         BackGround* Sky = object::Instantiate<BackGround>(enums::eLayerType::BackGround);

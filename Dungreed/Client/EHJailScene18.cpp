@@ -18,6 +18,7 @@ namespace EH
 
 	void JailScene18::Initialize()
 	{
+		SetSize(Math::Vector2<float>(1520.f, 832.f));
 		// HP
 		BackGround* HPBack = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		HPBack->GetComponent<Transform>()->SetPos(Math::Vector2<float>(157.f, 42.f));
