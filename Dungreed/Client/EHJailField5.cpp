@@ -31,5 +31,6 @@ namespace EH
 	void JailField5::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
+		TextOut(hdc, 10, 10, L"JailScene5", 10);
 	}
 }
