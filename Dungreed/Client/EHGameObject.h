@@ -5,6 +5,7 @@
 #include "EHTransform.h"
 #include "EHSpriteRenderer.h"
 #include "EHAnimator.h"
+#include "EHCollider.h"
 
 namespace EH
 {

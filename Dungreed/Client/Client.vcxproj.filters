@@ -142,6 +142,12 @@
     <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField8">
       <UniqueIdentifier>{7cf6e9d2-e76c-4a8c-8320-843d6ab3ded5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Component\Collider">
+      <UniqueIdentifier>{f50f198d-1af4-4bbd-b81c-e2027f7f7846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\CollisionMgr">
+      <UniqueIdentifier>{3b0d25d9-8d14-43a5-b5f0-e80485c7f49b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -273,6 +279,12 @@
     <ClInclude Include="EHJailField8.h">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField8</Filter>
     </ClInclude>
+    <ClInclude Include="EHCollider.h">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="EHCollisionManager.h">
+      <Filter>Engine\CollisionMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -395,6 +407,12 @@
     </ClCompile>
     <ClCompile Include="EHJailField8.cpp">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField8</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCollider.cpp">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCollisionManager.cpp">
+      <Filter>Engine\CollisionMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

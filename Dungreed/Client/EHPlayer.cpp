@@ -3,6 +3,7 @@
 #include "EHTime.h"
 #include "EHObject.h"
 #include "EHResources.h"
+#include "EHCollider.h"
 
 namespace EH
 {
@@ -15,8 +16,11 @@ namespace EH
 		, mLevel(1)
 		, mIsRight(true)
 		, mIsDead(false)
+		, mCurState(eAnimationState::Idle)
 	{
 		AddComponent<SpriteRenderer>();
+		Collider* collider = AddComponent<Collider>();
+		collider->SetScale(Math::Vector2<float>(128.f, 128.f));
 		Texture* temp = Resources::Load<Texture>(L"HPRed", L"..\\Resources\\UI\\PlayerLife.png");
 		mHp = EH::object::Instantiate<BackGround>(enums::eLayerType::UI);
 		mHp->GetComponent<Transform>()->SetPos(Math::Vector2<float>(195.f, 42.f));
@@ -38,90 +42,39 @@ namespace EH
 	void Player::Update()
 	{
 		GameObject::Update();
-		Transform* tr = GetComponent<Transform>();
-		Math::Vector2<float> pos = tr->Getpos();
-		Math::Vector2<float> initPos = pos;
 		GetComponent<Animator>()->SetAffectedCamera(false);
-		
-		if (mCurHp <= 0)
+
+		switch (mCurState)
 		{
-			mIsDead = true;
+		case EH::eAnimationState::Idle:
+			Idle();
+			break;
+		case EH::eAnimationState::Move:
+			Move();
+			break;
+		case EH::eAnimationState::Jump:
+			Jump();
+			break;
+		case eAnimationState::Attack:
+			Attack();
+			break;
+		case EH::eAnimationState::Die:
+			Die();
+			break;
+		default:
+			break;
 		}
-		else
+
+		if (Input::Getkey(eKeyCode::P).state == eKeyState::DOWN)
 		{
-			mIsDead = false;
+			mCurHp -= 5;
+			mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f * ((float)mCurHp / (float)mMaxHP), 36.f));
 		}
-
-		if (!mIsDead)
+		if (Input::Getkey(eKeyCode::O).state == eKeyState::DOWN)
 		{
-			if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
-			{
-				mIsRight = false;
-				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
-				pos.x -= 300.f * Time::GetDeltaTime();
-			}
-			else if (!mIsRight && pos - initPos == Math::Vector2<float>(0.f, 0.f))
-				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftIdle", true);
-			if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
-			{
-				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
-				pos.y += 300.f * Time::GetDeltaTime();
-			}
-			if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
-			{
-				mIsRight = true;
-				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
-				pos.x += 300.f * Time::GetDeltaTime();
-			}
-			else if (mIsRight && pos - initPos == Math::Vector2<float>(0.f,0.f))
-				GetComponent<Animator>()->PlayAnimation(L"PlayerRightIdle", true);
-
-			if (Input::Getkey(eKeyCode::W).state == eKeyState::PRESSED)
-			{
-				if (mIsRight)
-					GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", true);
-				else
-					GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", true);
-				pos.y -= 300.f * Time::GetDeltaTime();
-			}
-			
-
-			if (Input::Getkey(eKeyCode::P).state == eKeyState::DOWN)
-			{
-				mCurHp -= 5;
-				mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f * ((float)mCurHp / (float)mMaxHP), 36.f));
-			}
-
-			if (Input::Getkey(eKeyCode::O).state == eKeyState::DOWN)
-			{
-				mCurHp += 5;
-				mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f * ((float)mCurHp / (float)mMaxHP), 36.f));
-			}
+			mCurHp += 5;
+			mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f * ((float)mCurHp / (float)mMaxHP), 36.f));
 		}
-		else
-		{
-			if (mIsRight)
-			{
-				GetComponent<Animator>()->PlayAnimation(L"PlayerRightDie", true);
-			}
-			else
-			{
-				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftDie", true);
-			}
-
-			if (Input::Getkey(eKeyCode::P).state == eKeyState::DOWN)
-			{
-				mCurHp -= 5;
-				mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f * ((float)mCurHp / (float)mMaxHP), 36.f));
-			}
-
-			if (Input::Getkey(eKeyCode::O).state == eKeyState::DOWN)
-			{
-				mCurHp += 5;
-				mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f * ((float)mCurHp / (float)mMaxHP), 36.f));
-			}
-		}
-		tr->SetPos(pos);
 	}
 
 	void Player::Render(HDC hdc)
@@ -135,4 +88,96 @@ namespace EH
 		TextOut(hdc, 200, 30, hp, strlen);
 	}
 
+	void Player::Idle()
+	{
+		if(mIsRight)
+			GetComponent<Animator>()->PlayAnimation(L"PlayerRightIdle",true);
+		else
+			GetComponent<Animator>()->PlayAnimation(L"PlayerLeftIdle",true);
+
+		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
+		{
+			mCurState = eAnimationState::Move;
+			GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
+			mIsRight = false;
+		}
+		if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
+		{
+			//mCurState = eAnimationState::Move;
+		}
+		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
+		{
+			mCurState = eAnimationState::Move;
+			GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
+			mIsRight = true;
+		}
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN)
+		{
+			mCurState = eAnimationState::Jump;
+			if (mIsRight)
+				GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
+			else
+				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump",false);
+		}
+		if(Input::Getkey(eKeyCode::MouseLeftClick).state==eKeyState::DOWN)
+		{
+			//mCurState = eAnimationState::Attack;
+		}
+		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN)
+		{
+			//mCurState = eAnimationState::Attack;
+		}
+		if (mCurHp <= 0.f)
+		{
+			if (mIsRight)
+				GetComponent<Animator>()->PlayAnimation(L"PlayerRightDie", false);
+			else
+				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftDie", false);
+		}
+	}
+
+	void Player::Move()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Math::Vector2<float> pos = tr->Getpos();
+		if (Input::Getkey(eKeyCode::A).state == eKeyState::UP
+			|| Input::Getkey(eKeyCode::D).state == eKeyState::UP)
+		{
+			mCurState = eAnimationState::Idle;
+		}
+		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
+		{
+			pos -= 300.f * Time::GetDeltaTime();
+		}
+		if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
+		{
+			//
+		}
+		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
+		{
+			pos += 300.f * Time::GetDeltaTime();
+		}
+		tr->SetPos(pos);
+	}
+
+	void Player::Jump()
+	{
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::UP)
+		{
+			mCurState = eAnimationState::Idle;
+		}
+	}
+
+	void Player::Die()
+	{
+		if (mCurHp > 0.f)
+		{
+			mCurState = eAnimationState::Idle;
+		}
+	}
+
+	void Player::Attack()
+	{
+
+	}
 }

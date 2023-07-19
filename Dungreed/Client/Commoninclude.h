@@ -7,6 +7,7 @@
 #include <string>
 #include "framework.h"
 #include <mmsystem.h>
+#include <bitset>
 
 #define MAX 100
 
@@ -43,6 +44,7 @@ namespace EH::enums
 		Transform,
 		SpriteRenderer,
 		Animator,
+		Collider,
 		End,
 	};
 }
