@@ -23,6 +23,8 @@ namespace EH
 			mLayers[(UINT)type].SetObject(obj);
 		}
 
+		Layer& GetLayer(enums::eLayerType type) { return mLayers[(UINT)type]; }
+
 	private:
 		std::vector<Layer> mLayers;
 		Math::Vector2<float> mSceneSize;

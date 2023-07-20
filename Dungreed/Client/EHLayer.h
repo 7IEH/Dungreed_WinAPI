@@ -20,6 +20,8 @@ namespace EH
 			mGameObjects.push_back(obj);
 		}
 
+		std::vector<GameObject*>& GetObjects() { return mGameObjects; }
+
 	private:
 		std::vector<GameObject*> mGameObjects;
 	};

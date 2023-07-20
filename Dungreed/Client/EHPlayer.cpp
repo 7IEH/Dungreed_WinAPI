@@ -19,8 +19,6 @@ namespace EH
 		, mCurState(eAnimationState::Idle)
 	{
 		AddComponent<SpriteRenderer>();
-		Collider* collider = AddComponent<Collider>();
-		collider->SetScale(Math::Vector2<float>(128.f, 128.f));
 		Texture* temp = Resources::Load<Texture>(L"HPRed", L"..\\Resources\\UI\\PlayerLife.png");
 		mHp = EH::object::Instantiate<BackGround>(enums::eLayerType::UI);
 		mHp->GetComponent<Transform>()->SetPos(Math::Vector2<float>(195.f, 42.f));
@@ -88,6 +86,18 @@ namespace EH
 		TextOut(hdc, 200, 30, hp, strlen);
 	}
 
+	void Player::OnCollisionEnter(Collider* other)
+	{
+	}
+
+	void Player::OnCollisionStay(Collider* other)
+	{
+	}
+
+	void Player::OnCollisionExit(Collider* other)
+	{
+	}
+
 	void Player::Idle()
 	{
 		if(mIsRight)
@@ -147,7 +157,7 @@ namespace EH
 		}
 		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
 		{
-			pos -= 300.f * Time::GetDeltaTime();
+			pos.x -= 300.f * Time::GetDeltaTime();
 		}
 		if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
 		{
@@ -155,17 +165,21 @@ namespace EH
 		}
 		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
 		{
-			pos += 300.f * Time::GetDeltaTime();
+			pos.x += 300.f * Time::GetDeltaTime();
 		}
 		tr->SetPos(pos);
 	}
 
 	void Player::Jump()
 	{
+		Transform* tr = GetComponent<Transform>();
+		Math::Vector2<float> pos = tr->Getpos();
+		pos.y -= 300.f * Time::GetDeltaTime();
 		if (Input::Getkey(eKeyCode::Space).state == eKeyState::UP)
 		{
 			mCurState = eAnimationState::Idle;
 		}
+		tr->SetPos(pos);
 	}
 
 	void Player::Die()

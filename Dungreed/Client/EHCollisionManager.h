@@ -1,5 +1,6 @@
 #pragma once
 #include "Commoninclude.h"
+#include "EHCollider.h"
 
 namespace EH
 {
@@ -19,6 +20,14 @@ namespace EH
 		static void Initialize();
 		static void Update();
 		static void Render(HDC hdc);
+		static void Release();
+
+		static void Clear();
+		static void CollisionLayerCheck(enums::eLayerType left, enums::eLayerType right, bool enable);
+		static void LayerCollision(class Scene* scene, enums::eLayerType left, enums::eLayerType right);
+		static void ColliderCollision(Collider* left, Collider* right);
+		static bool Intersect(Collider* left, Collider* right);
+
 
 	private:
 		static std::map<UINT64, bool> mCollisionMap;

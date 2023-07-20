@@ -1,6 +1,7 @@
 #include "EHApplication.h"
 #include "EHSceneManager.h"
 #include "EHCamera.h"
+#include "EHCollisionManager.h"
 
 namespace EH
 {
@@ -49,6 +50,9 @@ namespace EH
 		// SceneMgr Initialize
 		SceneManager::Initialize();
 
+		// collision Initialize
+		CollisionManager::Initialize();
+
 		mHbit = CreateCompatibleBitmap(mHdc, 1280, 720);
 		mHmemdc = CreateCompatibleDC(mHdc);
 		HBITMAP hOldBit = (HBITMAP)SelectObject(mHmemdc, mHbit);
@@ -68,6 +72,7 @@ namespace EH
 		Input::Update();
 		Camera::Update();
 		SceneManager::Update();
+		CollisionManager::Update();
 	}
 
 	void Application::Render()
@@ -76,6 +81,7 @@ namespace EH
 		Rectangle(mHmemdc, -1, -1, mWinSize.x+1, mWinSize.y+1);
 		SceneManager::Render(mHmemdc);
 		Time::Render(mHmemdc);
+		CollisionManager::Render(mHmemdc);
 		// double buffering
 		// memdc를 통해 그린 bitmap을 메인 핸들로 옮기는 과정
 		BitBlt(mHdc, 0, 0, 1280, 720, mHmemdc, 0, 0, SRCCOPY);

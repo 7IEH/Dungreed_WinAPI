@@ -160,6 +160,18 @@
     <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField12">
       <UniqueIdentifier>{4efc159f-2adb-4122-917c-207e771beb6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Enemy">
+      <UniqueIdentifier>{b8a96e5d-105c-4de6-a854-419e2fe77a81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField">
+      <UniqueIdentifier>{addafbe6-b1a1-4d0d-83ed-8a0c7498c3cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Normal">
+      <UniqueIdentifier>{f39b3a9c-5629-4261-af10-a0ddcf69eab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Boss">
+      <UniqueIdentifier>{e5b74477-4174-4cbd-bd44-8cba51d7a73b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -309,6 +321,9 @@
     <ClInclude Include="EHJailScene12.h">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField12</Filter>
     </ClInclude>
+    <ClInclude Include="EHEnemy.h">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -449,6 +464,9 @@
     </ClCompile>
     <ClCompile Include="EHJailScene12.cpp">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField12</Filter>
+    </ClCompile>
+    <ClCompile Include="EHEnemy.cpp">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

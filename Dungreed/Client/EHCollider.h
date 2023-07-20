@@ -19,7 +19,15 @@ namespace EH
 		Math::Vector2<float> GetScale() { return mScale; }
 		Math::Vector2<float> GetOffset() { return mOffset; }
 
+		virtual void OnCollisionEnter(Collider* other);
+		virtual void OnCollisionStay(Collider* other);
+		virtual void OnCollisionExit(Collider* other);
+
+		void SetAffectedCamera(bool affect) { mbAffectedCamera = affect; }
+
 	private:
+		bool mbisCollision;
+		bool mbAffectedCamera;
 		Math::Vector2<float> mScale;
 		Math::Vector2<float> mOffset;
 	};

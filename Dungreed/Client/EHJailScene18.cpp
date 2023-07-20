@@ -5,6 +5,8 @@
 #include "EHObject.h"
 #include "EHPlayer.h"
 #include "EHCamera.h"
+#include "EHEnemy.h"
+#include "EHCollisionManager.h"
 
 namespace EH
 {
@@ -132,6 +134,25 @@ namespace EH
 
 		temp = Resources::Load<Texture>(L"PlayerLeftJump", L"..\\Resources\\Player\\Basic\\Jump\\CharLeftJump.bmp");
 		animator->CreateAnimation(L"PlayerLeftJump", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		player->AddComponent<Collider>();
+		player->GetComponent<Collider>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		player->GetComponent<Collider>()->SetAffectedCamera(true);
+
+
+
+		Enemy* testenemy = object::Instantiate<Enemy>(enums::eLayerType::Enemy);
+		testenemy->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 400.f));
+		testenemy->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		temp = Resources::Load<Texture>(L"Bat", L"..\\Resources\\Enemy\\JailField\\Bat\\Bat\\Idle\\BatSheet.bmp");
+		testenemy->AddComponent<Animator>();
+		testenemy->GetComponent<Animator>()->CreateAnimation(L"Bat", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		testenemy->GetComponent<Animator>()->PlayAnimation(L"Bat", true);
+		testenemy->GetComponent<Animator>()->SetAffectedCamera(true);
+		testenemy->AddComponent<Collider>();
+		testenemy->GetComponent<Collider>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		testenemy->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Enemy, true);
 
 		//player->GetComponent<SpriteRenderer>()->SetImg(temp);
 	}
