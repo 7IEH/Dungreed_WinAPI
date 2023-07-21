@@ -3,7 +3,6 @@
 #include "EHTime.h"
 #include "EHObject.h"
 #include "EHResources.h"
-#include "EHCollider.h"
 
 namespace EH
 {
@@ -19,6 +18,7 @@ namespace EH
 		, mCurState(eAnimationState::Idle)
 	{
 		AddComponent<SpriteRenderer>();
+		AddComponent<Rigidbody>();
 		Texture* temp = Resources::Load<Texture>(L"HPRed", L"..\\Resources\\UI\\PlayerLife.png");
 		mHp = EH::object::Instantiate<BackGround>(enums::eLayerType::UI);
 		mHp->GetComponent<Transform>()->SetPos(Math::Vector2<float>(195.f, 42.f));
@@ -157,7 +157,8 @@ namespace EH
 		}
 		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
 		{
-			pos.x -= 300.f * Time::GetDeltaTime();
+			//pos.x -= 300.f * Time::GetDeltaTime();
+			GetComponent<Rigidbody>()->AddForce(Math::Vector2<float>(-20.f, 0.f));
 		}
 		if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
 		{
@@ -165,9 +166,10 @@ namespace EH
 		}
 		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
 		{
-			pos.x += 300.f * Time::GetDeltaTime();
+			//pos.x += 300.f * Time::GetDeltaTime();
+			GetComponent<Rigidbody>()->AddForce(Math::Vector2<float>(20.f, 0.f));
 		}
-		tr->SetPos(pos);
+		//tr->SetPos(pos);
 	}
 
 	void Player::Jump()

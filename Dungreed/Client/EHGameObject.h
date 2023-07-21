@@ -6,6 +6,7 @@
 #include "EHSpriteRenderer.h"
 #include "EHAnimator.h"
 #include "EHCollider.h"
+#include "EHRigidbody.h"
 
 namespace EH
 {
