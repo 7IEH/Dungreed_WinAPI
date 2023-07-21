@@ -45,6 +45,7 @@ namespace EH::enums
 		SpriteRenderer,
 		Animator,
 		Collider,
+		Rigidbody,
 		End,
 	};
 }

@@ -20,7 +20,7 @@ namespace EH
 
 	void JailScene18::Initialize()
 	{
-		SetSize(Math::Vector2<float>(1520.f, 832.f));
+		SetSize(Math::Vector2<float>(1536.f, 896.f));
 		// HP
 		BackGround* HPBack = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		HPBack->GetComponent<Transform>()->SetPos(Math::Vector2<float>(157.f, 42.f));
@@ -80,29 +80,18 @@ namespace EH
 		Minimap->GetComponent<Transform>()->SetScale(Math::Vector2<float>(350.f, 85.f));
 		Minimap->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
-		BackGround* JailBossPrevBackGround = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
-		JailBossPrevBackGround->GetComponent<Transform>()->SetPos(Math::Vector2<float>(760.f, 416.f));
-		JailBossPrevBackGround->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1520.f, 832.f));
-		temp = Resources::Load<Texture>(L"Jailprevprev", L"..\\Resources\\Dungeon\\Belial\\Bossprevprev.bmp");
-		JailBossPrevBackGround->GetComponent<SpriteRenderer>()->SetImg(temp);
+		BackGround* JailSubBG18 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		JailSubBG18->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f, 360.f));
+		JailSubBG18->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 720.f));
+		Texture* texture = Resources::Load<Texture>(L"JailSubBG", L"..\\Resources\\Dungeon\\JailBackGround\\4\\SubBG.bmp");
+		JailSubBG18->GetComponent<SpriteRenderer>()->SetImg(texture);
+		JailSubBG18->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
-		BackGround* Candle1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
-		Candle1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(376.f, 670.f));
-		Candle1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(48.f, 68.f));
-		temp = Resources::Load<Texture>(L"Candle1", L"..\\Resources\\Dungeon\\Belial\\CandleOn20.png");
-		Candle1->GetComponent<SpriteRenderer>()->SetImg(temp);
-
-		BackGround* Door1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
-		Door1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(810.f, 574.f));
-		Door1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(228.f, 260.f));
-		temp = Resources::Load<Texture>(L"Door1", L"..\\Resources\\Dungeon\\Belial\\Door0.png");
-		Door1->GetComponent<SpriteRenderer>()->SetImg(temp);
-
-		BackGround* SavePoint1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
-		SavePoint1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1142.f, 670.f));
-		SavePoint1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(92.f, 68.f));
-		temp = Resources::Load<Texture>(L"SavePoint1", L"..\\Resources\\Dungeon\\Belial\\SavePoint_Off.png");
-		SavePoint1->GetComponent<SpriteRenderer>()->SetImg(temp);
+		BackGround* JailBG18 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		JailBG18->GetComponent<Transform>()->SetPos(Math::Vector2<float>(768.f, 448.f));
+		JailBG18->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1536.f, 896.f));
+		temp = Resources::Load<Texture>(L"JailBG18", L"..\\Resources\\Dungeon\\JailBackGround\\18\\JailField18.bmp");
+		JailBG18->GetComponent<SpriteRenderer>()->SetImg(temp);
 
 		// Player
 		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
@@ -138,8 +127,6 @@ namespace EH
 		player->GetComponent<Collider>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 		player->GetComponent<Collider>()->SetAffectedCamera(true);
 
-
-
 		Enemy* testenemy = object::Instantiate<Enemy>(enums::eLayerType::Enemy);
 		testenemy->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 400.f));
 		testenemy->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
@@ -151,6 +138,18 @@ namespace EH
 		testenemy->AddComponent<Collider>();
 		testenemy->GetComponent<Collider>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 		testenemy->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		Enemy* testenemy2 = object::Instantiate<Enemy>(enums::eLayerType::Enemy);
+		testenemy2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(800.f, 400.f));
+		testenemy2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		temp = Resources::Load<Texture>(L"Bat", L"..\\Resources\\Enemy\\JailField\\Bat\\Bat\\Idle\\BatSheet.bmp");
+		testenemy2->AddComponent<Animator>();
+		testenemy2->GetComponent<Animator>()->CreateAnimation(L"Bat", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		testenemy2->GetComponent<Animator>()->PlayAnimation(L"Bat", true);
+		testenemy2->GetComponent<Animator>()->SetAffectedCamera(true);
+		testenemy2->AddComponent<Collider>();
+		testenemy2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		testenemy2->GetComponent<Collider>()->SetAffectedCamera(true);
 
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Enemy, true);
 
@@ -170,7 +169,7 @@ namespace EH
 	void JailScene18::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
-		TextOut(hdc, 10, 10, L"JailScene", 10);
+		TextOut(hdc, 10, 10, L"JailScene18", 11);
 	}
 
 }

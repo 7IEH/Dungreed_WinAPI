@@ -21,6 +21,7 @@
 #include "EHJailScene14.h"
 #include "EHJailScene15.h"
 #include "EHJailScene16.h"
+#include "EHJailScene17.h"
 
 namespace EH
 {
@@ -52,6 +53,7 @@ namespace EH
 		CreateScene<JailScene14>(L"JailScene14");
 		CreateScene<JailScene15>(L"JailScene15");
 		CreateScene<JailScene16>(L"JailScene16");
+		CreateScene<JailScene17>(L"JailScene17");
 
 		LoadScene(L"TitleScene");
 	}

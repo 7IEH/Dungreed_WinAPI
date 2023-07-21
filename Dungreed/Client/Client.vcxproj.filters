@@ -73,15 +73,6 @@
     <Filter Include="Contents\GameObject\Player">
       <UniqueIdentifier>{65243745-a050-46d3-b053-7f8a353a5ddb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Resource">
-      <UniqueIdentifier>{b0eaeb8f-81c3-4396-8226-2781fea3a463}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Resource\Image">
-      <UniqueIdentifier>{c84e1d63-cbe5-4433-9c59-0b6900f5574e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Resource\Sound">
-      <UniqueIdentifier>{f1e22723-569f-4a11-b204-50646fe11600}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObject\BackGround">
       <UniqueIdentifier>{a2b23ba5-7e46-45fa-b8ed-b07601611866}</UniqueIdentifier>
     </Filter>
@@ -108,9 +99,6 @@
     </Filter>
     <Filter Include="Engine\Component\Animator">
       <UniqueIdentifier>{4e086541-74f0-4fa0-a0b8-47a69c2a3b3f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Resource\Animation">
-      <UniqueIdentifier>{c8c458a9-a6c0-42dc-9030-182f4a26eeb0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField">
       <UniqueIdentifier>{b0a3a7bf-ce5e-4707-862c-9d461b0f8f57}</UniqueIdentifier>
@@ -184,6 +172,24 @@
     <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField16">
       <UniqueIdentifier>{b3da274e-0667-4736-b9e9-5c354cdea2b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField17">
+      <UniqueIdentifier>{802165ba-1bb9-422f-b351-e845e08224e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Rigidbody">
+      <UniqueIdentifier>{1a4eae85-7755-4c15-bede-55d236936b37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Path\Resource">
+      <UniqueIdentifier>{b0eaeb8f-81c3-4396-8226-2781fea3a463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Path\Resource\Image">
+      <UniqueIdentifier>{c84e1d63-cbe5-4433-9c59-0b6900f5574e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Path\Resource\Sound">
+      <UniqueIdentifier>{f1e22723-569f-4a11-b204-50646fe11600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Path\Resource\Animation">
+      <UniqueIdentifier>{c8c458a9-a6c0-42dc-9030-182f4a26eeb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -256,16 +262,16 @@
       <Filter>Contents\GameObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="EHResource.h">
-      <Filter>Engine\Resource</Filter>
+      <Filter>Engine\Path\Resource</Filter>
     </ClInclude>
     <ClInclude Include="EHResources.h">
-      <Filter>Engine\Resource</Filter>
+      <Filter>Engine\Path\Resource</Filter>
     </ClInclude>
     <ClInclude Include="EHTexture.h">
-      <Filter>Engine\Resource\Image</Filter>
+      <Filter>Engine\Path\Resource\Image</Filter>
     </ClInclude>
     <ClInclude Include="EHSound.h">
-      <Filter>Engine\Resource\Sound</Filter>
+      <Filter>Engine\Path\Resource\Sound</Filter>
     </ClInclude>
     <ClInclude Include="EHBackGround.h">
       <Filter>Contents\GameObject\BackGround</Filter>
@@ -286,7 +292,7 @@
       <Filter>Engine\Component\Animator</Filter>
     </ClInclude>
     <ClInclude Include="EHAnimation.h">
-      <Filter>Engine\Resource\Animation</Filter>
+      <Filter>Engine\Path\Resource\Animation</Filter>
     </ClInclude>
     <ClInclude Include="EHJailScene18.h">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField18</Filter>
@@ -347,6 +353,12 @@
     </ClInclude>
     <ClInclude Include="EHJailScene16.h">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField16</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailScene17.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField17</Filter>
+    </ClInclude>
+    <ClInclude Include="EHRigidbody.h">
+      <Filter>Engine\Rigidbody</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -409,16 +421,16 @@
       <Filter>Contents\GameObject\Player</Filter>
     </ClCompile>
     <ClCompile Include="EHResource.cpp">
-      <Filter>Engine\Resource</Filter>
+      <Filter>Engine\Path\Resource</Filter>
     </ClCompile>
     <ClCompile Include="EHResources.cpp">
-      <Filter>Engine\Resource</Filter>
+      <Filter>Engine\Path\Resource</Filter>
     </ClCompile>
     <ClCompile Include="EHTexture.cpp">
-      <Filter>Engine\Resource\Image</Filter>
+      <Filter>Engine\Path\Resource\Image</Filter>
     </ClCompile>
     <ClCompile Include="EHSound.cpp">
-      <Filter>Engine\Resource\Sound</Filter>
+      <Filter>Engine\Path\Resource\Sound</Filter>
     </ClCompile>
     <ClCompile Include="EHBackGround.cpp">
       <Filter>Contents\GameObject\BackGround</Filter>
@@ -439,7 +451,7 @@
       <Filter>Engine\Component\Animator</Filter>
     </ClCompile>
     <ClCompile Include="EHAnimation.cpp">
-      <Filter>Engine\Resource\Animation</Filter>
+      <Filter>Engine\Path\Resource\Animation</Filter>
     </ClCompile>
     <ClCompile Include="EHMath.cpp">
       <Filter>Engine\Common</Filter>
@@ -503,6 +515,12 @@
     </ClCompile>
     <ClCompile Include="EHJailScene16.cpp">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField16</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailScene17.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField17</Filter>
+    </ClCompile>
+    <ClCompile Include="EHRigidbody.cpp">
+      <Filter>Engine\Rigidbody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

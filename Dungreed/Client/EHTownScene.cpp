@@ -209,7 +209,7 @@ namespace EH
         if (Input::Getkey(eKeyCode::Z).state == eKeyState::DOWN)
         {
             Camera::SetLookAt(Math::Vector2<float>(640.f, 360.f));
-            SceneManager::LoadScene(L"JailScene18");
+            SceneManager::LoadScene(L"JailScene1");
         }
         Scene::Update();
     }

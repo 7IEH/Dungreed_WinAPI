@@ -154,12 +154,14 @@
     <ClInclude Include="EHJailScene14.h" />
     <ClInclude Include="EHJailScene15.h" />
     <ClInclude Include="EHJailScene16.h" />
+    <ClInclude Include="EHJailScene17.h" />
     <ClInclude Include="EHJailScene18.h" />
     <ClInclude Include="EHJailScene2.h" />
     <ClInclude Include="EHJailScene3.h" />
     <ClInclude Include="EHJailScene4.h" />
     <ClInclude Include="EHJailScene9.h" />
     <ClInclude Include="EHNpc.h" />
+    <ClInclude Include="EHRigidbody.h" />
     <ClInclude Include="EHTexture.h" />
     <ClInclude Include="EHInput.h" />
     <ClInclude Include="EHLayer.h" />
@@ -209,6 +211,7 @@
     <ClCompile Include="EHJailScene14.cpp" />
     <ClCompile Include="EHJailScene15.cpp" />
     <ClCompile Include="EHJailScene16.cpp" />
+    <ClCompile Include="EHJailScene17.cpp" />
     <ClCompile Include="EHJailScene18.cpp" />
     <ClCompile Include="EHJailScene2.cpp" />
     <ClCompile Include="EHJailScene3.cpp" />
@@ -216,6 +219,7 @@
     <ClCompile Include="EHJailScene9.cpp" />
     <ClCompile Include="EHMath.cpp" />
     <ClCompile Include="EHNpc.cpp" />
+    <ClCompile Include="EHRigidbody.cpp" />
     <ClCompile Include="EHTexture.cpp" />
     <ClCompile Include="EHInput.cpp" />
     <ClCompile Include="EHLayer.cpp" />
