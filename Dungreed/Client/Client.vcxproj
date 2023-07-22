@@ -134,6 +134,7 @@
     <ClInclude Include="EHAnimator.h" />
     <ClInclude Include="EHApplication.h" />
     <ClInclude Include="EHBackGround.h" />
+    <ClInclude Include="EHButton.h" />
     <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHCollider.h" />
     <ClInclude Include="EHCollisionManager.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="EHAnimator.cpp" />
     <ClCompile Include="EHApplication.cpp" />
     <ClCompile Include="EHBackGround.cpp" />
+    <ClCompile Include="EHButton.cpp" />
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCollider.cpp" />
     <ClCompile Include="EHCollisionManager.cpp" />

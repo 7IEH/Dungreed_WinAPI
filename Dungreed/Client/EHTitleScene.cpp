@@ -7,6 +7,7 @@
 #include "EHPath.h"
 #include "EHSound.h"
 #include "EHCamera.h"
+#include "EHButton.h"
 
 namespace EH
 {
@@ -52,11 +53,18 @@ namespace EH
 		MainLogo->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
 		// Start
-		BackGround* Start = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		/*BackGround* Start = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		Start->GetComponent<Transform>()->SetPos(Math::Vector2<float>(637.f, 484.f));
 		Start->GetComponent<Transform>()->SetScale(Math::Vector2<float>(144.f, 48.f));
 		temp = Resources::Load<Texture>(L"Start_Btn", L"..\\Resources\\EnterScene\\PlayOff_Kor.png");
 		Start->GetComponent<SpriteRenderer>()->SetImg(temp);
+		Start->GetComponent<SpriteRenderer>()->SetAffectCamera(false);*/
+
+		Button* Start = object::Instantiate<Button>(enums::eLayerType::UI);
+		Start->GetComponent<Transform>()->SetPos(Math::Vector2<float>(637.f, 484.f));
+		Start->GetComponent<Transform>()->SetScale(Math::Vector2<float>(144.f, 48.f));
+		temp = Resources::Load<Texture>(L"Start_Btn", L"..\\Resources\\EnterScene\\PlayOff_Kor.png");
+		Start->SetTransition(eButtonState::Idle, temp);
 		Start->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
 		// Option
@@ -74,6 +82,8 @@ namespace EH
 		temp = Resources::Load<Texture>(L"Exit_Btn", L"..\\Resources\\EnterScene\\ExitOff_Kor.png");
 		Exit->GetComponent<SpriteRenderer>()->SetImg(temp);
 		Exit->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+		
 	}
 
 	void TitleScene::Update()

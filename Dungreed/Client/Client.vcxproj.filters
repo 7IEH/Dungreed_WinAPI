@@ -16,9 +16,6 @@
     <Filter Include="Engine\Common">
       <UniqueIdentifier>{8b433587-28e5-4de9-830d-30968f6a23c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\High Level Interface">
-      <UniqueIdentifier>{6638c37b-5e9c-4c8c-b902-5d53dcec92ce}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Input">
       <UniqueIdentifier>{78fb0fc0-c864-497e-9635-2c38f05b8458}</UniqueIdentifier>
     </Filter>
@@ -190,6 +187,15 @@
     <Filter Include="Engine\Resource\Animation">
       <UniqueIdentifier>{c8c458a9-a6c0-42dc-9030-182f4a26eeb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\UI">
+      <UniqueIdentifier>{093d9fa3-0f53-4306-9240-4722e72b3148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\High Level Interface">
+      <UniqueIdentifier>{6638c37b-5e9c-4c8c-b902-5d53dcec92ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\UI\Button">
+      <UniqueIdentifier>{4f2c5aed-b919-4868-aff9-e388bb4127a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -360,6 +366,9 @@
     <ClInclude Include="EHRigidbody.h">
       <Filter>Engine\Component\Rigidbody</Filter>
     </ClInclude>
+    <ClInclude Include="EHButton.h">
+      <Filter>Contents\GameObject\UI\Button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -521,6 +530,9 @@
     </ClCompile>
     <ClCompile Include="EHRigidbody.cpp">
       <Filter>Engine\Component\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="EHButton.cpp">
+      <Filter>Contents\GameObject\UI\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

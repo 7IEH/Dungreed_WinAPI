@@ -25,6 +25,8 @@ namespace EH
 		HDC GetMainDC() { return mHdc; }
 		Vector2<int> GetWinSize(){ return mWinSize; }
 
+		HWND GetHWND() { return mHwnd; }
+
 	private:
 		HWND mHwnd;
 		HDC mHdc;
