@@ -18,6 +18,8 @@ namespace EH
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 		void SetImg(Texture* texture) { mTexture = texture; }
+		Texture* GetImg() { return mTexture; }
+
 		void SetAffectCamera(bool affectcamera) { mAffectCamera = affectcamera; }
 
 		float GetAlpha() { return mAlpha; }

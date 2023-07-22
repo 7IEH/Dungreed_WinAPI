@@ -1,5 +1,6 @@
 #include "EHButton.h"
 #include "EHApplication.h"
+#include "EHSceneManager.h"
 
 extern EH::Application application;
 
@@ -7,7 +8,9 @@ namespace EH
 {
 	Button::Button()
 		:
-		mCurState(eButtonState::Idle)
+		  mCurState(eButtonState::Idle)
+		, mEvent(eClickEvent::None)
+		, mScene(L"")
 	{
 		AddComponent<SpriteRenderer>();
 		mTransition.resize((UINT)(UINT)eButtonState::None);
@@ -28,8 +31,8 @@ namespace EH
 	void Button::Update()
 	{
 		SpriteRenderer* sprite = GetComponent<SpriteRenderer>();
-		/*if (sprite == nullptr)
-			return;*/
+		if (sprite == nullptr)
+			return;
 
 		if (OnButton())
 		{
@@ -63,17 +66,19 @@ namespace EH
 		Math::Vector2<float> pos = tr->Getpos();
 		Math::Vector2<float> scale = tr->GetScale();
 
-		if ((pt.x >= pos.x-scale.x/2.f && pt.x <= pos.x + scale.x / 2.f) && (pt.y >= pos.y - scale.y / 2.f && pt.y <= pos.x + scale.x / 2.f))
+		if ((pt.x >= pos.x-scale.x/2.f && pt.x <= pos.x + scale.x / 2.f) && (pt.y >= pos.y - scale.y / 2.f && pt.y <= pos.y + scale.y / 2.f))
 		{
 			return true;
 		}
-
 		return false;
 	}
 
 	// 함수 이벤트
 	void Button::OnClick()
 	{
-
+		if (mEvent == eClickEvent::SceneChange)
+		{
+			SceneManager::LoadScene(mScene);
+		}
 	}
 }

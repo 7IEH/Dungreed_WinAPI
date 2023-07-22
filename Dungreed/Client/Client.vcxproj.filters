@@ -196,6 +196,9 @@
     <Filter Include="Contents\GameObject\UI\Button">
       <UniqueIdentifier>{4f2c5aed-b919-4868-aff9-e388bb4127a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Weapon">
+      <UniqueIdentifier>{aa693560-79bf-4700-80e6-db551a0c8b3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -369,6 +372,9 @@
     <ClInclude Include="EHButton.h">
       <Filter>Contents\GameObject\UI\Button</Filter>
     </ClInclude>
+    <ClInclude Include="EHWeapon.h">
+      <Filter>Contents\GameObject\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -533,6 +539,9 @@
     </ClCompile>
     <ClCompile Include="EHButton.cpp">
       <Filter>Contents\GameObject\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="EHWeapon.cpp">
+      <Filter>Contents\GameObject\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

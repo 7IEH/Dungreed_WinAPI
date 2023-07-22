@@ -3,6 +3,10 @@
 #include "EHTime.h"
 #include "EHObject.h"
 #include "EHResources.h"
+#include "EHApplication.h"
+#include "EHCamera.h"
+
+extern EH::Application application;
 
 namespace EH
 {
@@ -16,6 +20,7 @@ namespace EH
 		, mIsRight(true)
 		, mIsDead(false)
 		, mCurState(eAnimationState::Idle)
+		, mActiveWeapon(eWeapon::None)
 	{
 		AddComponent<SpriteRenderer>();
 		AddComponent<Rigidbody>();
@@ -41,6 +46,9 @@ namespace EH
 	{
 		GameObject::Update();
 		GetComponent<Animator>()->SetAffectedCamera(false);
+		Transform* tr = GetComponent<Transform>();
+		if(mActiveWeapon!=eWeapon::None)
+			mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x + 50.f, tr->Getpos().y));
 
 		switch (mCurState)
 		{
@@ -105,6 +113,54 @@ namespace EH
 		else
 			GetComponent<Animator>()->PlayAnimation(L"PlayerLeftIdle",true);
 
+		if (mActiveWeapon == eWeapon::Onehand)
+		{
+			Transform* tr = GetComponent<Transform>();
+			POINT pt = {};
+			GetCursorPos(&pt);
+			ScreenToClient(application.GetHWND(), &pt);
+			Vector2<float> cursorpos;
+			cursorpos.x = pt.x;
+			cursorpos.y = pt.y;
+			//degree 구하기
+			float radian = atan2(fabs(cursorpos.y - tr->Getpos().y), fabs(cursorpos.x - tr->Getpos().x));
+			float degree = radian * (180.f / 3.14f);
+			mWeapon->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(degree);
+		}
+
+		if (Input::Getkey(eKeyCode::K).state == eKeyState::DOWN)
+		{
+			Transform* tr = GetComponent<Transform>();
+			POINT pt = {};
+			GetCursorPos(&pt);
+			ScreenToClient(application.GetHWND(), &pt);
+			Vector2<float> cursorpos;
+			cursorpos.x = pt.x;
+			cursorpos.y = pt.y;
+
+			//Camera::CaculatePos(cursorpos);
+
+			mActiveWeapon = eWeapon::Onehand;
+			BackGround* weapon = object::Instantiate<BackGround>(enums::eLayerType::UI);
+			Transform* temp = weapon->GetComponent<Transform>();
+			temp->SetPos(Math::Vector2<float>(tr->Getpos().x + 50.f,tr->Getpos().y));
+			temp->SetScale(Math::Vector2<float>(76.f,28.f));
+
+			Texture* texture = Resources::Load<Texture>(L"Onehand", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
+			//degree 구하기
+			float radian = atan2(fabs(cursorpos.y - tr->Getpos().y) , fabs(cursorpos.x - tr->Getpos().x));
+			float degree = radian * (180.f / 3.14f);
+			texture->SetDegree(degree);
+			weapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Npc, weapon);
+			mWeapon = weapon;
+		}
+
+		if (Input::Getkey(eKeyCode::L).state == eKeyState::DOWN)
+		{
+
+		}
+
 		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
 		{
 			mCurState = eAnimationState::Move;
@@ -131,11 +187,8 @@ namespace EH
 		}
 		if(Input::Getkey(eKeyCode::MouseLeftClick).state==eKeyState::DOWN)
 		{
-			//mCurState = eAnimationState::Attack;
-		}
-		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN)
-		{
-			//mCurState = eAnimationState::Attack;
+			if(mActiveWeapon != eWeapon::None)
+				mCurState = eAnimationState::Attack;
 		}
 		if (mCurHp <= 0.f)
 		{
@@ -194,6 +247,14 @@ namespace EH
 
 	void Player::Attack()
 	{
-
+		if (mActiveWeapon == eWeapon::Onehand)
+		{
+			// collider 상호작용 키기
+			// 
+		}
+		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::UP)
+		{
+			mCurState = eAnimationState::Idle;
+		}
 	}
 }

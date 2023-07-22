@@ -33,9 +33,10 @@ namespace EH
 			Math::Vector2<float> offset = Math::Vector2<float>(0.f, 0.f),
 			float alpha = 1.f);
 
-		void SetWidth(UINT width) { mWidth = width; }
+	    void SetWidth(UINT width) { mWidth = width; }
 		void SetHeight(UINT height) { mHeight = height; }
 		void SetPos(Math::Vector2<int> pos) { mPos = pos; }
+		void SetDegree(float degree) { mDegree = degree; }
 
 	private:
 		eTextureType mType;
@@ -45,6 +46,7 @@ namespace EH
 		HDC mHdc;
 		UINT mWidth;
 		UINT mHeight;
+		float mDegree;
 		Math::Vector2<int> mPos;
 	};
 }

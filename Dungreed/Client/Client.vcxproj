@@ -179,6 +179,7 @@
     <ClInclude Include="EHTitleScene.h" />
     <ClInclude Include="EHTownScene.h" />
     <ClInclude Include="EHTransform.h" />
+    <ClInclude Include="EHWeapon.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="EHJailPrevBossScene.h" />
     <ClInclude Include="Resource.h" />
@@ -239,6 +240,7 @@
     <ClCompile Include="EHResource.cpp" />
     <ClCompile Include="EHResources.cpp" />
     <ClCompile Include="EHJailPrevBossScene.cpp" />
+    <ClCompile Include="EHWeapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

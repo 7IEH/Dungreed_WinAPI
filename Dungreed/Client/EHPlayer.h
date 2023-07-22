@@ -14,6 +14,14 @@ namespace EH
 		End
 	};
 
+	enum class eWeapon
+	{
+		  Onehand
+		, Twohand
+		, Gun
+		, None
+	};
+
 	class Player : public GameObject
 	{
 	public:
@@ -44,5 +52,7 @@ namespace EH
 		bool mIsRight;
 		bool mIsDead;
 		eAnimationState mCurState;
+		eWeapon mActiveWeapon;
+		BackGround* mWeapon;
 	};
 }

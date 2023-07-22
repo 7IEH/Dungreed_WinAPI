@@ -12,6 +12,12 @@ namespace EH
 		,None
 	};
 
+	enum class eClickEvent
+	{
+		 SceneChange
+		,None  
+	};
+
 	class Button : public GameObject
 	{
 	public:
@@ -27,8 +33,12 @@ namespace EH
 		void OnClick();
 		void SetTransition(eButtonState state, Texture* texture) { mTransition[(UINT)state] = texture; }
 
+		void SetScene(std::wstring scene) {mScene = scene;}
+		void SetClickEvent(eClickEvent event) { mEvent = event; }
 	private:
 		eButtonState mCurState;
 		std::vector<Texture*> mTransition;
+		std::wstring mScene;
+		eClickEvent mEvent;
 	};
 }

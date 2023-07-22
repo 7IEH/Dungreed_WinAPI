@@ -15,7 +15,8 @@ namespace EH
 		mType(eTextureType::None),
 		mHdc(nullptr),
 		mBitmap(nullptr),
-		mPos(0,0)
+		mPos(0,0),
+		mDegree(0.f)
 	{
 	}
 
@@ -116,15 +117,34 @@ namespace EH
 		else if (mType == eTextureType::Png)
 		{
 			Gdiplus::ImageAttributes imageAtt = {};
-
 			::Graphics g(hdc);
-			g.SetInterpolationMode(Gdiplus::InterpolationModeNearestNeighbor);
-			g.DrawImage(mImg,
-				Rect(pos.x - scale.x / 2.f, pos.y - scale.y / 2.f, scale.x, scale.y),
-				lefttop.x, lefttop.y,
-				size.x, size.y,
-				Gdiplus::UnitPixel,
-				&imageAtt);
+
+			if (mDegree == 0.f)
+			{
+				g.SetInterpolationMode(Gdiplus::InterpolationModeNearestNeighbor);
+				g.DrawImage(mImg,
+					Rect(pos.x - scale.x / 2.f, pos.y - scale.y / 2.f, scale.x, scale.y),
+					lefttop.x, lefttop.y,
+					size.x, size.y,
+					Gdiplus::UnitPixel,
+					&imageAtt);
+			}
+			else
+			{
+				Gdiplus::Matrix matrix;
+				g.TranslateTransform(pos.x, pos.y);
+				g.RotateTransform(-90.f+mDegree);
+				g.TranslateTransform(-pos.x, -pos.y);
+				g.SetInterpolationMode(Gdiplus::InterpolationModeNearestNeighbor);
+				g.DrawImage(mImg,
+					Rect(pos.x - scale.x / 2.f, pos.y - scale.y / 2.f, scale.x, scale.y),
+					lefttop.x, lefttop.y,
+					size.x, size.y,
+					Gdiplus::UnitPixel,
+					&imageAtt);
+
+				int a = 0;
+			}
 		}
 	}
 }
