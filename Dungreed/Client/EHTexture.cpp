@@ -131,10 +131,12 @@ namespace EH
 			}
 			else
 			{
-				Gdiplus::Matrix matrix;
+				//Gdiplus::Matrix matrix;
 				g.TranslateTransform(pos.x, pos.y);
-				g.RotateTransform(-90.f+mDegree);
+				g.RotateTransform(mDegree);
 				g.TranslateTransform(-pos.x, -pos.y);
+				/*matrix.RotateAt(mDegree, Gdiplus::PointF(pos.x, pos.y));
+				g.SetTransform(&matrix);*/
 				g.SetInterpolationMode(Gdiplus::InterpolationModeNearestNeighbor);
 				g.DrawImage(mImg,
 					Rect(pos.x - scale.x / 2.f, pos.y - scale.y / 2.f, scale.x, scale.y),

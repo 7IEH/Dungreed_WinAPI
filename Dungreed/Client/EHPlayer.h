@@ -54,5 +54,7 @@ namespace EH
 		eAnimationState mCurState;
 		eWeapon mActiveWeapon;
 		BackGround* mWeapon;
+		bool mSwing;
+		bool mDead;
 	};
 }
