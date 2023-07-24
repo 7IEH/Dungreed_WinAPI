@@ -21,8 +21,7 @@ namespace EH
 		, mIsDead(false)
 		, mCurState(eAnimationState::Idle)
 		, mActiveWeapon(eWeapon::None)
-		, mSwing(true)
-		, mDead(false)
+		, mIsSwing(true)
 	{
 		AddComponent<Rigidbody>();
 		Texture* temp = Resources::Load<Texture>(L"HPRed", L"..\\Resources\\UI\\PlayerLife.png");
@@ -46,10 +45,6 @@ namespace EH
 	void Player::Update()
 	{
 		GameObject::Update();
-		Transform* tr = GetComponent<Transform>();
-
-		if (mDead)
-			return;
 
 		switch (mCurState)
 		{
@@ -72,6 +67,8 @@ namespace EH
 			break;
 		}
 
+		Playerlogic();
+
 		if (Input::Getkey(eKeyCode::P).state == eKeyState::DOWN)
 		{
 			mCurHp -= 5;
@@ -82,8 +79,24 @@ namespace EH
 			mCurHp += 5;
 			mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f * ((float)mCurHp / (float)mMaxHP), 36.f));
 		}
+	}
 
-		if (mSwing)
+	void Player::Render(HDC hdc)
+	{
+		GameObject::Render(hdc);
+
+		wchar_t hp[50] = {};
+		swprintf_s(hp, 50, L"%d/%d", mCurHp, mMaxHP);
+		int strlen = wcsnlen_s(hp, 50);
+		SetBkColor(hdc, RGB(93, 92, 110));
+		TextOut(hdc, 200, 30, hp, strlen);
+	}
+
+	// 나중에 정리
+	void Player::Playerlogic()
+	{
+		Transform* tr = GetComponent<Transform>();
+		if (mIsSwing)
 		{
 			if (mIsRight)
 			{
@@ -127,7 +140,7 @@ namespace EH
 			cursorpos = Camera::CaculatePos(-cursorpos);
 			cursorpos = -cursorpos;
 
-			if (mSwing)
+			if (mIsSwing)
 			{
 				if (cursorpos.x > tr->Getpos().x)
 				{
@@ -185,29 +198,6 @@ namespace EH
 		}
 	}
 
-	void Player::Render(HDC hdc)
-	{
-		GameObject::Render(hdc);
-
-		wchar_t hp[50] = {};
-		swprintf_s(hp, 50, L"%d/%d", mCurHp, mMaxHP);
-		int strlen = wcsnlen_s(hp, 50);
-		SetBkColor(hdc, RGB(93, 92, 110));
-		TextOut(hdc, 200, 30, hp, strlen);
-	}
-
-	void Player::OnCollisionEnter(Collider* other)
-	{
-	}
-
-	void Player::OnCollisionStay(Collider* other)
-	{
-	}
-
-	void Player::OnCollisionExit(Collider* other)
-	{
-	}
-
 	void Player::Idle()
 	{
 		if (mIsRight)
@@ -215,6 +205,7 @@ namespace EH
 		else
 			GetComponent<Animator>()->PlayAnimation(L"PlayerLeftIdle", true);
 
+		// 이것도 나중에 정리
 		if (Input::Getkey(eKeyCode::K).state == eKeyState::DOWN)
 		{
 			Transform* tr = GetComponent<Transform>();
@@ -245,11 +236,6 @@ namespace EH
 			
 		}
 
-		if (Input::Getkey(eKeyCode::L).state == eKeyState::DOWN)
-		{
-
-		}
-
 		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
 		{
 			mCurState = eAnimationState::Move;
@@ -278,11 +264,10 @@ namespace EH
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 			}
 		}
-		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN)
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && JumpStack < 2)
 		{
 			mCurState = eAnimationState::Jump;
-			GetComponent<Rigidbody>()->SetVeclocity(Math::Vector2<float>(0.f,-500.f));
-			GetComponent<Rigidbody>()->SetGround(false);
+			JumpStack++;
 			if (mIsRight)
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
 			else
@@ -293,11 +278,12 @@ namespace EH
 			if (mActiveWeapon != eWeapon::None)
 			{
 				mCurState = eAnimationState::Attack;
-				mSwing = !mSwing;
+				mIsSwing = !mIsSwing;
 			}
 		}
 		if (mCurHp <= 0.f)
 		{
+			mCurState = eAnimationState::Die;
 			if (mIsRight)
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightDie", false);
 			else
@@ -311,14 +297,10 @@ namespace EH
 	{
 		Transform* tr = GetComponent<Transform>();
 		Math::Vector2<float> pos = tr->Getpos();
-		if (Input::Getkey(eKeyCode::A).state == eKeyState::UP
-			|| Input::Getkey(eKeyCode::D).state == eKeyState::UP)
-		{
-			mCurState = eAnimationState::Idle;
-		}
+
 		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
 		{
-			//pos.x -= 300.f * Time::GetDeltaTime();
+			pos.x -= 300.f * Time::GetDeltaTime();
 			if (mIsRight)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
@@ -327,11 +309,11 @@ namespace EH
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 			}
-			GetComponent<Rigidbody>()->AddForce(Math::Vector2<float>(-20.f, 0.f));
+			//GetComponent<Rigidbody>()->AddForce(Math::Vector2<float>(-200.f, 0.f));
 		}
 		if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
 		{
-			//
+			// 벽 아래로
 		}
 		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
 		{
@@ -343,34 +325,68 @@ namespace EH
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 			}
-			//pos.x += 300.f * Time::GetDeltaTime();
-			GetComponent<Rigidbody>()->AddForce(Math::Vector2<float>(20.f, 0.f));
+			pos.x += 300.f * Time::GetDeltaTime();
+			//GetComponent<Rigidbody>()->AddForce(Math::Vector2<float>(200.f, 0.f));
+		}
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && JumpStack < 2)
+		{
+			mCurState = eAnimationState::Jump;
+			JumpStack++;
+			if (mIsRight)
+				GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
+			else
+				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
 		}
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN)
 		{
 			if (mActiveWeapon != eWeapon::None)
 			{
 				mCurState = eAnimationState::Attack;
-				mSwing = !mSwing;
+				mIsSwing = !mIsSwing;
 			}
 		}
+		if (mCurHp <= 0.f)
+		{
+			mCurState = eAnimationState::Die;
+			if (mIsRight)
+				GetComponent<Animator>()->PlayAnimation(L"PlayerRightDie", false);
+			else
+				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftDie", false);
+
+			mIsDead = true;
+		}
+		if (Input::Getkey(eKeyCode::A).state == eKeyState::UP
+			|| Input::Getkey(eKeyCode::D).state == eKeyState::UP)
+		{
+			mCurState = eAnimationState::Idle;
+		}
+		tr->SetPos(pos);
 	}
 
 	void Player::Jump()
 	{
-		/*Transform* tr = GetComponent<Transform>();
-		Math::Vector2<float> pos = tr->Getpos();
-		pos.y -= 300.f * Time::GetDeltaTime();*/
-		if (Input::Getkey(eKeyCode::Space).state == eKeyState::UP)
-		{
-			mCurState = eAnimationState::Idle;
-		}
+		Math::Vector2<float> velocity = GetComponent<Rigidbody>()->GetVelocity();
+		GetComponent<Rigidbody>()->SetVeclocity(Math::Vector2<float>(velocity.x + 0.f, velocity.y + -500.f));
+		GetComponent<Rigidbody>()->SetGround(false);
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN)
 		{
 			if (mActiveWeapon != eWeapon::None)
 				mCurState = eAnimationState::Attack;
 		}
-		//tr->SetPos(pos);
+		if (mCurHp <= 0.f)
+		{
+			mCurState = eAnimationState::Die;
+			if (mIsRight)
+				GetComponent<Animator>()->PlayAnimation(L"PlayerRightDie", false);
+			else
+				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftDie", false);
+
+			mIsDead = true;
+		}
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::UP || Input::Getkey(eKeyCode::Space).state == eKeyState::PRESSED)
+		{
+			mCurState = eAnimationState::Idle;
+		}
 	}
 
 	void Player::Die()
@@ -383,39 +399,44 @@ namespace EH
 
 	void Player::Attack()
 	{
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && JumpStack < 2)
+		{
+			mCurState = eAnimationState::Jump;
+			JumpStack++;
+			if (mIsRight)
+				GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
+			else
+				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
+		}
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::UP)
 		{
 			mCurState = eAnimationState::Idle;
 		}
+		if (mCurHp <= 0.f)
+		{
+			mCurState = eAnimationState::Die;
+			if (mIsRight)
+				GetComponent<Animator>()->PlayAnimation(L"PlayerRightDie", false);
+			else
+				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftDie", false);
+
+			mIsDead = true;
+		}
 		if (mActiveWeapon == eWeapon::Onehand)
 		{
-			////collider 상호작용 키기
-			//Transform* tr = GetComponent<Transform>();
-			//POINT pt = {};
-			//GetCursorPos(&pt);
-			//ScreenToClient(application.GetHWND(), &pt);
-			//Vector2<float> cursorpos;
-			//cursorpos.x = pt.x;
-			//cursorpos.y = pt.y;
-			//Camera::CaculatePos(cursorpos);
-
-			//BackGround* swingFX1 = object::Instantiate<BackGround>(enums::eLayerType::UI);
-			//swingFX1 -> SetName(L"SwingFX1");
-			//Transform* temp = swingFX1->GetComponent<Transform>();
-			//temp->SetPos(Math::Vector2<float>(tr->Getpos().x + 40.f, tr->Getpos().y));
-			//temp->SetScale(Math::Vector2<float>(160.f, 112.f));
-
-			//Texture* texture = Resources::Load<Texture>(L"SwingFX1", L"..\\Resources\\Player\\Basic\\Attack\\SwingFXSheet.png");
-			////degree 구하기
-			//float radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
-			//float degree = radian * (180.f / 3.14f);
-			//texture->SetDegree(-(degree + 97));
-			//swingFX1->AddComponent<Animator>();
-			//swingFX1->GetComponent<Animator>()->CreateAnimation(L"SwingFX1", texture, Math::Vector2<float>(0.f, 0.f), 
-			//	Math::Vector2<float>(40.f, 28.f), 
-			//	Math::Vector2<float>(0.f, 0.f), 3, 0.1f);
-			//SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Npc, swingFX1);
-			//swingFX1->GetComponent<Animator>()->PlayAnimation(L"SwingFX1", false);
 		}
 	}
+
+	void Player::OnCollisionEnter(Collider* other)
+	{
+	}
+
+	void Player::OnCollisionStay(Collider* other)
+	{
+	}
+
+	void Player::OnCollisionExit(Collider* other)
+	{
+	}
+
 }

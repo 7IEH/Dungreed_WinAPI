@@ -36,11 +36,14 @@ namespace EH
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
+		void ResetJumpStack() { JumpStack = 0; }
+
 		void Idle();
 		void Move();
 		void Jump();
 		void Attack();
 		void Die();
+		void Playerlogic();
 
 	private:
 		UINT mLevel;
@@ -48,13 +51,17 @@ namespace EH
 		UINT mCurHp;
 		UINT mGold;
 		UINT mFood;
+
 		BackGround* mHp;
-		bool mIsRight;
-		bool mIsDead;
 		eAnimationState mCurState;
 		eWeapon mActiveWeapon;
 		BackGround* mWeapon;
-		bool mSwing;
-		bool mDead;
+
+		bool mIsSwing;
+		bool mIsRight;
+		bool mIsDead;
+		bool mIsJump;
+
+		UINT JumpStack;
 	};
 }

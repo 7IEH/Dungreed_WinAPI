@@ -25,6 +25,8 @@ namespace EH
 
 	void Floor::OnCollisionEnter(Collider* other)
 	{
+		Player* player = dynamic_cast<Player*>(other->GetOwner());
+		player->ResetJumpStack();
 		other->GetOwner()->GetComponent<Rigidbody>()->SetGround(true);
 		Transform* playertr = other->GetOwner()->GetComponent<Transform>();
 		Transform* floortr = GetComponent<Transform>();

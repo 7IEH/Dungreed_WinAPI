@@ -180,14 +180,6 @@ namespace EH
         temp = Resources::Load<Texture>(L"Tree2", L"..\\Resources\\TownScene\\Tree0.bmp");
         Tree4->GetComponent<SpriteRenderer>()->SetImg(temp);
 
-        /*BackGround* OneWay1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
-        OneWay1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1226.f, 205.f));
-        OneWay1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(256.f, 64.f));
-        temp = Resources::Load<Texture>(L"OneWay", L"..\\Resources\\TownScene\\SecondFloor_OneWay.png");
-        temp->SetWidth(64);
-        temp->SetHeight(16);
-        OneWay1->GetComponent<SpriteRenderer>()->SetImg(temp);*/
-
         //Npc
         Npc* Commander = object::Instantiate<Npc>(enums::eLayerType::Npc);
         Commander->GetComponent<Transform>()->SetPos(Math::Vector2<float>(638.f, 1250.f));
@@ -238,6 +230,115 @@ namespace EH
         floor1->AddComponent<Collider>();
         floor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(7536.f, 64.f));
         floor1->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* floor2 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        floor2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(790.f, 756.f));
+        floor2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1580.f, 64.f));
+        floor2->AddComponent<Collider>();
+        floor2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1580.f, 64.f));
+        floor2->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* floor3 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        floor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2122.f, 1268.f));
+        floor3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(60.f, 64.f));
+        floor3->AddComponent<Collider>();
+        floor3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(60.f, 64.f));
+        floor3->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* floor4 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        floor4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2474.f, 1268.f));
+        floor4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(124.f, 64.f));
+        floor4->AddComponent<Collider>();
+        floor4->GetComponent<Collider>()->SetScale(Math::Vector2<float>(124.f, 64.f));
+        floor4->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* floor5 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        floor5->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3784.f, 884.f));
+        floor5->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1728.f, 64.f));
+        floor5->AddComponent<Collider>();
+        floor5->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1728.f, 64.f));
+        floor5->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* floor6 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        floor6->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5094.f, 1268.f));
+        floor6->GetComponent<Transform>()->SetScale(Math::Vector2<float>(124.f, 64.f));
+        floor6->AddComponent<Collider>();
+        floor6->GetComponent<Collider>()->SetScale(Math::Vector2<float>(124.f, 64.f));
+        floor6->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* floor7 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        floor7->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5354.f, 1268.f));
+        floor7->GetComponent<Transform>()->SetScale(Math::Vector2<float>(60.f, 64.f));
+        floor7->AddComponent<Collider>();
+        floor7->GetComponent<Collider>()->SetScale(Math::Vector2<float>(60.f, 64.f));
+        floor7->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* floor8 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        floor8->GetComponent<Transform>()->SetPos(Math::Vector2<float>(6716.f, 756.f));
+        floor8->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1640.f, 64.f));
+        floor8->AddComponent<Collider>();
+        floor8->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1640.f, 64.f));
+        floor8->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* Secondfloor1 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        Secondfloor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1280.f, 884.f));
+        Secondfloor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(256.f, 56.f));
+        Secondfloor1->AddComponent<SpriteRenderer>();
+        temp = Resources::Load<Texture>(L"OneWay", L"..\\Resources\\TownScene\\SecondFloor_OneWay.bmp");
+        Secondfloor1->GetComponent<SpriteRenderer>()->SetImg(temp);
+        Secondfloor1->AddComponent<Collider>();
+        Secondfloor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f, 56.f));
+        Secondfloor1->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* Secondfloor2 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        Secondfloor2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1544.f, 1048.f));
+        Secondfloor2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(256.f, 56.f));
+        Secondfloor2->AddComponent<SpriteRenderer>();
+        temp = Resources::Load<Texture>(L"OneWay", L"..\\Resources\\TownScene\\SecondFloor_OneWay.bmp");
+        Secondfloor2->GetComponent<SpriteRenderer>()->SetImg(temp);
+        Secondfloor2->AddComponent<Collider>();
+        Secondfloor2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f, 56.f));
+        Secondfloor2->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* Secondfloor3 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        Secondfloor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1304.f, 1208.f));
+        Secondfloor3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(256.f, 56.f));
+        Secondfloor3->AddComponent<SpriteRenderer>();
+        temp = Resources::Load<Texture>(L"OneWay", L"..\\Resources\\TownScene\\SecondFloor_OneWay.bmp");
+        Secondfloor3->GetComponent<SpriteRenderer>()->SetImg(temp);
+        Secondfloor3->AddComponent<Collider>();
+        Secondfloor3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f, 56.f));
+        Secondfloor3->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* Secondfloor4 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        Secondfloor4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3472.f, 1176.f));
+        Secondfloor4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(256.f, 56.f));
+        Secondfloor4->AddComponent<SpriteRenderer>();
+        temp = Resources::Load<Texture>(L"OneWay", L"..\\Resources\\TownScene\\SecondFloor_OneWay.bmp");
+        Secondfloor4->GetComponent<SpriteRenderer>()->SetImg(temp);
+        Secondfloor4->AddComponent<Collider>();
+        Secondfloor4->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f, 56.f));
+        Secondfloor4->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* Secondfloor5 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        Secondfloor5->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3784.f, 1016.f));
+        Secondfloor5->GetComponent<Transform>()->SetScale(Math::Vector2<float>(256.f, 56.f));
+        Secondfloor5->AddComponent<SpriteRenderer>();
+        temp = Resources::Load<Texture>(L"OneWay", L"..\\Resources\\TownScene\\SecondFloor_OneWay.bmp");
+        Secondfloor5->GetComponent<SpriteRenderer>()->SetImg(temp);
+        Secondfloor5->AddComponent<Collider>();
+        Secondfloor5->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f, 56.f));
+        Secondfloor5->GetComponent<Collider>()->SetAffectedCamera(true);
+
+        Floor* Secondfloor6 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        Secondfloor6->GetComponent<Transform>()->SetPos(Math::Vector2<float>(6060.f, 1060.f));
+        Secondfloor6->GetComponent<Transform>()->SetScale(Math::Vector2<float>(256.f, 56.f));
+        Secondfloor6->AddComponent<SpriteRenderer>();
+        temp = Resources::Load<Texture>(L"OneWay", L"..\\Resources\\TownScene\\SecondFloor_OneWay.bmp");
+        Secondfloor6->GetComponent<SpriteRenderer>()->SetImg(temp);
+        Secondfloor6->AddComponent<Collider>();
+        Secondfloor6->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f, 56.f));
+        Secondfloor6->GetComponent<Collider>()->SetAffectedCamera(true);
         
         CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Floor,true);
         Camera::SetTarget(player);
