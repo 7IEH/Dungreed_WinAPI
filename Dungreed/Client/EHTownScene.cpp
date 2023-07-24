@@ -8,6 +8,8 @@
 #include "EHSound.h"
 #include "EHCamera.h"
 #include "EHNpc.h"
+#include "EHFloor.h"
+#include "EHCollisionManager.h"
 
 namespace EH
 {
@@ -196,12 +198,49 @@ namespace EH
         Commander->GetComponent<Animator>()->PlayAnimation(L"CommanderIdle", true);
 
         // Player
-        /*Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
-        player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(300.f, 630.f));
+        Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
+        player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(256.f, 500.f));
         player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
-        temp = Resources::Load<Texture>(L"player", L"..\\Resources\\Player\\Basic\\Idle\\CharIdle0.png");
-        player->GetComponent<SpriteRenderer>()->SetImg(temp);*/
-        //Camera::SetTarget(player);
+        temp = Resources::Load<Texture>(L"PlayerRightIdle", L"..\\Resources\\Player\\Basic\\Idle\\CharRightIdleSheet.bmp");
+        Animator* animator = player->AddComponent<Animator>();
+        animator->CreateAnimation(L"PlayerRightIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 5, 0.1f);
+        animator->PlayAnimation(L"PlayerRightIdle", true);
+
+        temp = Resources::Load<Texture>(L"PlayerRightRun", L"..\\Resources\\Player\\Basic\\Run\\CharRightRunSheet.bmp");
+        animator->CreateAnimation(L"PlayerRightRun", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+        temp = Resources::Load<Texture>(L"PlayerRightDie", L"..\\Resources\\Player\\Basic\\Die\\CharRightDie.bmp");
+        animator->CreateAnimation(L"PlayerRightDie", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+
+        temp = Resources::Load<Texture>(L"PlayerRightJump", L"..\\Resources\\Player\\Basic\\Jump\\CharRightJump.bmp");
+        animator->CreateAnimation(L"PlayerRightJump", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+
+        // Left
+        temp = Resources::Load<Texture>(L"PlayerLeftIdle", L"..\\Resources\\Player\\Basic\\Idle\\CharLeftIdleSheet.bmp");
+        animator->CreateAnimation(L"PlayerLeftIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 5, 0.1f);
+
+        temp = Resources::Load<Texture>(L"PlayerLeftRun", L"..\\Resources\\Player\\Basic\\Run\\CharLeftRunSheet.bmp");
+        animator->CreateAnimation(L"PlayerLeftRun", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+        temp = Resources::Load<Texture>(L"PlayerLeftDie", L"..\\Resources\\Player\\Basic\\Die\\CharLeftDie.bmp");
+        animator->CreateAnimation(L"PlayerLeftDie", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+
+        temp = Resources::Load<Texture>(L"PlayerLeftJump", L"..\\Resources\\Player\\Basic\\Jump\\CharLeftJump.bmp");
+        animator->CreateAnimation(L"PlayerLeftJump", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+        player->AddComponent<Collider>();
+        player->GetComponent<Collider>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+        player->GetComponent<Animator>()->SetAffectedCamera(true);
+        player->GetComponent<Collider>()->SetAffectedCamera(true);
+    
+        Floor* floor1 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        floor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3768.f, 1332.f));
+        floor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(7536.f, 64.f));
+        floor1->AddComponent<Collider>();
+        floor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(7536.f, 64.f));
+        floor1->GetComponent<Collider>()->SetAffectedCamera(true);
+        
+        CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Floor,true);
+        Camera::SetTarget(player);
     }
 
     void TownScene::Update()

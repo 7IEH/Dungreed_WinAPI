@@ -17,17 +17,25 @@ namespace EH
 
 		void SetMass(float mass) { mfMass = mass; }
 		void AddForce(Math::Vector2<float> force) { mForce += force; }
+		
+		void SetVeclocity(Math::Vector2<float> velocity) { mVelocity = velocity; }
+		Math::Vector2<float> GetVelocity() { return mVelocity; }
+
+		void SetGround(bool ground) { mbGround = ground; }
+		bool GetGround() { return mbGround; }
 
 	private:
+		bool mbGround;
+
 		float mfMass;
 		float mfFriction;
 		float mCoefficient;
-
 
 		Math::Vector2<float> mVelocity;
 		Math::Vector2<float> mAccelation;
 		Math::Vector2<float> mForce;
 		Math::Vector2<float> mGravity;
+		Math::Vector2<float> mMaxGravity;
 	};
 }
 

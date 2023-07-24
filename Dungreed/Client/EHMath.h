@@ -89,4 +89,9 @@ namespace EH::Math
 			return (this->x == other.x) && (this->y == other.y);
 		}
 	};
+
+	inline float Dot(Vector2<float>& vec1, Vector2<float>& vec2)
+	{
+		return vec1.x * vec2.x + vec1.y * vec2.y;
+	}
 }

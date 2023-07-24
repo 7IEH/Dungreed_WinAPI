@@ -18,7 +18,7 @@ namespace EH
 		mResolution.y = application.GetWinSize().y;
 
 		mLookAt.x = application.GetWinSize().x / 2.f;
-		mLookAt.y = application.GetWinSize().y / 2.f + 96.f;
+		mLookAt.y = application.GetWinSize().y / 2.f;
 	}
 
 	void Camera::Update()
@@ -40,6 +40,10 @@ namespace EH
 			mLookAt.x += 300.f * Time::GetDeltaTime();
 		}
 
+		if (mTarget)
+		{
+			mLookAt = mTarget->GetComponent<Transform>()->Getpos();
+		}
 
 		if (mLookAt.x < 640.f)
 		{
@@ -60,12 +64,7 @@ namespace EH
 		{
 			mLookAt.y = SceneManager::GetCurScene()->GetSize().y - 360.f;
 		}
-		
-
-		if (mTarget)
-		{
-			mLookAt = mTarget->GetComponent<Transform>()->Getpos();
-		}
+				
 		mDiffDistance = mLookAt - (mResolution / 2.f);
 	}
 

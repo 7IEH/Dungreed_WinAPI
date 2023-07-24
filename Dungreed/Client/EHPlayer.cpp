@@ -24,7 +24,6 @@ namespace EH
 		, mSwing(true)
 		, mDead(false)
 	{
-		AddComponent<SpriteRenderer>();
 		AddComponent<Rigidbody>();
 		Texture* temp = Resources::Load<Texture>(L"HPRed", L"..\\Resources\\UI\\PlayerLife.png");
 		mHp = EH::object::Instantiate<BackGround>(enums::eLayerType::UI);
@@ -47,7 +46,6 @@ namespace EH
 	void Player::Update()
 	{
 		GameObject::Update();
-		GetComponent<Animator>()->SetAffectedCamera(false);
 		Transform* tr = GetComponent<Transform>();
 
 		if (mDead)
@@ -126,6 +124,9 @@ namespace EH
 			float degree = 0.f;
 			//degree ±¸ÇÏ±â
 
+			cursorpos = Camera::CaculatePos(-cursorpos);
+			cursorpos = -cursorpos;
+
 			if (mSwing)
 			{
 				if (cursorpos.x > tr->Getpos().x)
@@ -170,6 +171,9 @@ namespace EH
 			Vector2<float> cursorpos;
 			cursorpos.x = pt.x;
 			cursorpos.y = pt.y;
+
+			cursorpos = Camera::CaculatePos(-cursorpos);
+			cursorpos = -cursorpos;
 			if (cursorpos.x > tr->Getpos().x)
 			{
 				mIsRight = true;
@@ -235,8 +239,10 @@ namespace EH
 			float degree = radian * (180.f / 3.14f);
 			texture->SetDegree(degree + 90);
 			weapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			weapon->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
 			SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Npc, weapon);
 			mWeapon = weapon;
+			
 		}
 
 		if (Input::Getkey(eKeyCode::L).state == eKeyState::DOWN)
@@ -275,6 +281,8 @@ namespace EH
 		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN)
 		{
 			mCurState = eAnimationState::Jump;
+			GetComponent<Rigidbody>()->SetVeclocity(Math::Vector2<float>(0.f,-500.f));
+			GetComponent<Rigidbody>()->SetGround(false);
 			if (mIsRight)
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
 			else
@@ -346,14 +354,13 @@ namespace EH
 				mSwing = !mSwing;
 			}
 		}
-		//tr->SetPos(pos);
 	}
 
 	void Player::Jump()
 	{
-		Transform* tr = GetComponent<Transform>();
+		/*Transform* tr = GetComponent<Transform>();
 		Math::Vector2<float> pos = tr->Getpos();
-		pos.y -= 300.f * Time::GetDeltaTime();
+		pos.y -= 300.f * Time::GetDeltaTime();*/
 		if (Input::Getkey(eKeyCode::Space).state == eKeyState::UP)
 		{
 			mCurState = eAnimationState::Idle;
@@ -363,7 +370,7 @@ namespace EH
 			if (mActiveWeapon != eWeapon::None)
 				mCurState = eAnimationState::Attack;
 		}
-		tr->SetPos(pos);
+		//tr->SetPos(pos);
 	}
 
 	void Player::Die()

@@ -21,7 +21,7 @@ namespace EH
 		QueryPerformanceCounter(&mCurFrequency);
 
 		// 현재 카운팅과 전에 센 카운팅을 빼면 -> 1프레임이 지나갔을때 얼마나 카운팅 했는지 확인 가능
-		float Difference = static_cast<float>(mCurFrequency.QuadPart) - static_cast<float>(mPrevFrequency.QuadPart);
+		float Difference = static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
 
 		// 카운팅된 수는 1frame동안 카운팅한 수임
 		// mCpuFrequency는 현재 컴퓨터의 cpu의 1초 동안 몇번 카운팅하는지를 세놓은거임
