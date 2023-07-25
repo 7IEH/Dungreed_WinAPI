@@ -11,6 +11,7 @@ namespace EH
 		, mbisCollision(false)
 		, mScale(Math::Vector2<float>(0.f, 0.f))
 		, mOffset(Math::Vector2<float>(0.f, 0.f))
+		, mbAffectedCamera(true)
 	{
 	}
 

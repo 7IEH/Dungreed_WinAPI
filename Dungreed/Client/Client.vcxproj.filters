@@ -196,11 +196,14 @@
     <Filter Include="Contents\GameObject\Floor">
       <UniqueIdentifier>{884c062c-8633-48b5-87b6-ce2af11aa86a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\CollisionMgr\Common">
+    <Filter Include="Engine\Common">
       <UniqueIdentifier>{8b433587-28e5-4de9-830d-30968f6a23c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\CollisionMgr\Common\Time">
+    <Filter Include="Engine\Common\Time">
       <UniqueIdentifier>{cfce122e-1e8f-4e4e-854f-cd3ded30d193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\EnemyAttack">
+      <UniqueIdentifier>{61f55932-fca6-4c69-8f3e-d986063bb221}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -217,10 +220,10 @@
       <Filter>Window\Header</Filter>
     </ClInclude>
     <ClInclude Include="Commoninclude.h">
-      <Filter>Engine\CollisionMgr\Common</Filter>
+      <Filter>Engine\Common</Filter>
     </ClInclude>
     <ClInclude Include="EHMath.h">
-      <Filter>Engine\CollisionMgr\Common</Filter>
+      <Filter>Engine\Common</Filter>
     </ClInclude>
     <ClInclude Include="EHApplication.h">
       <Filter>Engine\High Level Interface</Filter>
@@ -229,7 +232,7 @@
       <Filter>Engine\Input</Filter>
     </ClInclude>
     <ClInclude Include="EHTime.h">
-      <Filter>Engine\CollisionMgr\Common\Time</Filter>
+      <Filter>Engine\Common\Time</Filter>
     </ClInclude>
     <ClInclude Include="EHScene.h">
       <Filter>Engine\Scene</Filter>
@@ -381,6 +384,15 @@
     <ClInclude Include="EHFloor.h">
       <Filter>Contents\GameObject\Floor</Filter>
     </ClInclude>
+    <ClInclude Include="EHBoss.h">
+      <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="EHBossHand.h">
+      <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="EHLaser.h">
+      <Filter>Contents\GameObject\EnemyAttack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -400,7 +412,7 @@
       <Filter>Engine\Input</Filter>
     </ClCompile>
     <ClCompile Include="EHTime.cpp">
-      <Filter>Engine\CollisionMgr\Common\Time</Filter>
+      <Filter>Engine\Common\Time</Filter>
     </ClCompile>
     <ClCompile Include="EHScene.cpp">
       <Filter>Engine\Scene</Filter>
@@ -475,7 +487,7 @@
       <Filter>Engine\Resource\Animation</Filter>
     </ClCompile>
     <ClCompile Include="EHMath.cpp">
-      <Filter>Engine\CollisionMgr\Common</Filter>
+      <Filter>Engine\Common</Filter>
     </ClCompile>
     <ClCompile Include="EHJailScene18.cpp">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField18</Filter>
@@ -551,6 +563,15 @@
     </ClCompile>
     <ClCompile Include="EHFloor.cpp">
       <Filter>Contents\GameObject\Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="EHBoss.cpp">
+      <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="EHBossHand.cpp">
+      <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="EHLaser.cpp">
+      <Filter>Contents\GameObject\EnemyAttack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

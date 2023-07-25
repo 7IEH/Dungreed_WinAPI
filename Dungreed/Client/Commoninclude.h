@@ -37,6 +37,7 @@ namespace EH::enums
 		UI,
 		Npc,
 		Player,
+		Laser,
 		End,
 	};
 

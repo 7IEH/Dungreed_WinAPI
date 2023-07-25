@@ -134,6 +134,8 @@
     <ClInclude Include="EHAnimator.h" />
     <ClInclude Include="EHApplication.h" />
     <ClInclude Include="EHBackGround.h" />
+    <ClInclude Include="EHBoss.h" />
+    <ClInclude Include="EHBossHand.h" />
     <ClInclude Include="EHButton.h" />
     <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHCollider.h" />
@@ -162,6 +164,7 @@
     <ClInclude Include="EHJailScene3.h" />
     <ClInclude Include="EHJailScene4.h" />
     <ClInclude Include="EHJailScene9.h" />
+    <ClInclude Include="EHLaser.h" />
     <ClInclude Include="EHNpc.h" />
     <ClInclude Include="EHRigidbody.h" />
     <ClInclude Include="EHTexture.h" />
@@ -194,6 +197,8 @@
     <ClCompile Include="EHAnimator.cpp" />
     <ClCompile Include="EHApplication.cpp" />
     <ClCompile Include="EHBackGround.cpp" />
+    <ClCompile Include="EHBoss.cpp" />
+    <ClCompile Include="EHBossHand.cpp" />
     <ClCompile Include="EHButton.cpp" />
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCollider.cpp" />
@@ -222,6 +227,7 @@
     <ClCompile Include="EHJailScene3.cpp" />
     <ClCompile Include="EHJailScene4.cpp" />
     <ClCompile Include="EHJailScene9.cpp" />
+    <ClCompile Include="EHLaser.cpp" />
     <ClCompile Include="EHMath.cpp" />
     <ClCompile Include="EHNpc.cpp" />
     <ClCompile Include="EHRigidbody.cpp" />

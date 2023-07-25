@@ -27,12 +27,18 @@ namespace EH
 	{
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
 		player->ResetJumpStack();
-		other->GetOwner()->GetComponent<Rigidbody>()->SetGround(true);
 		Transform* playertr = other->GetOwner()->GetComponent<Transform>();
 		Transform* floortr = GetComponent<Transform>();
 
 		Collider* playercol = other->GetOwner()->GetComponent<Collider>();
 		Collider* floorcol = GetComponent<Collider>();
+
+		if (playertr->Getpos().y > floortr->Getpos().y)
+		{
+			return;
+		}
+
+		other->GetOwner()->GetComponent<Rigidbody>()->SetGround(true);
 
 		float scale = fabs(playercol->GetScale().y / 2.f + floorcol->GetScale().y / 2.f);
 		float len = fabs(playertr->Getpos().y - floortr->Getpos().y);

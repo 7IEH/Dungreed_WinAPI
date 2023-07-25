@@ -223,6 +223,7 @@ namespace EH
 		{
 			Camera::SetLookAt(Math::Vector2<float>(640.f, 360.f));
 			SceneManager::LoadScene(L"JailBossScene");
+			Camera::SetTarget(nullptr);
 		}
 		Scene::Update();
 	}
