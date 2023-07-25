@@ -54,6 +54,10 @@ namespace EH
 		float mDelayTime;
 		float mSubDelayTime;
 		float mCheckTime;
+		float mSubCheckTime;
+
+		// Right,Left
+		float mIsRight;
 	};
 }
 

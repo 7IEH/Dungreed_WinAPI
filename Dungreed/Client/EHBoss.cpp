@@ -4,6 +4,8 @@
 #include "EHResources.h"
 #include "EHPlayer.h"
 #include "EHComponent.h"
+#include <time.h>
+
 
 namespace EH
 {
@@ -11,9 +13,12 @@ namespace EH
 		:
 		  mCurState(eBossState::Idle)
 		, mCurType(eBossAttack::None)
-		, mThinkTime(2.f)
+		, mThinkTime(4.f)
 		, mDelayTime(0.f)
 		, mCheckTime(0.f)
+		, mSubDelayTime(0.f)
+		, mSubCheckTime(0.f)
+		, mIsRight(true)
 		, IsDead(false)
 	{
 		mLeftHand = object::Instantiate<BossHand>(enums::eLayerType::Enemy);
@@ -92,7 +97,7 @@ namespace EH
 
 	void Boss::Attack()
 	{
-		srand(Time::GetDeltaTime());
+		srand((UINT)time(NULL));
 		if (mCurType == eBossAttack::None)
 			mCurType = eBossAttack(rand() % ((UINT)eBossAttack::None));
 
@@ -112,7 +117,7 @@ namespace EH
 	}
 	void Boss::OneLaser()
 	{
-		/*mCheckTime += Time::GetDeltaTime();
+		mCheckTime += Time::GetDeltaTime();
 		mDelayTime = 1.f;
 		if (mDelayTime < mCheckTime)
 		{
@@ -136,29 +141,54 @@ namespace EH
 			Math::Vector2<float> pos = RightHandTr->Getpos();
 			pos.y += dir * Time::GetDeltaTime() * 10.f;
 			RightHandTr->SetPos(pos);
-		}*/
+		}
 	}
 
 	void Boss::ThreeLaser()
 	{
 		mCheckTime += Time::GetDeltaTime();
+		mSubCheckTime += Time::GetDeltaTime();
 		mDelayTime = 3.f;
+		mSubDelayTime = 1.f;
 		if (mDelayTime < mCheckTime)
 		{
 			mCurType = eBossAttack::None;
 			mCurState = eBossState::Idle;
 			mCheckTime = 0.f;
+			mIsRight = true;
 		}
 		else
 		{
+			mCurType = eBossAttack::ThreeLaser;
+			if (mSubDelayTime < mSubCheckTime)
+			{
+				mSubCheckTime = 0.f;
+				mIsRight = !mIsRight;
+			}
+			else
+			{
+				if (mIsRight)
+				{
+					Transform* RightHandTr = mRightHand->GetComponent<Transform>();
+					Transform* PlayerTr = mTarget->GetComponent<Transform>();
 
-			Transform* RightHandTr = mRightHand->GetComponent<Transform>();
-			Transform* PlayerTr = mTarget->GetComponent<Transform>();
+					float dir = PlayerTr->Getpos().y - RightHandTr->Getpos().y;
+					Math::Vector2<float> pos = RightHandTr->Getpos();
+					pos.y += dir * Time::GetDeltaTime() * 10.f;
+					RightHandTr->SetPos(pos);
+				}
+				else
+				{
+					Transform* LeftHandTr = mLeftHand->GetComponent<Transform>();
+					Transform* PlayerTr = mTarget->GetComponent<Transform>();
 
-			float dir = PlayerTr->Getpos().y - RightHandTr->Getpos().y;
-			Math::Vector2<float> pos = RightHandTr->Getpos();
-			pos.y += dir * Time::GetDeltaTime() * 10.f;
-			RightHandTr->SetPos(pos);
+					float dir = PlayerTr->Getpos().y - LeftHandTr->Getpos().y;
+					Math::Vector2<float> pos = LeftHandTr->Getpos();
+					pos.y += dir * Time::GetDeltaTime() * 10.f;
+					LeftHandTr->SetPos(pos);
+				}
+			}
+			
 		}
 	}
 }
