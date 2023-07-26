@@ -23,6 +23,7 @@ namespace EH
 			layer.Update();
 		}
 	}
+
 	void Scene::Render(HDC hdc)
 	{
 		for (Layer& layer : mLayers)

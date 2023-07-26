@@ -6,17 +6,19 @@ namespace EH
 {
 	enum class eBossState
 	{
-		 Idle
-		,Attack
-		,Die
-		,None
+		  Idle
+		, Attack
+		, Die
+		, None
 	};
 
 	enum class eBossAttack
 	{
-		OneLaser,
-		ThreeLaser,
-		None,
+		  OneLaser
+		, ThreeLaser
+		, Sword
+		, Barrage
+		, None
 	};
 
 	class Boss : public GameObject
@@ -29,12 +31,16 @@ namespace EH
 		virtual void Update();
 		virtual void Render(HDC hdc);
 
+		// Boss State(FSM) Function
 		void Idle();
 		void Attack();
 		void Die();
 
+		// Boss Pattern Function
 		void OneLaser();
 		void ThreeLaser();
+		void Sword();
+		void Barrage();
 
 		void SetTarget(class Player* target) { mTarget = target; }
 
@@ -56,8 +62,14 @@ namespace EH
 		float mCheckTime;
 		float mSubCheckTime;
 
+		// Sword
+		int mSword;
+
 		// Right,Left
 		float mIsRight;
+
+		// Sword Group
+		std::wstring SwordNameGroup[6];
 	};
 }
 

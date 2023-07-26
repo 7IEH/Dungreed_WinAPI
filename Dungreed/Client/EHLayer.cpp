@@ -30,5 +30,19 @@ namespace EH
 		{
 			obj->Render(hdc);
 		}
+
+		std::vector<GameObject*>::iterator iter = mGameObjects.begin();
+
+		for (;iter != mGameObjects.end();)
+		{
+			if ((*iter)->GetState() == GameObject::eState::Dead)
+			{
+				iter = mGameObjects.erase(iter);
+			}
+			else
+			{
+				iter++;
+			}
+		}
 	}
 }

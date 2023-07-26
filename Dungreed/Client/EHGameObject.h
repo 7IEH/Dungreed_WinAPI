@@ -13,6 +13,17 @@ namespace EH
 	class GameObject : public Entity
 	{
 	public:
+
+		enum class eState
+		{
+			Active,
+			Pause,
+			Dead,
+			None,
+		};
+
+		friend __forceinline static void Destroy(GameObject* obj);
+
 		GameObject();
 		virtual ~GameObject();
 
@@ -45,12 +56,23 @@ namespace EH
 			return comp;
 		}
 
+		eState GetState(){ return mState; }
+
 		virtual void OnCollisionEnter(class Collider* other);
 		virtual void OnCollisionStay(class Collider* other);
 		virtual void OnCollisionExit(class Collider* other);
 
 	private:
+		void Dead() { mState = eState::Dead; }
+
+	private:
+		eState mState;
 		std::vector<Component*> mComponents;
 		std::wstring mPath;
 	};
+
+	__forceinline static void Destroy(GameObject* obj)
+	{
+		obj->Dead();
+	}
 }

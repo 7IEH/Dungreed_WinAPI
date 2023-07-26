@@ -231,12 +231,16 @@ namespace EH
 			texture->SetDegree(degree + 90);
 			weapon->GetComponent<SpriteRenderer>()->SetImg(texture);
 			weapon->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
-			SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Npc, weapon);
+			weapon->SetName(L"Test");
 			mWeapon = weapon;
-			
 		}
 
-		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
+		if (Input::Getkey(eKeyCode::L).state == eKeyState::DOWN)
+		{
+			EH::Destroy(mWeapon);
+		}
+
+ 		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
 		{
 			mCurState = eAnimationState::Move;
 			if (mIsRight)

@@ -13,11 +13,12 @@ namespace EH
 		:
 		  mCurState(eBossState::Idle)
 		, mCurType(eBossAttack::None)
-		, mThinkTime(4.f)
+		, mThinkTime(5.f)
 		, mDelayTime(0.f)
 		, mCheckTime(0.f)
 		, mSubDelayTime(0.f)
 		, mSubCheckTime(0.f)
+		, mSword(0)
 		, mIsRight(true)
 		, IsDead(false)
 	{
@@ -109,6 +110,12 @@ namespace EH
 		case EH::eBossAttack::ThreeLaser:
 			ThreeLaser();
 			break;
+		case EH::eBossAttack::Sword:
+			Sword();
+			break;
+		case EH::eBossAttack::Barrage:
+			Barrage();
+			break;
 		case EH::eBossAttack::None:
 			break;
 		default:
@@ -130,7 +137,6 @@ namespace EH
 			tr1->SetPos(Math::Vector2<float>(650.f, tr2->Getpos().y));
 			test->AddComponent<Collider>();
 			test->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1000.f, 220.f));
-			SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, test);
 		}
 		else
 		{
@@ -148,8 +154,8 @@ namespace EH
 	{
 		mCheckTime += Time::GetDeltaTime();
 		mSubCheckTime += Time::GetDeltaTime();
-		mDelayTime = 3.f;
-		mSubDelayTime = 1.f;
+		mDelayTime = 1.5f;
+		mSubDelayTime = 0.5f;
 		if (mDelayTime < mCheckTime)
 		{
 			mCurType = eBossAttack::None;
@@ -189,6 +195,52 @@ namespace EH
 				}
 			}
 			
+		}
+	}
+
+	void Boss::Sword()
+	{
+		mCheckTime += Time::GetDeltaTime();
+		mSubCheckTime += Time::GetDeltaTime();
+		mDelayTime = 6.f;
+		mSubDelayTime = 1.f;
+		if(mDelayTime < mCheckTime)
+		{ 
+			mCurState = eBossState::Idle;
+			mCurType = eBossAttack::Sword;
+			mCheckTime = 0.f;
+			mSword = 0;
+		}
+		else
+		{
+			// sword 1개씩 생성 총 6개 만들기
+			if (mSubDelayTime < mSubCheckTime)
+			{
+				BackGround* sword1 = object::Instantiate<BackGround>(enums::eLayerType::UI);
+				Transform* Swordtr = sword1->GetComponent<Transform>();
+				Transform* Bosstr = GetComponent<Transform>();
+				Swordtr->SetPos(Math::Vector2(600.f + mSword*100.f,Bosstr->Getpos().y + 20.f));
+				sword1->AddComponent<Collider>();
+				sword1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(30.f, 200.f));
+				mSubCheckTime = 0.f;
+				mSword += 1;
+			}
+			else
+			{
+				// 그리고 삭제
+			}
+		}
+	}
+
+	void Boss::Barrage()
+	{
+		mCheckTime += Time::GetDeltaTime();
+		mDelayTime = 2.f;
+		if (mDelayTime < mCheckTime)
+		{
+			mCurState = eBossState::Idle;
+			mCurType = eBossAttack::Sword;
+			mCheckTime = 0.f;
 		}
 	}
 }

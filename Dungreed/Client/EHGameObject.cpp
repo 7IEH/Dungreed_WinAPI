@@ -19,9 +19,9 @@ namespace EH
 
 	void GameObject::Update()
 	{
-		for (Component* comp : mComponents)
+ 		for (Component* comp : mComponents)
 		{
-			comp->Update();
+ 			comp->Update();
 		}
 	}
 
