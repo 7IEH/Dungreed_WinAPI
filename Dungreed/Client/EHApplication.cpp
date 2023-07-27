@@ -2,6 +2,7 @@
 #include "EHSceneManager.h"
 #include "EHCamera.h"
 #include "EHCollisionManager.h"
+#include "EHSoundManager.h"
 
 namespace EH
 {
@@ -43,6 +44,9 @@ namespace EH
 
 		// Path Initialize
 		Path::Initialize();
+
+		// Sound Initialize
+		SoundManager::Initialize();
 
 		// Camera
 		Camera::Initialize();

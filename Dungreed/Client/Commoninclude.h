@@ -6,10 +6,19 @@
 #include <functional>
 #include <string>
 #include "framework.h"
-#include <mmsystem.h>
 #include <bitset>
+#include <assert.h>
 
 #define MAX 100
+
+
+// Sound
+#include <mmsystem.h>
+#include <dsound.h>
+#include <dinput.h>
+
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "dsound.lib")
 
 // DX11
 #include<imgui.h>

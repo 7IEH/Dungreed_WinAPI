@@ -149,4 +149,10 @@ namespace EH
 			}
 		}
 	}
+
+	COLORREF Texture::GetTexturePixel(int x, int y)
+	{
+		COLORREF rgb = GetPixel(mHdc, x, y);
+		return rgb;
+	}
 }

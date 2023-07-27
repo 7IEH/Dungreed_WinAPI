@@ -3,6 +3,11 @@
 namespace EH
 {
 	Enemy::Enemy()
+		:
+		   mDelayTime(0.f)
+		 , mCheckTime(0.f)
+		 , mSubDelayTime(0.f)
+		 , mSubCheckTime(0.f)
 	{
 	}
 

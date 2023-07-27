@@ -17,8 +17,27 @@ namespace EH
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-	private:
+		void SetTarget(class Player* target) { mTarget = target; }
+		class Player* GetTarget() { return mTarget; }
 
+		void SetDelayTime(float delaytime) { mDelayTime = delaytime; }
+		void SetCheckTime(float checktime) { mCheckTime = checktime; }
+
+		void SetSubDelayTime(float delaytime) { mSubDelayTime = delaytime; }
+		void SetSubCheckTime(float checktime) { mSubCheckTime = checktime; }
+
+		float GetDelayTime() { return mDelayTime; }
+		float GetCheckTime() { return mCheckTime; }
+
+		float GetSubDelayTime() { return mSubDelayTime; }
+		float GetSubCheckTime() { return mSubCheckTime; }
+
+	private:
+		class Player* mTarget;
+		float mDelayTime;
+		float mCheckTime;
+		float mSubDelayTime;
+		float mSubCheckTime;
 	};
 }
 

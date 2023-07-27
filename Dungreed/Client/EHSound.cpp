@@ -1,37 +1,147 @@
 #include "EHSound.h"
+#include "EHSoundManager.h"
 
 namespace EH
 {
 	HRESULT Sound::Load()
 	{
-		MCI_OPEN_PARMSA Data = {};
-		MCIERROR error = 0;
-		Data.lpstrDeviceType = "WaveAudio";
-		std::string temp = "";
-		temp.assign(GetPath().begin(), GetPath().end());
-		Data.lpstrElementName = temp.c_str();
-		error = mciSendCommandA(0, MCI_OPEN, MCI_OPEN_TYPE | MCI_OPEN_ELEMENT, (DWORD_PTR)&Data);
-		if (error == 0)
+		if (nullptr == SoundManager::GetDevice())
+			assert(nullptr); // 사운드 객체 생성되지 않음
+
+		// 확장자 이름 구별하기
+		wchar_t szExt[10] = { 0 };
+		_wsplitpath_s(GetPath().c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExt, 10);
+
+		if (!wcscmp(szExt, L".wav")) // WAV 파일 로드
 		{
-			mSoundBuffer = Data.wDeviceID;
-			return S_OK;
+			if (false == LoadWavFile(GetPath()))
+				assert(nullptr);
+		}
+		else
+			assert(nullptr);
+
+		return S_OK;
+	}
+
+	bool Sound::LoadWavFile(const std::wstring& path)
+	{
+		HMMIO	hFile; // File Handle
+
+		std::wstring strFilePath = path;
+
+		//CreateFile
+		hFile = mmioOpen((wchar_t*)strFilePath.c_str(), NULL, MMIO_READ);//wave파일을 연다.
+
+		if (nullptr == hFile)
+		{
+			MessageBox(NULL, L"사운드 리소스 경로에 파일 없음", L"사운드 로딩 실패", MB_OK);
+			return false;
 		}
 
-		return S_FALSE;
+		//Chunk 청크 구조체, 문자열로 색인을 인식해서 WaveFormat 및 버퍼선언정보를 읽어온다.
+		MMCKINFO	pParent;
+		memset(&pParent, 0, sizeof(pParent));
+		pParent.fccType = mmioFOURCC('W', 'A', 'V', 'E');
+		mmioDescend(hFile, &pParent, NULL, MMIO_FINDRIFF);
+
+		MMCKINFO	pChild;
+		memset(&pChild, 0, sizeof(pChild));
+		pChild.ckid = mmioFOURCC('f', 'm', 't', ' ');
+		mmioDescend(hFile, &pChild, &pParent, MMIO_FINDCHUNK);
+
+		WAVEFORMATEX	wft;
+		memset(&wft, 0, sizeof(wft));
+		mmioRead(hFile, (char*)&wft, sizeof(wft));
+
+		mmioAscend(hFile, &pChild, 0);
+		pChild.ckid = mmioFOURCC('d', 'a', 't', 'a');
+		mmioDescend(hFile, &pChild, &pParent, MMIO_FINDCHUNK);
+
+
+
+		memset(&mBufferDesc, 0, sizeof(DSBUFFERDESC));
+		mBufferDesc.dwBufferBytes = pChild.cksize;
+		mBufferDesc.dwSize = sizeof(DSBUFFERDESC);
+		mBufferDesc.dwFlags = DSBCAPS_STATIC | DSBCAPS_LOCSOFTWARE | DSBCAPS_CTRLVOLUME;
+		mBufferDesc.lpwfxFormat = &wft;
+
+		if (FAILED(SoundManager::GetDevice()->CreateSoundBuffer(&mBufferDesc, &mSoundBuffer, NULL)))
+		{
+			MessageBox(NULL, L"사운드버퍼생성실패", L"", MB_OK);
+			return false;
+		}
+
+		void* pWrite1 = NULL;
+		void* pWrite2 = NULL;
+		DWORD dwlength1, dwlength2;
+
+		mSoundBuffer->Lock(0, pChild.cksize, &pWrite1, &dwlength1
+			, &pWrite2, &dwlength2, 0L);
+
+		if (pWrite1 != nullptr)
+			mmioRead(hFile, (char*)pWrite1, dwlength1);
+		if (pWrite2 != nullptr)
+			mmioRead(hFile, (char*)pWrite2, dwlength2);
+
+		mSoundBuffer->Unlock(pWrite1, dwlength1, pWrite2, dwlength2);
+
+		mmioClose(hFile, 0);
+
+		// 초기 음량 절반으로 설정
+		SetVolume(50.f);
+
+		return true;
 	}
 
-	void Sound::Play()
+	void Sound::Play(bool loop)
 	{
-		MCI_OPEN_PARMSA Play = {};
-		mciSendCommandA(mSoundBuffer, MCI_PLAY, MCI_NOTIFY, (DWORD_PTR)&Play);
+		mSoundBuffer->SetCurrentPosition(0);
+
+		if (loop)
+			mSoundBuffer->Play(0, 0, DSBPLAY_LOOPING);
+		else
+			mSoundBuffer->Play(0, 0, 0);
 	}
 
-	void Sound::Stop()
+	void Sound::Stop(bool reset)
 	{
-		mciSendCommandA(mSoundBuffer, MCI_PAUSE, 0,0 );
+		mSoundBuffer->Stop();
+
+		if (reset)
+			mSoundBuffer->SetCurrentPosition(0);
 	}
 
-	void Sound::SetVolume(int volume)
+	void Sound::SetPosition(float position, bool loop)
 	{
+		Stop(true);
+
+		DWORD dwBytes = (DWORD)((position / 100.f) * (float)mBufferDesc.dwBufferBytes);
+		mSoundBuffer->SetCurrentPosition(dwBytes);
+
+		if (loop)
+			mSoundBuffer->Play(0, 0, DSBPLAY_LOOPING);
+		else
+			mSoundBuffer->Play(0, 0, 0);
+	}
+
+	void Sound::SetVolume(float volume)
+	{
+		mVolume = GetDecibel(volume);
+		mSoundBuffer->SetVolume(mVolume);
+	}
+
+	int Sound::GetDecibel(float volume)
+	{
+		if (volume > 100.f)
+			volume = 100.f;
+		else if (volume <= 0.f)
+			volume = 0.00001f;
+
+		// 1 ~ 100 사이값을 데시벨 단위로 변경
+		int iVolume = (LONG)(-2000.0 * log10(100.f / volume));
+
+		if (iVolume < -10000)
+			iVolume = -10000;
+		return  iVolume;
 	}
 }

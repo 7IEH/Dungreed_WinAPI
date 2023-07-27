@@ -78,6 +78,9 @@ namespace EH
 	{
 		if (mEvent == eClickEvent::SceneChange)
 		{
+			if (SceneManager::GetCurScene()->GetBGM() != nullptr)
+				SceneManager::GetCurScene()->GetBGM()->Stop(true);
+
 			SceneManager::LoadScene(mScene);
 		}
 	}

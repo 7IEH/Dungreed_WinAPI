@@ -4,6 +4,7 @@
 #include "EHResources.h"
 #include "EHPlayer.h"
 #include "EHComponent.h"
+#include "EHLaser.h"
 #include <time.h>
 
 
@@ -122,6 +123,7 @@ namespace EH
 			break;
 		}
 	}
+
 	void Boss::OneLaser()
 	{
 		mCheckTime += Time::GetDeltaTime();
@@ -131,7 +133,7 @@ namespace EH
 			mCurType = eBossAttack::None;
 			mCurState = eBossState::Idle;
 			mCheckTime = 0.f;
-			BackGround* test = object::Instantiate<BackGround>(enums::eLayerType::UI);
+			Laser* test = object::Instantiate<Laser>(enums::eLayerType::UI);
 			Transform* tr1 = test->GetComponent<Transform>();
 			Transform* tr2 = mRightHand->GetComponent<Transform>();
 			tr1->SetPos(Math::Vector2<float>(650.f, tr2->Getpos().y));
@@ -207,7 +209,7 @@ namespace EH
 		if(mDelayTime < mCheckTime)
 		{ 
 			mCurState = eBossState::Idle;
-			mCurType = eBossAttack::Sword;
+			mCurType = eBossAttack::None;
 			mCheckTime = 0.f;
 			mSword = 0;
 		}
@@ -239,7 +241,7 @@ namespace EH
 		if (mDelayTime < mCheckTime)
 		{
 			mCurState = eBossState::Idle;
-			mCurType = eBossAttack::Sword;
+			mCurType = eBossAttack::None;
 			mCheckTime = 0.f;
 		}
 	}

@@ -205,6 +205,21 @@
     <Filter Include="Contents\GameObject\EnemyAttack">
       <UniqueIdentifier>{61f55932-fca6-4c69-8f3e-d986063bb221}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Banshee">
+      <UniqueIdentifier>{efa5b4e0-1656-4491-b1cc-f726df57663d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Archor">
+      <UniqueIdentifier>{f3f1829b-1aa8-4644-9931-b7b7b044c51a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\EnemyAttack\Laser">
+      <UniqueIdentifier>{7d313082-26e4-4159-8e39-27ea1c200dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\EnemyAttack\Projectile">
+      <UniqueIdentifier>{88025965-f4a3-4aa8-95c3-b9afeb3ea973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\SoundMgr">
+      <UniqueIdentifier>{f7f6979c-cfe7-4441-bce2-405cb123fcad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -390,8 +405,20 @@
     <ClInclude Include="EHBossHand.h">
       <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="EHBanshee.h">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\Banshee</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailArchor.h">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\Archor</Filter>
+    </ClInclude>
     <ClInclude Include="EHLaser.h">
-      <Filter>Contents\GameObject\EnemyAttack</Filter>
+      <Filter>Contents\GameObject\EnemyAttack\Laser</Filter>
+    </ClInclude>
+    <ClInclude Include="EHProjectile.h">
+      <Filter>Contents\GameObject\EnemyAttack\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="EHSoundManager.h">
+      <Filter>Engine\SoundMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -570,8 +597,20 @@
     <ClCompile Include="EHBossHand.cpp">
       <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="EHBanshee.cpp">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\Banshee</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailArchor.cpp">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\Archor</Filter>
+    </ClCompile>
     <ClCompile Include="EHLaser.cpp">
-      <Filter>Contents\GameObject\EnemyAttack</Filter>
+      <Filter>Contents\GameObject\EnemyAttack\Laser</Filter>
+    </ClCompile>
+    <ClCompile Include="EHProjectile.cpp">
+      <Filter>Contents\GameObject\EnemyAttack\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSoundManager.cpp">
+      <Filter>Engine\SoundMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

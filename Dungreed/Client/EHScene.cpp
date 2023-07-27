@@ -3,7 +3,8 @@ namespace EH
 {
 	Scene::Scene()
 		:
-		 mSceneSize(0.f, 0.f)
+		  mSceneSize(0.f, 0.f)
+		, mBGM(nullptr)
 	{
 		mLayers.resize((UINT)enums::eLayerType::End);
 	}

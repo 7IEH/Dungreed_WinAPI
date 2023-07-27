@@ -7,13 +7,16 @@ namespace EH
 	{
 	public:
 		virtual HRESULT Load() override;
-
-		void Play();
-		void Stop();
-		void SetVolume(int volume);
+		bool LoadWavFile(const std::wstring& path);
+		void Play(bool loop);
+		void Stop(bool reset);
+		void SetPosition(float position, bool loop);
+		void SetVolume(float volume);
+		int GetDecibel(float volume);
 
 	private:
-		MCIDEVICEID  mSoundBuffer;
+		LPDIRECTSOUNDBUFFER		mSoundBuffer;
+		DSBUFFERDESC			mBufferDesc;
+		int mVolume;
 	};
 }
-

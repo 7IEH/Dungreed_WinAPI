@@ -38,6 +38,9 @@ namespace EH
 		void SetPos(Math::Vector2<int> pos) { mPos = pos; }
 		void SetDegree(float degree) { mDegree = degree; }
 
+		// pixel collide
+		COLORREF GetTexturePixel(int x, int y);
+
 	private:
 		eTextureType mType;
 		Gdiplus::Image* mImg;

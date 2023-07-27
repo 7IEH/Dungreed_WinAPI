@@ -134,6 +134,7 @@
     <ClInclude Include="EHAnimator.h" />
     <ClInclude Include="EHApplication.h" />
     <ClInclude Include="EHBackGround.h" />
+    <ClInclude Include="EHBanshee.h" />
     <ClInclude Include="EHBoss.h" />
     <ClInclude Include="EHBossHand.h" />
     <ClInclude Include="EHButton.h" />
@@ -145,6 +146,7 @@
     <ClInclude Include="EHEntity.h" />
     <ClInclude Include="EHFloor.h" />
     <ClInclude Include="EHGameObject.h" />
+    <ClInclude Include="EHJailArchor.h" />
     <ClInclude Include="EHJailBossScene.h" />
     <ClInclude Include="EHJailField5.h" />
     <ClInclude Include="EHJailField6.h" />
@@ -166,7 +168,9 @@
     <ClInclude Include="EHJailScene9.h" />
     <ClInclude Include="EHLaser.h" />
     <ClInclude Include="EHNpc.h" />
+    <ClInclude Include="EHProjectile.h" />
     <ClInclude Include="EHRigidbody.h" />
+    <ClInclude Include="EHSoundManager.h" />
     <ClInclude Include="EHTexture.h" />
     <ClInclude Include="EHInput.h" />
     <ClInclude Include="EHLayer.h" />
@@ -197,6 +201,7 @@
     <ClCompile Include="EHAnimator.cpp" />
     <ClCompile Include="EHApplication.cpp" />
     <ClCompile Include="EHBackGround.cpp" />
+    <ClCompile Include="EHBanshee.cpp" />
     <ClCompile Include="EHBoss.cpp" />
     <ClCompile Include="EHBossHand.cpp" />
     <ClCompile Include="EHButton.cpp" />
@@ -208,6 +213,7 @@
     <ClCompile Include="EHEntity.cpp" />
     <ClCompile Include="EHFloor.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
+    <ClCompile Include="EHJailArchor.cpp" />
     <ClCompile Include="EHJailBossScene.cpp" />
     <ClCompile Include="EHJailField5.cpp" />
     <ClCompile Include="EHJailField6.cpp" />
@@ -230,7 +236,9 @@
     <ClCompile Include="EHLaser.cpp" />
     <ClCompile Include="EHMath.cpp" />
     <ClCompile Include="EHNpc.cpp" />
+    <ClCompile Include="EHProjectile.cpp" />
     <ClCompile Include="EHRigidbody.cpp" />
+    <ClCompile Include="EHSoundManager.cpp" />
     <ClCompile Include="EHTexture.cpp" />
     <ClCompile Include="EHInput.cpp" />
     <ClCompile Include="EHLayer.cpp" />

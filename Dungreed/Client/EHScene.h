@@ -2,6 +2,7 @@
 #include "Commoninclude.h"
 #include "EHEntity.h"
 #include "EHLayer.h"
+#include "EHSound.h"
 
 namespace EH
 {
@@ -25,8 +26,12 @@ namespace EH
 
 		Layer& GetLayer(enums::eLayerType type) { return mLayers[(UINT)type]; }
 
+		void SetBGM(Sound* bgm) { mBGM = bgm; }
+		Sound* GetBGM() { return mBGM; }
+
 	private:
 		std::vector<Layer> mLayers;
 		Math::Vector2<float> mSceneSize;
+		Sound* mBGM;
 	};
 }
