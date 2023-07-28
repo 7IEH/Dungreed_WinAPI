@@ -24,7 +24,8 @@ namespace EH
 	{
 		SetSize(Math::Vector2<float>(1440.f, 1320.f));
 
-		//Sound* BGM = Resources::Load<Sound>(L"..")
+		Sound* BGM = Resources::Load<Sound>(L"BOSSBGM2",L"..\\Resources\\Sound\\2.IceBoss.wav");
+		SetBGM(BGM);
 
 		// HP
 		BackGround* HPBack = object::Instantiate<BackGround>(enums::eLayerType::UI);

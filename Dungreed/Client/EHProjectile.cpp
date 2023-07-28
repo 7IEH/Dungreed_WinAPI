@@ -5,7 +5,7 @@ namespace EH
 {
 	Projectile::Projectile()
 		:
-		mDegree(0.f)
+		mRadian(0.f)
 	{
 	}
 
@@ -22,8 +22,8 @@ namespace EH
 		GameObject::Update();
 		Transform* tr = GetComponent<Transform>();
 		Math::Vector2<float> pos = tr->Getpos();
-		pos.y += sinf(mDegree) * 300.f * Time::GetDeltaTime();
-		pos.x += cosf(mDegree) * 300.f * Time::GetDeltaTime();
+		pos.y += sinf(mRadian) * 300.f * Time::GetDeltaTime();
+		pos.x += cosf(mRadian) * 300.f * Time::GetDeltaTime();
 		tr->SetPos(pos);
 	}
 

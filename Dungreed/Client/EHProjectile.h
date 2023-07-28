@@ -17,14 +17,14 @@ namespace EH
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-		void SetDegree(float degree) { mDegree = degree; }
-		float GetDegree() { return mDegree; }
+		void SetRadian(float radian) { mRadian = radian; }
+		float GetRadian() { return mRadian; }
 
 		void SetDamage(UINT damage) { mDamage = damage; }
 		UINT GetDamage() { return mDamage; }
 
 	private:
-		float mDegree;
+		float mRadian;
 		UINT mDamage;
 	};
 }

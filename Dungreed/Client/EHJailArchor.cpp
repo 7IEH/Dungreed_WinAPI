@@ -36,8 +36,9 @@ namespace EH
 			arrowtr->SetPos(Math::Vector2<float>(archorpos.x, archorpos.y));
 			targetpos = Camera::CaculatePos(targetpos);
 			archorpos = Camera::CaculatePos(archorpos);
-			float degree = Math::Degree(archortr->Getpos(), targettr->Getpos());
-			arrow->SetDegree(Math::Degree(archortr->Getpos(), targettr->Getpos()));
+			// 원래 공식으로 반대로 나감
+			float radian = Math::Radian(targettr->Getpos() , archortr->Getpos());
+			arrow->SetRadian(radian);
 			arrow->AddComponent<Collider>();
 			arrow->GetComponent<Collider>()->SetScale(Math::Vector2<float>(40.f, 40.f));
 			SetCheckTime(0.f);

@@ -90,12 +90,11 @@ namespace EH::Math
 		}
 	};
 
-	inline float Degree(const Vector2<float>& vec1, const Vector2<float>& vec2)
+	inline float Radian(const Vector2<float>& vec1, const Vector2<float>& vec2)
 	{
-		float radian = atan2(fabs(vec1.y - vec2.y), fabs(vec1.x - vec2.x));
-		float degree = radian * (180.f / 3.14f);
+		float radian = atan2(vec1.y - vec2.y, vec1.x - vec2.x);
 
-		return degree;
+		return radian;
 	}
 
 	inline float Dot(Vector2<float>& vec1, Vector2<float>& vec2)

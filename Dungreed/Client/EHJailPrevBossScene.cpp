@@ -222,7 +222,7 @@ namespace EH
 		if (Input::Getkey(eKeyCode::Z).state == eKeyState::DOWN)
 		{
 			Camera::SetLookAt(Math::Vector2<float>(640.f, 360.f));
-			SceneManager::LoadScene(L"JailBossScene");
+			SceneManager::LoadScene(L"JailBossScene")->GetBGM()->Play(true);
 			Camera::SetTarget(nullptr);
 		}
 		Scene::Update();
