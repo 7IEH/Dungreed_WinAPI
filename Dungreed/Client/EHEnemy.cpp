@@ -8,6 +8,8 @@ namespace EH
 		 , mCheckTime(0.f)
 		 , mSubDelayTime(0.f)
 		 , mSubCheckTime(0.f)
+		 , mCurState(eState::Idle)
+		 , mTarget(nullptr)
 	{
 	}
 

@@ -5,6 +5,7 @@
 #include "EHPlayer.h"
 #include "EHComponent.h"
 #include "EHLaser.h"
+#include "EHBullet.h"
 #include <time.h>
 
 
@@ -59,7 +60,6 @@ namespace EH
 	{
 		GameObject::Update();
 
-		// Hand Move
 		switch (mCurState)
 		{
 		case EH::eBossState::Idle:
@@ -218,12 +218,14 @@ namespace EH
 			// sword 1개씩 생성 총 6개 만들기
 			if (mSubDelayTime < mSubCheckTime)
 			{
-				BackGround* sword1 = object::Instantiate<BackGround>(enums::eLayerType::UI);
+				Bullet* sword1 = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
 				Transform* Swordtr = sword1->GetComponent<Transform>();
 				Transform* Bosstr = GetComponent<Transform>();
-				Swordtr->SetPos(Math::Vector2(600.f + mSword*100.f,Bosstr->Getpos().y + 20.f));
+				Swordtr->SetPos(Math::Vector2(600.f + mSword * 100.f,Bosstr->Getpos().y + 20.f));
+				sword1->SetRadian(Math::Radian(mTarget->GetComponent<Transform>()->Getpos(), Swordtr->Getpos()));
 				sword1->AddComponent<Collider>();
 				sword1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(30.f, 200.f));
+				sword1->SetDeleteTime(2.f);
 				mSubCheckTime = 0.f;
 				mSword += 1;
 			}

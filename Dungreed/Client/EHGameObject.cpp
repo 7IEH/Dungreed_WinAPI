@@ -4,7 +4,8 @@ namespace EH
 {
 	GameObject::GameObject()
 		:
-		mPath(L"")
+		  mPath(L"")
+		, mState(eState::Active)
 	{
 		AddComponent<Transform>();
 	}

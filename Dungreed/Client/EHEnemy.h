@@ -6,6 +6,13 @@ namespace EH
 	class Enemy : public GameObject
 	{
 	public:
+		enum class eState
+		{
+			Idle
+			,Attack
+			,Dead
+		};
+
 		Enemy();
 		virtual ~Enemy();
 
@@ -32,8 +39,12 @@ namespace EH
 		float GetSubDelayTime() { return mSubDelayTime; }
 		float GetSubCheckTime() { return mSubCheckTime; }
 
+		void SetState(eState state) { mCurState = state; }
+		eState GetState() { return mCurState; }
+
 	private:
 		class Player* mTarget;
+		eState mCurState;
 		float mDelayTime;
 		float mCheckTime;
 		float mSubDelayTime;

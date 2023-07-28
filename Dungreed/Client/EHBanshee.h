@@ -17,6 +17,9 @@ namespace EH
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
+		void Idle();
+		void Attack();
+
 	private:
 
 	};

@@ -263,9 +263,11 @@ namespace EH
 		banshee1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 600.f));
 		banshee1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
 		banshee1->AddComponent<Animator>();
-		temp = Resources::Load<Texture>(L"Banshee", L"..\\Resources\\Enemy\\JailField\\Banshee\\Attack\\BansheeAttack0.png");
-		banshee1->GetComponent<Animator>()->CreateAnimation(L"Banshee", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
-		banshee1->GetComponent<Animator>()->PlayAnimation(L"Banshee", true);
+		temp = Resources::Load<Texture>(L"BansheeIdle", L"..\\Resources\\Enemy\\JailField\\Banshee\\Idle\\BansheeIdleSheet.bmp");
+		banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		temp = Resources::Load<Texture>(L"BansheeAttack", L"..\\Resources\\Enemy\\JailField\\Banshee\\Attack\\BansheeAttackSheet.bmp");
+		banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeAttack", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		banshee1->GetComponent<Animator>()->PlayAnimation(L"BansheeIdle", true);
 		banshee1->SetTarget(player);
 		banshee1->SetDelayTime(2.f);
 
