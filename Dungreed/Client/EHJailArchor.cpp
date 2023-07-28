@@ -1,6 +1,6 @@
 #include "EHJailArchor.h"
 #include "EHPlayer.h"
-#include "EHProjectile.h"
+#include "EHBullet.h"
 #include "EHObject.h"
 #include "EHCamera.h"
 
@@ -27,7 +27,7 @@ namespace EH
 		SetCheckTime(checktime += Time::GetDeltaTime());
 		if (GetDelayTime() < checktime)
 		{
-			Projectile* arrow = object::Instantiate<Projectile>(enums::eLayerType::UI);
+			Bullet* arrow = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
 			Transform* archortr = GetComponent<Transform>();
 			Transform* arrowtr = arrow->GetComponent<Transform>();
 			Transform* targettr = GetTarget()->GetComponent<Transform>();
@@ -36,11 +36,11 @@ namespace EH
 			arrowtr->SetPos(Math::Vector2<float>(archorpos.x, archorpos.y));
 			targetpos = Camera::CaculatePos(targetpos);
 			archorpos = Camera::CaculatePos(archorpos);
-			// 원래 공식으로 반대로 나감
 			float radian = Math::Radian(targettr->Getpos() , archortr->Getpos());
 			arrow->SetRadian(radian);
 			arrow->AddComponent<Collider>();
 			arrow->GetComponent<Collider>()->SetScale(Math::Vector2<float>(40.f, 40.f));
+			arrow->SetDeleteTime(2.f);
 			SetCheckTime(0.f);
 		}
 	}

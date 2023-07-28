@@ -168,7 +168,7 @@
     <ClInclude Include="EHJailScene9.h" />
     <ClInclude Include="EHLaser.h" />
     <ClInclude Include="EHNpc.h" />
-    <ClInclude Include="EHProjectile.h" />
+    <ClInclude Include="EHBullet.h" />
     <ClInclude Include="EHRigidbody.h" />
     <ClInclude Include="EHSoundManager.h" />
     <ClInclude Include="EHTexture.h" />
@@ -236,7 +236,7 @@
     <ClCompile Include="EHLaser.cpp" />
     <ClCompile Include="EHMath.cpp" />
     <ClCompile Include="EHNpc.cpp" />
-    <ClCompile Include="EHProjectile.cpp" />
+    <ClCompile Include="EHBullet.cpp" />
     <ClCompile Include="EHRigidbody.cpp" />
     <ClCompile Include="EHSoundManager.cpp" />
     <ClCompile Include="EHTexture.cpp" />

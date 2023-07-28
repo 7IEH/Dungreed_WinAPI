@@ -1,38 +1,47 @@
-#include "EHProjectile.h"
+#include "EHBullet.h"
 #include "EHPlayer.h"
+#include "EHCamera.h"
 
 namespace EH
 {
-	Projectile::Projectile()
+	Bullet::Bullet()
 		:
-		mRadian(0.f)
+		  mRadian(0.f)
+		, mDamage(0)
+		, mDeleteTime(0.f)
+		, mCheckTime(0.f)
 	{
 	}
 
-	Projectile::~Projectile()
+	Bullet::~Bullet()
 	{
 	}
 
-	void Projectile::Initialize()
+	void Bullet::Initialize()
 	{
 	}
 
-	void Projectile::Update()
+	void Bullet::Update()
 	{
 		GameObject::Update();
 		Transform* tr = GetComponent<Transform>();
+		mCheckTime += Time::GetDeltaTime();
 		Math::Vector2<float> pos = tr->Getpos();
 		pos.y += sinf(mRadian) * 300.f * Time::GetDeltaTime();
 		pos.x += cosf(mRadian) * 300.f * Time::GetDeltaTime();
 		tr->SetPos(pos);
+		if (mDeleteTime < mCheckTime)
+		{
+			Destroy(this);
+		}
 	}
 
-	void Projectile::Render(HDC hdc)
+	void Bullet::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
 	}
 
-	void Projectile::OnCollisionEnter(Collider* other)
+	void Bullet::OnCollisionEnter(Collider* other)
 	{
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
 		if (player != nullptr)
@@ -41,11 +50,11 @@ namespace EH
 		}
 	}
 
-	void Projectile::OnCollisionStay(Collider* other)
+	void Bullet::OnCollisionStay(Collider* other)
 	{
 	}
 
-	void Projectile::OnCollisionExit(Collider* other)
+	void Bullet::OnCollisionExit(Collider* other)
 	{
 	}
 }

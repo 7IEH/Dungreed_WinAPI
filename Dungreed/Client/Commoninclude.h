@@ -40,23 +40,25 @@ namespace EH::enums
 {
 	enum class eLayerType
 	{
-		BackGround,
-		Floor,
-		Enemy,
-		UI,
-		Npc,
-		Player,
-		Laser,
-		End,
+		  BackGround
+		, Floor
+		, Enemy
+		, UI
+		, Npc
+		, Player
+		, Bullet
+		, Laser
+		, End
 	};
 
 	enum class eComponentType
 	{
-		Transform,
-		SpriteRenderer,
-		Animator,
-		Collider,
-		Rigidbody,
-		End,
+		  Transform
+		, SpriteRenderer
+		, Animator
+		, Collider
+		, Rigidbody
+		, End
+		,
 	};
 }

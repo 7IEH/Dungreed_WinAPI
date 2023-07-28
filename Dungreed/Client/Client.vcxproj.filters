@@ -414,7 +414,7 @@
     <ClInclude Include="EHLaser.h">
       <Filter>Contents\GameObject\EnemyAttack\Laser</Filter>
     </ClInclude>
-    <ClInclude Include="EHProjectile.h">
+    <ClInclude Include="EHBullet.h">
       <Filter>Contents\GameObject\EnemyAttack\Projectile</Filter>
     </ClInclude>
     <ClInclude Include="EHSoundManager.h">
@@ -606,7 +606,7 @@
     <ClCompile Include="EHLaser.cpp">
       <Filter>Contents\GameObject\EnemyAttack\Laser</Filter>
     </ClCompile>
-    <ClCompile Include="EHProjectile.cpp">
+    <ClCompile Include="EHBullet.cpp">
       <Filter>Contents\GameObject\EnemyAttack\Projectile</Filter>
     </ClCompile>
     <ClCompile Include="EHSoundManager.cpp">

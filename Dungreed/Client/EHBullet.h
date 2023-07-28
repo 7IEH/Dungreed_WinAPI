@@ -3,11 +3,11 @@
 
 namespace EH
 {
-	class Projectile : public GameObject
+	class Bullet : public GameObject
 	{
 	public:
-		Projectile();
-		virtual ~Projectile();
+		Bullet();
+		virtual ~Bullet();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -23,8 +23,13 @@ namespace EH
 		void SetDamage(UINT damage) { mDamage = damage; }
 		UINT GetDamage() { return mDamage; }
 
+		void SetDeleteTime(float deletetime) { mDeleteTime = deletetime; }
+		float GetDeleteTime() { return mDeleteTime; }
+
 	private:
 		float mRadian;
 		UINT mDamage;
+		float mDeleteTime;
+		float mCheckTime;
 	};
 }
