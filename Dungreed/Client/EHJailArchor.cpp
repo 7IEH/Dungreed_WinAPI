@@ -31,16 +31,15 @@ namespace EH
 			Transform* archortr = GetComponent<Transform>();
 			Transform* arrowtr = arrow->GetComponent<Transform>();
 			Transform* targettr = GetTarget()->GetComponent<Transform>();
-;			Math::Vector2<float> archorpos = archortr->Getpos();
-;			Math::Vector2<float> targetpos = targettr->Getpos();
+			Math::Vector2<float> archorpos = archortr->Getpos();
+			Math::Vector2<float> targetpos = targettr->Getpos();
+			arrow->SetStop(false);
 			arrowtr->SetPos(Math::Vector2<float>(archorpos.x, archorpos.y));
-			targetpos = Camera::CaculatePos(targetpos);
-			archorpos = Camera::CaculatePos(archorpos);
 			float radian = Math::Radian(targettr->Getpos() , archortr->Getpos());
 			arrow->SetRadian(radian);
 			arrow->AddComponent<Collider>();
 			arrow->GetComponent<Collider>()->SetScale(Math::Vector2<float>(40.f, 40.f));
-			arrow->SetDeleteTime(2.f);
+			arrow->SetDeleteTime(10.f);
 			SetCheckTime(0.f);
 		}
 	}

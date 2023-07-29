@@ -50,8 +50,8 @@ namespace EH
 			hPen = (HPEN)CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
 			hOldPen = (HPEN)SelectObject(hdc, hPen);
 		}
-		Rectangle(hdc, pos.x - mScale.x / 2.f, pos.y - mScale.y / 2.f,
-			pos.x + mScale.x / 2.f, pos.y + mScale.y / 2.f);
+		Rectangle(hdc, pos.x - mScale.x / 2.f + mOffset.x, pos.y - mScale.y / 2.f + mOffset.y,
+			pos.x + mScale.x / 2.f + mOffset.x, pos.y + mScale.y / 2.f + mOffset.y);
 
 		SelectObject(hdc, hOldBrush);
 		DeleteObject(hTransParentBrush);

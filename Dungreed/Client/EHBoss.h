@@ -69,7 +69,7 @@ namespace EH
 		float mIsRight;
 
 		// Sword Group
-		std::wstring SwordNameGroup[6];
+		class Bullet* mSwordNameGroup[6];
 	};
 }
 

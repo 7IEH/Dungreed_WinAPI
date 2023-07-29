@@ -5,6 +5,7 @@
 #include "EHResources.h"
 #include "EHApplication.h"
 #include "EHCamera.h"
+#include "EHFloor.h"
 
 extern EH::Application application;
 
@@ -21,10 +22,49 @@ namespace EH
 		, mIsDead(false)
 		, mCurState(eAnimationState::Idle)
 		, mActiveWeapon(eWeapon::None)
+		, mJumpStack(0)
+		, mWeapon(nullptr)
+		, mIsJump(false)
+		, mOnBlock(false)
 		, mIsSwing(true)
 	{
 		AddComponent<Rigidbody>();
-		Texture* temp = Resources::Load<Texture>(L"HPRed", L"..\\Resources\\UI\\PlayerLife.png");
+
+		// Animation 정리
+		Texture* temp = Resources::Load<Texture>(L"PlayerRightIdle", L"..\\Resources\\Player\\Basic\\Idle\\CharRightIdleSheet.bmp");
+		Animator* animator = AddComponent<Animator>();
+		animator->CreateAnimation(L"PlayerRightIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 5, 0.1f);
+		animator->PlayAnimation(L"PlayerRightIdle", true);
+
+		temp = Resources::Load<Texture>(L"PlayerRightRun", L"..\\Resources\\Player\\Basic\\Run\\CharRightRunSheet.bmp");
+		animator->CreateAnimation(L"PlayerRightRun", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+		temp = Resources::Load<Texture>(L"PlayerRightDie", L"..\\Resources\\Player\\Basic\\Die\\CharRightDie.bmp");
+		animator->CreateAnimation(L"PlayerRightDie", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+
+		temp = Resources::Load<Texture>(L"PlayerRightJump", L"..\\Resources\\Player\\Basic\\Jump\\CharRightJump.bmp");
+		animator->CreateAnimation(L"PlayerRightJump", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+
+		// Left
+		temp = Resources::Load<Texture>(L"PlayerLeftIdle", L"..\\Resources\\Player\\Basic\\Idle\\CharLeftIdleSheet.bmp");
+		animator->CreateAnimation(L"PlayerLeftIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 5, 0.1f);
+
+		temp = Resources::Load<Texture>(L"PlayerLeftRun", L"..\\Resources\\Player\\Basic\\Run\\CharLeftRunSheet.bmp");
+		animator->CreateAnimation(L"PlayerLeftRun", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+		temp = Resources::Load<Texture>(L"PlayerLeftDie", L"..\\Resources\\Player\\Basic\\Die\\CharLeftDie.bmp");
+		animator->CreateAnimation(L"PlayerLeftDie", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+
+		temp = Resources::Load<Texture>(L"PlayerLeftJump", L"..\\Resources\\Player\\Basic\\Jump\\CharLeftJump.bmp");
+		animator->CreateAnimation(L"PlayerLeftJump", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		AddComponent<Collider>();
+		GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 128.f));
+		GetComponent<Collider>()->SetOffset(Math::Vector2<float>(0.f,0.f));
+		animator->SetAffectedCamera(true);
+		GetComponent<Collider>()->SetAffectedCamera(true);
+		
+		// UI -> 나중에 클래스로 정리
+		temp = Resources::Load<Texture>(L"HPRed", L"..\\Resources\\UI\\PlayerLife.png");
 		mHp = EH::object::Instantiate<BackGround>(enums::eLayerType::UI);
 		mHp->GetComponent<Transform>()->SetPos(Math::Vector2<float>(195.f, 42.f));
 		mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f, 36.f));
@@ -60,31 +100,24 @@ namespace EH
 		case eAnimationState::Attack:
 			Attack();
 			break;
+		case eAnimationState::DownJump:
+			DownJump();
+			break;
+		case eAnimationState::Dash:
+			Dash();
+			break;
 		case EH::eAnimationState::Die:
 			Die();
 			break;
 		default:
 			break;
 		}
-
 		Playerlogic();
-
-		if (Input::Getkey(eKeyCode::P).state == eKeyState::DOWN)
-		{
-			mCurHp -= 5;
-			mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f * ((float)mCurHp / (float)mMaxHP), 36.f));
-		}
-		if (Input::Getkey(eKeyCode::O).state == eKeyState::DOWN)
-		{
-			mCurHp += 5;
-			mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f * ((float)mCurHp / (float)mMaxHP), 36.f));
-		}
 	}
 
 	void Player::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
-
 		wchar_t hp[50] = {};
 		swprintf_s(hp, 50, L"%d/%d", mCurHp, mMaxHP);
 		int strlen = wcsnlen_s(hp, 50);
@@ -200,10 +233,15 @@ namespace EH
 
 	void Player::Idle()
 	{
-		if (mIsRight)
+		mIsJump = GetComponent<Rigidbody>()->GetGround();
+		if (mIsRight && mIsJump)
 			GetComponent<Animator>()->PlayAnimation(L"PlayerRightIdle", true);
-		else
+		else if(!mIsRight && mIsJump)
 			GetComponent<Animator>()->PlayAnimation(L"PlayerLeftIdle", true);
+		else if (mIsRight && !mIsJump)
+			GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
+		else if (!mIsRight && !mIsJump)
+			GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
 
 		// 이것도 나중에 정리
 		if (Input::Getkey(eKeyCode::K).state == eKeyState::DOWN)
@@ -243,35 +281,36 @@ namespace EH
  		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
 		{
 			mCurState = eAnimationState::Move;
-			if (mIsRight)
+			if (mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
 			}
-			else
+			else if (!mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 			}
 		}
-		if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
+		if (Input::Getkey(eKeyCode::S).state == eKeyState::DOWN)
 		{
-			//mCurState = eAnimationState::Move;
+			mCurState = eAnimationState::DownJump;
 		}
 		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
 		{
 			mCurState = eAnimationState::Move;
-			if (mIsRight)
+			if (mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
 			}
-			else
+			else if(!mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 			}
 		}
-		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && JumpStack < 2)
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && mJumpStack < 2)
 		{
 			mCurState = eAnimationState::Jump;
-			JumpStack++;
+			mJumpStack++;
+			GetComponent<Rigidbody>()->SetGround(false);
 			if (mIsRight)
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
 			else
@@ -284,6 +323,10 @@ namespace EH
 				mCurState = eAnimationState::Attack;
 				mIsSwing = !mIsSwing;
 			}
+		}
+		if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::DOWN)
+		{
+			mCurState = eAnimationState::Dash;
 		}
 		if (mCurHp <= 0.f)
 		{
@@ -302,14 +345,19 @@ namespace EH
 		Transform* tr = GetComponent<Transform>();
 		Math::Vector2<float> pos = tr->Getpos();
 
+		if (mIsRight && !mIsJump)
+			GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
+		else if (!mIsRight && !mIsJump)
+			GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
+
 		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
 		{
 			pos.x -= 300.f * Time::GetDeltaTime();
-			if (mIsRight)
+			if (mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
 			}
-			else
+			else if (!mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 			}
@@ -317,25 +365,25 @@ namespace EH
 		}
 		if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
 		{
-			// 벽 아래로
+			mCurState = eAnimationState::DownJump;
 		}
 		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
 		{
-			if (mIsRight)
+			if (mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
 			}
-			else
+			else if(!mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 			}
 			pos.x += 300.f * Time::GetDeltaTime();
 			//GetComponent<Rigidbody>()->AddForce(Math::Vector2<float>(200.f, 0.f));
 		}
-		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && JumpStack < 2)
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && mJumpStack < 2)
 		{
 			mCurState = eAnimationState::Jump;
-			JumpStack++;
+			mJumpStack++;
 			if (mIsRight)
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
 			else
@@ -403,10 +451,10 @@ namespace EH
 
 	void Player::Attack()
 	{
-		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && JumpStack < 2)
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && mJumpStack < 2)
 		{
 			mCurState = eAnimationState::Jump;
-			JumpStack++;
+			mJumpStack++;
 			if (mIsRight)
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
 			else
@@ -431,16 +479,70 @@ namespace EH
 		}
 	}
 
+	void Player::Dash()
+	{
+		Math::Vector2<float> pos = GetComponent<Transform>()->Getpos();
+		POINT pt = {};
+		GetCursorPos(&pt);
+		ScreenToClient(application.GetHWND(), &pt);
+		Math::Vector2<float> cursurpos(pt.x, pt.y);
+		cursurpos = Camera::CaculatePos(-cursurpos);
+		cursurpos = -cursurpos;
+		float radian = Math::Radian(cursurpos, pos);
+
+		pos.x += cosf(radian) * 20.f;
+		pos.y += sinf(radian) * 20.f;
+
+		GetComponent<Transform>()->SetPos(pos);
+
+		if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::UP)
+		{
+			mCurState = eAnimationState::Idle;
+		}
+	}
+
+	void Player::DownJump()
+	{
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && !mOnBlock)
+		{
+			Math::Vector2<float> velocity = GetComponent<Rigidbody>()->GetVelocity();
+			GetComponent<Rigidbody>()->SetVeclocity(Math::Vector2<float>(velocity.x + 0.f, velocity.y + 50.f));
+			GetComponent<Rigidbody>()->SetGround(false);
+		}
+		if (Input::Getkey(eKeyCode::S).state == eKeyState::UP)
+		{
+			mCurState = eAnimationState::Idle;
+		}
+	}
+
 	void Player::OnCollisionEnter(Collider* other)
 	{
 	}
 
 	void Player::OnCollisionStay(Collider* other)
 	{
+		// DownJump
+		Floor* check = dynamic_cast<Floor*>(other->GetOwner());
+		if (check != nullptr)
+		{
+			if (!(check->GetDownFloor()))
+			{
+				mOnBlock = true;
+			}
+		}
 	}
 
 	void Player::OnCollisionExit(Collider* other)
 	{
+		// DownJump
+		Floor* check = dynamic_cast<Floor*>(other->GetOwner());
+		if (check != nullptr)
+		{
+			if (!(check->GetDownFloor()))
+			{
+				mOnBlock = false;
+			}
+		}
 	}
 
 }

@@ -10,6 +10,7 @@ namespace EH
 		, mDamage(0)
 		, mDeleteTime(0.f)
 		, mCheckTime(0.f)
+		, mIsStop(true)
 	{
 	}
 
@@ -24,15 +25,18 @@ namespace EH
 	void Bullet::Update()
 	{
 		GameObject::Update();
-		Transform* tr = GetComponent<Transform>();
-		mCheckTime += Time::GetDeltaTime();
-		Math::Vector2<float> pos = tr->Getpos();
-		pos.y += sinf(mRadian) * 300.f * Time::GetDeltaTime();
-		pos.x += cosf(mRadian) * 300.f * Time::GetDeltaTime();
-		tr->SetPos(pos);
-		if (mDeleteTime < mCheckTime)
+		if (!mIsStop)
 		{
-			Destroy(this);
+			Transform* tr = GetComponent<Transform>();
+			mCheckTime += Time::GetDeltaTime();
+			Math::Vector2<float> pos = tr->Getpos();
+			pos.y += sinf(mRadian) * 300.f * Time::GetDeltaTime();
+			pos.x += cosf(mRadian) * 300.f * Time::GetDeltaTime();
+			tr->SetPos(pos);
+			if (mDeleteTime < mCheckTime)
+			{
+				Destroy(this);
+			}
 		}
 	}
 

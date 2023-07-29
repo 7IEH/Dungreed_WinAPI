@@ -1,9 +1,12 @@
 #include "EHFloor.h"
 #include "EHPlayer.h"
+#include "EHCamera.h"
 
 namespace EH
 {
 	Floor::Floor()
+		:
+		mIsDownFloor(true)
 	{
 	}
 	Floor::~Floor()
@@ -25,40 +28,59 @@ namespace EH
 
 	void Floor::OnCollisionEnter(Collider* other)
 	{
+		// 현재 충돌체가 player인지 확인
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
+
+		// 점프 스택 초기화
 		player->ResetJumpStack();
+
+		// 
 		Transform* playertr = other->GetOwner()->GetComponent<Transform>();
 		Transform* floortr = GetComponent<Transform>();
 
 		Collider* playercol = other->GetOwner()->GetComponent<Collider>();
 		Collider* floorcol = GetComponent<Collider>();
 
-		if (playertr->Getpos().y > floortr->Getpos().y)
+		if (player->GetComponent<Rigidbody>()->GetVelocity().y > 0)
 		{
-			return;
-		}
+			other->GetOwner()->GetComponent<Rigidbody>()->SetGround(true);
 
-		other->GetOwner()->GetComponent<Rigidbody>()->SetGround(true);
+			float scale = fabs(playercol->GetScale().y / 2.f + floorcol->GetScale().y / 2.f);
+			float len = fabs(playertr->Getpos().y - floortr->Getpos().y);
 
-		float scale = fabs(playercol->GetScale().y / 2.f + floorcol->GetScale().y / 2.f);
-		float len = fabs(playertr->Getpos().y - floortr->Getpos().y);
-
-		if (len < scale)
-		{
-			Math::Vector2 playerPos = playertr->Getpos();
-			playerPos.y -= (scale - len) - 1.0f;
-			playertr->SetPos(playerPos);
+			if (len < scale)
+			{
+				Math::Vector2 playerPos = playertr->Getpos();
+				playerPos.y -= (scale - len) - 1.0f;
+				playertr->SetPos(playerPos);
+			}
 		}
 	}
 
 	void Floor::OnCollisionStay(Collider* other)
 	{
-
 	}
 
 	void Floor::OnCollisionExit(Collider* other)
 	{
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
-		player->GetComponent<Rigidbody>()->SetGround(false);
+		Transform* playertr = other->GetOwner()->GetComponent<Transform>();
+		Transform* floortr = GetComponent<Transform>();
+
+		Collider* playercol = other->GetOwner()->GetComponent<Collider>();
+		Collider* floorcol = GetComponent<Collider>();
+		
+		if ((playertr->Getpos().y + playertr->GetScale().y / 2.f) - 1.f <= (floortr->Getpos().y - floorcol->GetScale().y / 2.f))
+		{
+			if (player->GetDir())
+			{
+				player->GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
+			}
+			else
+			{
+				player->GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
+			}
+			player->GetComponent<Rigidbody>()->SetGround(false);
+		}
 	}
 }

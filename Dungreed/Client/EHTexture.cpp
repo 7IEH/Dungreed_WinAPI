@@ -96,7 +96,7 @@ namespace EH
 				func.SourceConstantAlpha = 255;
 
 				AlphaBlend(hdc,
-					pos.x - scale.x / 2.f, pos.y - scale.y / 2.f,
+					pos.x - scale.x / 2.f + offset.x, pos.y - scale.y / 2.f + offset.y,
 					scale.x, scale.y,
 					mHdc,
 					lefttop.x, lefttop.y,
@@ -106,7 +106,7 @@ namespace EH
 			else
 			{
 				TransparentBlt(hdc,
-					pos.x - scale.x / 2.f, pos.y - scale.y / 2.f,
+					pos.x - scale.x / 2.f + offset.x, pos.y - scale.y / 2.f + offset.y,
 					scale.x, scale.y,
 					mHdc,
 					lefttop.x, lefttop.y,
@@ -123,7 +123,7 @@ namespace EH
 			{
 				g.SetInterpolationMode(Gdiplus::InterpolationModeNearestNeighbor);
 				g.DrawImage(mImg,
-					Rect(pos.x - scale.x / 2.f, pos.y - scale.y / 2.f, scale.x, scale.y),
+					Rect(pos.x - scale.x / 2.f + offset.x, pos.y - scale.y / 2.f + offset.y, scale.x, scale.y),
 					lefttop.x, lefttop.y,
 					size.x, size.y,
 					Gdiplus::UnitPixel,
@@ -139,7 +139,7 @@ namespace EH
 				g.SetTransform(&matrix);*/
 				g.SetInterpolationMode(Gdiplus::InterpolationModeNearestNeighbor);
 				g.DrawImage(mImg,
-					Rect(pos.x - scale.x / 2.f, pos.y - scale.y / 2.f, scale.x, scale.y),
+					Rect(pos.x - scale.x / 2.f + offset.x, pos.y - scale.y / 2.f + offset.y, scale.x, scale.y),
 					lefttop.x, lefttop.y,
 					size.x, size.y,
 					Gdiplus::UnitPixel,

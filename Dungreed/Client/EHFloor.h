@@ -16,8 +16,12 @@ namespace EH
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
-	private:
 
+		void SetDownFloor(bool downfloor) { mIsDownFloor = downfloor; }
+		bool GetDownFloor() { return mIsDownFloor; }
+
+	private:
+		bool mIsDownFloor;
 	};
 }
 

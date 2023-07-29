@@ -6,12 +6,14 @@ namespace EH
 {
 	enum class eAnimationState
 	{
-		Idle,
-		Move,
-		Jump,
-		Attack,
-		Die,
-		End
+		  Idle
+		, Move
+		, Jump
+		, Attack
+		, Dash
+		, DownJump
+		, Die
+		, End
 	};
 
 	enum class eWeapon
@@ -36,15 +38,19 @@ namespace EH
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-		void ResetJumpStack() { JumpStack = 0; }
-
 		void Idle();
 		void Move();
 		void Jump();
 		void Attack();
+		void Dash();
+		void DownJump();
 		void Die();
 		void Playerlogic();
 
+		// Acess function
+		bool GetDir() { return mIsRight; }
+		void ResetJumpStack() { mJumpStack = 0; }
+		
 	private:
 		UINT mLevel;
 		UINT mMaxHP;
@@ -62,6 +68,7 @@ namespace EH
 		bool mIsDead;
 		bool mIsJump;
 
-		UINT JumpStack;
+		bool mOnBlock;
+		UINT mJumpStack;
 	};
 }

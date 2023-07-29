@@ -23,6 +23,7 @@ namespace EH
 		, mSword(0)
 		, mIsRight(true)
 		, IsDead(false)
+		, mSwordNameGroup{}
 	{
 		mLeftHand = object::Instantiate<BossHand>(enums::eLayerType::Enemy);
 		Transform* tr = mLeftHand->GetComponent<Transform>();
@@ -208,6 +209,14 @@ namespace EH
 		mSubDelayTime = 1.f;
 		if(mDelayTime < mCheckTime)
 		{ 
+			for (Bullet* sword : mSwordNameGroup)
+			{
+				if (sword == nullptr)
+					continue;
+				sword->SetRadian(Math::Radian(mTarget->GetComponent<Transform>()->Getpos()
+					, sword->GetComponent<Transform>()->Getpos()));
+				sword->SetStop(false);
+			}
 			mCurState = eBossState::Idle;
 			mCurType = eBossAttack::None;
 			mCheckTime = 0.f;
@@ -222,11 +231,12 @@ namespace EH
 				Transform* Swordtr = sword1->GetComponent<Transform>();
 				Transform* Bosstr = GetComponent<Transform>();
 				Swordtr->SetPos(Math::Vector2(600.f + mSword * 100.f,Bosstr->Getpos().y + 20.f));
-				sword1->SetRadian(Math::Radian(mTarget->GetComponent<Transform>()->Getpos(), Swordtr->Getpos()));
 				sword1->AddComponent<Collider>();
 				sword1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(30.f, 200.f));
 				sword1->SetDeleteTime(2.f);
+				sword1->SetStop(true);
 				mSubCheckTime = 0.f;
+				mSwordNameGroup[mSword] = sword1;
 				mSword += 1;
 			}
 			else

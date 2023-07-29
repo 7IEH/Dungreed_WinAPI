@@ -26,10 +26,14 @@ namespace EH
 		void SetDeleteTime(float deletetime) { mDeleteTime = deletetime; }
 		float GetDeleteTime() { return mDeleteTime; }
 
+		void SetStop(bool stop) { mIsStop = stop; }
+		bool GetStop() { return mIsStop; }
+
 	private:
 		float mRadian;
 		UINT mDamage;
 		float mDeleteTime;
 		float mCheckTime;
+		bool mIsStop;
 	};
 }
