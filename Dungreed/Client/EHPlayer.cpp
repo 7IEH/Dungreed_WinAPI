@@ -86,6 +86,23 @@ namespace EH
 	{
 		GameObject::Update();
 
+		Transform* tr = GetComponent<Transform>();
+		///pixel Ãæµ¹
+		Vector2<float> pos = tr->Getpos();
+		COLORREF rgb = mFloorTexture->GetTexturePixel(pos.x/4.f, (pos.y + 66.f)/4.f);
+		COLORREF rgb2 = RGB(100, 0, 255);
+
+		Rigidbody* rb = GetComponent<Rigidbody>();
+		if (rgb == RGB(100, 0, 255))
+		{
+			Transform* tr = GetComponent<Transform>();
+
+			Vector2 pos = tr->Getpos();
+			pos.y -= 1;
+			tr->SetPos(pos);
+
+			rb->SetGround(true);
+		}
 		switch (mCurState)
 		{
 		case EH::eAnimationState::Idle:

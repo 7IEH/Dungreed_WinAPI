@@ -27,6 +27,12 @@ namespace EH
         //pSound->Play();
         SetSize(Math::Vector2<float>(7540.f, 1440.f));
         Texture* temp = nullptr;
+
+        // Player
+        Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
+        player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(256.f, 500.f));
+        player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+
         // sky
         BackGround* Sky = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
         Sky->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f,360.f));
@@ -187,11 +193,6 @@ namespace EH
         Commander->AddComponent<Animator>();
         Commander->GetComponent<Animator>()->CreateAnimation(L"CommanderIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(23.f, 25.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
         Commander->GetComponent<Animator>()->PlayAnimation(L"CommanderIdle", true);
-
-        // Player
-        Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
-        player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(256.f, 500.f));
-        player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
     
         Floor* floor1 = object::Instantiate<Floor>(enums::eLayerType::Floor);
         floor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3768.f, 1332.f));
@@ -310,6 +311,16 @@ namespace EH
         Secondfloor6->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f, 56.f));
         Secondfloor6->GetComponent<Collider>()->SetAffectedCamera(true);
         
+        Floor* test = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        test->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3770.f, 720.f));
+        test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(7540.f, 1440.f));
+        test->AddComponent<SpriteRenderer>();
+        temp = Resources::Load<Texture>(L"floortest", L"..\\Resources\\TownScene\\Floortest2.bmp");
+        test->GetComponent<SpriteRenderer>()->SetImg(temp);
+        test->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+
+        player->mFloorTexture = temp;
+
         CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Floor,true);
         Camera::SetTarget(player);
     }

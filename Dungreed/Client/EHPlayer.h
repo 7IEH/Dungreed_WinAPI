@@ -51,6 +51,8 @@ namespace EH
 		bool GetDir() { return mIsRight; }
 		void ResetJumpStack() { mJumpStack = 0; }
 		
+		class Texture* mFloorTexture;
+
 	private:
 		UINT mLevel;
 		UINT mMaxHP;
