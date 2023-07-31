@@ -10,6 +10,7 @@
 #include "EHNpc.h"
 #include "EHFloor.h"
 #include "EHSlope.h"
+#include "EHTrigger.h"
 #include "EHCollisionManager.h"
 
 namespace EH
@@ -195,13 +196,31 @@ namespace EH
         Commander->GetComponent<Animator>()->CreateAnimation(L"CommanderIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(23.f, 25.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
         Commander->GetComponent<Animator>()->PlayAnimation(L"CommanderIdle", true);
     
-        Floor* floor1 = object::Instantiate<Floor>(enums::eLayerType::Floor);
-        floor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3768.f, 1332.f));
-        floor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(7536.f, 64.f));
-        floor1->AddComponent<Collider>();
-        floor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(7536.f, 64.f));
-        floor1->GetComponent<Collider>()->SetAffectedCamera(true);
-        floor1->SetDownFloor(false);
+        // Downfloor
+        Floor* Downfloor1 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        Downfloor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3768.f, 1332.f));
+        Downfloor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(7536.f, 64.f));
+        Downfloor1->AddComponent<Collider>();
+        Downfloor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(7536.f, 64.f));
+        Downfloor1->GetComponent<Collider>()->SetAffectedCamera(true);
+        Downfloor1->SetDownFloor(false);
+
+        Trigger* trigger1 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
+        trigger1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3802.f, 1332.f));
+        trigger1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1180.f, 64.f));
+        trigger1->AddComponent<Collider>();
+        trigger1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1180.f, 64.f));
+        trigger1->GetComponent<Collider>()->SetAffectedCamera(true);
+        trigger1->SetType(Trigger::eTriggertype::Scenechange);
+        trigger1->SetScenename(L"JailScene1");
+
+        Floor* Downfloor3 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+        Downfloor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5964.f, 1332.f));
+        Downfloor3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(3144.f, 64.f));
+        Downfloor3->AddComponent<Collider>();
+        Downfloor3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(3144.f, 64.f));
+        Downfloor3->GetComponent<Collider>()->SetAffectedCamera(true);
+        Downfloor3->SetDownFloor(false);
 
         Floor* floor2 = object::Instantiate<Floor>(enums::eLayerType::Floor);
         floor2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(790.f, 756.f));
@@ -582,17 +601,14 @@ namespace EH
         test28->SetCorrection(90.f);
         test28->SetRight(true);
 
+        SetPlayer(player);
         CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Floor,true);
+        CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Trigger,true);
         Camera::SetTarget(player);
     }
 
     void TownScene::Update()
     {
-        if (Input::Getkey(eKeyCode::Z).state == eKeyState::DOWN)
-        {
-            Camera::SetLookAt(Math::Vector2<float>(640.f, 360.f));
-            SceneManager::LoadScene(L"JailScene1");
-        }
         Scene::Update();
     }
 

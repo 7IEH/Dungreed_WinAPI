@@ -48,6 +48,7 @@ namespace EH::enums
 		, Player
 		, Bullet
 		, Laser
+		, Trigger
 		, End
 	};
 

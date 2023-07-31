@@ -15,6 +15,14 @@ namespace EH
 		Texture* texture = Resources::Load<Texture>(L"JailBG11", L"..\\Resources\\Dungeon\\JailBackGround\\11\\JailField11.bmp");
 		JailBG11->GetComponent<SpriteRenderer>()->SetImg(texture);
 		JailBG11->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+
+		// Player
+		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
+		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(420.f, 500.f));
+		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+
+		// SceneChanger Player
+		SetPlayer(player);
 	}
 
 	void JailScene11::Update()

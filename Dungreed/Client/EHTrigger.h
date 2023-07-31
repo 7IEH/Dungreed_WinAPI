@@ -1,32 +1,37 @@
 #pragma once
 #include "EHGameObject.h"
 
-
 namespace EH
 {
-	class Weapon : public GameObject
+	class Trigger : public GameObject
 	{
 	public:
-		enum class eWeaponType
+		enum class eTriggertype
 		{
-			  Sword
-			, Gun
-			, Bow
+			  Scenechange
 			, None
 		};
 
+		Trigger();
+		virtual ~Trigger();
+		
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
-		
+
 		virtual void OnCollisionEnter(class Collider* other) override;
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
-		void SetWeaponType(eWeaponType type) { mType = type; }
+		void SetType(eTriggertype type) { mType = type; }
+		void SetScenename(std::wstring scenename) { mScenename = scenename; }
+
+		void SceneChange();
 
 	private:
-		eWeaponType mType;
+		eTriggertype mType;
+		std::wstring mScenename;
 	};
 }
+
 

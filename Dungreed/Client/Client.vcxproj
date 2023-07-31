@@ -188,6 +188,7 @@
     <ClInclude Include="EHTitleScene.h" />
     <ClInclude Include="EHTownScene.h" />
     <ClInclude Include="EHTransform.h" />
+    <ClInclude Include="EHTrigger.h" />
     <ClInclude Include="EHWeapon.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="EHJailPrevBossScene.h" />
@@ -258,6 +259,7 @@
     <ClCompile Include="EHResource.cpp" />
     <ClCompile Include="EHResources.cpp" />
     <ClCompile Include="EHJailPrevBossScene.cpp" />
+    <ClCompile Include="EHTrigger.cpp" />
     <ClCompile Include="EHWeapon.cpp" />
   </ItemGroup>
   <ItemGroup>

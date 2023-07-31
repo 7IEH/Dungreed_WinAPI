@@ -1,10 +1,13 @@
 #include "EHScene.h"
+#include "EHPlayer.h"
+
 namespace EH
 {
 	Scene::Scene()
 		:
 		  mSceneSize(0.f, 0.f)
 		, mBGM(nullptr)
+		, mPlayer(nullptr)
 	{
 		mLayers.resize((UINT)enums::eLayerType::End);
 	}

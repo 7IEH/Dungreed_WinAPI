@@ -117,7 +117,13 @@ namespace EH
 		testenemy2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 		testenemy2->GetComponent<Collider>()->SetAffectedCamera(true);
 
-		//player->GetComponent<SpriteRenderer>()->SetImg(temp);
+		// Player
+		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
+		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(420.f, 500.f));
+		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+
+		// SceneChanger Player
+		SetPlayer(player);
 	}
 
 	void JailScene18::Update()

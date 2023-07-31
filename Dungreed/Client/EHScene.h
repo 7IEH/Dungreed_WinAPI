@@ -29,9 +29,13 @@ namespace EH
 		void SetBGM(Sound* bgm) { mBGM = bgm; }
 		Sound* GetBGM() { return mBGM; }
 
+		void SetPlayer(class Player* player) { mPlayer = player; }
+		class Player* GetPlayer() { return mPlayer; }
+
 	private:
 		std::vector<Layer> mLayers;
 		Math::Vector2<float> mSceneSize;
 		Sound* mBGM;
+		class Player* mPlayer;
 	};
 }

@@ -223,6 +223,9 @@
     <Filter Include="Contents\GameObject\Slope">
       <UniqueIdentifier>{b2444961-e54f-4faf-9a3e-dd39cc62010d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Trigger">
+      <UniqueIdentifier>{1dc157f7-83c9-4ca8-9ad7-add4c3e1080a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -426,6 +429,9 @@
     <ClInclude Include="EHSlope.h">
       <Filter>Contents\GameObject\Slope</Filter>
     </ClInclude>
+    <ClInclude Include="EHTrigger.h">
+      <Filter>Contents\GameObject\Trigger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -620,6 +626,9 @@
     </ClCompile>
     <ClCompile Include="EHSlope.cpp">
       <Filter>Contents\GameObject\Slope</Filter>
+    </ClCompile>
+    <ClCompile Include="EHTrigger.cpp">
+      <Filter>Contents\GameObject\Trigger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

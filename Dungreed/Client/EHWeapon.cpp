@@ -15,4 +15,16 @@ namespace EH
 	{
 		GameObject::Render(hdc);
 	}
+
+	void Weapon::OnCollisionEnter(Collider* other)
+	{
+	}
+
+	void Weapon::OnCollisionStay(Collider* other)
+	{
+	}
+
+	void Weapon::OnCollisionExit(Collider* other)
+	{
+	}
 }
