@@ -170,6 +170,7 @@
     <ClInclude Include="EHNpc.h" />
     <ClInclude Include="EHBullet.h" />
     <ClInclude Include="EHRigidbody.h" />
+    <ClInclude Include="EHSlope.h" />
     <ClInclude Include="EHSoundManager.h" />
     <ClInclude Include="EHTexture.h" />
     <ClInclude Include="EHInput.h" />
@@ -238,6 +239,7 @@
     <ClCompile Include="EHNpc.cpp" />
     <ClCompile Include="EHBullet.cpp" />
     <ClCompile Include="EHRigidbody.cpp" />
+    <ClCompile Include="EHSlope.cpp" />
     <ClCompile Include="EHSoundManager.cpp" />
     <ClCompile Include="EHTexture.cpp" />
     <ClCompile Include="EHInput.cpp" />

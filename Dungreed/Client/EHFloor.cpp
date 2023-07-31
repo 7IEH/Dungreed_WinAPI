@@ -6,7 +6,7 @@ namespace EH
 {
 	Floor::Floor()
 		:
-		mIsDownFloor(true)
+		  mIsDownFloor(true)
 	{
 	}
 	Floor::~Floor()

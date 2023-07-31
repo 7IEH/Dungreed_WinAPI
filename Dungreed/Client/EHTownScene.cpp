@@ -9,6 +9,7 @@
 #include "EHCamera.h"
 #include "EHNpc.h"
 #include "EHFloor.h"
+#include "EHSlope.h"
 #include "EHCollisionManager.h"
 
 namespace EH
@@ -210,7 +211,7 @@ namespace EH
         floor2->GetComponent<Collider>()->SetAffectedCamera(true);
 
         Floor* floor3 = object::Instantiate<Floor>(enums::eLayerType::Floor);
-        floor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2122.f, 1268.f));
+        floor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2125.f, 1268.f));
         floor3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(60.f, 64.f));
         floor3->AddComponent<Collider>();
         floor3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(60.f, 64.f));
@@ -311,15 +312,275 @@ namespace EH
         Secondfloor6->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f, 56.f));
         Secondfloor6->GetComponent<Collider>()->SetAffectedCamera(true);
         
-        Floor* test = object::Instantiate<Floor>(enums::eLayerType::Floor);
-        test->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3770.f, 720.f));
-        test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(7540.f, 1440.f));
-        test->AddComponent<SpriteRenderer>();
-        temp = Resources::Load<Texture>(L"floortest", L"..\\Resources\\TownScene\\Floortest2.bmp");
-        test->GetComponent<SpriteRenderer>()->SetImg(temp);
-        test->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+        // Slope 1
+        Slope* test1 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1612.f, 756.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test1->AddComponent<Collider>();
+        test1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test1->GetComponent<Collider>()->SetAffectedCamera(true);
+        test1->SetIntercept(856.f);
+        test1->SetCorrection(64.f);
 
-        player->mFloorTexture = temp;
+        Slope* test2 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1676.f, 820.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test2->AddComponent<Collider>();
+        test2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test2->GetComponent<Collider>()->SetAffectedCamera(true);
+        test2->SetIntercept(856.f);
+        test2->SetCorrection(90.f);
+
+        Slope* test3 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1740.f, 884.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test3->AddComponent<Collider>();
+        test3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test3->GetComponent<Collider>()->SetAffectedCamera(true);
+        test3->SetIntercept(856.f);
+        test3->SetCorrection(90.f);
+
+        Slope* test4 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1804.f, 948.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test4->AddComponent<Collider>();
+        test4->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test4->GetComponent<Collider>()->SetAffectedCamera(true);
+        test4->SetIntercept(856.f);
+        test4->SetCorrection(90.f);
+
+        Slope* test5 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test5->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1870.f, 1012.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test5->AddComponent<Collider>();
+        test5->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test5->GetComponent<Collider>()->SetAffectedCamera(true);
+        test5->SetIntercept(856.f);
+        test5->SetCorrection(90.f);
+
+        Slope* test6 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test6->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1934.f, 1078.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test6->AddComponent<Collider>();
+        test6->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test6->GetComponent<Collider>()->SetAffectedCamera(true);
+        test6->SetIntercept(856.f);
+        test6->SetCorrection(90.f);
+
+        Slope* test7 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test7->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1998.f, 1142.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test7->AddComponent<Collider>();
+        test7->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 80.f));
+        test7->GetComponent<Collider>()->SetAffectedCamera(true);
+        test7->SetIntercept(856.f);
+        test7->SetCorrection(99.3f);
+
+        Slope* test8 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test8->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2062.f, 1206.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test8->AddComponent<Collider>();
+        test8->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 80.f));
+        test8->GetComponent<Collider>()->SetAffectedCamera(true);
+        test8->SetIntercept(856.f);
+        test8->SetCorrection(99.3f);
+
+        // slope 2
+        Slope* test9 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test9->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2572.f, 1208.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test9->AddComponent<Collider>();
+        test9->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 68.f));
+        test9->GetComponent<Collider>()->SetAffectedCamera(true);
+        test9->SetIntercept(3780.f);
+        test9->SetCorrection(90.f);
+        test9->SetRight(true);
+
+        Slope* test10 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test10->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2636.f, 1144.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test10->AddComponent<Collider>();
+        test10->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test10->GetComponent<Collider>()->SetAffectedCamera(true);
+        test10->SetIntercept(3780.f);
+        test10->SetCorrection(90.f);
+        test10->SetRight(true);
+
+        Slope* test11 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test11->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2700.f, 1080.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test11->AddComponent<Collider>();
+        test11->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test11->GetComponent<Collider>()->SetAffectedCamera(true);
+        test11->SetIntercept(3780.f);
+        test11->SetCorrection(90.f);
+        test11->SetRight(true);
+
+        Slope* test12 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test12->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2764.f, 1016.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test12->AddComponent<Collider>();
+        test12->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test12->GetComponent<Collider>()->SetAffectedCamera(true);
+        test12->SetIntercept(3780.f);
+        test12->SetCorrection(90.f);
+        test12->SetRight(true);
+
+        Slope* test13 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test13->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2828.f, 952.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test13->AddComponent<Collider>();
+        test13->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test13->GetComponent<Collider>()->SetAffectedCamera(true);
+        test13->SetIntercept(3780.f);
+        test13->SetCorrection(90.f);
+        test13->SetRight(true);
+
+        Slope* test14 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test14->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2892.f, 888.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test14->AddComponent<Collider>();
+        test14->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test14->GetComponent<Collider>()->SetAffectedCamera(true);
+        test14->SetIntercept(3780.f);
+        test14->SetCorrection(90.f);
+        test14->SetRight(true);
+
+        // slope 3
+        Slope* test15 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test15->GetComponent<Transform>()->SetPos(Math::Vector2<float>(4996.f, 1208.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test15->AddComponent<Collider>();
+        test15->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test15->GetComponent<Collider>()->SetAffectedCamera(true);
+        test15->SetIntercept(3788.f);
+        test15->SetCorrection(90.f);
+
+        Slope* test16 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test16->GetComponent<Transform>()->SetPos(Math::Vector2<float>(4932.f, 1144.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test16->AddComponent<Collider>();
+        test16->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test16->GetComponent<Collider>()->SetAffectedCamera(true);
+        test16->SetIntercept(3788.f);
+        test16->SetCorrection(90.f);
+
+        Slope* test17 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test17->GetComponent<Transform>()->SetPos(Math::Vector2<float>(4868.f, 1080.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test17->AddComponent<Collider>();
+        test17->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test17->GetComponent<Collider>()->SetAffectedCamera(true);
+        test17->SetIntercept(3788.f);
+        test17->SetCorrection(90.f);
+
+        Slope* test18 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test18->GetComponent<Transform>()->SetPos(Math::Vector2<float>(4804.f, 1016.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test18->AddComponent<Collider>();
+        test18->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test18->GetComponent<Collider>()->SetAffectedCamera(true);
+        test18->SetIntercept(3788.f);
+        test18->SetCorrection(90.f);
+
+        Slope* test19 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test19->GetComponent<Transform>()->SetPos(Math::Vector2<float>(4740.f, 952.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test19->AddComponent<Collider>();
+        test19->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test19->GetComponent<Collider>()->SetAffectedCamera(true);
+        test19->SetIntercept(3788.f);
+        test19->SetCorrection(90.f);
+
+        Slope* test20 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test20->GetComponent<Transform>()->SetPos(Math::Vector2<float>(4676.f, 888.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test20->AddComponent<Collider>();
+        test20->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test20->GetComponent<Collider>()->SetAffectedCamera(true);
+        test20->SetIntercept(3788.f);
+        test20->SetCorrection(90.f);
+
+        // slope4
+        Slope* test21 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test21->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5420.f, 1208.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test21->AddComponent<Collider>();
+        test21->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test21->GetComponent<Collider>()->SetAffectedCamera(true);
+        test21->SetIntercept(6628.f);
+        test21->SetCorrection(90.f);
+        test21->SetRight(true);
+
+        Slope* test22 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test22->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5484.f, 1144.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test22->AddComponent<Collider>();
+        test22->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test22->GetComponent<Collider>()->SetAffectedCamera(true);
+        test22->SetIntercept(6628.f);
+        test22->SetCorrection(90.f);
+        test22->SetRight(true);
+
+        Slope* test23 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test23->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5548.f, 1080.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test23->AddComponent<Collider>();
+        test23->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test23->GetComponent<Collider>()->SetAffectedCamera(true);
+        test23->SetIntercept(6628.f);
+        test23->SetCorrection(90.f);
+        test23->SetRight(true);
+
+        Slope* test24 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test24->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5612.f, 1016.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test24->AddComponent<Collider>();
+        test24->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test24->GetComponent<Collider>()->SetAffectedCamera(true);
+        test24->SetIntercept(6628.f);
+        test24->SetCorrection(90.f);
+        test24->SetRight(true);
+
+        Slope* test25 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test25->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5676.f, 952.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test25->AddComponent<Collider>();
+        test25->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test25->GetComponent<Collider>()->SetAffectedCamera(true);
+        test25->SetIntercept(6628.f);
+        test25->SetCorrection(90.f);
+        test25->SetRight(true);
+
+        Slope* test26 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test26->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5740.f, 888.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test26->AddComponent<Collider>();
+        test26->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test26->GetComponent<Collider>()->SetAffectedCamera(true);
+        test26->SetIntercept(6628.f);
+        test26->SetCorrection(90.f);
+        test26->SetRight(true);
+
+        Slope* test27 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test27->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5804.f, 824.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test27->AddComponent<Collider>();
+        test27->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test27->GetComponent<Collider>()->SetAffectedCamera(true);
+        test27->SetIntercept(6628.f);
+        test27->SetCorrection(90.f);
+        test27->SetRight(true);
+
+        Slope* test28 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+        test28->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5868.f, 760.f));
+        //test->GetComponent<Transform>()->SetScale(Math::Vector2<float>(512.f, 512.f));
+        test28->AddComponent<Collider>();
+        test28->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+        test28->GetComponent<Collider>()->SetAffectedCamera(true);
+        test28->SetIntercept(6628.f);
+        test28->SetCorrection(90.f);
+        test28->SetRight(true);
 
         CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Floor,true);
         Camera::SetTarget(player);

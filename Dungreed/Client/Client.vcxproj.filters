@@ -220,6 +220,9 @@
     <Filter Include="Engine\SoundMgr">
       <UniqueIdentifier>{f7f6979c-cfe7-4441-bce2-405cb123fcad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Slope">
+      <UniqueIdentifier>{b2444961-e54f-4faf-9a3e-dd39cc62010d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -420,6 +423,9 @@
     <ClInclude Include="EHSoundManager.h">
       <Filter>Engine\SoundMgr</Filter>
     </ClInclude>
+    <ClInclude Include="EHSlope.h">
+      <Filter>Contents\GameObject\Slope</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -611,6 +617,9 @@
     </ClCompile>
     <ClCompile Include="EHSoundManager.cpp">
       <Filter>Engine\SoundMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSlope.cpp">
+      <Filter>Contents\GameObject\Slope</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

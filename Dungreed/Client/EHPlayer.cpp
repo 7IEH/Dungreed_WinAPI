@@ -27,6 +27,8 @@ namespace EH
 		, mIsJump(false)
 		, mOnBlock(false)
 		, mIsSwing(true)
+		, mIsSlope(false)
+		, mIsRightSlope(false)
 	{
 		AddComponent<Rigidbody>();
 
@@ -85,24 +87,7 @@ namespace EH
 	void Player::Update()
 	{
 		GameObject::Update();
-
-		Transform* tr = GetComponent<Transform>();
-		///pixel Ãæµ¹
-		Vector2<float> pos = tr->Getpos();
-		COLORREF rgb = mFloorTexture->GetTexturePixel(pos.x/4.f, (pos.y + 66.f)/4.f);
-		COLORREF rgb2 = RGB(100, 0, 255);
-
-		Rigidbody* rb = GetComponent<Rigidbody>();
-		if (rgb == RGB(100, 0, 255))
-		{
-			Transform* tr = GetComponent<Transform>();
-
-			Vector2 pos = tr->Getpos();
-			pos.y -= 1;
-			tr->SetPos(pos);
-
-			rb->SetGround(true);
-		}
+		mIsJump = GetComponent<Rigidbody>()->GetGround();
 		switch (mCurState)
 		{
 		case EH::eAnimationState::Idle:
@@ -250,7 +235,6 @@ namespace EH
 
 	void Player::Idle()
 	{
-		mIsJump = GetComponent<Rigidbody>()->GetGround();
 		if (mIsRight && mIsJump)
 			GetComponent<Animator>()->PlayAnimation(L"PlayerRightIdle", true);
 		else if(!mIsRight && mIsJump)
@@ -369,7 +353,6 @@ namespace EH
 
 		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
 		{
-			pos.x -= 300.f * Time::GetDeltaTime();
 			if (mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
@@ -378,6 +361,24 @@ namespace EH
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 			}
+			if (mIsSlope)
+			{
+				if (mIsRightSlope)
+				{
+					pos.x -= 200.f * Time::GetDeltaTime();
+					pos.y += 200.f * Time::GetDeltaTime();
+				}
+				else
+				{
+					pos.x -= 200.f * Time::GetDeltaTime();
+					pos.y -= 200.f * Time::GetDeltaTime();
+				}
+			}
+			else
+			{
+				pos.x -= 300.f * Time::GetDeltaTime();
+			}
+
 			//GetComponent<Rigidbody>()->AddForce(Math::Vector2<float>(-200.f, 0.f));
 		}
 		if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
@@ -394,7 +395,24 @@ namespace EH
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 			}
-			pos.x += 300.f * Time::GetDeltaTime();
+			
+			if (mIsSlope)
+			{
+				if (mIsRightSlope)
+				{
+					pos.x += 200.f * Time::GetDeltaTime();
+					pos.y -= 200.f * Time::GetDeltaTime();
+				}
+				else
+				{
+					pos.x += 200.f * Time::GetDeltaTime();
+					pos.y += 200.f * Time::GetDeltaTime();
+				}
+			}
+			else
+			{
+				pos.x += 300.f * Time::GetDeltaTime();
+			}
 			//GetComponent<Rigidbody>()->AddForce(Math::Vector2<float>(200.f, 0.f));
 		}
 		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && mJumpStack < 2)
@@ -413,6 +431,10 @@ namespace EH
 				mCurState = eAnimationState::Attack;
 				mIsSwing = !mIsSwing;
 			}
+		}
+		if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::DOWN)
+		{
+			mCurState = eAnimationState::Dash;
 		}
 		if (mCurHp <= 0.f)
 		{

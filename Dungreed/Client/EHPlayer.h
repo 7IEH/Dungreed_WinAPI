@@ -50,9 +50,10 @@ namespace EH
 		// Acess function
 		bool GetDir() { return mIsRight; }
 		void ResetJumpStack() { mJumpStack = 0; }
-		
-		class Texture* mFloorTexture;
 
+		void SetSlope(bool slope) { mIsSlope = slope; }
+		void SetRightSlope(bool right) { mIsRightSlope = right; }
+	
 	private:
 		UINT mLevel;
 		UINT mMaxHP;
@@ -69,6 +70,8 @@ namespace EH
 		bool mIsRight;
 		bool mIsDead;
 		bool mIsJump;
+		bool mIsSlope;
+		bool mIsRightSlope;
 
 		bool mOnBlock;
 		UINT mJumpStack;
