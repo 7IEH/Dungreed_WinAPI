@@ -358,7 +358,7 @@ namespace EH
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
 		}
 
-		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN)
+		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN && !mIsAttack)
 		{
 			if (mActiveWeapon != eWeapon::None)
 			{
@@ -465,7 +465,7 @@ namespace EH
 			else
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
 		}
-		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN)
+		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN && !mIsAttack)
 		{
 			if (mActiveWeapon != eWeapon::None)
 			{
@@ -500,7 +500,7 @@ namespace EH
 		Math::Vector2<float> velocity = GetComponent<Rigidbody>()->GetVelocity();
 		GetComponent<Rigidbody>()->SetVeclocity(Math::Vector2<float>(velocity.x + 0.f, velocity.y + -500.f));
 		GetComponent<Rigidbody>()->SetGround(false);
-		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN)
+		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN && !mIsAttack)
 		{
 			if (mActiveWeapon != eWeapon::None)
 				mCurState = eAnimationState::Attack;
@@ -558,7 +558,7 @@ namespace EH
 			mIsAttack = true;
 			mCheckTime = 0.f;
 		}
-		if (Input::Getkey(eKeyCode::Space).state == eKeyState::UP)
+		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::UP)
 		{
 			mCurState = eAnimationState::Idle;
 		}
