@@ -81,6 +81,8 @@ namespace EH
 		}
 	}
 
+
+
 	void CollisionManager::ColliderCollision(Collider* left, Collider* right)
 	{
 		ColliderID id = {};
@@ -124,6 +126,10 @@ namespace EH
 
 	bool CollisionManager::Intersect(Collider* left, Collider* right)
 	{
+		if (!left->GetEnabled() || !right->GetEnabled())
+		{
+			return false;
+		}
 		Math::Vector2<float> leftpos = left->GetOwner()->GetComponent<Transform>()->Getpos();
 		Math::Vector2<float> leftscale = left->GetScale();
 		Math::Vector2<float> rightpos = right->GetOwner()->GetComponent<Transform>()->Getpos();

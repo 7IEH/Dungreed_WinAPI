@@ -46,6 +46,7 @@ namespace EH::enums
 		, UI
 		, Npc
 		, Player
+		, Sword
 		, Bullet
 		, Laser
 		, Trigger

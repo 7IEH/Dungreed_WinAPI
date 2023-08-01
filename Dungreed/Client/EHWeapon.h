@@ -24,9 +24,14 @@ namespace EH
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void SetWeaponType(eWeaponType type) { mType = type; }
+		eWeaponType GetWeaponType() { return mType; }
+
+		void SetDelayTime(float delaytime) { mDelayTime = delaytime; }
+		float GetDelayTime() { return mDelayTime; }
 
 	private:
 		eWeaponType mType;
+		float mDelayTime;
 	};
 }
 

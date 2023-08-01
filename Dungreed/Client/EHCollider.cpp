@@ -12,6 +12,8 @@ namespace EH
 		, mScale(Math::Vector2<float>(0.f, 0.f))
 		, mOffset(Math::Vector2<float>(0.f, 0.f))
 		, mbAffectedCamera(true)
+		, mType(eColliderType::Box)
+		, mbEnabled(true)
 	{
 	}
 
@@ -40,6 +42,7 @@ namespace EH
 
 		HPEN hPen = nullptr;
 		HPEN hOldPen = nullptr;
+
 		if (mbisCollision)
 		{
 			hPen = (HPEN)CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
@@ -50,9 +53,18 @@ namespace EH
 			hPen = (HPEN)CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
 			hOldPen = (HPEN)SelectObject(hdc, hPen);
 		}
-		Rectangle(hdc, pos.x - mScale.x / 2.f + mOffset.x, pos.y - mScale.y / 2.f + mOffset.y,
-			pos.x + mScale.x / 2.f + mOffset.x, pos.y + mScale.y / 2.f + mOffset.y);
-
+		
+		if (mType == eColliderType::Box)
+		{
+			Rectangle(hdc, pos.x - mScale.x / 2.f + mOffset.x, pos.y - mScale.y / 2.f + mOffset.y,
+				pos.x + mScale.x / 2.f + mOffset.x, pos.y + mScale.y / 2.f + mOffset.y);
+		}
+		else if (mType == eColliderType::Circle)
+		{
+			Ellipse(hdc, pos.x - mScale.x / 2.f + mOffset.x, pos.y - mScale.y / 2.f + mOffset.y,
+				pos.x + mScale.x / 2.f + mOffset.x, pos.y + mScale.y / 2.f + mOffset.y);
+		}
+		
 		SelectObject(hdc, hOldBrush);
 		DeleteObject(hTransParentBrush);
 

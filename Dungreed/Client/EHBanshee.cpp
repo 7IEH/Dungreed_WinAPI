@@ -2,11 +2,15 @@
 #include "EHBullet.h"
 #include "EHObject.h"
 #include "EHResources.h"
+#include "EHWeapon.h"
 
 namespace EH
 {
 	Banshee::Banshee()
 	{
+		Collider* col = AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(80.f, 80.f));
+		SetHP(40.f);
 	}
 
 	Banshee::~Banshee()
@@ -15,6 +19,7 @@ namespace EH
 
 	void Banshee::Initialize()
 	{
+		SetHP(30.f);
 	}
 
 	void Banshee::Update()
@@ -44,6 +49,12 @@ namespace EH
 	void Banshee::OnCollisionEnter(Collider* other)
 	{
 		// 플레이어 오브젝트 충돌
+		Weapon* weapon = dynamic_cast<Weapon*>(other->GetOwner());
+		if (weapon != nullptr)
+		{
+			UINT hp = GetHP();
+			SetHP(hp -= 20);
+		}
 	}
 
 	void Banshee::OnCollisionStay(Collider* other)
@@ -58,16 +69,23 @@ namespace EH
 	{
 		float checktime = GetCheckTime();
 		SetCheckTime(checktime += Time::GetDeltaTime());
-		if(GetComponent<Animator>()->GetActiveAnimation()->IsComplete()==true)
-			GetComponent<Animator>()->PlayAnimation(L"BansheeIdle",true);
-		if (GetDelayTime() < checktime)
+		if (GetHP() <= 0)
 		{
-			GetComponent<Animator>()->PlayAnimation(L"BansheeAttack", false);
-			SetState(eState::Attack);
-			SetCheckTime(0.f);
+			SetState(eState::Dead);
 		}
-
+		else
+		{
+			if (GetComponent<Animator>()->GetActiveAnimation()->IsComplete() == true)
+				GetComponent<Animator>()->PlayAnimation(L"BansheeIdle", true);
+			if (GetDelayTime() < checktime)
+			{
+				GetComponent<Animator>()->PlayAnimation(L"BansheeAttack", false);
+				SetState(eState::Attack);
+				SetCheckTime(0.f);
+			}
+		}
 	}
+
 	void Banshee::Attack()
 	{
 		for (size_t i = 0; i < 12; i++)
@@ -89,7 +107,13 @@ namespace EH
 			// 30degree
 			bullet->SetDeleteTime(2.f);
 			bullet->SetRadian(0.52 * i);
-			SetState(eState::Idle);
+			bullet->SetStop(false);
 		}
+		SetState(eState::Idle);
+	}
+
+	void Banshee::Dead()
+	{
+		Destroy(this);
 	}
 }

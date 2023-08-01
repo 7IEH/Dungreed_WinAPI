@@ -19,6 +19,7 @@ namespace EH
 
 		void Idle();
 		void Attack();
+		void Dead();
 
 	private:
 

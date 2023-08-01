@@ -40,6 +40,7 @@ namespace EH
 			arrow->AddComponent<Collider>();
 			arrow->GetComponent<Collider>()->SetScale(Math::Vector2<float>(40.f, 40.f));
 			arrow->SetDeleteTime(10.f);
+			arrow->SetStop(false);
 			SetCheckTime(0.f);
 		}
 	}

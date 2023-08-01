@@ -1,6 +1,5 @@
 #pragma once
 #include "EHGameObject.h"
-#include "EHBackGround.h"
 
 namespace EH
 {
@@ -61,10 +60,11 @@ namespace EH
 		UINT mGold;
 		UINT mFood;
 
-		BackGround* mHp;
 		eAnimationState mCurState;
 		eWeapon mActiveWeapon;
-		BackGround* mWeapon;
+		class BackGround* mHp;
+		class BackGround* mWeapon;
+		class Weapon* mWeaponCollider;
 
 		bool mIsSwing;
 		bool mIsRight;
@@ -72,8 +72,12 @@ namespace EH
 		bool mIsJump;
 		bool mIsSlope;
 		bool mIsRightSlope;
+		bool mIsAttack;
 
 		bool mOnBlock;
 		UINT mJumpStack;
+
+		// Attack Delay
+		float mCheckTime;
 	};
 }

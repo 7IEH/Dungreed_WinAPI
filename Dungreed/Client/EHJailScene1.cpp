@@ -7,6 +7,7 @@
 #include "EHFloor.h"
 #include "EHTrigger.h"
 #include "EHCamera.h"
+#include "EHBanshee.h"
 
 namespace EH
 {
@@ -48,20 +49,33 @@ namespace EH
 
 		// Trigger
 		Trigger* trigger1 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
-		trigger1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(832.f,112.f));
+		trigger1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(832.f, 112.f));
 		trigger1->AddComponent<Collider>();
-		trigger1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f,64.f));
+		trigger1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f, 64.f));
 		trigger1->SetType(Trigger::eTriggertype::Scenechange);
 		trigger1->SetScenename(L"JailScene2");
 
 		Trigger* trigger2 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
-		trigger2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1244.f,400.f));
+		trigger2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1244.f, 400.f));
 		trigger2->AddComponent<Collider>();
-		trigger2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f,256.f));
+		trigger2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
 		trigger2->SetType(Trigger::eTriggertype::Scenechange);
 		trigger2->SetScenename(L"JailBossScene");
 
+		// Enemy
+		Banshee* banshee1 = object::Instantiate<Banshee>(enums::eLayerType::Enemy);
+		banshee1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
+		banshee1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
+		banshee1->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"BansheeIdle", L"..\\Resources\\Enemy\\JailField\\Banshee\\Idle\\BansheeIdleSheet.bmp");
+		banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		texture = Resources::Load<Texture>(L"BansheeAttack", L"..\\Resources\\Enemy\\JailField\\Banshee\\Attack\\BansheeAttackSheet.bmp");
+		banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeAttack", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		banshee1->GetComponent<Animator>()->PlayAnimation(L"BansheeIdle", true);
+		banshee1->SetTarget(player);
+		banshee1->SetDelayTime(2.f);
 
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Sword, enums::eLayerType::Enemy, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Floor, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Trigger, true);
 	}

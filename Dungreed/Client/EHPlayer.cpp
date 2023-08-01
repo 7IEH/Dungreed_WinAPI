@@ -6,6 +6,8 @@
 #include "EHApplication.h"
 #include "EHCamera.h"
 #include "EHFloor.h"
+#include "EHBackGround.h"
+#include "EHWeapon.h"
 
 extern EH::Application application;
 
@@ -29,6 +31,8 @@ namespace EH
 		, mIsSwing(true)
 		, mIsSlope(false)
 		, mIsRightSlope(false)
+		, mCheckTime(0.f)
+		, mWeaponCollider(nullptr)
 	{
 		AddComponent<Rigidbody>();
 
@@ -61,10 +65,10 @@ namespace EH
 		animator->CreateAnimation(L"PlayerLeftJump", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
 		AddComponent<Collider>();
 		GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 128.f));
-		GetComponent<Collider>()->SetOffset(Math::Vector2<float>(0.f,0.f));
+		GetComponent<Collider>()->SetOffset(Math::Vector2<float>(0.f, 0.f));
 		animator->SetAffectedCamera(true);
 		GetComponent<Collider>()->SetAffectedCamera(true);
-		
+
 		// UI -> 나중에 클래스로 정리
 		temp = Resources::Load<Texture>(L"HPRed", L"..\\Resources\\UI\\PlayerLife.png");
 		mHp = EH::object::Instantiate<BackGround>(enums::eLayerType::UI);
@@ -88,6 +92,8 @@ namespace EH
 	{
 		GameObject::Update();
 		mIsJump = GetComponent<Rigidbody>()->GetGround();
+
+
 		switch (mCurState)
 		{
 		case EH::eAnimationState::Idle:
@@ -113,6 +119,21 @@ namespace EH
 			break;
 		default:
 			break;
+		}
+
+		if (mWeaponCollider != nullptr)
+		{
+			if (mIsAttack)
+			{
+				mCheckTime += Time::GetDeltaTime();
+			}
+			if (mWeaponCollider->GetDelayTime() < mCheckTime)
+			{
+				// 끄고 exit해주고
+				mWeaponCollider->GetComponent<Collider>()->enabled(false);
+				mCheckTime = 0.f;
+				mIsAttack = false;
+			}
 		}
 		Playerlogic();
 	}
@@ -162,6 +183,7 @@ namespace EH
 		if (mActiveWeapon == eWeapon::Onehand)
 		{
 			Transform* tr = GetComponent<Transform>();
+			Transform* weaponcoltr = mWeaponCollider->GetComponent<Transform>();
 			POINT pt = {};
 			GetCursorPos(&pt);
 			ScreenToClient(application.GetHWND(), &pt);
@@ -169,11 +191,15 @@ namespace EH
 			cursorpos.x = pt.x;
 			cursorpos.y = pt.y;
 			float radian = 0.f;
+			float radian2 = 0.f;
 			float degree = 0.f;
 			//degree 구하기
 
 			cursorpos = Camera::CaculatePos(-cursorpos);
 			cursorpos = -cursorpos;
+
+			radian2 = atan2(tr->Getpos().y - cursorpos.y, tr->Getpos().x - cursorpos.x);
+			weaponcoltr->SetPos(Math::Vector2<float>(tr->Getpos().x - 60.f * cosf(radian2), tr->Getpos().y - 60.f * sinf(radian2)));
 
 			if (mIsSwing)
 			{
@@ -222,6 +248,7 @@ namespace EH
 
 			cursorpos = Camera::CaculatePos(-cursorpos);
 			cursorpos = -cursorpos;
+
 			if (cursorpos.x > tr->Getpos().x)
 			{
 				mIsRight = true;
@@ -237,7 +264,7 @@ namespace EH
 	{
 		if (mIsRight && mIsJump)
 			GetComponent<Animator>()->PlayAnimation(L"PlayerRightIdle", true);
-		else if(!mIsRight && mIsJump)
+		else if (!mIsRight && mIsJump)
 			GetComponent<Animator>()->PlayAnimation(L"PlayerLeftIdle", true);
 		else if (mIsRight && !mIsJump)
 			GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
@@ -272,6 +299,16 @@ namespace EH
 			weapon->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
 			weapon->SetName(L"Test");
 			mWeapon = weapon;
+
+			Weapon* weaponcollider = object::Instantiate<Weapon>(enums::eLayerType::Sword);
+			Transform* weapontr = weaponcollider->GetComponent<Transform>();
+			Collider* weaponcol = weaponcollider->AddComponent<Collider>();
+			weapontr->SetPos(Math::Vector2<float>(tr->Getpos().x + 60.f * cosf(radian), tr->Getpos().y + 60.f * sinf(radian)));
+			weaponcol->SetScale(Math::Vector2<float>(120.f, 120.f));
+			weaponcol->SetType(Collider::eColliderType::Circle);
+			mWeaponCollider = weaponcollider;
+			weaponcol->enabled(false);
+			weaponcollider->SetDelayTime(0.1f);
 		}
 
 		if (Input::Getkey(eKeyCode::L).state == eKeyState::DOWN)
@@ -279,7 +316,7 @@ namespace EH
 			EH::Destroy(mWeapon);
 		}
 
- 		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
+		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
 		{
 			mCurState = eAnimationState::Move;
 			if (mIsRight && mIsJump)
@@ -291,10 +328,12 @@ namespace EH
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 			}
 		}
+
 		if (Input::Getkey(eKeyCode::S).state == eKeyState::DOWN)
 		{
 			mCurState = eAnimationState::DownJump;
 		}
+
 		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
 		{
 			mCurState = eAnimationState::Move;
@@ -302,11 +341,12 @@ namespace EH
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
 			}
-			else if(!mIsRight && mIsJump)
+			else if (!mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 			}
 		}
+
 		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && mJumpStack < 2)
 		{
 			mCurState = eAnimationState::Jump;
@@ -317,6 +357,7 @@ namespace EH
 			else
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
 		}
+
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN)
 		{
 			if (mActiveWeapon != eWeapon::None)
@@ -391,11 +432,11 @@ namespace EH
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
 			}
-			else if(!mIsRight && mIsJump)
+			else if (!mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
 			}
-			
+
 			if (mIsSlope)
 			{
 				if (mIsRightSlope)
@@ -490,19 +531,6 @@ namespace EH
 
 	void Player::Attack()
 	{
-		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && mJumpStack < 2)
-		{
-			mCurState = eAnimationState::Jump;
-			mJumpStack++;
-			if (mIsRight)
-				GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
-			else
-				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
-		}
-		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::UP)
-		{
-			mCurState = eAnimationState::Idle;
-		}
 		if (mCurHp <= 0.f)
 		{
 			mCurState = eAnimationState::Die;
@@ -512,9 +540,27 @@ namespace EH
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftDie", false);
 
 			mIsDead = true;
+			return;
+		}
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::DOWN && mJumpStack < 2)
+		{
+			mCurState = eAnimationState::Jump;
+			mJumpStack++;
+			if (mIsRight)
+				GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
+			else
+				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
 		}
 		if (mActiveWeapon == eWeapon::Onehand)
 		{
+			// 일단 시간 재고
+			mWeaponCollider->GetComponent<Collider>()->enabled(true);
+			mIsAttack = true;
+			mCheckTime = 0.f;
+		}
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::UP)
+		{
+			mCurState = eAnimationState::Idle;
 		}
 	}
 
@@ -583,5 +629,4 @@ namespace EH
 			}
 		}
 	}
-
 }

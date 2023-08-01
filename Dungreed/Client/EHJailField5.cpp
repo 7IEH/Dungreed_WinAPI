@@ -3,6 +3,7 @@
 #include "EHObject.h"
 #include "EHResources.h"
 #include "EHCamera.h"
+#include "EHPlayer.h"
 
 
 namespace EH

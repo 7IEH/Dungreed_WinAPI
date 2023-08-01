@@ -42,6 +42,9 @@ namespace EH
 		void SetState(eState state) { mCurState = state; }
 		eState GetState() { return mCurState; }
 
+		void SetHP(UINT hp) { mHP = hp; }
+		UINT GetHP() { return mHP; }
+
 	private:
 		class Player* mTarget;
 		eState mCurState;
@@ -49,6 +52,9 @@ namespace EH
 		float mCheckTime;
 		float mSubDelayTime;
 		float mSubCheckTime;
+
+		// stat
+		UINT mHP;
 	};
 }
 

@@ -6,6 +6,13 @@ namespace EH
 	class Collider : public Component
 	{
 	public:
+		enum class eColliderType
+		{
+			Box
+			, Circle
+			, None
+		};
+
 		Collider();
 		virtual ~Collider();
 		
@@ -24,11 +31,17 @@ namespace EH
 		virtual void OnCollisionExit(Collider* other);
 
 		void SetAffectedCamera(bool affect) { mbAffectedCamera = affect; }
+		void SetType(eColliderType type) { mType = type; }
+
+		void enabled(bool enabled) { mbEnabled = enabled; }
+		bool GetEnabled() { return mbEnabled; }
 
 	private:
+		eColliderType mType;
 		bool mbisCollision;
 		bool mbAffectedCamera;
 		Math::Vector2<float> mScale;
 		Math::Vector2<float> mOffset;
+		bool mbEnabled;
 	};
 }

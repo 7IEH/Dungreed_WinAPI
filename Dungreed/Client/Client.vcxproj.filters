@@ -214,9 +214,6 @@
     <Filter Include="Contents\GameObject\EnemyAttack\Laser">
       <UniqueIdentifier>{7d313082-26e4-4159-8e39-27ea1c200dda}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\EnemyAttack\Projectile">
-      <UniqueIdentifier>{88025965-f4a3-4aa8-95c3-b9afeb3ea973}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\SoundMgr">
       <UniqueIdentifier>{f7f6979c-cfe7-4441-bce2-405cb123fcad}</UniqueIdentifier>
     </Filter>
@@ -225,6 +222,9 @@
     </Filter>
     <Filter Include="Contents\GameObject\Trigger">
       <UniqueIdentifier>{1dc157f7-83c9-4ca8-9ad7-add4c3e1080a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\EnemyAttack\Bullet">
+      <UniqueIdentifier>{88025965-f4a3-4aa8-95c3-b9afeb3ea973}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -421,7 +421,7 @@
       <Filter>Contents\GameObject\EnemyAttack\Laser</Filter>
     </ClInclude>
     <ClInclude Include="EHBullet.h">
-      <Filter>Contents\GameObject\EnemyAttack\Projectile</Filter>
+      <Filter>Contents\GameObject\EnemyAttack\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="EHSoundManager.h">
       <Filter>Engine\SoundMgr</Filter>
@@ -619,7 +619,7 @@
       <Filter>Contents\GameObject\EnemyAttack\Laser</Filter>
     </ClCompile>
     <ClCompile Include="EHBullet.cpp">
-      <Filter>Contents\GameObject\EnemyAttack\Projectile</Filter>
+      <Filter>Contents\GameObject\EnemyAttack\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="EHSoundManager.cpp">
       <Filter>Engine\SoundMgr</Filter>

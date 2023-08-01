@@ -1,4 +1,5 @@
 #include "EHWeapon.h"
+#include "EHTime.h"
 
 namespace EH
 {	
