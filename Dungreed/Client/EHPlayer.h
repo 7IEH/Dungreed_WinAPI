@@ -15,14 +15,6 @@ namespace EH
 		, End
 	};
 
-	enum class eWeapon
-	{
-		  Onehand
-		, Twohand
-		, Gun
-		, None
-	};
-
 	class Player : public GameObject
 	{
 	public:
@@ -53,9 +45,6 @@ namespace EH
 		void SetSlope(bool slope) { mIsSlope = slope; }
 		void SetRightSlope(bool right) { mIsRightSlope = right; }
 
-		void SetCanvas(class Canvas* canvas) { mCanvas = canvas; }
-		class Canvas* GetCanvas() { return mCanvas; }
-	
 	private:
 		int mMaxHP;
 		UINT mLevel;
@@ -66,17 +55,18 @@ namespace EH
 		UINT mCurDash;
 
 		eAnimationState mCurState;
-		eWeapon mActiveWeapon;
 		class BackGround* mHp;
-		class BackGround* mWeapon;
-		class Weapon* mWeaponCollider;
 		class Canvas* mCanvas;
 
+		class BackGround* mWeapon;
 		bool mIsSwing;
+		enums::eWeapon mActiveWeapon;
+		class Weapon* mWeaponCollider;
+
 		bool mIsRight;
 		bool mIsDead;
-		bool mIsJump;
 		bool mIsSlope;
+		bool mIsJump;
 		bool mIsRightSlope;
 		bool mIsAttack;
 
@@ -85,5 +75,8 @@ namespace EH
 
 		// Attack Delay
 		float mCheckTime;
+
+		// Player Sound
+		class Sound* mSound;
 	};
 }

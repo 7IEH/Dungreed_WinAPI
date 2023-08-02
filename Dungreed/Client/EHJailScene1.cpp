@@ -14,6 +14,10 @@ namespace EH
 {
 	void JailScene1::Initialize()
 	{
+		// Sound
+		Sound* BGM = Resources::Load<Sound>(L"JailFieldBGM", L"..\\Resources\\Sound\\BGM\\1.JailField.wav");
+		SetBGM(BGM);
+
 		SetSize(Math::Vector2<float>(1280.f, 720.f));
 
 		BackGround* JailBG1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
@@ -23,35 +27,10 @@ namespace EH
 		JailBG1->GetComponent<SpriteRenderer>()->SetImg(texture);
 		JailBG1->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
 
-		// Playre UI
-		Canvas* PlayerUICanvas = object::Instantiate<Canvas>(enums::eLayerType::UI);
-		texture = Resources::Load<Texture>(L"HPBack", L"..\\Resources\\UI\\PlayerLifeBack.png");
-		PlayerUICanvas->AddImageObject(L"HPBack", texture, false, Math::Vector2<float>(157.f, 42.f), Math::Vector2<float>(296.f, 64.f));
-
-		texture = Resources::Load<Texture>(L"HP", L"..\\Resources\\UI\\PlayerLife.png");
-		PlayerUICanvas->AddImageObject(L"HP", texture, false, Math::Vector2<float>(194.f, 42.f), Math::Vector2<float>(198.f, 56.f));
-
-		texture = Resources::Load<Texture>(L"HPBase", L"..\\Resources\\UI\\PlayerLifeBase 1.png");
-		PlayerUICanvas->AddImageObject(L"HPBase", texture, false, Math::Vector2<float>(157.f, 42.f), Math::Vector2<float>(296.f, 64.f));
-
-		texture = Resources::Load<Texture>(L"DashBase", L"..\\Resources\\UI\\DashCountBase.png");
-		PlayerUICanvas->AddImageObject(L"DashBase", texture, false, Math::Vector2<float>(135.f, 97.f), Math::Vector2<float>(252.f, 34.f));
-
-		texture = Resources::Load<Texture>(L"CoinUI", L"..\\Resources\\UI\\Coin.png");
-		PlayerUICanvas->AddImageObject(L"CoinUI", texture, false, Math::Vector2<float>(29.f, 657.f), Math::Vector2<float>(17.f, 14.f));
-
-		texture = Resources::Load<Texture>(L"FoodUI", L"..\\Resources\\UI\\Food.png");
-		PlayerUICanvas->AddImageObject(L"FoodUI", texture, false, Math::Vector2<float>(29.f, 690.f), Math::Vector2<float>(34.f, 28.f));
-
-		texture = Resources::Load<Texture>(L"WeaponSlot", L"..\\Resources\\UI\\EquippedWeaponBase.png");
-		PlayerUICanvas->AddImageObject(L"WeaponSlot", texture, false, Math::Vector2<float>(1210.f, 641.f), Math::Vector2<float>(140.f, 102.f));
-		PlayerUICanvas->AddImageObject(L"WeaponSlot2", texture, false, Math::Vector2<float>(1190.f, 657.f), Math::Vector2<float>(140.f, 102.f));
-
 		// Player
 		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(420.f, 300.f));
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
-		player->SetCanvas(PlayerUICanvas);
 
 		// SceneChanger Player
 		SetPlayer(player);
@@ -102,6 +81,8 @@ namespace EH
 		banshee1->SetDelayTime(2.f);
 
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Sword, enums::eLayerType::Enemy, true);
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Item, true);
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Item, enums::eLayerType::Floor, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Floor, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Trigger, true);
 	}

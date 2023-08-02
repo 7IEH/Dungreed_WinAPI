@@ -235,6 +235,15 @@
     <Filter Include="Contents\Data">
       <UniqueIdentifier>{385120e8-e7e7-488a-80db-467cff29d49d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Item">
+      <UniqueIdentifier>{25b3cb8d-597f-4ba6-a019-f4415f90cf6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Item\Coin">
+      <UniqueIdentifier>{73c68cd4-0e43-40ba-88c4-8ce78b813c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Item\Fairy">
+      <UniqueIdentifier>{c916d766-f7a7-4f94-82e2-be56ab79ff6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -450,6 +459,12 @@
     <ClInclude Include="EHObjdata.h">
       <Filter>Contents\Data</Filter>
     </ClInclude>
+    <ClInclude Include="EHCoin.h">
+      <Filter>Contents\GameObject\Item\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="EHFairy.h">
+      <Filter>Contents\GameObject\Item\Fairy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -656,6 +671,12 @@
     </ClCompile>
     <ClCompile Include="EHObjdata.cpp">
       <Filter>Contents\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCoin.cpp">
+      <Filter>Contents\GameObject\Item\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="EHFairy.cpp">
+      <Filter>Contents\GameObject\Item\Fairy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

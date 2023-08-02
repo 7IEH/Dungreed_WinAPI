@@ -2,6 +2,7 @@
 #include "EHPlayer.h"
 #include "EHCamera.h"
 #include "EHSceneManager.h"
+#include "EHCoin.h"
 
 namespace EH
 {
@@ -31,6 +32,7 @@ namespace EH
 	{
 		// 현재 충돌체가 player인지 확인
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
+		Coin* coin = dynamic_cast<Coin*>(other->GetOwner());
 
 		if (player != nullptr)
 		{
@@ -56,6 +58,30 @@ namespace EH
 					Math::Vector2 playerPos = playertr->Getpos();
 					playerPos.y -= (scale - len) - 1.0f;
 					playertr->SetPos(playerPos);
+				}
+			}
+		}
+	
+		if(coin != nullptr)
+		{
+			Transform* cointr = coin->GetComponent<Transform>();
+			Transform* floortr = GetComponent<Transform>();
+
+			Collider* coincol = coin->GetComponent<Collider>();
+			Collider* floorcol = GetComponent<Collider>();
+
+			if (coin->GetComponent<Rigidbody>()->GetVelocity().y > 0)
+			{
+				coin->GetComponent<Rigidbody>()->SetGround(true);
+
+				float scale = fabs(coincol->GetScale().y / 2.f + floorcol->GetScale().y / 2.f);
+				float len = fabs(cointr->Getpos().y - floortr->Getpos().y);
+
+				if (len < scale)
+				{
+					Math::Vector2 coinPos = cointr->Getpos();
+					coinPos.y -= (scale - len) - 1.0f;
+					cointr->SetPos(coinPos);
 				}
 			}
 		}

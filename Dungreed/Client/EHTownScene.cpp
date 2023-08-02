@@ -26,8 +26,10 @@ namespace EH
 
     void TownScene::Initialize()
     {
-        //Sound* pSound = Resources::Load<Sound>(L"TownBGM", L"..\\Resources\\Sound\\0.Town.wav");
-        //pSound->Play();
+        // Sound
+        Sound* BGM = Resources::Load<Sound>(L"TownBGM", L"..\\Resources\\Sound\\BGM\\0.Town.wav");
+        SetBGM(BGM);
+
         SetSize(Math::Vector2<float>(7540.f, 1440.f));
         Texture* texture = nullptr;
 
@@ -542,27 +544,6 @@ namespace EH
         test28->SetIntercept(6628.f);
         test28->SetCorrection(90.f);
         test28->SetRight(true);
-
-        // UICanvas
-        Canvas* PlayerUICanvas = object::Instantiate<Canvas>(enums::eLayerType::UI);
-        texture = Resources::Load<Texture>(L"HPBack", L"..\\Resources\\UI\\PlayerLifeBack.png");
-        PlayerUICanvas->AddImageObject(L"HPBack",texture,false, Math::Vector2<float>(157.f, 42.f), Math::Vector2<float>(296.f, 64.f));
-
-        texture = Resources::Load<Texture>(L"HPBase", L"..\\Resources\\UI\\PlayerLifeBase 1.png");
-        PlayerUICanvas->AddImageObject(L"HPBase",texture,false, Math::Vector2<float>(157.f, 42.f), Math::Vector2<float>(296.f, 64.f));
-
-        texture = Resources::Load<Texture>(L"DashBase", L"..\\Resources\\UI\\DashCountBase.png");
-        PlayerUICanvas->AddImageObject(L"DashBase",texture,false, Math::Vector2<float>(135.f, 97.f), Math::Vector2<float>(252.f, 34.f));
-
-        texture = Resources::Load<Texture>(L"CoinUI", L"..\\Resources\\UI\\Coin.png");
-        PlayerUICanvas->AddImageObject(L"CoinUI",texture,false, Math::Vector2<float>(29.f, 657.f), Math::Vector2<float>(17.f, 14.f));
-
-        texture = Resources::Load<Texture>(L"FoodUI", L"..\\Resources\\UI\\Food.png");
-        PlayerUICanvas->AddImageObject(L"FoodUI",texture,false, Math::Vector2<float>(29.f, 690.f), Math::Vector2<float>(34.f, 28.f));
-         
-        texture = Resources::Load<Texture>(L"WeaponSlot", L"..\\Resources\\UI\\EquippedWeaponBase.png");
-        PlayerUICanvas->AddImageObject(L"WeaponSlot",texture,false, Math::Vector2<float>(1210.f, 641.f), Math::Vector2<float>(140.f, 102.f));
-        PlayerUICanvas->AddImageObject(L"WeaponSlot2",texture,false, Math::Vector2<float>(1190.f, 657.f), Math::Vector2<float>(140.f, 102.f));
 
         SetPlayer(player);
         CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Floor,true);

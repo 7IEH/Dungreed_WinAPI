@@ -3,6 +3,9 @@
 #include "EHObject.h"
 #include "EHResources.h"
 #include "EHWeapon.h"
+#include "EHCollisionManager.h"
+#include "EHCoin.h"
+#include "EHFairy.h"
 
 namespace EH
 {
@@ -35,6 +38,7 @@ namespace EH
 			Attack();
 			break;
 		case eState::Dead:
+			Dead();
 			break;
 		default:
 			break;
@@ -54,6 +58,7 @@ namespace EH
 		{
 			UINT hp = GetHP();
 			SetHP(hp -= 20);
+			mAttack = weapon;
 		}
 	}
 
@@ -88,6 +93,11 @@ namespace EH
 
 	void Banshee::Attack()
 	{
+		if (GetHP() <= 0)
+		{
+			SetState(eState::Dead);
+		}
+
 		for (size_t i = 0; i < 12; i++)
 		{
 			Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
@@ -115,6 +125,26 @@ namespace EH
 
 	void Banshee::Dead()
 	{
+		CollisionManager::ForceExit(this->GetComponent<Collider>(), mAttack->GetComponent<Collider>());
+
+		Transform* enemytr = GetComponent<Transform>();
+		Coin* coin = object::Instantiate<Coin>(enums::eLayerType::Item);
+		Math::Vector2<float> pos = enemytr->Getpos();
+		Transform* tr = coin->GetComponent<Transform>();
+		tr->SetPos(Math::Vector2<float>(pos.x-30.f, pos.y));
+		tr->SetScale(Math::Vector2<float>(28.f, 28.f));
+
+	    Fairy* fairy = object::Instantiate<Fairy>(enums::eLayerType::Item);
+		fairy->SetHeal(10.f);
+		pos = enemytr->Getpos();
+		tr = fairy->GetComponent<Transform>();
+		tr->SetPos(Math::Vector2<float>(pos.x, pos.y));
+		tr->SetScale(Math::Vector2<float>(80.f, 80.f));
+		Texture* texture = Resources::Load<Texture>(L"FairyM", L"..\\Resources\\Item\\Fairy\\FairyMSheet.bmp");
+		Animator* animator = fairy ->AddComponent<Animator>();
+		animator->CreateAnimation(L"FairyM", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 20.f), Math::Vector2<float>(0.f, 0.f), 16, 0.1f);
+		animator->PlayAnimation(L"FairyM", true);
+
 		Destroy(this);
 	}
 }

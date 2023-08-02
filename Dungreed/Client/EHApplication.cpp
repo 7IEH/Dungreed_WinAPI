@@ -42,6 +42,15 @@ namespace EH
 		AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
 		SetWindowPos(hWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
 		ShowWindow(hWnd, true);
+
+		// objdata FILE IN & OUT
+		Objdata::SetMaxHP(80);
+		Objdata::SetHP(80);
+		Objdata::SetGold(0);
+		Objdata::SetFood(0);
+		Objdata::SetLevel(1);
+		Objdata::SetDash(5);
+
 		// Time Initialize
 		Time::Initialize();
 		// Input Initializes
@@ -62,13 +71,6 @@ namespace EH
 		// collision Initialize
 		CollisionManager::Initialize();
 
-		// objdata FILE IN & OUT
-		Objdata::SetHP(80);
-		Objdata::SetGold(0);
-		Objdata::SetFood(0);
-		Objdata::SetLevel(1);
-		Objdata::SetDash(5);
-
 		mHbit = CreateCompatibleBitmap(mHdc, 1280, 720);
 		mHmemdc = CreateCompatibleDC(mHdc);
 		HBITMAP hOldBit = (HBITMAP)SelectObject(mHmemdc, mHbit);
@@ -87,8 +89,8 @@ namespace EH
 		Time::Update();
 		Input::Update();
 		Camera::Update();
-		SceneManager::Update();
 		CollisionManager::Update();
+		SceneManager::Update();
 	}
 
 	void Application::Render()

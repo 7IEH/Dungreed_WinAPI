@@ -1,6 +1,7 @@
 #include "EHButton.h"
 #include "EHApplication.h"
 #include "EHSceneManager.h"
+#include "EHSound.h"
 
 extern EH::Application application;
 
@@ -81,7 +82,8 @@ namespace EH
 			if (SceneManager::GetCurScene()->GetBGM() != nullptr)
 				SceneManager::GetCurScene()->GetBGM()->Stop(true);
 
-			SceneManager::LoadScene(mScene);
+			Scene* curscene =  SceneManager::LoadScene(mScene);
+			curscene->GetBGM()->Play(true);
 		}
 	}
 }

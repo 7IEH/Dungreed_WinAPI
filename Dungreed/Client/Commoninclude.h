@@ -43,9 +43,10 @@ namespace EH::enums
 		  BackGround
 		, Floor
 		, Enemy
-		, UI
 		, Npc
+		, UI
 		, Player
+		, Item
 		, Sword
 		, Bullet
 		, Laser
@@ -62,5 +63,13 @@ namespace EH::enums
 		, Rigidbody
 		, End
 		,
+	};
+
+	enum class eWeapon
+	{
+		  Onehand
+		, Twohand
+		, Gun
+		, None
 	};
 }

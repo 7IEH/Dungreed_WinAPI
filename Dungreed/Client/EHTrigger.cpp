@@ -54,7 +54,13 @@ namespace EH
 
 	void Trigger::SceneChange()
 	{
+		if (SceneManager::GetCurScene()->GetBGM() != nullptr)
+			SceneManager::GetCurScene()->GetBGM()->Stop(true);
+
 		Scene* mCurScene = SceneManager::LoadScene(mScenename);
+		if(mCurScene->GetBGM()!=nullptr)
+			mCurScene->GetBGM()->Play(true);
+
 		Camera::SetTarget(mCurScene->GetPlayer());
 	}
 }

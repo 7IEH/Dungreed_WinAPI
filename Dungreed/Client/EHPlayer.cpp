@@ -11,6 +11,7 @@
 #include "EHCanvas.h"
 #include "EHObjdata.h"
 #include "EHImageObject.h"
+#include "EHSound.h"
 
 extern EH::Application application;
 
@@ -18,15 +19,15 @@ namespace EH
 {
 	Player::Player()
 		:
-		mCurHp(80)
-		, mMaxHP(80)
-		, mGold(0)
-		, mFood(0)
-		, mLevel(1)
+		  mCurHp(Objdata::GetHP())
+		, mMaxHP(Objdata::GetMaxHP())
+		, mGold(Objdata::GetGold())
+		, mFood(Objdata::GetFood())
+		, mLevel(Objdata::GetLevel())
 		, mIsRight(true)
 		, mIsDead(false)
 		, mCurState(eAnimationState::Idle)
-		, mActiveWeapon(eWeapon::None)
+		, mActiveWeapon(enums::eWeapon::None)
 		, mJumpStack(0)
 		, mWeapon(nullptr)
 		, mIsJump(false)
@@ -36,44 +37,80 @@ namespace EH
 		, mIsRightSlope(false)
 		, mCheckTime(0.f)
 		, mWeaponCollider(nullptr)
+		, mSound(nullptr)
 	{
 		AddComponent<Rigidbody>();
 
-		// Animation 정리
-		Texture* temp = Resources::Load<Texture>(L"PlayerRightIdle", L"..\\Resources\\Player\\Basic\\Idle\\CharRightIdleSheet.bmp");
+		// Animation setting
+		Texture* texture = Resources::Load<Texture>(L"PlayerRightIdle", L"..\\Resources\\Player\\Basic\\Idle\\CharRightIdleSheet.bmp");
 		Animator* animator = AddComponent<Animator>();
-		animator->CreateAnimation(L"PlayerRightIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 5, 0.1f);
+		animator->CreateAnimation(L"PlayerRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 5, 0.1f);
 		animator->PlayAnimation(L"PlayerRightIdle", true);
 
-		temp = Resources::Load<Texture>(L"PlayerRightRun", L"..\\Resources\\Player\\Basic\\Run\\CharRightRunSheet.bmp");
-		animator->CreateAnimation(L"PlayerRightRun", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+		texture = Resources::Load<Texture>(L"PlayerRightRun", L"..\\Resources\\Player\\Basic\\Run\\CharRightRunSheet.bmp");
+		animator->CreateAnimation(L"PlayerRightRun", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
 
-		temp = Resources::Load<Texture>(L"PlayerRightDie", L"..\\Resources\\Player\\Basic\\Die\\CharRightDie.bmp");
-		animator->CreateAnimation(L"PlayerRightDie", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"PlayerRightDie", L"..\\Resources\\Player\\Basic\\Die\\CharRightDie.bmp");
+		animator->CreateAnimation(L"PlayerRightDie", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
 
-		temp = Resources::Load<Texture>(L"PlayerRightJump", L"..\\Resources\\Player\\Basic\\Jump\\CharRightJump.bmp");
-		animator->CreateAnimation(L"PlayerRightJump", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"PlayerRightJump", L"..\\Resources\\Player\\Basic\\Jump\\CharRightJump.bmp");
+		animator->CreateAnimation(L"PlayerRightJump", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
 
 		// Left
-		temp = Resources::Load<Texture>(L"PlayerLeftIdle", L"..\\Resources\\Player\\Basic\\Idle\\CharLeftIdleSheet.bmp");
-		animator->CreateAnimation(L"PlayerLeftIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 5, 0.1f);
+		texture = Resources::Load<Texture>(L"PlayerLeftIdle", L"..\\Resources\\Player\\Basic\\Idle\\CharLeftIdleSheet.bmp");
+		animator->CreateAnimation(L"PlayerLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 5, 0.1f);
 
-		temp = Resources::Load<Texture>(L"PlayerLeftRun", L"..\\Resources\\Player\\Basic\\Run\\CharLeftRunSheet.bmp");
-		animator->CreateAnimation(L"PlayerLeftRun", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+		texture = Resources::Load<Texture>(L"PlayerLeftRun", L"..\\Resources\\Player\\Basic\\Run\\CharLeftRunSheet.bmp");
+		animator->CreateAnimation(L"PlayerLeftRun", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
 
-		temp = Resources::Load<Texture>(L"PlayerLeftDie", L"..\\Resources\\Player\\Basic\\Die\\CharLeftDie.bmp");
-		animator->CreateAnimation(L"PlayerLeftDie", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"PlayerLeftDie", L"..\\Resources\\Player\\Basic\\Die\\CharLeftDie.bmp");
+		animator->CreateAnimation(L"PlayerLeftDie", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
 
-		temp = Resources::Load<Texture>(L"PlayerLeftJump", L"..\\Resources\\Player\\Basic\\Jump\\CharLeftJump.bmp");
-		animator->CreateAnimation(L"PlayerLeftJump", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"PlayerLeftJump", L"..\\Resources\\Player\\Basic\\Jump\\CharLeftJump.bmp");
+		animator->CreateAnimation(L"PlayerLeftJump", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
 		AddComponent<Collider>();
 		GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 128.f));
 		GetComponent<Collider>()->SetOffset(Math::Vector2<float>(0.f, 0.f));
 		animator->SetAffectedCamera(true);
 		GetComponent<Collider>()->SetAffectedCamera(true);
 
-		// UI -> 나중에 클래스로 정리
-		// Canvas* mPlayerUI 
+		// UI setting
+		Canvas* PlayerUICanvas = object::Instantiate<Canvas>(enums::eLayerType::UI);
+		texture = Resources::Load<Texture>(L"HPBack", L"..\\Resources\\UI\\PlayerLifeBack.png");
+		PlayerUICanvas->AddImageObject(L"HPBack", texture, false, Math::Vector2<float>(157.f, 42.f), Math::Vector2<float>(296.f, 64.f));
+
+		texture = Resources::Load<Texture>(L"HP", L"..\\Resources\\UI\\PlayerLife.png");
+		PlayerUICanvas->AddImageObject(L"HP", texture, false, Math::Vector2<float>(194.f, 42.f), Math::Vector2<float>(198.f, 56.f));
+
+		texture = Resources::Load<Texture>(L"HPBase", L"..\\Resources\\UI\\PlayerLifeBase 1.png");
+		PlayerUICanvas->AddImageObject(L"HPBase", texture, false, Math::Vector2<float>(157.f, 42.f), Math::Vector2<float>(296.f, 64.f));
+
+		texture = Resources::Load<Texture>(L"DashBase", L"..\\Resources\\UI\\DashCountBase.png");
+		PlayerUICanvas->AddImageObject(L"DashBase", texture, false, Math::Vector2<float>(135.f, 97.f), Math::Vector2<float>(252.f, 34.f));
+
+		texture = Resources::Load<Texture>(L"CoinUI", L"..\\Resources\\UI\\Coin.png");
+		PlayerUICanvas->AddImageObject(L"CoinUI", texture, false, Math::Vector2<float>(29.f, 657.f), Math::Vector2<float>(34.f, 28.f));
+
+		texture = Resources::Load<Texture>(L"FoodGage", L"..\\Resources\\UI\\FoodGage.png");
+		PlayerUICanvas->AddImageObject(L"FoodGage", texture, false, Math::Vector2<float>(110.f, 710.f), Math::Vector2<float>(82.f, 12.f));
+
+		texture = Resources::Load<Texture>(L"FoodBase", L"..\\Resources\\UI\\FoodBase.bmp");
+		PlayerUICanvas->AddImageObject(L"FoodBase", texture, false, Math::Vector2<float>(110.f, 710.f), Math::Vector2<float>(82.f, 12.f));
+
+		texture = Resources::Load<Texture>(L"FoodUI", L"..\\Resources\\UI\\Food.png");
+		PlayerUICanvas->AddImageObject(L"FoodUI", texture, false, Math::Vector2<float>(29.f, 690.f), Math::Vector2<float>(34.f, 28.f));
+
+		texture = Resources::Load<Texture>(L"WeaponSlot", L"..\\Resources\\UI\\EquippedWeaponBase.png");
+		PlayerUICanvas->AddImageObject(L"WeaponSlot", texture, false, Math::Vector2<float>(1210.f, 641.f), Math::Vector2<float>(140.f, 102.f));
+		PlayerUICanvas->AddImageObject(L"WeaponSlot2", texture, false, Math::Vector2<float>(1190.f, 657.f), Math::Vector2<float>(140.f, 102.f));
+
+		// Sound setting
+		Sound* sound = Resources::Load<Sound>(L"PlayerRunSound", L"..\\Resources\\Sound\\Player\\Run\\step_lth1.wav");
+		sound = Resources::Load<Sound>(L"PlayerJumpSound", L"..\\Resources\\Sound\\Player\\Jump\\Jumping.wav");
+		sound = Resources::Load<Sound>(L"PlayerSwingSound", L"..\\Resources\\Sound\\Player\\Attack\\swing3.wav");
+		sound = Resources::Load<Sound>(L"PlayerDashSound", L"..\\Resources\\Sound\\Player\\Dash\\Dash.wav");
+
+		mCanvas = PlayerUICanvas;
 	}
 
 	Player::~Player()
@@ -88,7 +125,6 @@ namespace EH
 	{
 		GameObject::Update();
 		mIsJump = GetComponent<Rigidbody>()->GetGround();
-
 
 		switch (mCurState)
 		{
@@ -138,12 +174,81 @@ namespace EH
 		mGold = Objdata::GetGold();
 		mFood = Objdata::GetFood();
 		mCurDash = Objdata::GetDash();
+		mMaxHP = Objdata::GetMaxHP();
+		
+		if (mWeapon != Objdata::GetWeapon())
+		{
+			Transform* tr = GetComponent<Transform>();
+			POINT pt = {};
+			GetCursorPos(&pt);
+			ScreenToClient(application.GetHWND(), &pt);
+			Vector2<float> cursorpos;
+			cursorpos.x = pt.x;
+			cursorpos.y = pt.y;
+
+			Camera::CaculatePos(cursorpos);
+
+			BackGround* weapon = object::Instantiate<BackGround>(enums::eLayerType::UI);
+			Transform* temp = weapon->GetComponent<Transform>();
+			temp->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
+			temp->SetScale(Math::Vector2<float>(76.f, 28.f));
+
+			Texture* texture = Resources::Load<Texture>(L"Onehand", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
+			//degree 구하기
+			float radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
+			float degree = radian * (180.f / 3.14f);
+			texture->SetDegree(degree + 90);
+			weapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			weapon->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+			weapon->SetName(L"Test");
+			mWeapon = weapon;
+			texture = Resources::Load<Texture>(L"Sword1", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
+			mCanvas->AddImageObject(L"Sword1", texture, false, Math::Vector2<float>(1180.f, 660.f), Math::Vector2<float>(76.f, 28.f));
+			Objdata::SetWeapon(weapon);
+		}
+
+		if (mIsSwing != Objdata::GetSwing())
+		{
+			mIsSwing = Objdata::GetSwing();
+		}
+
+		if (mActiveWeapon != Objdata::GetActiveWeapon())
+		{
+			mActiveWeapon = Objdata::GetActiveWeapon();
+		}
+
+		if (mWeaponCollider != Objdata::GetWeaponCollider())
+		{
+			Transform* tr = GetComponent<Transform>();
+			POINT pt = {};
+			GetCursorPos(&pt);
+			ScreenToClient(application.GetHWND(), &pt);
+			Vector2<float> cursorpos;
+			cursorpos.x = pt.x;
+			cursorpos.y = pt.y;
+			float radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
+			Weapon* weaponcollider = object::Instantiate<Weapon>(enums::eLayerType::Sword);
+			Transform* weapontr = weaponcollider->GetComponent<Transform>();
+			Collider* weaponcol = weaponcollider->AddComponent<Collider>();
+			weapontr->SetPos(Math::Vector2<float>(tr->Getpos().x + 60.f * cosf(radian), tr->Getpos().y + 60.f * sinf(radian)));
+			weaponcol->SetScale(Math::Vector2<float>(120.f, 120.f));
+			weaponcol->SetType(Collider::eColliderType::Circle);
+			mWeaponCollider = weaponcollider;
+			weaponcol->enabled(false);
+			weaponcollider->SetDelayTime(0.1f);
+			Objdata::SetWeaponCollider(weaponcollider);
+		}
 
 		// UI Update
 		ImageObject* hp = mCanvas->Find(L"HP");
 		Transform* tr = hp->GetComponent<Transform>();
-		tr->SetPos(Math::Vector2<float>(194.f - ((198.f - 198.f * ((float)mCurHp / (float)mMaxHP))/2.f), tr->Getpos().y));
+		tr->SetPos(Math::Vector2<float>(194.f - ((198.f - 198.f * ((float)mCurHp / (float)mMaxHP)) / 2.f), tr->Getpos().y));
 		tr->SetScale(Math::Vector2<float>(198.f * ((float)mCurHp / (float)mMaxHP), tr->GetScale().y));
+
+		ImageObject* foodgage = mCanvas->Find(L"FoodGage");
+		tr = foodgage->GetComponent<Transform>();
+		tr->SetPos(Math::Vector2<float>(110.f - ((82.f - 82.f * ((float)mFood / 100.f)) / 2.f), tr->Getpos().y));
+		tr->SetScale(Math::Vector2<float>(82.f * ((float)mFood / 100.f), tr->GetScale().y));
 
 		Playerlogic();
 	}
@@ -151,6 +256,37 @@ namespace EH
 	void Player::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
+
+		// UI text
+		SetTextColor(hdc, RGB(255, 255, 255));
+		SetBkMode(hdc, TRANSPARENT);
+		wchar_t szFloat[50] = {};
+		HFONT hNewFont;
+		HFONT hOldFont;
+		hNewFont = CreateFont(42, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("Neo둥근모"));
+		hOldFont = (HFONT)SelectObject(hdc, hNewFont);
+
+		swprintf_s(szFloat, 50, L"%d / %d", mCurHp, mMaxHP);
+		int strLen = wcsnlen_s(szFloat, 50);
+		TextOutW(hdc, 125, 20, szFloat, strLen);
+
+		swprintf_s(szFloat, 50, L"%d", mLevel);
+		strLen = wcsnlen_s(szFloat, 50);
+		TextOutW(hdc, 43, 20, szFloat, strLen);
+
+		hNewFont = CreateFont(27, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("Neo둥근모"));
+		SelectObject(hdc, hNewFont);
+
+		swprintf_s(szFloat, 50, L"%d", mGold);
+		strLen = wcsnlen_s(szFloat, 50);
+		TextOutW(hdc, 65, 649, szFloat, strLen);
+
+		swprintf_s(szFloat, 50, L"%d / 100", mFood);
+		strLen = wcsnlen_s(szFloat, 50);
+		TextOutW(hdc, 65, 675, szFloat, strLen);
+
+		SelectObject(hdc, hOldFont);
+		DeleteObject(hNewFont);
 	}
 
 	// 나중에 정리
@@ -161,12 +297,12 @@ namespace EH
 		{
 			if (mIsRight)
 			{
-				if (mActiveWeapon != eWeapon::None)
+				if (mActiveWeapon != enums::eWeapon::None)
 					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
 			}
 			else
 			{
-				if (mActiveWeapon != eWeapon::None)
+				if (mActiveWeapon != enums::eWeapon::None)
 					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x - 30.f, tr->Getpos().y));
 			}
 		}
@@ -174,18 +310,18 @@ namespace EH
 		{
 			if (mIsRight)
 			{
-				if (mActiveWeapon != eWeapon::None)
+				if (mActiveWeapon != enums::eWeapon::None)
 					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y + 50.f));
 			}
 			else
 			{
-				if (mActiveWeapon != eWeapon::None)
+				if (mActiveWeapon != enums::eWeapon::None)
 					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x - 30.f, tr->Getpos().y + 50.f));
 			}
 		}
 
 
-		if (mActiveWeapon == eWeapon::Onehand)
+		if (mActiveWeapon == enums::eWeapon::Onehand)
 		{
 			Transform* tr = GetComponent<Transform>();
 			Transform* weaponcoltr = mWeaponCollider->GetComponent<Transform>();
@@ -276,6 +412,11 @@ namespace EH
 		else if (!mIsRight && !mIsJump)
 			GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
 
+		if (mSound != nullptr)
+		{
+			mSound->Stop(true);
+		}
+
 		// 이것도 나중에 정리
 		if (Input::Getkey(eKeyCode::K).state == eKeyState::DOWN)
 		{
@@ -289,7 +430,7 @@ namespace EH
 
 			Camera::CaculatePos(cursorpos);
 
-			mActiveWeapon = eWeapon::Onehand;
+			mActiveWeapon = enums::eWeapon::Onehand;
 			BackGround* weapon = object::Instantiate<BackGround>(enums::eLayerType::UI);
 			Transform* temp = weapon->GetComponent<Transform>();
 			temp->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
@@ -304,6 +445,8 @@ namespace EH
 			weapon->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
 			weapon->SetName(L"Test");
 			mWeapon = weapon;
+			Objdata::SetActiveWeapon(mActiveWeapon);
+			Objdata::SetWeapon(weapon);
 
 			Weapon* weaponcollider = object::Instantiate<Weapon>(enums::eLayerType::Sword);
 			Transform* weapontr = weaponcollider->GetComponent<Transform>();
@@ -314,6 +457,10 @@ namespace EH
 			mWeaponCollider = weaponcollider;
 			weaponcol->enabled(false);
 			weaponcollider->SetDelayTime(0.1f);
+			Objdata::SetWeaponCollider(weaponcollider);
+
+			texture = Resources::Load<Texture>(L"Sword1", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
+			mCanvas->AddImageObject(L"Sword1", texture, false, Math::Vector2<float>(1180.f, 660.f), Math::Vector2<float>(76.f, 28.f));
 		}
 
 		if (Input::Getkey(eKeyCode::L).state == eKeyState::DOWN)
@@ -327,10 +474,22 @@ namespace EH
 			if (mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mSound = Resources::Find<Sound>(L"PlayerRunSound");
+				mSound->Play(true);
 			}
 			else if (!mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mSound = Resources::Find<Sound>(L"PlayerRunSound");
+				mSound->Play(true);
 			}
 		}
 
@@ -345,10 +504,22 @@ namespace EH
 			if (mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mSound = Resources::Find<Sound>(L"PlayerRunSound");
+				mSound->Play(true);
 			}
 			else if (!mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftRun", true);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mSound = Resources::Find<Sound>(L"PlayerRunSound");
+				mSound->Play(true);
 			}
 		}
 
@@ -356,24 +527,48 @@ namespace EH
 		{
 			mCurState = eAnimationState::Jump;
 			mJumpStack++;
+
+			Math::Vector2<float> velocity = GetComponent<Rigidbody>()->GetVelocity();
+			GetComponent<Rigidbody>()->SetVeclocity(Math::Vector2<float>(velocity.x + 0.f, velocity.y + -500.f));
 			GetComponent<Rigidbody>()->SetGround(false);
+
 			if (mIsRight)
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
 			else
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
+
+			if (mSound != nullptr)
+			{
+				mSound->Stop(true);
+			}
+			mSound = Resources::Find<Sound>(L"PlayerJumpSound");
+			mSound->Play(true);
 		}
 
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN && !mIsAttack)
 		{
-			if (mActiveWeapon != eWeapon::None)
+			if (mActiveWeapon != enums::eWeapon::None)
 			{
 				mCurState = eAnimationState::Attack;
 				mIsSwing = !mIsSwing;
+				Objdata::SetSwing(mIsSwing);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
+				mSound->Play(false);
 			}
 		}
 		if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::DOWN)
 		{
 			mCurState = eAnimationState::Dash;
+			if (mSound != nullptr)
+			{
+				mSound->Stop(true);
+			}
+			mSound = Resources::Find<Sound>(L"PlayerDashSound");
+			mSound->Play(false);
 		}
 		if (mCurHp <= 0.f)
 		{
@@ -424,7 +619,6 @@ namespace EH
 			{
 				pos.x -= 300.f * Time::GetDeltaTime();
 			}
-
 			//GetComponent<Rigidbody>()->AddForce(Math::Vector2<float>(-200.f, 0.f));
 		}
 		if (Input::Getkey(eKeyCode::S).state == eKeyState::PRESSED)
@@ -465,22 +659,48 @@ namespace EH
 		{
 			mCurState = eAnimationState::Jump;
 			mJumpStack++;
+
+			Math::Vector2<float> velocity = GetComponent<Rigidbody>()->GetVelocity();
+			GetComponent<Rigidbody>()->SetVeclocity(Math::Vector2<float>(velocity.x + 0.f, velocity.y + -500.f));
+			GetComponent<Rigidbody>()->SetGround(false);
+
 			if (mIsRight)
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
 			else
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
+
+			if (mSound != nullptr)
+			{
+				mSound->Stop(true);
+			}
+			mSound = Resources::Find<Sound>(L"PlayerJumpSound");
+			mSound->Play(false);
 		}
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN && !mIsAttack)
 		{
-			if (mActiveWeapon != eWeapon::None)
+			if (mActiveWeapon != enums::eWeapon::None)
 			{
 				mCurState = eAnimationState::Attack;
 				mIsSwing = !mIsSwing;
+				Objdata::SetSwing(mIsSwing);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
+				mSound->Play(false);
 			}
 		}
 		if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::DOWN)
 		{
 			mCurState = eAnimationState::Dash;
+
+			if (mSound != nullptr)
+			{
+				mSound->Stop(true);
+			}
+			mSound = Resources::Find<Sound>(L"PlayerDashSound");
+			mSound->Play(false);
 		}
 		if (mCurHp <= 0.f)
 		{
@@ -502,13 +722,20 @@ namespace EH
 
 	void Player::Jump()
 	{
-		Math::Vector2<float> velocity = GetComponent<Rigidbody>()->GetVelocity();
-		GetComponent<Rigidbody>()->SetVeclocity(Math::Vector2<float>(velocity.x + 0.f, velocity.y + -500.f));
-		GetComponent<Rigidbody>()->SetGround(false);
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN && !mIsAttack)
 		{
-			if (mActiveWeapon != eWeapon::None)
+			if (mActiveWeapon != enums::eWeapon::None)
+			{
 				mCurState = eAnimationState::Attack;
+				mIsSwing = !mIsSwing;
+				Objdata::SetSwing(mIsSwing);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
+				mSound->Play(false);
+			}
 		}
 		if (mCurHp <= 0.f)
 		{
@@ -520,7 +747,8 @@ namespace EH
 
 			mIsDead = true;
 		}
-		if (Input::Getkey(eKeyCode::Space).state == eKeyState::UP || Input::Getkey(eKeyCode::Space).state == eKeyState::PRESSED)
+
+		if (Input::Getkey(eKeyCode::Space).state == eKeyState::UP)
 		{
 			mCurState = eAnimationState::Idle;
 		}
@@ -556,7 +784,7 @@ namespace EH
 			else
 				GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
 		}
-		if (mActiveWeapon == eWeapon::Onehand)
+		if (mActiveWeapon == enums::eWeapon::Onehand)
 		{
 			// 일단 시간 재고
 			mWeaponCollider->GetComponent<Collider>()->enabled(true);

@@ -140,11 +140,13 @@
     <ClInclude Include="EHButton.h" />
     <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHCanvas.h" />
+    <ClInclude Include="EHCoin.h" />
     <ClInclude Include="EHCollider.h" />
     <ClInclude Include="EHCollisionManager.h" />
     <ClInclude Include="EHComponent.h" />
     <ClInclude Include="EHEnemy.h" />
     <ClInclude Include="EHEntity.h" />
+    <ClInclude Include="EHFairy.h" />
     <ClInclude Include="EHFloor.h" />
     <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHImageObject.h" />
@@ -212,11 +214,13 @@
     <ClCompile Include="EHButton.cpp" />
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCanvas.cpp" />
+    <ClCompile Include="EHCoin.cpp" />
     <ClCompile Include="EHCollider.cpp" />
     <ClCompile Include="EHCollisionManager.cpp" />
     <ClCompile Include="EHComponent.cpp" />
     <ClCompile Include="EHEnemy.cpp" />
     <ClCompile Include="EHEntity.cpp" />
+    <ClCompile Include="EHFairy.cpp" />
     <ClCompile Include="EHFloor.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHImageObject.cpp" />

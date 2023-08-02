@@ -27,7 +27,8 @@ namespace EH
 		static void LayerCollision(class Scene* scene, enums::eLayerType left, enums::eLayerType right);
 		static void ColliderCollision(Collider* left, Collider* right);
 		static bool Intersect(Collider* left, Collider* right);
-
+		
+		static void ForceExit(Collider* left,Collider* right);
 
 	private:
 		static std::map<UINT64, bool> mCollisionMap;

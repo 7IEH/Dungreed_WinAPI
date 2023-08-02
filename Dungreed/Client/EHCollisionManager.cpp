@@ -130,6 +130,7 @@ namespace EH
 		{
 			return false;
 		}
+
 		Math::Vector2<float> leftpos = left->GetOwner()->GetComponent<Transform>()->Getpos();
 		Math::Vector2<float> leftscale = left->GetScale();
 		Math::Vector2<float> rightpos = right->GetOwner()->GetComponent<Transform>()->Getpos();
@@ -144,5 +145,22 @@ namespace EH
 		{
 			return false;
 		}
+	}
+
+	void CollisionManager::ForceExit(Collider* left, Collider* right)
+	{
+		ColliderID id = {};
+		id.left = (UINT)left;
+		id.right = (UINT)right;
+
+		std::map<UINT64, bool>::iterator iter = mCollisionMap.find(id.id);
+		if (iter == mCollisionMap.end())
+		{
+			return;
+		}
+		bool test = iter->second;
+		iter->second = false;
+		left->OnCollisionExit(right);
+		right->OnCollisionExit(left);
 	}
 }
