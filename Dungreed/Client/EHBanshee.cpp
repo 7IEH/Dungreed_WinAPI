@@ -104,6 +104,7 @@ namespace EH
 				Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(13.f, 16.f),
 				Math::Vector2<float>(0.f, 0.f), 4, 0.1f);
 			bullet->GetComponent<Animator>()->PlayAnimation(L"BansheeBullet", true);
+			bullet->SetDamage(5.f);
 			// 30degree
 			bullet->SetDeleteTime(2.f);
 			bullet->SetRadian(0.52 * i);

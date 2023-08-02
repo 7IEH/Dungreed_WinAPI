@@ -3,6 +3,11 @@
 #include "EHCamera.h"
 #include "EHCollisionManager.h"
 #include "EHSoundManager.h"
+#include "EHInput.h"
+#include "EHTime.h"
+#include "EHScene.h"
+#include "EHPath.h"
+#include "EHObjdata.h"
 
 namespace EH
 {
@@ -57,6 +62,13 @@ namespace EH
 		// collision Initialize
 		CollisionManager::Initialize();
 
+		// objdata FILE IN & OUT
+		Objdata::SetHP(80);
+		Objdata::SetGold(0);
+		Objdata::SetFood(0);
+		Objdata::SetLevel(1);
+		Objdata::SetDash(5);
+
 		mHbit = CreateCompatibleBitmap(mHdc, 1280, 720);
 		mHmemdc = CreateCompatibleDC(mHdc);
 		HBITMAP hOldBit = (HBITMAP)SelectObject(mHmemdc, mHbit);
@@ -83,8 +95,11 @@ namespace EH
 	{
 		// 화면 clear
 		Rectangle(mHmemdc, -1, -1, mWinSize.x+1, mWinSize.y+1);
+
 		SceneManager::Render(mHmemdc);
+
 		Time::Render(mHmemdc);
+
 		CollisionManager::Render(mHmemdc);
 		// double buffering
 		// memdc를 통해 그린 bitmap을 메인 핸들로 옮기는 과정

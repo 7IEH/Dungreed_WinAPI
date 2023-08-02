@@ -1,6 +1,7 @@
 #include "EHBullet.h"
 #include "EHPlayer.h"
 #include "EHCamera.h"
+#include "EHObjdata.h"
 
 namespace EH
 {
@@ -50,6 +51,7 @@ namespace EH
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
 		if (player != nullptr)
 		{
+			Objdata::SetHP(Objdata::GetHP() - mDamage);
 			Destroy(this);
 		}
 	}

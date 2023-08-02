@@ -1,14 +1,9 @@
 #pragma once
 #include "Commoninclude.h"
-#include "EHInput.h"
-#include "EHTime.h"
-#include "EHScene.h"
-#include "EHPath.h"
 using EH::Math::Vector2;
 
 // sound ¿ë
 #pragma comment(lib,"winmm.lib")
-
 
 namespace EH
 {
@@ -27,6 +22,9 @@ namespace EH
 
 		HWND GetHWND() { return mHwnd; }
 
+		// Player UI Access Funtion
+		void SetActiveUI(bool active) { mbActiveUI = active; }
+
 	private:
 		HWND mHwnd;
 		HDC mHdc;
@@ -40,6 +38,9 @@ namespace EH
 		// GDI+
 		ULONG_PTR gdiplusToken;
 		Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+
+		// Player UI
+		bool mbActiveUI;
 	};
 }
 

@@ -46,9 +46,6 @@
     <Filter Include="Contents">
       <UniqueIdentifier>{caac201b-4f4b-48f6-8e79-5173c8766f7b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject">
-      <UniqueIdentifier>{4231ac59-7de2-4126-b0a4-68c4ec74de8f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Scene">
       <UniqueIdentifier>{4263561a-764f-4ee6-880e-d86afe702b29}</UniqueIdentifier>
     </Filter>
@@ -60,15 +57,6 @@
     </Filter>
     <Filter Include="Contents\Scene\3.TownScene">
       <UniqueIdentifier>{7b302741-5e19-4937-8125-9b1bc60afa59}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Player">
-      <UniqueIdentifier>{65243745-a050-46d3-b053-7f8a353a5ddb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\BackGround">
-      <UniqueIdentifier>{a2b23ba5-7e46-45fa-b8ed-b07601611866}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Npc">
-      <UniqueIdentifier>{f3f60cb8-43bb-4762-8784-6c90c25eda7e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\Scene\4.Dungeon">
       <UniqueIdentifier>{3b0effa5-cf99-477e-bbb0-063203192337}</UniqueIdentifier>
@@ -139,18 +127,6 @@
     <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField12">
       <UniqueIdentifier>{4efc159f-2adb-4122-917c-207e771beb6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\Enemy">
-      <UniqueIdentifier>{b8a96e5d-105c-4de6-a854-419e2fe77a81}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField">
-      <UniqueIdentifier>{addafbe6-b1a1-4d0d-83ed-8a0c7498c3cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Normal">
-      <UniqueIdentifier>{f39b3a9c-5629-4261-af10-a0ddcf69eab7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Boss">
-      <UniqueIdentifier>{e5b74477-4174-4cbd-bd44-8cba51d7a73b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField13">
       <UniqueIdentifier>{fbcfe642-6b1c-4712-b412-d7b16dc9c062}</UniqueIdentifier>
     </Filter>
@@ -181,20 +157,8 @@
     <Filter Include="Engine\Resource\Animation">
       <UniqueIdentifier>{c8c458a9-a6c0-42dc-9030-182f4a26eeb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\UI">
-      <UniqueIdentifier>{093d9fa3-0f53-4306-9240-4722e72b3148}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\High Level Interface">
       <UniqueIdentifier>{6638c37b-5e9c-4c8c-b902-5d53dcec92ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\UI\Button">
-      <UniqueIdentifier>{4f2c5aed-b919-4868-aff9-e388bb4127a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Weapon">
-      <UniqueIdentifier>{aa693560-79bf-4700-80e6-db551a0c8b3a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Floor">
-      <UniqueIdentifier>{884c062c-8633-48b5-87b6-ce2af11aa86a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Common">
       <UniqueIdentifier>{8b433587-28e5-4de9-830d-30968f6a23c9}</UniqueIdentifier>
@@ -202,8 +166,29 @@
     <Filter Include="Engine\Common\Time">
       <UniqueIdentifier>{cfce122e-1e8f-4e4e-854f-cd3ded30d193}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\EnemyAttack">
-      <UniqueIdentifier>{61f55932-fca6-4c69-8f3e-d986063bb221}</UniqueIdentifier>
+    <Filter Include="Engine\SoundMgr">
+      <UniqueIdentifier>{f7f6979c-cfe7-4441-bce2-405cb123fcad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject">
+      <UniqueIdentifier>{4231ac59-7de2-4126-b0a4-68c4ec74de8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Player">
+      <UniqueIdentifier>{65243745-a050-46d3-b053-7f8a353a5ddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\BackGround">
+      <UniqueIdentifier>{a2b23ba5-7e46-45fa-b8ed-b07601611866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Npc">
+      <UniqueIdentifier>{f3f60cb8-43bb-4762-8784-6c90c25eda7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy">
+      <UniqueIdentifier>{b8a96e5d-105c-4de6-a854-419e2fe77a81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField">
+      <UniqueIdentifier>{addafbe6-b1a1-4d0d-83ed-8a0c7498c3cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Normal">
+      <UniqueIdentifier>{f39b3a9c-5629-4261-af10-a0ddcf69eab7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Banshee">
       <UniqueIdentifier>{efa5b4e0-1656-4491-b1cc-f726df57663d}</UniqueIdentifier>
@@ -211,11 +196,32 @@
     <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Archor">
       <UniqueIdentifier>{f3f1829b-1aa8-4644-9931-b7b7b044c51a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Boss">
+      <UniqueIdentifier>{e5b74477-4174-4cbd-bd44-8cba51d7a73b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\UI">
+      <UniqueIdentifier>{093d9fa3-0f53-4306-9240-4722e72b3148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\UI\Button">
+      <UniqueIdentifier>{4f2c5aed-b919-4868-aff9-e388bb4127a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\UI\Canvas">
+      <UniqueIdentifier>{605c5194-19b3-4f08-959a-329a9f7d1303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Weapon">
+      <UniqueIdentifier>{aa693560-79bf-4700-80e6-db551a0c8b3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Floor">
+      <UniqueIdentifier>{884c062c-8633-48b5-87b6-ce2af11aa86a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\EnemyAttack">
+      <UniqueIdentifier>{61f55932-fca6-4c69-8f3e-d986063bb221}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Contents\GameObject\EnemyAttack\Laser">
       <UniqueIdentifier>{7d313082-26e4-4159-8e39-27ea1c200dda}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\SoundMgr">
-      <UniqueIdentifier>{f7f6979c-cfe7-4441-bce2-405cb123fcad}</UniqueIdentifier>
+    <Filter Include="Contents\GameObject\EnemyAttack\Bullet">
+      <UniqueIdentifier>{88025965-f4a3-4aa8-95c3-b9afeb3ea973}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\GameObject\Slope">
       <UniqueIdentifier>{b2444961-e54f-4faf-9a3e-dd39cc62010d}</UniqueIdentifier>
@@ -223,8 +229,11 @@
     <Filter Include="Contents\GameObject\Trigger">
       <UniqueIdentifier>{1dc157f7-83c9-4ca8-9ad7-add4c3e1080a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\EnemyAttack\Bullet">
-      <UniqueIdentifier>{88025965-f4a3-4aa8-95c3-b9afeb3ea973}</UniqueIdentifier>
+    <Filter Include="Contents\GameObject\UI\Image">
+      <UniqueIdentifier>{02a876e0-f173-4753-a50e-00299a809811}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Data">
+      <UniqueIdentifier>{385120e8-e7e7-488a-80db-467cff29d49d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -432,6 +441,15 @@
     <ClInclude Include="EHTrigger.h">
       <Filter>Contents\GameObject\Trigger</Filter>
     </ClInclude>
+    <ClInclude Include="EHCanvas.h">
+      <Filter>Contents\GameObject\UI\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="EHImageObject.h">
+      <Filter>Contents\GameObject\UI\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="EHObjdata.h">
+      <Filter>Contents\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -629,6 +647,15 @@
     </ClCompile>
     <ClCompile Include="EHTrigger.cpp">
       <Filter>Contents\GameObject\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCanvas.cpp">
+      <Filter>Contents\GameObject\UI\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="EHImageObject.cpp">
+      <Filter>Contents\GameObject\UI\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="EHObjdata.cpp">
+      <Filter>Contents\Data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

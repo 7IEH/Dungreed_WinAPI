@@ -8,6 +8,9 @@
 #include "EHFloor.h"
 #include "EHBackGround.h"
 #include "EHWeapon.h"
+#include "EHCanvas.h"
+#include "EHObjdata.h"
+#include "EHImageObject.h"
 
 extern EH::Application application;
 
@@ -70,14 +73,7 @@ namespace EH
 		GetComponent<Collider>()->SetAffectedCamera(true);
 
 		// UI -> 나중에 클래스로 정리
-		temp = Resources::Load<Texture>(L"HPRed", L"..\\Resources\\UI\\PlayerLife.png");
-		mHp = EH::object::Instantiate<BackGround>(enums::eLayerType::UI);
-		mHp->GetComponent<Transform>()->SetPos(Math::Vector2<float>(195.f, 42.f));
-		mHp->GetComponent<Transform>()->SetScale(Math::Vector2<float>(192.f, 36.f));
-		temp->SetWidth(48);
-		temp->SetHeight(9);
-		mHp->GetComponent<SpriteRenderer>()->SetImg(temp);
-		mHp->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		// Canvas* mPlayerUI 
 	}
 
 	Player::~Player()
@@ -135,17 +131,26 @@ namespace EH
 				mIsAttack = false;
 			}
 		}
+
+		// objdata update
+		mCurHp = Objdata::GetHP();
+		mLevel = Objdata::GetLevel();
+		mGold = Objdata::GetGold();
+		mFood = Objdata::GetFood();
+		mCurDash = Objdata::GetDash();
+
+		// UI Update
+		ImageObject* hp = mCanvas->Find(L"HP");
+		Transform* tr = hp->GetComponent<Transform>();
+		tr->SetPos(Math::Vector2<float>(194.f - ((198.f - 198.f * ((float)mCurHp / (float)mMaxHP))/2.f), tr->Getpos().y));
+		tr->SetScale(Math::Vector2<float>(198.f * ((float)mCurHp / (float)mMaxHP), tr->GetScale().y));
+
 		Playerlogic();
 	}
 
 	void Player::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
-		wchar_t hp[50] = {};
-		swprintf_s(hp, 50, L"%d/%d", mCurHp, mMaxHP);
-		int strlen = wcsnlen_s(hp, 50);
-		SetBkColor(hdc, RGB(93, 92, 110));
-		TextOut(hdc, 200, 30, hp, strlen);
 	}
 
 	// 나중에 정리

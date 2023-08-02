@@ -31,7 +31,6 @@ namespace EH
 	{
 		if (mTexture == nullptr)
 			return;
-
 		
 		mTexture->Render(hdc, GetOwner()
 			, mAffectCamera

@@ -52,19 +52,25 @@ namespace EH
 
 		void SetSlope(bool slope) { mIsSlope = slope; }
 		void SetRightSlope(bool right) { mIsRightSlope = right; }
+
+		void SetCanvas(class Canvas* canvas) { mCanvas = canvas; }
+		class Canvas* GetCanvas() { return mCanvas; }
 	
 	private:
+		int mMaxHP;
 		UINT mLevel;
-		UINT mMaxHP;
 		UINT mCurHp;
 		UINT mGold;
 		UINT mFood;
+		UINT mMaxDash;
+		UINT mCurDash;
 
 		eAnimationState mCurState;
 		eWeapon mActiveWeapon;
 		class BackGround* mHp;
 		class BackGround* mWeapon;
 		class Weapon* mWeaponCollider;
+		class Canvas* mCanvas;
 
 		bool mIsSwing;
 		bool mIsRight;

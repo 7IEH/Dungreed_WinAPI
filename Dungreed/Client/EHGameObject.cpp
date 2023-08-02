@@ -20,17 +20,23 @@ namespace EH
 
 	void GameObject::Update()
 	{
- 		for (Component* comp : mComponents)
+		if (mState == eState::Active)
 		{
- 			comp->Update();
+			for (Component* comp : mComponents)
+			{
+				comp->Update();
+			}
 		}
 	}
 
 	void GameObject::Render(HDC hdc)
 	{
-		for (Component* comp : mComponents)
+		if (mState == eState::Active)
 		{
-			comp->Render(hdc);
+			for (Component* comp : mComponents)
+			{
+				comp->Render(hdc);
+			}
 		}
 	}
 

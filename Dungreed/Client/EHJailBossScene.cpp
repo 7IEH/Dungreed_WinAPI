@@ -9,6 +9,7 @@
 #include "EHBoss.h"
 #include "EHJailArchor.h"
 #include "EHBanshee.h"
+#include "EHCanvas.h"
 #include "EHCollisionManager.h"
 
 namespace EH
@@ -28,171 +29,138 @@ namespace EH
 		Sound* BGM = Resources::Load<Sound>(L"BOSSBGM2",L"..\\Resources\\Sound\\2.IceBoss.wav");
 		SetBGM(BGM);
 
-		// HP
-		BackGround* HPBack = object::Instantiate<BackGround>(enums::eLayerType::UI);
-		HPBack->GetComponent<Transform>()->SetPos(Math::Vector2<float>(157.f, 42.f));
-		HPBack->GetComponent<Transform>()->SetScale(Math::Vector2<float>(296.f, 64.f));
-		Texture* temp = Resources::Load<Texture>(L"HPBack", L"..\\Resources\\UI\\PlayerLifeBack.png");
-		HPBack->GetComponent<SpriteRenderer>()->SetImg(temp);
-		HPBack->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		Texture* texture = nullptr;
 
-		BackGround* HPBase = object::Instantiate<BackGround>(enums::eLayerType::UI);
-		HPBase->GetComponent<Transform>()->SetPos(Math::Vector2<float>(157.f, 42.f));
-		HPBase->GetComponent<Transform>()->SetScale(Math::Vector2<float>(296.f, 64.f));
-		temp = Resources::Load<Texture>(L"HPBase", L"..\\Resources\\UI\\PlayerLifeBase 1.png");
-		HPBase->GetComponent<SpriteRenderer>()->SetImg(temp);
-		HPBase->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		// UI Canvas
+		Canvas* PlayerUICanvas = object::Instantiate<Canvas>(enums::eLayerType::UI);
+		texture = Resources::Load<Texture>(L"HPBack", L"..\\Resources\\UI\\PlayerLifeBack.png");
+		PlayerUICanvas->AddImageObject(L"HPBack", texture, false, Math::Vector2<float>(157.f, 42.f), Math::Vector2<float>(296.f, 64.f));
 
-		// DASH
-		BackGround* DashBase = object::Instantiate<BackGround>(enums::eLayerType::UI);
-		DashBase->GetComponent<Transform>()->SetPos(Math::Vector2<float>(135.f, 97.f));
-		DashBase->GetComponent<Transform>()->SetScale(Math::Vector2<float>(252.f, 34.f));
-		temp = Resources::Load<Texture>(L"DashBase", L"..\\Resources\\UI\\DashCountBase.png");
-		DashBase->GetComponent<SpriteRenderer>()->SetImg(temp);
-		DashBase->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		texture = Resources::Load<Texture>(L"HP", L"..\\Resources\\UI\\PlayerLife.png");
+		PlayerUICanvas->AddImageObject(L"HP", texture, false, Math::Vector2<float>(194.f, 42.f), Math::Vector2<float>(198.f, 56.f));
 
-		// COIN
-		BackGround* Coin = object::Instantiate<BackGround>(enums::eLayerType::UI);
-		Coin->GetComponent<Transform>()->SetPos(Math::Vector2<float>(29.f, 657.f));
-		Coin->GetComponent<Transform>()->SetScale(Math::Vector2<float>(17.f, 14.f));
-		temp = Resources::Load<Texture>(L"CoinUI", L"..\\Resources\\UI\\Coin.png");
-		Coin->GetComponent<SpriteRenderer>()->SetImg(temp);
-		Coin->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		texture = Resources::Load<Texture>(L"HPBase", L"..\\Resources\\UI\\PlayerLifeBase 1.png");
+		PlayerUICanvas->AddImageObject(L"HPBase", texture, false, Math::Vector2<float>(157.f, 42.f), Math::Vector2<float>(296.f, 64.f));
 
-		// FOOD
-		BackGround* Food = object::Instantiate<BackGround>(enums::eLayerType::UI);
-		Food->GetComponent<Transform>()->SetPos(Math::Vector2<float>(29.f, 690.f));
-		Food->GetComponent<Transform>()->SetScale(Math::Vector2<float>(34.f, 28.f));
-		temp = Resources::Load<Texture>(L"FoodUI", L"..\\Resources\\UI\\Food.png");
-		Food->GetComponent<SpriteRenderer>()->SetImg(temp);
-		Food->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		texture = Resources::Load<Texture>(L"DashBase", L"..\\Resources\\UI\\DashCountBase.png");
+		PlayerUICanvas->AddImageObject(L"DashBase", texture, false, Math::Vector2<float>(135.f, 97.f), Math::Vector2<float>(252.f, 34.f));
 
-		// Weapon Swap
-		BackGround* WeaponSlot = object::Instantiate<BackGround>(enums::eLayerType::UI);
-		WeaponSlot->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1210.f, 641.f));
-		WeaponSlot->GetComponent<Transform>()->SetScale(Math::Vector2<float>(140.f, 102.f));
-		temp = Resources::Load<Texture>(L"WeaponSlot", L"..\\Resources\\UI\\EquippedWeaponBase.png");
-		WeaponSlot->GetComponent<SpriteRenderer>()->SetImg(temp);
-		WeaponSlot->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		texture = Resources::Load<Texture>(L"CoinUI", L"..\\Resources\\UI\\Coin.png");
+		PlayerUICanvas->AddImageObject(L"CoinUI", texture, false, Math::Vector2<float>(29.f, 657.f), Math::Vector2<float>(17.f, 14.f));
 
-		BackGround* WeaponSlot2 = object::Instantiate<BackGround>(enums::eLayerType::UI);
-		WeaponSlot2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1190.f, 657.f));
-		WeaponSlot2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(140.f, 102.f));
-		temp = Resources::Load<Texture>(L"WeaponSlot", L"..\\Resources\\UI\\EquippedWeaponBase.png");
-		WeaponSlot2->GetComponent<SpriteRenderer>()->SetImg(temp);
-		WeaponSlot2->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		texture = Resources::Load<Texture>(L"FoodUI", L"..\\Resources\\UI\\Food.png");
+		PlayerUICanvas->AddImageObject(L"FoodUI", texture, false, Math::Vector2<float>(29.f, 690.f), Math::Vector2<float>(34.f, 28.f));
 
-		BackGround* Minimap = object::Instantiate<BackGround>(enums::eLayerType::UI);
-		Minimap->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1105.f, 58.f));
-		Minimap->GetComponent<Transform>()->SetScale(Math::Vector2<float>(350.f, 85.f));
-		Minimap->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		texture = Resources::Load<Texture>(L"WeaponSlot", L"..\\Resources\\UI\\EquippedWeaponBase.png");
+		PlayerUICanvas->AddImageObject(L"WeaponSlot", texture, false, Math::Vector2<float>(1210.f, 641.f), Math::Vector2<float>(140.f, 102.f));
+		PlayerUICanvas->AddImageObject(L"WeaponSlot2", texture, false, Math::Vector2<float>(1190.f, 657.f), Math::Vector2<float>(140.f, 102.f));
 
 		BackGround* JailBossBackGround = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		JailBossBackGround->GetComponent<Transform>()->SetPos(Math::Vector2<float>(720.f, 660.f));
 		JailBossBackGround->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1440.f, 1320.f));
-		temp = Resources::Load<Texture>(L"JailBossBackGround", L"..\\Resources\\Dungeon\\Belial\\Boss.bmp");
-		JailBossBackGround->GetComponent<SpriteRenderer>()->SetImg(temp);
+		texture = Resources::Load<Texture>(L"JailBossBackGround", L"..\\Resources\\Dungeon\\Belial\\Boss.bmp");
+		JailBossBackGround->GetComponent<SpriteRenderer>()->SetImg(texture);
 		//JailBossBackGround->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
 		// Torch
 		BackGround* Torch1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		Torch1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(524.f, 804.f));
 		Torch1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
-		temp = Resources::Load<Texture>(L"Torch", L"..\\Resources\\Dungeon\\Belial\\Torch0.png");
-		Torch1->GetComponent<SpriteRenderer>()->SetImg(temp);
+		texture = Resources::Load<Texture>(L"Torch", L"..\\Resources\\Dungeon\\Belial\\Torch0.png");
+		Torch1->GetComponent<SpriteRenderer>()->SetImg(texture);
 		//Torch1->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
 		BackGround* Torch2 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		Torch2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(936.f, 804.f));
 		Torch2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
-		temp = Resources::Load<Texture>(L"Torch", L"..\\Resources\\Dungeon\\Belial\\Torch0.png");
-		Torch2->GetComponent<SpriteRenderer>()->SetImg(temp);
+		texture = Resources::Load<Texture>(L"Torch", L"..\\Resources\\Dungeon\\Belial\\Torch0.png");
+		Torch2->GetComponent<SpriteRenderer>()->SetImg(texture);
 		//Torch2->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
 		BackGround* Torch3 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		Torch3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(476.f, 320.f));
 		Torch3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
-		temp = Resources::Load<Texture>(L"Torch", L"..\\Resources\\Dungeon\\Belial\\Torch0.png");
-		Torch3->GetComponent<SpriteRenderer>()->SetImg(temp);
+		texture = Resources::Load<Texture>(L"Torch", L"..\\Resources\\Dungeon\\Belial\\Torch0.png");
+		Torch3->GetComponent<SpriteRenderer>()->SetImg(texture);
 		//Torch3->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
 		BackGround* Torch4 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		Torch4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(948.f, 320.f));
 		Torch4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
-		temp = Resources::Load<Texture>(L"Torch", L"..\\Resources\\Dungeon\\Belial\\Torch0.png");
-		Torch4->GetComponent<SpriteRenderer>()->SetImg(temp);
+		texture = Resources::Load<Texture>(L"Torch", L"..\\Resources\\Dungeon\\Belial\\Torch0.png");
+		Torch4->GetComponent<SpriteRenderer>()->SetImg(texture);
 		//Torch4->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
 		// Floor
 		Floor* JailFloor1 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		JailFloor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(718.f, 224.f));
 		JailFloor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(188.f, 48.f));
-		temp = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
+		texture = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
 		JailFloor1->AddComponent<SpriteRenderer>();
-		JailFloor1->GetComponent<SpriteRenderer>()->SetImg(temp);
+		JailFloor1->GetComponent<SpriteRenderer>()->SetImg(texture);
 		JailFloor1->AddComponent<Collider>();
 		JailFloor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(188.f, 48.f));
 
 		Floor* JailFloor2 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		JailFloor2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1166.f, 324.f));
 		JailFloor2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(188.f, 48.f));
-		temp = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
+		texture = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
 		JailFloor2->AddComponent<SpriteRenderer>();
-		JailFloor2->GetComponent<SpriteRenderer>()->SetImg(temp);
+		JailFloor2->GetComponent<SpriteRenderer>()->SetImg(texture);
 		JailFloor2->AddComponent<Collider>();
 		JailFloor2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(188.f, 48.f));
 
 		Floor* JailFloor3 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		JailFloor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(294.f, 324.f));
 		JailFloor3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(188.f, 48.f));
-		temp = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
+		texture = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
 		JailFloor3->AddComponent<SpriteRenderer>();
-		JailFloor3->GetComponent<SpriteRenderer>()->SetImg(temp);
+		JailFloor3->GetComponent<SpriteRenderer>()->SetImg(texture);
 		JailFloor3->AddComponent<Collider>();
 		JailFloor3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(188.f, 48.f));
 
 		Floor* JailFloor4 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		JailFloor4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1166.f, 552.f));
 		JailFloor4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(188.f, 48.f));
-		temp = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
+		texture = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
 		JailFloor4->AddComponent<SpriteRenderer>();
-		JailFloor4->GetComponent<SpriteRenderer>()->SetImg(temp);
+		JailFloor4->GetComponent<SpriteRenderer>()->SetImg(texture);
 		JailFloor4->AddComponent<Collider>();
 		JailFloor4->GetComponent<Collider>()->SetScale(Math::Vector2<float>(188.f, 48.f));
 
 		Floor* JailFloor5 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		JailFloor5->GetComponent<Transform>()->SetPos(Math::Vector2<float>(294.f, 552.f));
 		JailFloor5->GetComponent<Transform>()->SetScale(Math::Vector2<float>(188.f, 48.f));
-		temp = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
+		texture = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
 		JailFloor5->AddComponent<SpriteRenderer>();
-		JailFloor5->GetComponent<SpriteRenderer>()->SetImg(temp);
+		JailFloor5->GetComponent<SpriteRenderer>()->SetImg(texture);
 		JailFloor5->AddComponent<Collider>();
 		JailFloor5->GetComponent<Collider>()->SetScale(Math::Vector2<float>(188.f, 48.f));
 
 		Floor* JailFloor6 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		JailFloor6->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1094.f, 784.f));
 		JailFloor6->GetComponent<Transform>()->SetScale(Math::Vector2<float>(188.f, 48.f));
-		temp = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
+		texture = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
 		JailFloor6->AddComponent<SpriteRenderer>();
-		JailFloor6->GetComponent<SpriteRenderer>()->SetImg(temp);
+		JailFloor6->GetComponent<SpriteRenderer>()->SetImg(texture);
 		JailFloor6->AddComponent<Collider>();
 		JailFloor6->GetComponent<Collider>()->SetScale(Math::Vector2<float>(188.f, 48.f));
 
 		Floor* JailFloor7 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		JailFloor7->GetComponent<Transform>()->SetPos(Math::Vector2<float>(334.f, 784.f));
 		JailFloor7->GetComponent<Transform>()->SetScale(Math::Vector2<float>(188.f, 48.f));
-		temp = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
+		texture = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
 		JailFloor7->AddComponent<SpriteRenderer>();
-		JailFloor7->GetComponent<SpriteRenderer>()->SetImg(temp);
+		JailFloor7->GetComponent<SpriteRenderer>()->SetImg(texture);
 		JailFloor7->AddComponent<Collider>();
 		JailFloor7->GetComponent<Collider>()->SetScale(Math::Vector2<float>(188.f, 48.f));
 
 		Floor* JailFloor8 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		JailFloor8->GetComponent<Transform>()->SetPos(Math::Vector2<float>(734.f, 996.f));
 		JailFloor8->GetComponent<Transform>()->SetScale(Math::Vector2<float>(188.f, 48.f));
-		temp = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
+		texture = Resources::Load<Texture>(L"JailFloor1", L"..\\Resources\\Dungeon\\Belial\\JailFloor.png");
 		JailFloor8->AddComponent<SpriteRenderer>();
-		JailFloor8->GetComponent<SpriteRenderer>()->SetImg(temp);
+		JailFloor8->GetComponent<SpriteRenderer>()->SetImg(texture);
 		JailFloor8->AddComponent<Collider>();
 		JailFloor8->GetComponent<Collider>()->SetScale(Math::Vector2<float>(188.f, 48.f));
 
@@ -207,9 +175,9 @@ namespace EH
 		Boss* Boss1 = object::Instantiate<Boss>(enums::eLayerType::Enemy);
 		Boss1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(704.f, 598.f));
 		Boss1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(280.f, 396.f));
-		temp = Resources::Load<Texture>(L"BossIdle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Idle\\SkellBossIdleSheet.bmp");
+		texture = Resources::Load<Texture>(L"BossIdle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Idle\\SkellBossIdleSheet.bmp");
 		Boss1->AddComponent<Animator>();
-		Boss1->GetComponent<Animator>()->CreateAnimation(L"BossIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(70.f, 99.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		Boss1->GetComponent<Animator>()->CreateAnimation(L"BossIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(70.f, 99.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
 		Boss1->GetComponent<Animator>()->PlayAnimation(L"BossIdle", true);
 		Boss1->GetComponent<Animator>()->SetAffectedCamera(true);
 
@@ -217,7 +185,8 @@ namespace EH
 		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(256.f, 500.f));
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
-		
+		player->SetCanvas(PlayerUICanvas);
+
 		Boss1->SetTarget(player);
 
 		/*JailArchor* archor1 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);

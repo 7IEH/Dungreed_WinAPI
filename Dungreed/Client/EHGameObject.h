@@ -57,6 +57,7 @@ namespace EH
 		}
 
 		eState GetState(){ return mState; }
+		void SetState(eState state) {  mState = state; }
 
 		virtual void OnCollisionEnter(class Collider* other);
 		virtual void OnCollisionStay(class Collider* other);

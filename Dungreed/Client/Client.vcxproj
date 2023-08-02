@@ -139,6 +139,7 @@
     <ClInclude Include="EHBossHand.h" />
     <ClInclude Include="EHButton.h" />
     <ClInclude Include="EHCamera.h" />
+    <ClInclude Include="EHCanvas.h" />
     <ClInclude Include="EHCollider.h" />
     <ClInclude Include="EHCollisionManager.h" />
     <ClInclude Include="EHComponent.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="EHEntity.h" />
     <ClInclude Include="EHFloor.h" />
     <ClInclude Include="EHGameObject.h" />
+    <ClInclude Include="EHImageObject.h" />
     <ClInclude Include="EHJailArchor.h" />
     <ClInclude Include="EHJailBossScene.h" />
     <ClInclude Include="EHJailField5.h" />
@@ -169,6 +171,7 @@
     <ClInclude Include="EHLaser.h" />
     <ClInclude Include="EHNpc.h" />
     <ClInclude Include="EHBullet.h" />
+    <ClInclude Include="EHObjdata.h" />
     <ClInclude Include="EHRigidbody.h" />
     <ClInclude Include="EHSlope.h" />
     <ClInclude Include="EHSoundManager.h" />
@@ -208,6 +211,7 @@
     <ClCompile Include="EHBossHand.cpp" />
     <ClCompile Include="EHButton.cpp" />
     <ClCompile Include="EHCamera.cpp" />
+    <ClCompile Include="EHCanvas.cpp" />
     <ClCompile Include="EHCollider.cpp" />
     <ClCompile Include="EHCollisionManager.cpp" />
     <ClCompile Include="EHComponent.cpp" />
@@ -215,6 +219,7 @@
     <ClCompile Include="EHEntity.cpp" />
     <ClCompile Include="EHFloor.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
+    <ClCompile Include="EHImageObject.cpp" />
     <ClCompile Include="EHJailArchor.cpp" />
     <ClCompile Include="EHJailBossScene.cpp" />
     <ClCompile Include="EHJailField5.cpp" />
@@ -239,6 +244,7 @@
     <ClCompile Include="EHMath.cpp" />
     <ClCompile Include="EHNpc.cpp" />
     <ClCompile Include="EHBullet.cpp" />
+    <ClCompile Include="EHObjdata.cpp" />
     <ClCompile Include="EHRigidbody.cpp" />
     <ClCompile Include="EHSlope.cpp" />
     <ClCompile Include="EHSoundManager.cpp" />
