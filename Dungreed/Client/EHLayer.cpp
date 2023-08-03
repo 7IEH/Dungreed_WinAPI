@@ -10,6 +10,11 @@ namespace EH
 
 	Layer::~Layer()
 	{
+		for (GameObject* obj : mGameObjects)
+		{
+			delete obj;
+			obj = nullptr;
+		}
 	}
 
 	void Layer::Initialize()
@@ -37,6 +42,9 @@ namespace EH
 		{
 			if ((*iter)->GetState() == GameObject::eState::Dead)
 			{
+				GameObject* deadObj = *iter;
+				delete deadObj;
+				deadObj = nullptr;
 				iter = mGameObjects.erase(iter);
 			}
 			else

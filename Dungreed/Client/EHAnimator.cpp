@@ -18,6 +18,11 @@ namespace EH
 
 	Animator::~Animator()
 	{
+		for (auto iter : mAnimations)
+		{
+			delete iter.second;
+			iter.second = nullptr;
+		}
 	}
 
 	void Animator::Initialize()
@@ -46,7 +51,7 @@ namespace EH
 
 	void Animator::CreateAnimation(const std::wstring& name, Texture* texutre, Math::Vector2<float> leftTop, Math::Vector2<float> Size, Math::Vector2<float> offset, UINT spriteLength, float duration)
 	{
-		Animation* anim = Resources::Find<Animation>(name);
+		Animation* anim = FindAnimation(name);
 		if (anim != nullptr)
 			return;
 
@@ -57,7 +62,6 @@ namespace EH
 		anim->SetAnimator(this);
 
 		mAnimations.insert(std::make_pair(name, anim));
-		Resources::Insert<Animation>(name, anim);
 	}
 
 	Animation* Animator::FindAnimation(const std::wstring& name)

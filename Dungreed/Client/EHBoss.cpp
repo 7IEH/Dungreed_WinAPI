@@ -44,9 +44,6 @@ namespace EH
 		mRightHand->GetComponent<Animator>()->CreateAnimation(L"BossRightHand", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 69.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
 		mRightHand->GetComponent<Animator>()->PlayAnimation(L"BossRightHand", true);
 		mRightHand->GetComponent<Animator>()->SetAffectedCamera(true);
-
-		SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Enemy, mLeftHand);
-		SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Enemy, mRightHand);
 	}
 
 	Boss::~Boss()

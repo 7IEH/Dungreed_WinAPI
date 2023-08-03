@@ -55,7 +55,16 @@ namespace EH
 		CreateScene<JailScene16>(L"JailScene16");
 		CreateScene<JailScene17>(L"JailScene17");
 
-		LoadScene(L"TitleScene");
+		LoadScene(L"JailScene1");
+	}
+
+	void SceneManager::Release()
+	{
+		for (auto iter : mScenes)
+		{
+			delete iter.second;
+			iter.second = nullptr;
+		}
 	}
 
 	void SceneManager::Update()

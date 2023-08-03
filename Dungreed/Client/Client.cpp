@@ -4,6 +4,9 @@
 #include "framework.h"
 #include "Client.h"
 #include "EHApplication.h"
+#include "EHResources.h"
+#include "EHSceneManager.h"
+
 #define MAX_LOADSTRING 100
 using EH::Application;
 LPPOINT MousePos;
@@ -27,7 +30,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
-
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    //_CrtSetBreakAlloc(12261);
     // TODO: 여기에 코드를 입력합니다.
 
     // 전역 문자열을 초기화합니다.
@@ -80,6 +84,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         // 게임 로직중 할당 된 메모리 해제 (메모리 누수 방지용)
     }
+
+    EH::SceneManager::Release();
+    EH::Resources::Release();
 
     return (int) msg.wParam;
 }

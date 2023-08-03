@@ -10,6 +10,7 @@ namespace EH
 		static void Initialize();
 		static void Update();
 		static void Render(HDC hdc);
+		static void Release();
 
 		template <typename T>
 		static T* CreateScene(const std::wstring& name)
