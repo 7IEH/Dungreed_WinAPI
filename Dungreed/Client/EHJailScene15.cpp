@@ -5,6 +5,9 @@
 #include "EHCamera.h"
 #include "EHPlayer.h"
 #include "EHCanvas.h"
+#include "EHFloor.h"
+#include "EHSlope.h"
+#include "EHTrigger.h"
 
 namespace EH
 {
@@ -22,6 +25,72 @@ namespace EH
 		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(420.f, 500.f));
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+
+		// Floor
+		Floor* floor1 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(160.f, 608.f));
+		floor1->AddComponent<Collider>();
+		floor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+		floor1->GetComponent<Collider>()->SetAffectedCamera(true);
+		floor1->SetDownFloor(false);
+
+		Floor* floor2 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f, 800.f));
+		floor2->AddComponent<Collider>();
+		floor2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(640.f, 64.f));
+		floor2->GetComponent<Collider>()->SetAffectedCamera(true);
+		floor2->SetDownFloor(false);
+
+		Floor* floor3 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1184.f, 608.f));
+		floor3->AddComponent<Collider>();
+		floor3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(192.f, 64.f));
+		floor3->GetComponent<Collider>()->SetAffectedCamera(true);
+		floor3->SetDownFloor(false);
+
+		// Slope
+		Slope* slope1 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+		slope1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(288.f, 736.f));
+		slope1->AddComponent<Collider>();
+		slope1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+		slope1->GetComponent<Collider>()->SetAffectedCamera(true);
+		slope1->SetIntercept(-448.f);
+		slope1->SetCorrection(90.f);
+
+		Slope* slope2 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+		slope2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(224.f, 672.f));
+		slope2->AddComponent<Collider>();
+		slope2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+		slope2->GetComponent<Collider>()->SetAffectedCamera(true);
+		slope2->SetIntercept(-448.f);
+		slope2->SetCorrection(90.f);
+
+		Slope* slope3 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+		slope3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(992.f, 736.f));
+		slope3->AddComponent<Collider>();
+		slope3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+		slope3->GetComponent<Collider>()->SetAffectedCamera(true);
+		slope3->SetIntercept(1728.f);
+		slope3->SetCorrection(90.f);
+		slope3->SetRight(true);
+
+		Slope* slope4 = object::Instantiate<Slope>(enums::eLayerType::Floor);
+		slope4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1056.f, 672.f));
+		slope4->AddComponent<Collider>();
+		slope4->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 64.f));
+		slope4->GetComponent<Collider>()->SetAffectedCamera(true);
+		slope4->SetIntercept(1728.f);
+		slope4->SetCorrection(90.f);
+		slope4->SetRight(true);
+
+		// Trigger
+		Trigger* trigger1 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
+		trigger1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1244.f, 448.f));
+		trigger1->AddComponent<Collider>();
+		trigger1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+		trigger1->SetType(Trigger::eTriggertype::Scenechange);
+		trigger1->SetScenename(L"JailScene14");
+
 
 		// SceneChanger Player
 		SetPlayer(player);

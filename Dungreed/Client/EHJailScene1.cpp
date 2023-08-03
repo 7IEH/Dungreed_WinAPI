@@ -65,7 +65,7 @@ namespace EH
 		trigger2->AddComponent<Collider>();
 		trigger2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
 		trigger2->SetType(Trigger::eTriggertype::Scenechange);
-		trigger2->SetScenename(L"JailBossScene");
+		trigger2->SetScenename(L"JailScene10");
 
 		// Enemy
 		Banshee* banshee1 = object::Instantiate<Banshee>(enums::eLayerType::Enemy);

@@ -211,9 +211,6 @@
     <Filter Include="Contents\GameObject\Weapon">
       <UniqueIdentifier>{aa693560-79bf-4700-80e6-db551a0c8b3a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\Floor">
-      <UniqueIdentifier>{884c062c-8633-48b5-87b6-ce2af11aa86a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObject\EnemyAttack">
       <UniqueIdentifier>{61f55932-fca6-4c69-8f3e-d986063bb221}</UniqueIdentifier>
     </Filter>
@@ -243,6 +240,18 @@
     </Filter>
     <Filter Include="Contents\GameObject\Item\Fairy">
       <UniqueIdentifier>{c916d766-f7a7-4f94-82e2-be56ab79ff6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Structure">
+      <UniqueIdentifier>{272ea20d-8db7-4a67-898b-c9f9556b6cac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Structure\Floor">
+      <UniqueIdentifier>{884c062c-8633-48b5-87b6-ce2af11aa86a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Structure\Wall">
+      <UniqueIdentifier>{d854cfcb-a458-4452-8a7f-cbc8c636e490}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Structure\Ceil">
+      <UniqueIdentifier>{37766bdb-2cac-437f-9253-0e246e2fc4ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -421,7 +430,7 @@
       <Filter>Contents\GameObject\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="EHFloor.h">
-      <Filter>Contents\GameObject\Floor</Filter>
+      <Filter>Contents\GameObject\Structure\Floor</Filter>
     </ClInclude>
     <ClInclude Include="EHBoss.h">
       <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
@@ -464,6 +473,12 @@
     </ClInclude>
     <ClInclude Include="EHFairy.h">
       <Filter>Contents\GameObject\Item\Fairy</Filter>
+    </ClInclude>
+    <ClInclude Include="EHWall.h">
+      <Filter>Contents\GameObject\Structure\Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="EHCeil.h">
+      <Filter>Contents\GameObject\Structure\Ceil</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -634,7 +649,7 @@
       <Filter>Contents\GameObject\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="EHFloor.cpp">
-      <Filter>Contents\GameObject\Floor</Filter>
+      <Filter>Contents\GameObject\Structure\Floor</Filter>
     </ClCompile>
     <ClCompile Include="EHBoss.cpp">
       <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
@@ -677,6 +692,12 @@
     </ClCompile>
     <ClCompile Include="EHFairy.cpp">
       <Filter>Contents\GameObject\Item\Fairy</Filter>
+    </ClCompile>
+    <ClCompile Include="EHWall.cpp">
+      <Filter>Contents\GameObject\Structure\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="EHCeil.cpp">
+      <Filter>Contents\GameObject\Structure\Ceil</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

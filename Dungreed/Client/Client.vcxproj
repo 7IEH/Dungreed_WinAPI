@@ -141,6 +141,7 @@
     <ClInclude Include="EHButton.h" />
     <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHCanvas.h" />
+    <ClInclude Include="EHCeil.h" />
     <ClInclude Include="EHCoin.h" />
     <ClInclude Include="EHCollider.h" />
     <ClInclude Include="EHCollisionManager.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="EHTownScene.h" />
     <ClInclude Include="EHTransform.h" />
     <ClInclude Include="EHTrigger.h" />
+    <ClInclude Include="EHWall.h" />
     <ClInclude Include="EHWeapon.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="EHJailPrevBossScene.h" />
@@ -215,6 +217,7 @@
     <ClCompile Include="EHButton.cpp" />
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCanvas.cpp" />
+    <ClCompile Include="EHCeil.cpp" />
     <ClCompile Include="EHCoin.cpp" />
     <ClCompile Include="EHCollider.cpp" />
     <ClCompile Include="EHCollisionManager.cpp" />
@@ -271,6 +274,7 @@
     <ClCompile Include="EHResources.cpp" />
     <ClCompile Include="EHJailPrevBossScene.cpp" />
     <ClCompile Include="EHTrigger.cpp" />
+    <ClCompile Include="EHWall.cpp" />
     <ClCompile Include="EHWeapon.cpp" />
   </ItemGroup>
   <ItemGroup>

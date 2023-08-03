@@ -66,6 +66,13 @@ namespace EH
 		trigger2->SetType(Trigger::eTriggertype::Scenechange);
 		trigger2->SetScenename(L"JailScene3");
 
+		Trigger* trigger3 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
+		trigger3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f,864.f));
+		trigger3->AddComponent<Collider>();
+		trigger3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(320.f, 64.f));
+		trigger3->SetType(Trigger::eTriggertype::Scenechange);
+		trigger3->SetScenename(L"JailScene1");
+
 		// SceneChanger Player
 		SetPlayer(player);
 	}

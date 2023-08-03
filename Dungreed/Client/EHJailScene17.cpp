@@ -5,6 +5,8 @@
 #include "EHCamera.h"
 #include "EHPlayer.h"
 #include "EHCanvas.h"
+#include "EHTrigger.h"
+#include "EHFloor.h"
 
 namespace EH
 {
@@ -22,6 +24,22 @@ namespace EH
 		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(420.f, 500.f));
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+
+		// Floor
+		Floor* floor1 = object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(576.f, 800.f));
+		floor1->AddComponent<Collider>();
+		floor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1152.f, 64.f));
+		floor1->GetComponent<Collider>()->SetAffectedCamera(true);
+		floor1->SetDownFloor(false);
+
+		// Trigger
+		Trigger* trigger1 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
+		trigger1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(32.f, 640.f));
+		trigger1->AddComponent<Collider>();
+		trigger1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+		trigger1->SetType(Trigger::eTriggertype::Scenechange);
+		trigger1->SetScenename(L"JailScene16");
 
 		// SceneChanger Player
 		SetPlayer(player);

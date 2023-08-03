@@ -32,9 +32,8 @@ namespace EH
 	{
 		// scene 만들고 처음 할거 load
 		CreateScene<TitleScene>(L"TitleScene");
-		CreateScene<SelectScene>(L"SelectScene");
+		// CreateScene<SelectScene>(L"SelectScene");
 		CreateScene<TownScene>(L"TownScene");
-		CreateScene<JailScene18>(L"JailScene18");
 		CreateScene<JailPrevBossScene>(L"JailPrevBossScene");
 		CreateScene<JailBossScene>(L"JailBossScene");
 		CreateScene<JailScene1>(L"JailScene1");
@@ -54,8 +53,9 @@ namespace EH
 		CreateScene<JailScene15>(L"JailScene15");
 		CreateScene<JailScene16>(L"JailScene16");
 		CreateScene<JailScene17>(L"JailScene17");
+		CreateScene<JailScene18>(L"JailScene18");
 
-		LoadScene(L"JailScene1");
+		LoadScene(L"JailScene14");
 	}
 
 	void SceneManager::Release()
