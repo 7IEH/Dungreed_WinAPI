@@ -6,6 +6,9 @@ namespace EH
 	class Wall : public GameObject
 	{
 	public:
+		Wall();
+		virtual ~Wall();
+
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
@@ -14,7 +17,10 @@ namespace EH
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
+		void SetRight(bool right) { mIsRight = right; }
+
 	private:
+		bool mIsRight;
 	};
 }
 

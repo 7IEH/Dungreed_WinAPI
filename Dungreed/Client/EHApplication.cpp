@@ -89,8 +89,8 @@ namespace EH
 		Time::Update();
 		Input::Update();
 		Camera::Update();
-		CollisionManager::Update();
 		SceneManager::Update();
+		CollisionManager::Update();
 	}
 
 	void Application::Render()
