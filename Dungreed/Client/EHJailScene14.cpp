@@ -7,6 +7,9 @@
 #include "EHCanvas.h"
 #include "EHFloor.h"
 #include "EHTrigger.h"
+#include "EHWall.h"
+#include "EHCeil.h"
+
 
 namespace EH
 {
@@ -60,6 +63,41 @@ namespace EH
 		floor5->GetComponent<Collider>()->SetScale(Math::Vector2<float>(192.f, 64.f));
 		floor5->GetComponent<Collider>()->SetAffectedCamera(true);
 		floor5->SetDownFloor(false);
+
+		// Ceil
+		Ceil* ceil1 = object::Instantiate<Ceil>(enums::eLayerType::Floor);
+		ceil1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(350.f, 608.f));
+		ceil1->AddComponent<Collider>();
+		ceil1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(188.f, 64.f));
+		ceil1->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		Ceil* ceil2 = object::Instantiate<Ceil>(enums::eLayerType::Floor);
+		ceil2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(736.f, 96.f));
+		ceil2->AddComponent<Collider>();
+		ceil2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(576.f, 64.f));
+		ceil2->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		// Wall
+		Wall* wall1 = object::Instantiate<Wall>(enums::eLayerType::Floor);
+		wall1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(864.f, 706.f));
+		wall1->AddComponent<Collider>();
+		wall1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 636.f));
+		wall1->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		Wall* wall2 = object::Instantiate<Wall>(enums::eLayerType::Floor);
+		wall2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(544.f, 962.f));
+		wall2->AddComponent<Collider>();
+		wall2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 124.f));
+		wall2->GetComponent<Collider>()->SetAffectedCamera(true);
+		wall2->SetRight(false);
+
+		Wall* wall3 = object::Instantiate<Wall>(enums::eLayerType::Floor);
+		wall3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(416.f, 350.f));
+		wall3->AddComponent<Collider>();
+		wall3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 572.f));
+		wall3->GetComponent<Collider>()->SetAffectedCamera(true);
+		wall3->SetRight(false);
+
 
 		// Trigger
 		Trigger* trigger1 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);

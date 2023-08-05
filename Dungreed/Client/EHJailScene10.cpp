@@ -7,6 +7,9 @@
 #include "EHCanvas.h"
 #include "EHFloor.h"
 #include "EHTrigger.h"
+#include "EHWall.h"
+#include "EHCeil.h"
+
 
 namespace EH
 {
@@ -40,6 +43,39 @@ namespace EH
 		floor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(2176.f, 64.f));
 		floor1->GetComponent<Collider>()->SetAffectedCamera(true);
 		floor1->SetDownFloor(false);
+
+		// Ceil
+		Ceil* ceil1 = object::Instantiate<Ceil>(enums::eLayerType::Floor);
+		ceil1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(62.f, 292.f));
+		ceil1->AddComponent<Collider>();
+		ceil1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(124.f, 64.f));
+		ceil1->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		Ceil* ceil2 = object::Instantiate<Ceil>(enums::eLayerType::Floor);
+		ceil2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1088.f, 96.f));
+		ceil2->AddComponent<Collider>();
+		ceil2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1920.f, 64.f));
+		ceil2->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		Ceil* ceil3 = object::Instantiate<Ceil>(enums::eLayerType::Floor);
+		ceil3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2114.f, 292.f));
+		ceil3->AddComponent<Collider>();
+		ceil3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(124.f, 64.f));
+		ceil3->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		// Wall
+		Wall* wall1 = object::Instantiate<Wall>(enums::eLayerType::Floor);
+		wall1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(96.f, 192.f));
+		wall1->AddComponent<Collider>();
+		wall1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+		wall1->GetComponent<Collider>()->SetAffectedCamera(true);
+		wall1->SetRight(false);
+
+		Wall* wall2 = object::Instantiate<Wall>(enums::eLayerType::Floor);
+		wall2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2080.f, 192.f));
+		wall2->AddComponent<Collider>();
+		wall2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+		wall2->GetComponent<Collider>()->SetAffectedCamera(true);
 
 		// Trigger
 		Trigger* trigger1 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);

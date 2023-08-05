@@ -8,6 +8,9 @@
 #include "EHTrigger.h"
 #include "EHFloor.h"
 #include "EHSlope.h"
+#include "EHWall.h"
+#include "EHCeil.h"
+
 
 namespace EH
 {
@@ -141,6 +144,59 @@ namespace EH
 		slope10->GetComponent<Collider>()->SetAffectedCamera(true);
 		slope10->SetIntercept(1884.f);
 		slope10->SetCorrection(90.f);
+
+		// Ceil
+		Ceil* ceil1 = object::Instantiate<Ceil>(enums::eLayerType::Floor);
+		ceil1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(734.f, 96.f));
+		ceil1->AddComponent<Collider>();
+		ceil1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1212.f, 64.f));
+		ceil1->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		Ceil* ceil2 = object::Instantiate<Ceil>(enums::eLayerType::Floor);
+		ceil2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2306.f, 96.f));
+		ceil2->AddComponent<Collider>();
+		ceil2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1404.f, 64.f));
+		ceil2->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		// Wall
+		Wall* wall1 = object::Instantiate<Wall>(enums::eLayerType::Floor);
+		wall1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(96.f, 416.f));
+		wall1->AddComponent<Collider>();
+		wall1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 704.f));
+		wall1->GetComponent<Collider>()->SetAffectedCamera(true);
+		wall1->SetRight(false);
+
+		Wall* wall2 = object::Instantiate<Wall>(enums::eLayerType::Floor);
+		wall2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3040.f, 416.f));
+		wall2->AddComponent<Collider>();
+		wall2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 704.f));
+		wall2->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		Wall* wall3 = object::Instantiate<Wall>(enums::eLayerType::Floor);
+		wall3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1312.f, 62.f));
+		wall3->AddComponent<Collider>();
+		wall3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 124.f));
+		wall3->GetComponent<Collider>()->SetAffectedCamera(true);
+		wall3->SetRight(false);
+
+		Wall* wall4 = object::Instantiate<Wall>(enums::eLayerType::Floor);
+		wall4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1632.f, 62.f));
+		wall4->AddComponent<Collider>();
+		wall4->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 124.f));
+		wall4->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		Wall* wall5 = object::Instantiate<Wall>(enums::eLayerType::Floor);
+		wall5->GetComponent<Transform>()->SetPos(Math::Vector2<float>(896.f, 610.f));
+		wall5->AddComponent<Collider>();
+		wall5->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 316.f));
+		wall5->GetComponent<Collider>()->SetAffectedCamera(true);
+		wall5->SetRight(false);
+
+		Wall* wall6 = object::Instantiate<Wall>(enums::eLayerType::Floor);
+		wall6->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2236.f, 610.f));
+		wall6->AddComponent<Collider>();
+		wall6->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 316.f));
+		wall6->GetComponent<Collider>()->SetAffectedCamera(true);
 
 		// Trigger
 		Trigger* trigger1 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
