@@ -5,7 +5,8 @@ namespace EH
 {
 	Wall::Wall()
 		:
-		 mIsRight(true)
+		  mIsRight(true)
+		, mIsSteel(false)
 	{
 	}
 

@@ -19,8 +19,11 @@ namespace EH
 
 		void SetRight(bool right) { mIsRight = right; }
 
+		void SetSteel(bool steel) { mIsSteel = steel; }
+
 	private:
 		bool mIsRight;
+		bool mIsSteel;
 	};
 }
 

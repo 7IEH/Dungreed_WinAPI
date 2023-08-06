@@ -51,6 +51,7 @@ namespace EH::enums
 		, Bullet
 		, Laser
 		, Trigger
+		, Steel
 		, End
 	};
 

@@ -58,89 +58,17 @@
     <Filter Include="Contents\Scene\3.TownScene">
       <UniqueIdentifier>{7b302741-5e19-4937-8125-9b1bc60afa59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon">
-      <UniqueIdentifier>{3b0effa5-cf99-477e-bbb0-063203192337}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\2.IceField">
-      <UniqueIdentifier>{ddcc4209-f045-4633-b0bc-ee97bd031df0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene">
-      <UniqueIdentifier>{52a7e731-2032-4fee-8f10-6f9558c5305d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailPrevBossScene">
-      <UniqueIdentifier>{77824f21-c5b1-4bc1-888a-7b9e70d13750}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailBossScene">
-      <UniqueIdentifier>{fb20b007-9411-49f1-80a8-b6d06dd17ba2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Camera">
       <UniqueIdentifier>{36f68158-d0e5-40d2-a4f2-7ca343d91b52}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Component\Animator">
       <UniqueIdentifier>{4e086541-74f0-4fa0-a0b8-47a69c2a3b3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField">
-      <UniqueIdentifier>{b0a3a7bf-ce5e-4707-862c-9d461b0f8f57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField1">
-      <UniqueIdentifier>{28b062ce-1ad2-4d65-83b4-acbf7ea279b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField2">
-      <UniqueIdentifier>{9f51d4ee-5965-49ba-8344-5fd729631d02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField3">
-      <UniqueIdentifier>{edcd0cf1-1152-4677-a695-ba285c267dd5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField4">
-      <UniqueIdentifier>{7e192282-4f74-4f4b-8b4e-125e9fb36886}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField18">
-      <UniqueIdentifier>{418cdbfc-9227-4b90-95a3-dbdddb9ed415}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField5">
-      <UniqueIdentifier>{55ff80fa-fa95-4e8e-8521-63630b4ad888}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField6">
-      <UniqueIdentifier>{834d2ab3-cf7e-4567-af29-5ac4ce48a210}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField7">
-      <UniqueIdentifier>{3e355429-bd41-4e2b-a075-df47c2b30cfa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField8">
-      <UniqueIdentifier>{7cf6e9d2-e76c-4a8c-8320-843d6ab3ded5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Component\Collider">
       <UniqueIdentifier>{f50f198d-1af4-4bbd-b81c-e2027f7f7846}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\CollisionMgr">
       <UniqueIdentifier>{3b0d25d9-8d14-43a5-b5f0-e80485c7f49b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField9">
-      <UniqueIdentifier>{32be5660-23ad-4bc2-b293-beff6c541390}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField10">
-      <UniqueIdentifier>{7ff6e8ad-3c1f-4503-ab1a-814de63d51bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField11">
-      <UniqueIdentifier>{ec15fa46-fbf0-4ecf-8d0c-f81e69e438b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField12">
-      <UniqueIdentifier>{4efc159f-2adb-4122-917c-207e771beb6d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField13">
-      <UniqueIdentifier>{fbcfe642-6b1c-4712-b412-d7b16dc9c062}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField14">
-      <UniqueIdentifier>{f371b574-54b5-470e-8707-1d3f5f998935}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField15">
-      <UniqueIdentifier>{2e734ac0-85bc-4b1b-82b0-a7c4228e6eec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField16">
-      <UniqueIdentifier>{b3da274e-0667-4736-b9e9-5c354cdea2b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField17">
-      <UniqueIdentifier>{802165ba-1bb9-422f-b351-e845e08224e5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Component\Rigidbody">
       <UniqueIdentifier>{1a4eae85-7755-4c15-bede-55d236936b37}</UniqueIdentifier>
@@ -252,6 +180,81 @@
     </Filter>
     <Filter Include="Contents\GameObject\Structure\Ceil">
       <UniqueIdentifier>{37766bdb-2cac-437f-9253-0e246e2fc4ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\DungeonManager">
+      <UniqueIdentifier>{4fcaa912-9d3d-41c8-b38b-94f2ebf799ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon">
+      <UniqueIdentifier>{3b0effa5-cf99-477e-bbb0-063203192337}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\2.IceField">
+      <UniqueIdentifier>{ddcc4209-f045-4633-b0bc-ee97bd031df0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene">
+      <UniqueIdentifier>{52a7e731-2032-4fee-8f10-6f9558c5305d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailPrevBossScene">
+      <UniqueIdentifier>{77824f21-c5b1-4bc1-888a-7b9e70d13750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailBossScene">
+      <UniqueIdentifier>{fb20b007-9411-49f1-80a8-b6d06dd17ba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField">
+      <UniqueIdentifier>{b0a3a7bf-ce5e-4707-862c-9d461b0f8f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField1">
+      <UniqueIdentifier>{28b062ce-1ad2-4d65-83b4-acbf7ea279b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField2">
+      <UniqueIdentifier>{9f51d4ee-5965-49ba-8344-5fd729631d02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField3">
+      <UniqueIdentifier>{edcd0cf1-1152-4677-a695-ba285c267dd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField4">
+      <UniqueIdentifier>{7e192282-4f74-4f4b-8b4e-125e9fb36886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField18">
+      <UniqueIdentifier>{418cdbfc-9227-4b90-95a3-dbdddb9ed415}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField5">
+      <UniqueIdentifier>{55ff80fa-fa95-4e8e-8521-63630b4ad888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField6">
+      <UniqueIdentifier>{834d2ab3-cf7e-4567-af29-5ac4ce48a210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField7">
+      <UniqueIdentifier>{3e355429-bd41-4e2b-a075-df47c2b30cfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField8">
+      <UniqueIdentifier>{7cf6e9d2-e76c-4a8c-8320-843d6ab3ded5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField9">
+      <UniqueIdentifier>{32be5660-23ad-4bc2-b293-beff6c541390}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField10">
+      <UniqueIdentifier>{7ff6e8ad-3c1f-4503-ab1a-814de63d51bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField11">
+      <UniqueIdentifier>{ec15fa46-fbf0-4ecf-8d0c-f81e69e438b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField12">
+      <UniqueIdentifier>{4efc159f-2adb-4122-917c-207e771beb6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField13">
+      <UniqueIdentifier>{fbcfe642-6b1c-4712-b412-d7b16dc9c062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField14">
+      <UniqueIdentifier>{f371b574-54b5-470e-8707-1d3f5f998935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField15">
+      <UniqueIdentifier>{2e734ac0-85bc-4b1b-82b0-a7c4228e6eec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField16">
+      <UniqueIdentifier>{b3da274e-0667-4736-b9e9-5c354cdea2b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField17">
+      <UniqueIdentifier>{802165ba-1bb9-422f-b351-e845e08224e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -480,6 +483,9 @@
     <ClInclude Include="EHCeil.h">
       <Filter>Contents\GameObject\Structure\Ceil</Filter>
     </ClInclude>
+    <ClInclude Include="EHDungeonManager.h">
+      <Filter>Engine\DungeonManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -698,6 +704,9 @@
     </ClCompile>
     <ClCompile Include="EHCeil.cpp">
       <Filter>Contents\GameObject\Structure\Ceil</Filter>
+    </ClCompile>
+    <ClCompile Include="EHDungeonManager.cpp">
+      <Filter>Engine\DungeonManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

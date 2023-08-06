@@ -2,12 +2,13 @@
 #include "EHPlayer.h"
 #include "EHSceneManager.h"
 #include "EHCamera.h"
+#include "EHDungeonManager.h"
 
 namespace EH
 {
 	Trigger::Trigger()
 		:
-		  mType(eTriggertype::None)
+		mType(eTriggertype::None)
 		, mScenename(L"")
 	{
 	}
@@ -58,9 +59,15 @@ namespace EH
 			SceneManager::GetCurScene()->GetBGM()->Stop(true);
 
 		Scene* mCurScene = SceneManager::LoadScene(mScenename);
-		if(mCurScene->GetBGM()!=nullptr)
-			mCurScene->GetBGM()->Play(true);
+		if (mCurScene != nullptr)
+		{
+			if (mCurScene->GetBGM() != nullptr)
+				mCurScene->GetBGM()->Play(true);
 
-		Camera::SetTarget(mCurScene->GetPlayer());
+			if (mCurScene->GetPlayer() != nullptr)
+				Camera::SetTarget(mCurScene->GetPlayer());
+
+			DungeonManager::EnterDungeon();
+		}
 	}
 }

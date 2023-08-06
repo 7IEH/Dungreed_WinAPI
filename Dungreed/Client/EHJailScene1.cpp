@@ -114,6 +114,19 @@ namespace EH
 		trigger1->SetType(Trigger::eTriggertype::Scenechange);
 		trigger1->SetScenename(L"JailScene2");
 
+		Ceil* steel1 = object::Instantiate<Ceil>(enums::eLayerType::Steel);
+		steel1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(832.f, 176.f));
+		steel1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(264.f, 80.f));
+		steel1->AddComponent<Collider>();
+		steel1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(264.f, 80.f));
+		Animator* ani = steel1->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"SteelOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\SteelOpenSheet2.bmp");
+		ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(66.f, 20.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\SteelExitSheet.bmp");
+		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(66.f, 20.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\SteelIdleSheet.bmp");
+		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(66.f, 20.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
 		Trigger* trigger2 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
 		trigger2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1244.f, 400.f));
 		trigger2->AddComponent<Collider>();
@@ -134,6 +147,7 @@ namespace EH
 		banshee1->SetTarget(player);
 		banshee1->SetDelayTime(2.f);
 
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Steel, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Sword, enums::eLayerType::Enemy, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Item, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Item, enums::eLayerType::Floor, true);

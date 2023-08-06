@@ -8,6 +8,7 @@
 #include "EHScene.h"
 #include "EHPath.h"
 #include "EHObjdata.h"
+#include "EHDungeonManager.h"
 
 namespace EH
 {
@@ -68,8 +69,11 @@ namespace EH
 		// SceneMgr Initialize
 		SceneManager::Initialize();
 
-		// collision Initialize
+		// Collision Initialize
 		CollisionManager::Initialize();
+
+		// DungeonManager Initialize
+		DungeonManager::Initialize();
 
 		mHbit = CreateCompatibleBitmap(mHdc, 1280, 720);
 		mHmemdc = CreateCompatibleDC(mHdc);
@@ -91,6 +95,7 @@ namespace EH
 		Camera::Update();
 		SceneManager::Update();
 		CollisionManager::Update();
+		DungeonManager::Update();
 	}
 
 	void Application::Render()

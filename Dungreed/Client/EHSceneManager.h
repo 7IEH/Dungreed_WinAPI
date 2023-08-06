@@ -26,6 +26,7 @@ namespace EH
 
 		static Scene* LoadScene(const std::wstring& name);
 		static Scene* GetCurScene() { return mCurScene; }
+		static std::map<std::wstring, Scene*> GetScenes() { return mScenes; }
 
 	private:
 		static std::map<std::wstring, Scene*> mScenes;
