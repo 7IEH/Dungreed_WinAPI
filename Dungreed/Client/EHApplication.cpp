@@ -93,8 +93,9 @@ namespace EH
 		Time::Update();
 		Input::Update();
 		Camera::Update();
-		SceneManager::Update();
 		CollisionManager::Update();
+		SceneManager::Update();
+
 		DungeonManager::Update();
 	}
 

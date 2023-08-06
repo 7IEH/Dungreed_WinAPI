@@ -182,6 +182,20 @@ namespace EH
 		trigger1->SetType(Trigger::eTriggertype::Scenechange);
 		trigger1->SetScenename(L"JailScene16");
 
+		// Steel
+		Ceil* steel1 = object::Instantiate<Ceil>(enums::eLayerType::Steel);
+		steel1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1344.f, 32.f));
+		steel1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(264.f, 80.f));
+		steel1->AddComponent<Collider>();
+		steel1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f, 64.f));
+		Animator* ani = steel1->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"SteelOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Ceil\\SteelOpenSheet2.bmp");
+		ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(66.f, 20.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Ceil\\SteelExitSheet.bmp");
+		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(66.f, 20.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Ceil\\SteelIdleSheet.bmp");
+		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(66.f, 20.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
 		// SceneChanger Player
 		SetPlayer(player);
 	}

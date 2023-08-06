@@ -7,7 +7,7 @@ namespace EH
 {
 	std::map<std::wstring, bool> DungeonManager::mClear = {};
 	float DungeonManager::mSubCheckTime = 0.f;
-	float DungeonManager::mDelayTime = 3.5f;
+	float DungeonManager::mDelayTime = 1.5f;
 	UINT DungeonManager::Check1 = 0;
 
 	void DungeonManager::Initialize()
@@ -86,16 +86,6 @@ namespace EH
 					obj->GetComponent<Collider>()->enabled(false);
 				}
 			}
-		}
-	}
-
-	void DungeonManager::EnterDungeon()
-	{
-		Scene* curscene = SceneManager::GetCurScene();
-		for (GameObject* obj : curscene->GetLayer(enums::eLayerType::Steel).GetObjects())
-		{
-			obj->GetComponent<Animator>()->PlayAnimation(L"SteelOpen", false);
-			obj->GetComponent<Collider>()->enabled(true);
 		}
 	}
 }

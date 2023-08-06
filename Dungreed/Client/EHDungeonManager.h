@@ -8,7 +8,6 @@ namespace EH
 	public:
 		static void Initialize();
 		static void Update();
-		static void EnterDungeon();
 
 	private:
 		static std::map<std::wstring, bool> mClear;

@@ -66,8 +66,6 @@ namespace EH
 
 			if (mCurScene->GetPlayer() != nullptr)
 				Camera::SetTarget(mCurScene->GetPlayer());
-
-			DungeonManager::EnterDungeon();
 		}
 	}
 }
