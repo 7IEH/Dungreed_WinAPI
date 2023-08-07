@@ -121,9 +121,6 @@
     <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Banshee">
       <UniqueIdentifier>{efa5b4e0-1656-4491-b1cc-f726df57663d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Archor">
-      <UniqueIdentifier>{f3f1829b-1aa8-4644-9931-b7b7b044c51a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObject\Enemy\JailField\Boss">
       <UniqueIdentifier>{e5b74477-4174-4cbd-bd44-8cba51d7a73b}</UniqueIdentifier>
     </Filter>
@@ -147,9 +144,6 @@
     </Filter>
     <Filter Include="Contents\GameObject\EnemyAttack\Bullet">
       <UniqueIdentifier>{88025965-f4a3-4aa8-95c3-b9afeb3ea973}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Slope">
-      <UniqueIdentifier>{b2444961-e54f-4faf-9a3e-dd39cc62010d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\GameObject\Trigger">
       <UniqueIdentifier>{1dc157f7-83c9-4ca8-9ad7-add4c3e1080a}</UniqueIdentifier>
@@ -258,6 +252,21 @@
     </Filter>
     <Filter Include="Contents\GameObject\Detection">
       <UniqueIdentifier>{5fc08dbe-c168-4e91-8d28-452516664c81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\GreySkel">
+      <UniqueIdentifier>{1055aa75-b481-47e8-bd78-886836aa4cb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\GreySkel\Warrior">
+      <UniqueIdentifier>{d0af4424-d6c7-433e-873e-3ee8f6ba2a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\GreySkel\Archor">
+      <UniqueIdentifier>{f3f1829b-1aa8-4644-9931-b7b7b044c51a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\SkelDog">
+      <UniqueIdentifier>{883561ec-3aa4-45ad-b417-eb035913dcbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Structure\Slope">
+      <UniqueIdentifier>{b2444961-e54f-4faf-9a3e-dd39cc62010d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -448,7 +457,7 @@
       <Filter>Contents\GameObject\Enemy\JailField\Normal\Banshee</Filter>
     </ClInclude>
     <ClInclude Include="EHJailArchor.h">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\Archor</Filter>
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\GreySkel\Archor</Filter>
     </ClInclude>
     <ClInclude Include="EHLaser.h">
       <Filter>Contents\GameObject\EnemyAttack\Laser</Filter>
@@ -460,7 +469,7 @@
       <Filter>Engine\SoundMgr</Filter>
     </ClInclude>
     <ClInclude Include="EHSlope.h">
-      <Filter>Contents\GameObject\Slope</Filter>
+      <Filter>Contents\GameObject\Structure\Slope</Filter>
     </ClInclude>
     <ClInclude Include="EHTrigger.h">
       <Filter>Contents\GameObject\Trigger</Filter>
@@ -491,6 +500,12 @@
     </ClInclude>
     <ClInclude Include="EHDetection.h">
       <Filter>Contents\GameObject\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailWarrior.h">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\GreySkel\Warrior</Filter>
+    </ClInclude>
+    <ClInclude Include="EHJailDog.h">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\SkelDog</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -673,7 +688,7 @@
       <Filter>Contents\GameObject\Enemy\JailField\Normal\Banshee</Filter>
     </ClCompile>
     <ClCompile Include="EHJailArchor.cpp">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\Archor</Filter>
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\GreySkel\Archor</Filter>
     </ClCompile>
     <ClCompile Include="EHLaser.cpp">
       <Filter>Contents\GameObject\EnemyAttack\Laser</Filter>
@@ -685,7 +700,7 @@
       <Filter>Engine\SoundMgr</Filter>
     </ClCompile>
     <ClCompile Include="EHSlope.cpp">
-      <Filter>Contents\GameObject\Slope</Filter>
+      <Filter>Contents\GameObject\Structure\Slope</Filter>
     </ClCompile>
     <ClCompile Include="EHTrigger.cpp">
       <Filter>Contents\GameObject\Trigger</Filter>
@@ -716,6 +731,12 @@
     </ClCompile>
     <ClCompile Include="EHDetection.cpp">
       <Filter>Contents\GameObject\Detection</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailWarrior.cpp">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\GreySkel\Warrior</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailDog.cpp">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\SkelDog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

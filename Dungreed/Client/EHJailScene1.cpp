@@ -12,6 +12,8 @@
 #include "EHCeil.h"
 #include "EHWall.h"
 #include "EHJailArchor.h"
+#include "EHJailDog.h"
+#include "EHJailWarrior.h"
 
 namespace EH
 {
@@ -148,7 +150,7 @@ namespace EH
 		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
 		texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelIdleSheet.bmp");
 		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
-		
+
 		// Enemy
 		/*Banshee* banshee1 = object::Instantiate<Banshee>(enums::eLayerType::Enemy);
 		banshee1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
@@ -162,7 +164,7 @@ namespace EH
 		banshee1->SetTarget(player);
 		banshee1->SetDelayTime(2.f);*/
 
-		JailArchor* archor1 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
+		/*JailArchor* archor1 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
 		archor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
 		archor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 		Collider* col = archor1->AddComponent<Collider>();
@@ -172,7 +174,19 @@ namespace EH
 		archor1->GetComponent<Animator>()->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
 		texture = Resources::Load<Texture>(L"GreySkelLeftIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Left\\GraySkelIdle.bmp");
 		archor1->GetComponent<Animator>()->CreateAnimation(L"GreySkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
-		archor1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+		archor1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);*/
+
+		/*JailDog* dog1 = object::Instantiate<JailDog>(enums::eLayerType::Enemy);
+		dog1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
+		dog1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 72.f));
+		dog1->GetComponent<Animator>()->PlayAnimation(L"SkelDogRightIdle", true);*/
+
+		JailWarrior* warrior1 = object::Instantiate<JailWarrior>(enums::eLayerType::Enemy);
+		warrior1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
+		warrior1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		Collider* col = warrior1->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		warrior1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
 
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Detect, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Steel, true);
@@ -183,6 +197,7 @@ namespace EH
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Trigger, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Bullet, enums::eLayerType::Floor, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Bullet, enums::eLayerType::Steel, true);
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Enemy, enums::eLayerType::Floor, true);
 	}
 
 	void JailScene1::Update()

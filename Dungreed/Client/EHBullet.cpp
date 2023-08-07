@@ -16,6 +16,7 @@ namespace EH
 		, mCheckTime(0.f)
 		, mIsStop(true)
 		, mIsPass(true)
+		, mIsDelete(true)
 	{
 	}
 
@@ -38,7 +39,7 @@ namespace EH
 			pos.y += sinf(mRadian) * 300.f * Time::GetDeltaTime();
 			pos.x += cosf(mRadian) * 300.f * Time::GetDeltaTime();
 			tr->SetPos(pos);
-			if (mDeleteTime < mCheckTime)
+			if (mDeleteTime < mCheckTime && mIsDelete)
 			{
 				Destroy(this);
 			}
@@ -57,7 +58,8 @@ namespace EH
 		if (player != nullptr)
 		{
 			Objdata::SetHP(Objdata::GetHP() - mDamage);
-			Destroy(this);
+			if(mIsDelete)
+				Destroy(this);
 		}
 
 		if (!mIsPass)

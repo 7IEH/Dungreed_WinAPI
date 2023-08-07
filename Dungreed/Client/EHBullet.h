@@ -32,6 +32,9 @@ namespace EH
 		void SetPass(bool pass) { mIsPass = pass; }
 		bool GetPass() { return mIsPass; }
 
+		void SetDelete(bool deleted) { mIsDelete = deleted; }
+		bool GetDelete() { return mIsDelete; }
+
 	private:
 		float mRadian;
 		UINT mDamage;
@@ -39,5 +42,7 @@ namespace EH
 		float mCheckTime;
 		bool mIsStop;
 		bool mIsPass;
+		
+		bool mIsDelete;
 	};
 }

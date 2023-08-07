@@ -3,6 +3,8 @@
 #include "EHCamera.h"
 #include "EHSceneManager.h"
 #include "EHCoin.h"
+#include "EHJailDog.h"
+#include "EHJailWarrior.h"
 
 namespace EH
 {
@@ -33,6 +35,8 @@ namespace EH
 		// 현재 충돌체가 player인지 확인
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
 		Coin* coin = dynamic_cast<Coin*>(other->GetOwner());
+		JailDog* dog = dynamic_cast<JailDog*>(other->GetOwner());
+		JailWarrior* warrior = dynamic_cast<JailWarrior*>(other->GetOwner());
 
 		if (player != nullptr)
 		{
@@ -85,6 +89,54 @@ namespace EH
 				}
 			}
 		}
+
+		if (dog != nullptr)
+		{
+			Transform* dogtr = dog->GetComponent<Transform>();
+			Transform* floortr = GetComponent<Transform>();
+
+			Collider* dogcol = dog->GetComponent<Collider>();
+			Collider* floorcol = GetComponent<Collider>();
+
+			if (dog->GetComponent<Rigidbody>()->GetVelocity().y > 0)
+			{
+				dog->GetComponent<Rigidbody>()->SetGround(true);
+
+				float scale = fabs(dogcol->GetScale().y / 2.f + floorcol->GetScale().y / 2.f);
+				float len = fabs(dogtr->Getpos().y - floortr->Getpos().y);
+
+				if (len < scale)
+				{
+					Math::Vector2 dogPos = dogtr->Getpos();
+					dogPos.y -= (scale - len) - 1.0f;
+					dogtr->SetPos(dogPos);
+				}
+			}
+		}
+
+		if (warrior != nullptr)
+		{
+			Transform* warriortr = warrior->GetComponent<Transform>();
+			Transform* floortr = GetComponent<Transform>();
+
+			Collider* warriorcol = warrior->GetComponent<Collider>();
+			Collider* floorcol = GetComponent<Collider>();
+
+			if (warrior->GetComponent<Rigidbody>()->GetVelocity().y > 0)
+			{
+				warrior->GetComponent<Rigidbody>()->SetGround(true);
+
+				float scale = fabs(warriorcol->GetScale().y / 2.f + floorcol->GetScale().y / 2.f);
+				float len = fabs(warriortr->Getpos().y - floortr->Getpos().y);
+
+				if (len < scale)
+				{
+					Math::Vector2 warriorPos = warriortr->Getpos();
+					warriorPos.y -= (scale - len) - 1.0f;
+					warriortr->SetPos(warriorPos);
+				}
+			}
+		}
 	}
 
 	void Floor::OnCollisionStay(Collider* other)
@@ -100,17 +152,20 @@ namespace EH
 		Collider* playercol = other->GetOwner()->GetComponent<Collider>();
 		Collider* floorcol = GetComponent<Collider>();
 		
-		if ((playertr->Getpos().y + playertr->GetScale().y / 2.f) - 1.f <= (floortr->Getpos().y - floorcol->GetScale().y / 2.f))
+		if (player != nullptr)
 		{
-			if (player->GetDir())
+			if ((playertr->Getpos().y + playertr->GetScale().y / 2.f) - 1.f <= (floortr->Getpos().y - floorcol->GetScale().y / 2.f))
 			{
-				player->GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
+				if (player->GetDir())
+				{
+					player->GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
+				}
+				else
+				{
+					player->GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
+				}
+				player->GetComponent<Rigidbody>()->SetGround(false);
 			}
-			else
-			{
-				player->GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
-			}
-			player->GetComponent<Rigidbody>()->SetGround(false);
 		}
 	}
 }

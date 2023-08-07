@@ -156,6 +156,7 @@
     <ClInclude Include="EHImageObject.h" />
     <ClInclude Include="EHJailArchor.h" />
     <ClInclude Include="EHJailBossScene.h" />
+    <ClInclude Include="EHJailDog.h" />
     <ClInclude Include="EHJailField5.h" />
     <ClInclude Include="EHJailField6.h" />
     <ClInclude Include="EHJailField7.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="EHJailScene3.h" />
     <ClInclude Include="EHJailScene4.h" />
     <ClInclude Include="EHJailScene9.h" />
+    <ClInclude Include="EHJailWarrior.h" />
     <ClInclude Include="EHLaser.h" />
     <ClInclude Include="EHNpc.h" />
     <ClInclude Include="EHBullet.h" />
@@ -234,6 +236,7 @@
     <ClCompile Include="EHImageObject.cpp" />
     <ClCompile Include="EHJailArchor.cpp" />
     <ClCompile Include="EHJailBossScene.cpp" />
+    <ClCompile Include="EHJailDog.cpp" />
     <ClCompile Include="EHJailField5.cpp" />
     <ClCompile Include="EHJailField6.cpp" />
     <ClCompile Include="EHJailField7.cpp" />
@@ -252,6 +255,7 @@
     <ClCompile Include="EHJailScene3.cpp" />
     <ClCompile Include="EHJailScene4.cpp" />
     <ClCompile Include="EHJailScene9.cpp" />
+    <ClCompile Include="EHJailWarrior.cpp" />
     <ClCompile Include="EHLaser.cpp" />
     <ClCompile Include="EHMath.cpp" />
     <ClCompile Include="EHNpc.cpp" />

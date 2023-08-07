@@ -3,11 +3,11 @@
 
 namespace EH
 {
-	class JailArchor : public Enemy
+	class JailDog : public Enemy
 	{
 	public:
-		JailArchor();
-		virtual ~JailArchor();
+		JailDog();
+		virtual ~JailDog();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -22,16 +22,13 @@ namespace EH
 		void Dead();
 
 	private:
-		class Weapon* mBow;
-		Texture* mBowImg;
-		Texture* mBowAttackImg;
+		class Bullet* mBullet;
 		class Weapon* mAttack;
-		class Detection* mDect;
-		
-		class Sound* mBowDrawSound;
-		class Sound* mBowAttackSound;
-
 		bool mIsRight;
-		float mBowradian;
+
+		class Detection* mDect;
+		UINT mCheck1;
 	};
 }
+
+
