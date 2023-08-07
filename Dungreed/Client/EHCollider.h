@@ -8,7 +8,7 @@ namespace EH
 	public:
 		enum class eColliderType
 		{
-			Box
+			  Box
 			, Circle
 			, None
 		};

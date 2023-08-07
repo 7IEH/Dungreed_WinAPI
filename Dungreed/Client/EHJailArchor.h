@@ -17,6 +17,23 @@ namespace EH
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
+		void Idle();
+		void Attack();
+		void Dead();
+
+		void Archorlogic();
+
 	private:
+		class Weapon* mBow;
+		Texture* mBowImg;
+		Texture* mBowAttackImg;
+		class Weapon* mAttack;
+		class Detection* mDect;
+		
+		class Sound* mBowDrawSound;
+		class Sound* mBowAttackSound;
+
+		bool mIsRight;
+		float mBowradian;
 	};
 }

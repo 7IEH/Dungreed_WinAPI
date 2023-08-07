@@ -10,6 +10,8 @@
 namespace EH
 {
 	Banshee::Banshee()
+		:
+		 mAttack(nullptr)
 	{
 		Collider* col = AddComponent<Collider>();
 		col->SetScale(Math::Vector2<float>(80.f, 80.f));
@@ -22,7 +24,6 @@ namespace EH
 
 	void Banshee::Initialize()
 	{
-		SetHP(30.f);
 	}
 
 	void Banshee::Update()

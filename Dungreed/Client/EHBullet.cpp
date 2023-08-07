@@ -2,16 +2,20 @@
 #include "EHPlayer.h"
 #include "EHCamera.h"
 #include "EHObjdata.h"
+#include "EHCeil.h"
+#include "EHFloor.h"
+#include "EHWall.h"
 
 namespace EH
 {
 	Bullet::Bullet()
 		:
-		  mRadian(0.f)
+		mRadian(0.f)
 		, mDamage(0)
 		, mDeleteTime(0.f)
 		, mCheckTime(0.f)
 		, mIsStop(true)
+		, mIsPass(true)
 	{
 	}
 
@@ -49,10 +53,30 @@ namespace EH
 	void Bullet::OnCollisionEnter(Collider* other)
 	{
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
+
 		if (player != nullptr)
 		{
 			Objdata::SetHP(Objdata::GetHP() - mDamage);
 			Destroy(this);
+		}
+
+		if (!mIsPass)
+		{
+			Ceil* ceil = dynamic_cast<Ceil*>(other->GetOwner());
+			Floor* floor = dynamic_cast<Floor*>(other->GetOwner());
+			Wall* wall = dynamic_cast<Wall*>(other->GetOwner());
+			if (ceil != nullptr)
+			{
+				Destroy(this);
+			}
+			else if (floor != nullptr)
+			{
+				Destroy(this);
+			}
+			else if (wall != nullptr)
+			{
+				Destroy(this);
+			}
 		}
 	}
 

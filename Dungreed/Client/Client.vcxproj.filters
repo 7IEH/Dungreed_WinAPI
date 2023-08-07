@@ -256,6 +256,9 @@
     <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField17">
       <UniqueIdentifier>{802165ba-1bb9-422f-b351-e845e08224e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Detection">
+      <UniqueIdentifier>{5fc08dbe-c168-4e91-8d28-452516664c81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -486,6 +489,9 @@
     <ClInclude Include="EHDungeonManager.h">
       <Filter>Engine\DungeonManager</Filter>
     </ClInclude>
+    <ClInclude Include="EHDetection.h">
+      <Filter>Contents\GameObject\Detection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -707,6 +713,9 @@
     </ClCompile>
     <ClCompile Include="EHDungeonManager.cpp">
       <Filter>Engine\DungeonManager</Filter>
+    </ClCompile>
+    <ClCompile Include="EHDetection.cpp">
+      <Filter>Contents\GameObject\Detection</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

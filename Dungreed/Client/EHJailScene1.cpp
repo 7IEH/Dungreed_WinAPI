@@ -11,6 +11,7 @@
 #include "EHCanvas.h"
 #include "EHCeil.h"
 #include "EHWall.h"
+#include "EHJailArchor.h"
 
 namespace EH
 {
@@ -31,7 +32,7 @@ namespace EH
 
 		// Player
 		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(420.f, 300.f));
+		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(820.f, 300.f));
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 
 		// SceneChanger Player
@@ -149,7 +150,7 @@ namespace EH
 		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
 		
 		// Enemy
-		Banshee* banshee1 = object::Instantiate<Banshee>(enums::eLayerType::Enemy);
+		/*Banshee* banshee1 = object::Instantiate<Banshee>(enums::eLayerType::Enemy);
 		banshee1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
 		banshee1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
 		banshee1->AddComponent<Animator>();
@@ -159,23 +160,33 @@ namespace EH
 		banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeAttack", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
 		banshee1->GetComponent<Animator>()->PlayAnimation(L"BansheeIdle", true);
 		banshee1->SetTarget(player);
-		banshee1->SetDelayTime(2.f);
+		banshee1->SetDelayTime(2.f);*/
 
+		JailArchor* archor1 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
+		archor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
+		archor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		Collider* col = archor1->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		archor1->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");
+		archor1->GetComponent<Animator>()->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"GreySkelLeftIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Left\\GraySkelIdle.bmp");
+		archor1->GetComponent<Animator>()->CreateAnimation(L"GreySkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		archor1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Detect, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Steel, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Sword, enums::eLayerType::Enemy, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Item, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Item, enums::eLayerType::Floor, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Floor, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Trigger, true);
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Bullet, enums::eLayerType::Floor, true);
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Bullet, enums::eLayerType::Steel, true);
 	}
 
 	void JailScene1::Update()
 	{
-		if (Input::Getkey(eKeyCode::Z).state == eKeyState::DOWN)
-		{
-			Camera::SetLookAt(Math::Vector2<float>(640.f, 360.f));
-			SceneManager::LoadScene(L"JailScene2");
-		}
 		Scene::Update();
 	}
 

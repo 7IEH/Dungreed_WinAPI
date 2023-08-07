@@ -53,7 +53,7 @@ namespace EH
 			hPen = (HPEN)CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
 			hOldPen = (HPEN)SelectObject(hdc, hPen);
 		}
-		
+
 		if (mType == eColliderType::Box)
 		{
 			Rectangle(hdc, pos.x - mScale.x / 2.f + mOffset.x, pos.y - mScale.y / 2.f + mOffset.y,
@@ -64,7 +64,7 @@ namespace EH
 			Ellipse(hdc, pos.x - mScale.x / 2.f + mOffset.x, pos.y - mScale.y / 2.f + mOffset.y,
 				pos.x + mScale.x / 2.f + mOffset.x, pos.y + mScale.y / 2.f + mOffset.y);
 		}
-		
+
 		SelectObject(hdc, hOldBrush);
 		DeleteObject(hTransParentBrush);
 

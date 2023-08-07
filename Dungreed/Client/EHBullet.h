@@ -29,11 +29,15 @@ namespace EH
 		void SetStop(bool stop) { mIsStop = stop; }
 		bool GetStop() { return mIsStop; }
 
+		void SetPass(bool pass) { mIsPass = pass; }
+		bool GetPass() { return mIsPass; }
+
 	private:
 		float mRadian;
 		UINT mDamage;
 		float mDeleteTime;
 		float mCheckTime;
 		bool mIsStop;
+		bool mIsPass;
 	};
 }
