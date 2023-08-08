@@ -26,11 +26,11 @@ namespace EH
 		float GetAlpha() { return mAlpha; }
 		void SetAlpha(float alpha) { mAlpha = alpha; }
 
-		/*void SetActiveAnimation(Animation* activeanimation, bool loop) 
+		void SetActiveAnimation(Animation* activeanimation, bool loop) 
 		{ 
 			mActiveAnimation = activeanimation;
 			mbLoop = loop;
-		}*/
+		}
 		Animation* GetActiveAnimation() { return mActiveAnimation; }
 
 	private:

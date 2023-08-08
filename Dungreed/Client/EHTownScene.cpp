@@ -149,6 +149,12 @@ namespace EH
         Downfloor1->GetComponent<Collider>()->SetAffectedCamera(true);
         Downfloor1->SetDownFloor(false);
 
+        GameObject* obj1 = object::Instantiate<GameObject>(enums::eLayerType::UI);
+        obj1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(468.f, 340.f));
+        Animator* ani1 = obj1->AddComponent<Animator>();
+        texture = Resources::Load<Texture>(L"Dungeoneat", L"..\\Resources\\TownScene\\DungeonEat\\DungeonEatSheet.bmp");
+        ani1->CreateAnimation(L"Dungeoneat", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(117.f, 85.f), Math::Vector2<float>(0.f, 0.f), 28, 0.1f);
+
         Trigger* trigger1 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
         trigger1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3802.f, 1332.f));
         trigger1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1180.f, 64.f));
@@ -157,6 +163,7 @@ namespace EH
         trigger1->GetComponent<Collider>()->SetAffectedCamera(true);
         trigger1->SetType(Trigger::eTriggertype::Scenechange);
         trigger1->SetScenename(L"JailScene1");
+        trigger1->SetDungeonEater(obj1);
 
         Floor* Downfloor3 = object::Instantiate<Floor>(enums::eLayerType::Floor);
         Downfloor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(5964.f, 1332.f));

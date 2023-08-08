@@ -28,9 +28,19 @@ namespace EH
 
 		void SceneChange();
 
+		void SetDungeonEater(class GameObject* dungeoneater) { mDungeoneater = dungeoneater; }
+
 	private:
 		eTriggertype mType;
 		std::wstring mScenename;
+
+		float mCheckTime;
+		float mDelayTime;
+
+		UINT mCheck1;
+
+		class Sound* mDungeoneat;
+		class GameObject* mDungeoneater;
 	};
 }
 

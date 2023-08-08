@@ -21,9 +21,11 @@ namespace EH
 {
 	void JailScene1::Initialize()
 	{
+		mCheck1 = 0;
 		// Sound
 		Sound* BGM = Resources::Load<Sound>(L"JailFieldBGM", L"..\\Resources\\Sound\\BGM\\1.JailField.wav");
 		SetBGM(BGM);
+		mEnterSound = Resources::Load<Sound>(L"JailDoorSound", L"..\\Resources\\Sound\\Structure\\JailDoorSound.wav");
 
 		SetSize(Math::Vector2<float>(1280.f, 720.f));
 
@@ -198,6 +200,13 @@ namespace EH
 		redgiantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
 		redgiantbat1->GetComponent<Animator>()->PlayAnimation(L"RedGiantRightIdle", true);
 
+		GameObject* door1 = object::Instantiate<GameObject>(enums::eLayerType::UI);
+		door1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(368.f, 455.f));
+		door1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(228.f, 260.f));
+		ani = door1->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"JailDoorClose", L"..\\Resources\\Dungeon\\JailDoorSheet.bmp");
+		ani->CreateAnimation(L"JailDoorClose", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 65.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		ani->PlayAnimation(L"JailDoorClose", false);
 
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Detect, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Steel, true);
@@ -214,6 +223,12 @@ namespace EH
 	void JailScene1::Update()
 	{
 		Scene::Update();
+		if (mCheck1 == 0)
+		{
+			mEnterSound->Play(false);
+			mCheck1++;
+		}
+
 	}
 
 	void JailScene1::Render(HDC hdc)
