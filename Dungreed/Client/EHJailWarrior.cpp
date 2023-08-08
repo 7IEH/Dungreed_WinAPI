@@ -157,9 +157,6 @@ namespace EH
             Animator* ani = GetComponent<Animator>();
 
             //
-
-           
-
             if (fabs(pos.x-playerpos.x)<35.f)
             {
                 if (mIsRight)
@@ -176,9 +173,10 @@ namespace EH
             }
             else
             {
-                float diff = playerpos.x - pos.x - 32.f;
+                
                 if (playerpos.x < pos.x)
                 {
+                    float diff = playerpos.x - pos.x - 32.f;
                     // Left run
                     ani->PlayAnimation(L"GreySkelLeftWalk", true);
                     pos.x += diff * Time::GetDeltaTime();
@@ -187,6 +185,7 @@ namespace EH
                 }
                 else
                 {
+                    float diff = playerpos.x - pos.x + 32.f;
                     // Right run
                     ani->PlayAnimation(L"GreySkelRightWalk", true);
                     pos.x += diff * Time::GetDeltaTime();

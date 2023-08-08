@@ -180,6 +180,7 @@
     <ClInclude Include="EHNpc.h" />
     <ClInclude Include="EHBullet.h" />
     <ClInclude Include="EHObjdata.h" />
+    <ClInclude Include="EHRedGiantBat.h" />
     <ClInclude Include="EHRigidbody.h" />
     <ClInclude Include="EHSlope.h" />
     <ClInclude Include="EHSoundManager.h" />
@@ -204,6 +205,7 @@
     <ClInclude Include="EHWeapon.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="EHJailPrevBossScene.h" />
+    <ClInclude Include="EHGiantBat.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="EHResource.h" />
@@ -261,6 +263,7 @@
     <ClCompile Include="EHNpc.cpp" />
     <ClCompile Include="EHBullet.cpp" />
     <ClCompile Include="EHObjdata.cpp" />
+    <ClCompile Include="EHRedGiantBat.cpp" />
     <ClCompile Include="EHRigidbody.cpp" />
     <ClCompile Include="EHSlope.cpp" />
     <ClCompile Include="EHSoundManager.cpp" />
@@ -284,6 +287,7 @@
     <ClCompile Include="EHTrigger.cpp" />
     <ClCompile Include="EHWall.cpp" />
     <ClCompile Include="EHWeapon.cpp" />
+    <ClCompile Include="EHGiantBat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

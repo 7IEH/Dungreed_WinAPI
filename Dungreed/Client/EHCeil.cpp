@@ -39,6 +39,9 @@ namespace EH
 	void Ceil::OnCollisionExit(Collider* other)
 	{
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
-		player->GetComponent<Rigidbody>()->SetGround(false);
+		if (player != nullptr)
+		{
+			player->GetComponent<Rigidbody>()->SetGround(false);
+		}
 	}
 }

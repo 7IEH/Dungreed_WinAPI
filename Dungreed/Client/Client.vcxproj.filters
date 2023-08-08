@@ -268,6 +268,15 @@
     <Filter Include="Contents\GameObject\Structure\Slope">
       <UniqueIdentifier>{b2444961-e54f-4faf-9a3e-dd39cc62010d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Bat">
+      <UniqueIdentifier>{46609ded-2c4b-4752-a54b-9dbec34b1f7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Bat\GianBat">
+      <UniqueIdentifier>{fd28a6c7-4803-48eb-b727-a43070658c7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Bat\RedGiantBat">
+      <UniqueIdentifier>{fbc94060-e0c5-4af3-be46-37715a92d000}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -507,6 +516,12 @@
     <ClInclude Include="EHJailDog.h">
       <Filter>Contents\GameObject\Enemy\JailField\Normal\SkelDog</Filter>
     </ClInclude>
+    <ClInclude Include="EHGiantBat.h">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\Bat\GianBat</Filter>
+    </ClInclude>
+    <ClInclude Include="EHRedGiantBat.h">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\Bat\RedGiantBat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -737,6 +752,12 @@
     </ClCompile>
     <ClCompile Include="EHJailDog.cpp">
       <Filter>Contents\GameObject\Enemy\JailField\Normal\SkelDog</Filter>
+    </ClCompile>
+    <ClCompile Include="EHGiantBat.cpp">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\Bat\GianBat</Filter>
+    </ClCompile>
+    <ClCompile Include="EHRedGiantBat.cpp">
+      <Filter>Contents\GameObject\Enemy\JailField\Normal\Bat\RedGiantBat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

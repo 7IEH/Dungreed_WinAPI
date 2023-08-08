@@ -14,6 +14,8 @@
 #include "EHJailArchor.h"
 #include "EHJailDog.h"
 #include "EHJailWarrior.h"
+#include "EHGiantBat.h"
+#include "EHRedGiantBat.h"
 
 namespace EH
 {
@@ -181,12 +183,21 @@ namespace EH
 		dog1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 72.f));
 		dog1->GetComponent<Animator>()->PlayAnimation(L"SkelDogRightIdle", true);*/
 
-		JailWarrior* warrior1 = object::Instantiate<JailWarrior>(enums::eLayerType::Enemy);
+		/*JailWarrior* warrior1 = object::Instantiate<JailWarrior>(enums::eLayerType::Enemy);
 		warrior1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
 		warrior1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 		Collider* col = warrior1->AddComponent<Collider>();
 		col->SetScale(Math::Vector2<float>(128.f, 128.f));
-		warrior1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+		warrior1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);*/
+
+		/*GiantBat* giantbat1 = object::Instantiate<GiantBat>(enums::eLayerType::Enemy);
+		giantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
+		giantbat1->GetComponent<Animator>()->PlayAnimation(L"GiantRightIdle", true);*/
+
+		RedGiantBat* redgiantbat1 = object::Instantiate<RedGiantBat>(enums::eLayerType::Enemy);
+		redgiantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
+		redgiantbat1->GetComponent<Animator>()->PlayAnimation(L"RedGiantRightIdle", true);
+
 
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Detect, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Steel, true);
