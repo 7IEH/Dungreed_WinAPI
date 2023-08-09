@@ -24,6 +24,9 @@ namespace EH
 		void SetGround(bool ground) { mbGround = ground; }
 		bool GetGround() { return mbGround; }
 
+		void SetFriction(float friction) { mfFriction = friction; }
+		float GetFriction() { return mfFriction; }
+
 	private:
 		bool mbGround;
 

@@ -10,7 +10,10 @@
 #include "EHSlope.h"
 #include "EHWall.h"
 #include "EHCeil.h"
-#include "EHBanshee.h"
+#include "EHJailArchor.h"
+#include "EHJailDog.h"
+#include "EHGiantBat.h"
+#include "EHRedGiantBat.h"
 
 namespace EH
 {
@@ -273,17 +276,71 @@ namespace EH
 		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(66.f, 20.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
 
 		// Enemy
-		Banshee* banshee1 = object::Instantiate<Banshee>(enums::eLayerType::Enemy);
-		banshee1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
-		banshee1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
-		banshee1->AddComponent<Animator>();
-		texture = Resources::Load<Texture>(L"BansheeIdle", L"..\\Resources\\Enemy\\JailField\\Banshee\\Idle\\BansheeIdleSheet.bmp");
-		banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
-		texture = Resources::Load<Texture>(L"BansheeAttack", L"..\\Resources\\Enemy\\JailField\\Banshee\\Attack\\BansheeAttackSheet.bmp");
-		banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeAttack", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
-		banshee1->GetComponent<Animator>()->PlayAnimation(L"BansheeIdle", true);
-		banshee1->SetTarget(player);
-		banshee1->SetDelayTime(2.f);
+		JailArchor* archor1 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
+		archor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(776.f, 572.f));
+		archor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		Collider* col = archor1->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		archor1->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");
+		archor1->GetComponent<Animator>()->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"GreySkelLeftIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Left\\GraySkelIdle.bmp");
+		archor1->GetComponent<Animator>()->CreateAnimation(L"GreySkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		archor1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailArchor* archor2 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
+		archor2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1236.f, 572.f));
+		archor2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		col = archor2->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		archor2->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");
+		archor2->GetComponent<Animator>()->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"GreySkelLeftIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Left\\GraySkelIdle.bmp");
+		archor2->GetComponent<Animator>()->CreateAnimation(L"GreySkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		archor2->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailArchor* archor3 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
+		archor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(528.f, 892.f));
+		archor3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		col = archor3->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		archor3->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");
+		archor3->GetComponent<Animator>()->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"GreySkelLeftIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Left\\GraySkelIdle.bmp");
+		archor3->GetComponent<Animator>()->CreateAnimation(L"GreySkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		archor3->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailArchor* archor4 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
+		archor4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1888.f, 892.f));
+		archor4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		col = archor4->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		archor4->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");
+		archor4->GetComponent<Animator>()->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"GreySkelLeftIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Left\\GraySkelIdle.bmp");
+		archor4->GetComponent<Animator>()->CreateAnimation(L"GreySkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		archor4->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailDog* dog1 = object::Instantiate<JailDog>(enums::eLayerType::Enemy);
+		dog1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(644.f, 276.f));
+		dog1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 72.f));
+		dog1->GetComponent<Animator>()->PlayAnimation(L"SkelDogRightIdle", true);
+
+		JailDog* dog2 = object::Instantiate<JailDog>(enums::eLayerType::Enemy);
+		dog2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1748.f, 276.f));
+		dog2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 72.f));
+		dog2->GetComponent<Animator>()->PlayAnimation(L"SkelDogRightIdle", true);
+
+		GiantBat* giantbat1 = object::Instantiate<GiantBat>(enums::eLayerType::Enemy);
+		giantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2496.f, 376.f));
+		giantbat1->GetComponent<Animator>()->PlayAnimation(L"GiantRightIdle", true);
+
+		RedGiantBat* redgiantbat1 = object::Instantiate<RedGiantBat>(enums::eLayerType::Enemy);
+		redgiantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(248.f, 712.f));
+		redgiantbat1->GetComponent<Animator>()->PlayAnimation(L"RedGiantRightIdle", true);
 
 		// SceneChanger Player
 		SetPlayer(player);

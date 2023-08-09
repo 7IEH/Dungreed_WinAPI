@@ -23,6 +23,10 @@ namespace EH
 
 	private:
 		class Weapon* mAttack;
+		class Sound* mprevAttackSound;
+		class Sound* mAttackSound;
+
+		UINT mCheck1;
 	};
 }
 

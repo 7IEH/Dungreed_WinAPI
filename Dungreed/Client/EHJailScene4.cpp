@@ -11,6 +11,8 @@
 #include "EHWall.h"
 #include "EHCeil.h"
 #include "EHBanshee.h"
+#include "EHJailWarrior.h"
+#include "EHRedGiantBat.h"
 
 namespace EH
 {
@@ -122,17 +124,23 @@ namespace EH
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 
 		// Enemy
-		Banshee* banshee1 = object::Instantiate<Banshee>(enums::eLayerType::Enemy);
-		banshee1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
-		banshee1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
-		banshee1->AddComponent<Animator>();
-		texture = Resources::Load<Texture>(L"BansheeIdle", L"..\\Resources\\Enemy\\JailField\\Banshee\\Idle\\BansheeIdleSheet.bmp");
-		banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
-		texture = Resources::Load<Texture>(L"BansheeAttack", L"..\\Resources\\Enemy\\JailField\\Banshee\\Attack\\BansheeAttackSheet.bmp");
-		banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeAttack", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
-		banshee1->GetComponent<Animator>()->PlayAnimation(L"BansheeIdle", true);
-		banshee1->SetTarget(player);
-		banshee1->SetDelayTime(2.f);
+		RedGiantBat* redgiantbat1 = object::Instantiate<RedGiantBat>(enums::eLayerType::Enemy);
+		redgiantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(764.f, 612.f));
+		redgiantbat1->GetComponent<Animator>()->PlayAnimation(L"RedGiantRightIdle", true);
+
+		JailWarrior* warrior1 = object::Instantiate<JailWarrior>(enums::eLayerType::Enemy);
+		warrior1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 888.f));
+		warrior1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		Collider* col = warrior1->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		warrior1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailWarrior* warrior2 = object::Instantiate<JailWarrior>(enums::eLayerType::Enemy);
+		warrior2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1228.f, 888.f));
+		warrior2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		col = warrior2->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		warrior2->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
 
 		// SceneChanger Player
 		SetPlayer(player);

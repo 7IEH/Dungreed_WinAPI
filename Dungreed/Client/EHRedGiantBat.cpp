@@ -192,6 +192,7 @@ namespace EH
 			mBullet[mCheck1] = bullet;
 			bullet->SetStop(true);
 			bullet->SetDeleteTime(10.f);
+			bullet->SetPass(false);
 
 			// animator
 			Animator* bulletani = bullet->AddComponent<Animator>();

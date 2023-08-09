@@ -10,6 +10,9 @@
 #include "EHTrigger.h"
 #include "EHWall.h"
 #include "EHCeil.h"
+#include "EHBanshee.h"
+#include "EHJailWarrior.h"
+#include "EHJailArchor.h"
 
 
 namespace EH
@@ -199,6 +202,56 @@ namespace EH
 		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
 		texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Left\\SteelIdleSheet.bmp");
 		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+		Banshee* banshee1 = object::Instantiate<Banshee>(enums::eLayerType::Enemy);
+		banshee1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(796.f, 256.f));
+		banshee1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
+		banshee1->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"BansheeIdle", L"..\\Resources\\Enemy\\JailField\\Banshee\\Idle\\BansheeIdleSheet.bmp");
+		banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		texture = Resources::Load<Texture>(L"BansheeAttack", L"..\\Resources\\Enemy\\JailField\\Banshee\\Attack\\BansheeAttackSheet.bmp");
+		banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeAttack", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		banshee1->GetComponent<Animator>()->PlayAnimation(L"BansheeIdle", true);
+		banshee1->SetTarget(player);
+		banshee1->SetDelayTime(5.f);
+
+		JailWarrior* warrior1 = object::Instantiate<JailWarrior>(enums::eLayerType::Enemy);
+		warrior1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 540.f));
+		warrior1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		Collider* col = warrior1->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		warrior1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailWarrior* warrior2 = object::Instantiate<JailWarrior>(enums::eLayerType::Enemy);
+		warrior2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(788.f, 540.f));
+		warrior2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		col = warrior2->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		warrior2->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailArchor* archor1 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
+		archor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1536.f, 316.f));
+		archor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		col = archor1->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		archor1->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");
+		archor1->GetComponent<Animator>()->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"GreySkelLeftIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Left\\GraySkelIdle.bmp");
+		archor1->GetComponent<Animator>()->CreateAnimation(L"GreySkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		archor1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailArchor* archor2 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
+		archor2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1536.f, 956.f));
+		archor2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		col = archor2->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		archor2->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");
+		archor2->GetComponent<Animator>()->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"GreySkelLeftIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Left\\GraySkelIdle.bmp");
+		archor2->GetComponent<Animator>()->CreateAnimation(L"GreySkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		archor2->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
 
 		// SceneChanger Player
 		SetPlayer(player);

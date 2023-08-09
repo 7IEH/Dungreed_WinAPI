@@ -10,6 +10,8 @@
 #include "EHWall.h"
 #include "EHCeil.h"
 #include "EHBanshee.h"
+#include "EHJailWarrior.h"
+#include "EHJailDog.h"
 
 namespace EH
 {
@@ -120,9 +122,8 @@ namespace EH
 		texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelIdleSheet.bmp");
 		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
 
-		// Enemy
 		Banshee* banshee1 = object::Instantiate<Banshee>(enums::eLayerType::Enemy);
-		banshee1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
+		banshee1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1092.f, 348.f));
 		banshee1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
 		banshee1->AddComponent<Animator>();
 		texture = Resources::Load<Texture>(L"BansheeIdle", L"..\\Resources\\Enemy\\JailField\\Banshee\\Idle\\BansheeIdleSheet.bmp");
@@ -132,6 +133,30 @@ namespace EH
 		banshee1->GetComponent<Animator>()->PlayAnimation(L"BansheeIdle", true);
 		banshee1->SetTarget(player);
 		banshee1->SetDelayTime(2.f);
+
+		JailWarrior* warrior1 = object::Instantiate<JailWarrior>(enums::eLayerType::Enemy);
+		warrior1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(856.f, 508.f));
+		warrior1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		Collider* col = warrior1->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		warrior1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailWarrior* warrior2 = object::Instantiate<JailWarrior>(enums::eLayerType::Enemy);
+		warrior2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1644.f, 508.f));
+		warrior2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		col = warrior2->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		warrior2->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailDog* dog1 = object::Instantiate<JailDog>(enums::eLayerType::Enemy);
+		dog1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(508.f, 536.f));
+		dog1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 72.f));
+		dog1->GetComponent<Animator>()->PlayAnimation(L"SkelDogRightIdle", true);
+
+		JailDog* dog2 = object::Instantiate<JailDog>(enums::eLayerType::Enemy);
+		dog2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1400.f, 536.f));
+		dog2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 72.f));
+		dog2->GetComponent<Animator>()->PlayAnimation(L"SkelDogRightIdle", true);
 
 		// SceneChanger Player
 		SetPlayer(player);

@@ -14,7 +14,7 @@ namespace EH
           mAttack(nullptr)
         , mIsRight(true)
     {
-        AddComponent<Rigidbody>();
+        Rigidbody* rigid = AddComponent<Rigidbody>();
         SetHP(40.f);
         SetDelayTime(4.f);
         mDect = object::Instantiate<Detection>(enums::eLayerType::Detect);
@@ -173,22 +173,21 @@ namespace EH
             }
             else
             {
-                
+                Rigidbody* rigid = GetComponent<Rigidbody>();
                 if (playerpos.x < pos.x)
                 {
-                    float diff = playerpos.x - pos.x - 32.f;
                     // Left run
+                    rigid->AddForce(Math::Vector2<float>(-200.f, 0.f));
                     ani->PlayAnimation(L"GreySkelLeftWalk", true);
-                    pos.x += diff * Time::GetDeltaTime();
+                    
                     tr->SetPos(pos);
                     mIsRight = false;
                 }
                 else
                 {
-                    float diff = playerpos.x - pos.x + 32.f;
                     // Right run
                     ani->PlayAnimation(L"GreySkelRightWalk", true);
-                    pos.x += diff * Time::GetDeltaTime();
+                    rigid->AddForce(Math::Vector2<float>(200.f, 0.f));
                     tr->SetPos(pos);
                     mIsRight = true;
                 }
@@ -202,16 +201,20 @@ namespace EH
 
     void JailWarrior::Attack()
     {
+
+        Rigidbody* rigid = GetComponent<Rigidbody>();
+        rigid->SetVeclocity(Math::Vector2<float>(0.f, 0.f));
         if (GetHP() <= 0.f)
         {
             SetState(eState::Dead);
         }
-
         float chargetime = GetCheckTime();
         SetCheckTime(chargetime += Time::GetDeltaTime());
         // 공격 부분 on
         Collider* bulletcol = mBullet->GetComponent<Collider>();
         bulletcol->enabled(true);
+
+       
 
         if (GetDelayTime()<chargetime)
         {

@@ -182,11 +182,13 @@ namespace EH
 				Math::Vector2<float> pos = tr->Getpos();
 				bullet->SetStop(false);
 				bullettr->SetPos(Math::Vector2<float>(pos.x, pos.y));
-				bullettr->SetScale(Math::Vector2<float>(20.f, 42.f));
+				bullettr->SetScale(Math::Vector2<float>(56.f, 56.f));
 				bullet->SetRadian(mRadian + i * 0.34);
 				bullet->AddComponent<Collider>();
-				bullet->GetComponent<Collider>()->SetScale(Math::Vector2<float>(40.f, 40.f));
+				bullet->GetComponent<Collider>()->SetScale(Math::Vector2<float>(56.f, 56.f));
 				bullet->SetDeleteTime(10.f);
+				bullet->SetPass(false);
+
 				// animator
 				Animator* bulletani = bullet->AddComponent<Animator>();
 				Texture* texture = Resources::Load<Texture>(L"RangeBallBullet", L"..\\Resources\\Enemy\\JailField\\Bat\\Attack\\GiantBat\\Idle\\RangeBallBulletSheet.bmp");

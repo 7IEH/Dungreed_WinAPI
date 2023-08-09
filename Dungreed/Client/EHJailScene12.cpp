@@ -9,7 +9,8 @@
 #include "EHTrigger.h"
 #include "EHWall.h"
 #include "EHCeil.h"
-
+#include "EHRedGiantBat.h"
+#include "EHJailDog.h"
 
 namespace EH
 {
@@ -119,6 +120,30 @@ namespace EH
 		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
 		texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelIdleSheet.bmp");
 		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+		JailDog* dog1 = object::Instantiate<JailDog>(enums::eLayerType::Enemy);
+		dog1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(272.f, 852.f));
+		dog1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 72.f));
+		dog1->GetComponent<Animator>()->PlayAnimation(L"SkelDogRightIdle", true);
+
+		JailDog* dog2 = object::Instantiate<JailDog>(enums::eLayerType::Enemy);
+		dog2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(412.f, 852.f));
+		dog2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 72.f));
+		dog2->GetComponent<Animator>()->PlayAnimation(L"SkelDogRightIdle", true);
+
+		JailDog* dog3 = object::Instantiate<JailDog>(enums::eLayerType::Enemy);
+		dog3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(904.f, 852.f));
+		dog3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 72.f));
+		dog3->GetComponent<Animator>()->PlayAnimation(L"SkelDogRightIdle", true);
+
+		JailDog* dog4 = object::Instantiate<JailDog>(enums::eLayerType::Enemy);
+		dog4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1028.f, 852.f));
+		dog4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 72.f));
+		dog4->GetComponent<Animator>()->PlayAnimation(L"SkelDogRightIdle", true);
+
+		RedGiantBat* redgiantbat1 = object::Instantiate<RedGiantBat>(enums::eLayerType::Enemy);
+		redgiantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(668.f, 528.f));
+		redgiantbat1->GetComponent<Animator>()->PlayAnimation(L"RedGiantRightIdle", true);
 
 		// SceneChanger Player
 		SetPlayer(player);

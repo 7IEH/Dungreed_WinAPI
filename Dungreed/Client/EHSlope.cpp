@@ -89,7 +89,10 @@ namespace EH
 	void Slope::OnCollisionExit(Collider* other)
 	{
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
-		player->SetSlope(false);
-		mEnterCounter = 0;
+		if (player != nullptr)
+		{
+			player->SetSlope(false);
+			mEnterCounter = 0;
+		}
 	}
 }

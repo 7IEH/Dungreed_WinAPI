@@ -129,7 +129,7 @@ namespace EH
 		trigger2->SetScenename(L"JailScene10");
 
 		// Steel
-		Ceil* steel1 = object::Instantiate<Ceil>(enums::eLayerType::Steel);
+		/*Ceil* steel1 = object::Instantiate<Ceil>(enums::eLayerType::Steel);
 		steel1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(832.f, 176.f));
 		steel1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(264.f, 80.f));
 		steel1->AddComponent<Collider>();
@@ -153,7 +153,7 @@ namespace EH
 		texture = Resources::Load<Texture>(L"SteelRightExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelExitSheet.bmp");
 		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
 		texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelIdleSheet.bmp");
-		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);*/
 
 		// Enemy
 		/*Banshee* banshee1 = object::Instantiate<Banshee>(enums::eLayerType::Enemy);
@@ -194,16 +194,16 @@ namespace EH
 
 		/*GiantBat* giantbat1 = object::Instantiate<GiantBat>(enums::eLayerType::Enemy);
 		giantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
-		giantbat1->GetComponent<Animator>()->PlayAnimation(L"GiantRightIdle", true);*/
+		giantbat1->GetComponent<Animator>()->PlayAnimation(L"GiantRightIdle", true);
 
 		RedGiantBat* redgiantbat1 = object::Instantiate<RedGiantBat>(enums::eLayerType::Enemy);
 		redgiantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(400.f, 300.f));
-		redgiantbat1->GetComponent<Animator>()->PlayAnimation(L"RedGiantRightIdle", true);
+		redgiantbat1->GetComponent<Animator>()->PlayAnimation(L"RedGiantRightIdle", true);*/
 
 		GameObject* door1 = object::Instantiate<GameObject>(enums::eLayerType::UI);
 		door1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(368.f, 455.f));
 		door1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(228.f, 260.f));
-		ani = door1->AddComponent<Animator>();
+		Animator*  ani = door1->AddComponent<Animator>();
 		texture = Resources::Load<Texture>(L"JailDoorClose", L"..\\Resources\\Dungeon\\JailDoorSheet.bmp");
 		ani->CreateAnimation(L"JailDoorClose", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 65.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
 		ani->PlayAnimation(L"JailDoorClose", false);
