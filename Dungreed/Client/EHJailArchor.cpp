@@ -10,9 +10,11 @@
 
 namespace EH
 {
+	UINT JailArchor::mBowCount = 0;
+
 	JailArchor::JailArchor()
 		:
-		mAttack(nullptr)
+		  mAttack(nullptr)
 		, mIsRight(true)
 	{
 		SetDelayTime(4.f);
@@ -27,15 +29,16 @@ namespace EH
 		mBow = object::Instantiate<Weapon>(enums::eLayerType::Sword);
 		mBow->GetComponent<Transform>()->SetScale(Math::Vector2<float>(68.f, 52.f));
 		Animator* ani = mBow->AddComponent<Animator>();
-		Texture* texture = Resources::Load<Texture>(L"BowIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Archor\\OakBow.png");
+		Texture* texture = Resources::Load<Texture>(L"BowIdle" + std::to_wstring(mBowCount), L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Archor\\OakBow.png");
 		mBowImg = texture;
 		ani->CreateAnimation(L"BowIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(17.f, 13.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
-		texture = Resources::Load<Texture>(L"BowAttack", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Archor\\OakBowSheet.png");
+		texture = Resources::Load<Texture>(L"BowAttack" + std::to_wstring(mBowCount), L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Archor\\OakBowSheet.png");
 		mBowAttackImg = texture;
 		ani->CreateAnimation(L"BowAttack", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(17.f, 13.f), Math::Vector2<float>(0.f, 0.f), 6, 0.4f);
 
 		mBowDrawSound = Resources::Load<Sound>(L"BowDraw", L"..\\Resources\\Sound\\Enemy\\JailField\\GreySkel\\Archor\\bowdraw.wav");
 		mBowAttackSound = Resources::Load<Sound>(L"BowShot", L"..\\Resources\\Sound\\Enemy\\JailField\\GreySkel\\Archor\\bowshot.wav");
+		mBowCount++;
 	}
 
 	JailArchor::~JailArchor()
@@ -85,6 +88,7 @@ namespace EH
 			UINT hp = GetHP();
 			SetHP(hp -= 20);
 			mAttack = weapon;
+			GetHitSound()->Play(false);
 		}
 	}
 

@@ -14,6 +14,7 @@ namespace EH
 		, mCheckTime(0.f)
 		, mDelayTime(0.f)
 		, mCheck1(0)
+		, mSetKey(eKeyCode::END)
 	{
 		mDungeoneat = Resources::Load<Sound>(L"Dungeonout", L"..\\Resources\\Sound\\Structure\\DungeonOut.wav");
 	}
@@ -60,6 +61,27 @@ namespace EH
 
 	void Trigger::OnCollisionStay(Collider* other)
 	{
+		
+		if (SceneManager::GetCurScene()->GetLayer(enums::eLayerType::Enemy).GetObjects().size() == 0)
+		{
+			
+			if (Input::Getkey(mSetKey).state == eKeyState::DOWN)
+			{
+				if (SceneManager::GetCurScene()->GetBGM() != nullptr)
+					SceneManager::GetCurScene()->GetBGM()->Stop(true);
+
+				Scene* mCurScene = SceneManager::LoadScene(mScenename);
+				if (mCurScene != nullptr)
+				{
+					if (mCurScene->GetBGM() != nullptr)
+						mCurScene->GetBGM()->Play(true);
+
+					if (mCurScene->GetPlayer() != nullptr)
+						Camera::SetTarget(mCurScene->GetPlayer());
+				}
+			}
+		}
+
 		if (mScenename == L"JailScene1" && SceneManager::GetCurScene()->GetName() == L"TownScene")
 		{
 			mCheckTime += Time::GetDeltaTime();
@@ -110,8 +132,13 @@ namespace EH
 			mDungeoneat->Play(false);
 			return;
 		}
+		else if (mSetKey != eKeyCode::END)
+		{
+			return;
+		}
 		else
 		{
+			SceneManager::GetCurScene()->GetPlayer()->GetComponent<Transform>()->SetPos(Math::Vector2<float>(420.f, 500.f));
 			Scene* mCurScene = SceneManager::LoadScene(mScenename);
 			if (mCurScene != nullptr)
 			{

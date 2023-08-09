@@ -154,6 +154,7 @@
     <ClInclude Include="EHFloor.h" />
     <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHImageObject.h" />
+    <ClInclude Include="EHIntro.h" />
     <ClInclude Include="EHJailArchor.h" />
     <ClInclude Include="EHJailBossScene.h" />
     <ClInclude Include="EHJailDog.h" />
@@ -236,6 +237,7 @@
     <ClCompile Include="EHFloor.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHImageObject.cpp" />
+    <ClCompile Include="EHIntro.cpp" />
     <ClCompile Include="EHJailArchor.cpp" />
     <ClCompile Include="EHJailBossScene.cpp" />
     <ClCompile Include="EHJailDog.cpp" />

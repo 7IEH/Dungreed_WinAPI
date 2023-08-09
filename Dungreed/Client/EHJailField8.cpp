@@ -38,42 +38,42 @@ namespace EH
 		floor1->AddComponent<Collider>();
 		floor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(2212.f, 64.f));
 		floor1->GetComponent<Collider>()->SetAffectedCamera(true);
-		floor1->SetDownFloor(false);
+		floor1->SetDownFloor(true);
 
 		Floor* floor2 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1518.f, 672.f));
 		floor2->AddComponent<Collider>();
 		floor2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(2212.f, 64.f));
 		floor2->GetComponent<Collider>()->SetAffectedCamera(true);
-		floor2->SetDownFloor(false);
+		floor2->SetDownFloor(true);
 
 		Floor* floor3 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(248.f, 1056.f));
 		floor3->AddComponent<Collider>();
 		floor3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(240.f, 64.f));
 		floor3->GetComponent<Collider>()->SetAffectedCamera(true);
-		floor3->SetDownFloor(false);
+		floor3->SetDownFloor(true);
 
 		Floor* floor4 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(522.f, 992.f));
 		floor4->AddComponent<Collider>();
 		floor4->GetComponent<Collider>()->SetScale(Math::Vector2<float>(180.f, 64.f));
 		floor4->GetComponent<Collider>()->SetAffectedCamera(true);
-		floor4->SetDownFloor(false);
+		floor4->SetDownFloor(true);
 
 		Floor* floor5 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor5->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1220.f, 1056.f));
 		floor5->AddComponent<Collider>();
 		floor5->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1088.f, 64.f));
 		floor5->GetComponent<Collider>()->SetAffectedCamera(true);
-		floor5->SetDownFloor(false);
+		floor5->SetDownFloor(true);
 
 		Floor* floor6 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor6->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1888.f, 992.f));
 		floor6->AddComponent<Collider>();
 		floor6->GetComponent<Collider>()->SetScale(Math::Vector2<float>(120.f, 64.f));
 		floor6->GetComponent<Collider>()->SetAffectedCamera(true);
-		floor6->SetDownFloor(false);
+		floor6->SetDownFloor(true);
 
 		Floor* floor7 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor7->GetComponent<Transform>()->SetPos(Math::Vector2<float>(2318.f, 1056.f));

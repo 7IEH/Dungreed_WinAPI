@@ -33,5 +33,7 @@ namespace EH
 
 		bool mIsRight;
 		float mBowradian;
+
+		static UINT mBowCount;
 	};
 }

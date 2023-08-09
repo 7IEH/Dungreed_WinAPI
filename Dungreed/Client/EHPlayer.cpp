@@ -178,33 +178,24 @@ namespace EH
 		
 		if (mWeapon != Objdata::GetWeapon())
 		{
-			Transform* tr = GetComponent<Transform>();
-			POINT pt = {};
-			GetCursorPos(&pt);
-			ScreenToClient(application.GetHWND(), &pt);
-			Vector2<float> cursorpos;
-			cursorpos.x = pt.x;
-			cursorpos.y = pt.y;
+			//BackGround* weapon = object::Instantiate<BackGround>(enums::eLayerType::UI);
+			//Transform* temp = weapon->GetComponent<Transform>();
+			//temp->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
+			//temp->SetScale(Math::Vector2<float>(76.f, 28.f));
 
-			Camera::CaculatePos(cursorpos);
-
-			BackGround* weapon = object::Instantiate<BackGround>(enums::eLayerType::UI);
-			Transform* temp = weapon->GetComponent<Transform>();
-			temp->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
-			temp->SetScale(Math::Vector2<float>(76.f, 28.f));
-
-			Texture* texture = Resources::Load<Texture>(L"Onehand", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
-			//degree 구하기
-			float radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
-			float degree = radian * (180.f / 3.14f);
-			texture->SetDegree(degree + 90);
-			weapon->GetComponent<SpriteRenderer>()->SetImg(texture);
-			weapon->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
-			weapon->SetName(L"Test");
-			mWeapon = weapon;
-			texture = Resources::Load<Texture>(L"Sword1", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
+			//Texture* texture = Resources::Load<Texture>(L"Onehand", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
+			////degree 구하기
+			//float radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
+			//float degree = radian * (180.f / 3.14f);
+			//texture->SetDegree(degree + 90);
+			//weapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			//weapon->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+			//weapon->SetName(L"Test");
+			SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, Objdata::GetWeapon());
+			mWeapon = Objdata::GetWeapon();
+			Texture* texture = Resources::Load<Texture>(L"Sword1", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
 			mCanvas->AddImageObject(L"Sword1", texture, false, Math::Vector2<float>(1180.f, 660.f), Math::Vector2<float>(76.f, 28.f));
-			Objdata::SetWeapon(weapon);
+			Objdata::SetWeapon(mWeapon);
 		}
 
 		if (mIsSwing != Objdata::GetSwing())
@@ -219,24 +210,9 @@ namespace EH
 
 		if (mWeaponCollider != Objdata::GetWeaponCollider())
 		{
-			Transform* tr = GetComponent<Transform>();
-			POINT pt = {};
-			GetCursorPos(&pt);
-			ScreenToClient(application.GetHWND(), &pt);
-			Vector2<float> cursorpos;
-			cursorpos.x = pt.x;
-			cursorpos.y = pt.y;
-			float radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
-			Weapon* weaponcollider = object::Instantiate<Weapon>(enums::eLayerType::Sword);
-			Transform* weapontr = weaponcollider->GetComponent<Transform>();
-			Collider* weaponcol = weaponcollider->AddComponent<Collider>();
-			weapontr->SetPos(Math::Vector2<float>(tr->Getpos().x + 60.f * cosf(radian), tr->Getpos().y + 60.f * sinf(radian)));
-			weaponcol->SetScale(Math::Vector2<float>(120.f, 120.f));
-			weaponcol->SetType(Collider::eColliderType::Circle);
-			mWeaponCollider = weaponcollider;
-			weaponcol->enabled(false);
-			weaponcollider->SetDelayTime(0.1f);
-			Objdata::SetWeaponCollider(weaponcollider);
+			SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Sword, Objdata::GetWeaponCollider());
+			mWeaponCollider = Objdata::GetWeaponCollider();
+			Objdata::SetWeaponCollider(mWeaponCollider);
 		}
 
 		// UI Update

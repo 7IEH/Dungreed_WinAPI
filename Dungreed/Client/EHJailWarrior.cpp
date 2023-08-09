@@ -103,6 +103,7 @@ namespace EH
             UINT hp = GetHP();
             SetHP(hp -= 20);
             mAttack = weapon;
+            GetHitSound()->Play(false);
         }
     }
 

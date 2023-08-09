@@ -1,20 +1,22 @@
 #pragma once
-#include "EHScene.h"
+#include "EHGameObject.h"
 
 namespace EH
 {
-	class JailPrevBossScene : public Scene
+	class Intro : public GameObject
 	{
 	public:
-		JailPrevBossScene();
-		virtual ~JailPrevBossScene();
+		Intro();
+		virtual ~Intro();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 
 	private:
-		class Sound* mEnterSound;
 		UINT mCheck1;
+		float mCheckTime;
 	};
 }
+
+

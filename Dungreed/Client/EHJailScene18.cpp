@@ -233,11 +233,6 @@ namespace EH
 
 	void JailScene18::Update()
 	{
-		if (Input::Getkey(eKeyCode::Z).state == eKeyState::DOWN)
-		{
-			Camera::SetLookAt(Math::Vector2<float>(640.f, 360.f));
-			SceneManager::LoadScene(L"JailPrevBossScene");
-		}
 		Scene::Update();
 	}
 

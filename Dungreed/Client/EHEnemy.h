@@ -44,6 +44,8 @@ namespace EH
 
 		void SetHP(UINT hp) { mHP = hp; }
 		UINT GetHP() { return mHP; }
+		
+		class Sound* GetHitSound() { return mHitMonster; }
 
 	private:
 		class Player* mTarget;
@@ -53,6 +55,9 @@ namespace EH
 		float mSubDelayTime;
 		float mSubCheckTime;
 
+		// Sound
+		class Sound* mHitMonster;
+ 
 		// stat
 		UINT mHP;
 	};

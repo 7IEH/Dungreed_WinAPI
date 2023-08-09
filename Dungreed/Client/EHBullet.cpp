@@ -5,6 +5,8 @@
 #include "EHCeil.h"
 #include "EHFloor.h"
 #include "EHWall.h"
+#include "EHResources.h"
+#include "EHSound.h"
 
 namespace EH
 {
@@ -18,6 +20,7 @@ namespace EH
 		, mIsPass(true)
 		, mIsDelete(true)
 	{
+		mHitSound = Resources::Load<Sound>(L"playerhitsound", L"..\\Resources\\Sound\\Enemy\\public\\Hit_Player.wav");
 	}
 
 	Bullet::~Bullet()
@@ -58,6 +61,7 @@ namespace EH
 		if (player != nullptr)
 		{
 			Objdata::SetHP(Objdata::GetHP() - mDamage);
+			mHitSound->Play(false);
 			if(mIsDelete)
 				Destroy(this);
 		}

@@ -30,6 +30,8 @@ namespace EH
 
 		void SetDungeonEater(class GameObject* dungeoneater) { mDungeoneater = dungeoneater; }
 
+		void SetKey(eKeyCode code) { mSetKey = code; }
+
 	private:
 		eTriggertype mType;
 		std::wstring mScenename;
@@ -41,6 +43,8 @@ namespace EH
 
 		class Sound* mDungeoneat;
 		class GameObject* mDungeoneater;
+
+		eKeyCode mSetKey;
 	};
 }
 

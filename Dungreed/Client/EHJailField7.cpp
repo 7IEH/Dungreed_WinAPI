@@ -26,7 +26,7 @@ namespace EH
 
 		// Player
 		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(420.f, 500.f));
+		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1332.f, 296.f));
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 
 		// Floor
@@ -35,7 +35,7 @@ namespace EH
 		floor1->AddComponent<Collider>();
 		floor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1408.f, 64.f));
 		floor1->GetComponent<Collider>()->SetAffectedCamera(true);
-		floor1->SetDownFloor(false);
+		floor1->SetDownFloor(true);
 
 		Floor* floor2 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(768.f, 684.f));

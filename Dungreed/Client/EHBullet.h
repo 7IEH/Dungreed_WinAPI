@@ -44,5 +44,8 @@ namespace EH
 		bool mIsPass;
 		
 		bool mIsDelete;
+
+		//
+		class Sound* mHitSound;
 	};
 }

@@ -44,14 +44,14 @@ namespace EH
 		floor2->AddComponent<Collider>();
 		floor2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(128.f, 64.f));
 		floor2->GetComponent<Collider>()->SetAffectedCamera(true);
-		floor2->SetDownFloor(false);
+		floor2->SetDownFloor(true);
 
 		Floor* floor3 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1036.f, 804.f));
 		floor3->AddComponent<Collider>();
 		floor3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(128.f, 64.f));
 		floor3->GetComponent<Collider>()->SetAffectedCamera(true);
-		floor3->SetDownFloor(false);
+		floor3->SetDownFloor(true);
 
 		Floor* floor4 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f, 928.f));
@@ -161,6 +161,19 @@ namespace EH
 		trigger3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f, 64.f));
 		trigger3->SetType(Trigger::eTriggertype::Scenechange);
 		trigger3->SetScenename(L"JailScene18");
+
+		Trigger* trigger4 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
+		trigger4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f, 442.f));
+		trigger4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(228.f, 260.f));
+		SpriteRenderer* sr = trigger4->AddComponent<SpriteRenderer>();
+		texture = Resources::Load<Texture>(L"JailDoor0", L"..\\Resources\\Dungeon\\Belial\\Door0.bmp");
+		sr->SetImg(texture);
+		sr->SetAffectCamera(true);
+		trigger4->AddComponent<Collider>();
+		trigger4->GetComponent<Collider>()->SetScale(Math::Vector2<float>(228.f, 260.f));
+		trigger4->SetType(Trigger::eTriggertype::Scenechange);
+		trigger4->SetScenename(L"JailPrevBossScene");
+		trigger4->SetKey(eKeyCode::W);
 
 		// Steel
 		Wall* steel2 = object::Instantiate<Wall>(enums::eLayerType::Steel);

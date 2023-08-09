@@ -41,6 +41,8 @@ namespace EH::enums
 	enum class eLayerType
 	{
 		  BackGround
+		, Steel
+		, Trigger
 		, Floor
 		, Enemy
 		, Npc
@@ -50,9 +52,7 @@ namespace EH::enums
 		, Sword
 		, Bullet
 		, Laser
-		, Trigger
 		, Detect
-		, Steel
 		, End
 	};
 

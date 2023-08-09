@@ -93,7 +93,8 @@ namespace EH
 				func.BlendOp = AC_SRC_OVER;
 				func.BlendFlags = 0;
 				func.AlphaFormat = AC_SRC_ALPHA;
-				func.SourceConstantAlpha = 255;
+				alpha = (int)(alpha * 255.0f);
+				func.SourceConstantAlpha = alpha;
 
 				AlphaBlend(hdc,
 					pos.x - scale.x / 2.f + offset.x, pos.y - scale.y / 2.f + offset.y,

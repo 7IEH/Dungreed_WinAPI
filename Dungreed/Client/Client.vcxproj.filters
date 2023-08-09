@@ -277,6 +277,9 @@
     <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Bat\RedGiantBat">
       <UniqueIdentifier>{fbc94060-e0c5-4af3-be46-37715a92d000}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Intro">
+      <UniqueIdentifier>{32846a06-40fb-44f2-bb02-9fc07c955aa1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -522,6 +525,9 @@
     <ClInclude Include="EHRedGiantBat.h">
       <Filter>Contents\GameObject\Enemy\JailField\Normal\Bat\RedGiantBat</Filter>
     </ClInclude>
+    <ClInclude Include="EHIntro.h">
+      <Filter>Contents\GameObject\Intro</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -758,6 +764,9 @@
     </ClCompile>
     <ClCompile Include="EHRedGiantBat.cpp">
       <Filter>Contents\GameObject\Enemy\JailField\Normal\Bat\RedGiantBat</Filter>
+    </ClCompile>
+    <ClCompile Include="EHIntro.cpp">
+      <Filter>Contents\GameObject\Intro</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

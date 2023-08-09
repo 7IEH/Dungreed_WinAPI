@@ -51,6 +51,8 @@ namespace EH
 
 	GiantBat::~GiantBat()
 	{
+		Destroy(mDect);
+		mDect = nullptr;
 	}
 
 	void GiantBat::Initialize()
@@ -94,6 +96,7 @@ namespace EH
 			UINT hp = GetHP();
 			SetHP(hp -= 20);
 			mAttack = weapon;
+			GetHitSound()->Play(false);
 		}
 	}
 

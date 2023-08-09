@@ -14,6 +14,10 @@ namespace EH
 		virtual void Render(HDC hdc) override;
 
 	private:
+		UINT mIntro;
+
+		float mCheckTime;
+		class Sound* mBelialLaugh;
 	};
 }
 

@@ -11,10 +11,13 @@
 #include "EHBanshee.h"
 #include "EHCanvas.h"
 #include "EHCollisionManager.h"
+#include "EHIntro.h"
 
 namespace EH
 {
 	JailBossScene::JailBossScene()
+		:
+		mIntro(0)
 	{
 	}
 
@@ -26,8 +29,9 @@ namespace EH
 	{
 		SetSize(Math::Vector2<float>(1440.f, 1320.f));
 
-		Sound* BGM = Resources::Load<Sound>(L"BOSSBGM1",L"..\\Resources\\Sound\\BGM\\1.JailBoss.wav");
+		Sound* BGM = Resources::Load<Sound>(L"BOSSBGM1", L"..\\Resources\\Sound\\BGM\\1.JailBoss.wav");
 		SetBGM(BGM);
+		mBelialLaugh = Resources::Load<Sound>(L"Beliallaugh", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\beliallaugh_rev.wav");
 
 		Texture* texture = nullptr;
 
@@ -37,6 +41,31 @@ namespace EH
 		texture = Resources::Load<Texture>(L"JailBossBackGround", L"..\\Resources\\Dungeon\\Belial\\Boss.bmp");
 		JailBossBackGround->GetComponent<SpriteRenderer>()->SetImg(texture);
 		//JailBossBackGround->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+		// Intro
+		Intro* intro1 = object::Instantiate<Intro>(enums::eLayerType::Detect);
+		intro1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f, 45.f));
+		intro1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 90.f));
+		texture = Resources::Load<Texture>(L"introupper", L"..\\Resources\\Dungeon\\Belial\\Intro\\Upper.bmp");
+		intro1->GetComponent<SpriteRenderer>()->SetImg(texture);
+		intro1->GetComponent<SpriteRenderer>()->SetAlpha(0.f);
+		intro1->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+		Intro* intro2 = object::Instantiate<Intro>(enums::eLayerType::Detect);
+		intro2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f, 642.f));
+		intro2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 156.f));
+		texture = Resources::Load<Texture>(L"introdown", L"..\\Resources\\Dungeon\\Belial\\Intro\\Down.bmp");
+		intro2->GetComponent<SpriteRenderer>()->SetImg(texture);
+		intro2->GetComponent<SpriteRenderer>()->SetAlpha(0.f);
+		intro2->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+		Intro* intro3 = object::Instantiate<Intro>(enums::eLayerType::Detect);
+		intro3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(200.f, 500.f));
+		intro3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(151.f, 118.f));
+		texture = Resources::Load<Texture>(L"Name", L"..\\Resources\\Dungeon\\Belial\\Intro\\Name.bmp");
+		intro3->GetComponent<SpriteRenderer>()->SetImg(texture);
+		intro3->GetComponent<SpriteRenderer>()->SetAlpha(0.f);
+		intro3->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
 		// Torch
 		BackGround* Torch1 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
@@ -165,18 +194,26 @@ namespace EH
 		Boss1->SetTarget(player);
 		SetPlayer(player);
 
-		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Floor,true);
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Floor, true);
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Bullet, true);
 	}
 
 	void JailBossScene::Update()
 	{
-		if (Input::Getkey(eKeyCode::Z).state == eKeyState::DOWN)
-		{
-			Camera::SetLookAt(Math::Vector2<float>(640.f, 360.f));
-			SceneManager::LoadScene(L"TitleScene");
-		}
 		Scene::Update();
+		mCheckTime += Time::GetDeltaTime();
+		if (mIntro == 0)
+		{
+			Camera::SetTarget(nullptr);
+			Camera::SetLookAt(Math::Vector2<float>(704.f, 598.f));
+			mBelialLaugh->Play(false);
+			mIntro++;
+		}
+
+		if (6.f < mCheckTime)
+		{
+			Camera::SetTarget(GetPlayer());
+		}
 	}
 
 	void JailBossScene::Render(HDC hdc)

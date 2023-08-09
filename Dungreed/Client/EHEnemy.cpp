@@ -1,4 +1,6 @@
 #include "EHEnemy.h"
+#include "EHResources.h"
+#include "EHSound.h"
 
 namespace EH
 {
@@ -11,6 +13,7 @@ namespace EH
 		 , mCurState(eState::Idle)
 		 , mTarget(nullptr)
 	{
+		mHitMonster = Resources::Load<Sound>(L"monsterhitsound", L"..\\Resources\\Sound\\Enemy\\public\\Hit_Monster.wav");
 	}
 
 	Enemy::~Enemy()

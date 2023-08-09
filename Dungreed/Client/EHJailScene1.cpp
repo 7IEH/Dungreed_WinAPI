@@ -16,6 +16,7 @@
 #include "EHJailWarrior.h"
 #include "EHGiantBat.h"
 #include "EHRedGiantBat.h"
+#include "EHIntro.h"
 
 namespace EH
 {
@@ -228,7 +229,6 @@ namespace EH
 			mEnterSound->Play(false);
 			mCheck1++;
 		}
-
 	}
 
 	void JailScene1::Render(HDC hdc)

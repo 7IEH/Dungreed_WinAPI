@@ -44,7 +44,7 @@ namespace EH
 		floor1->AddComponent<Collider>();
 		floor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(2176.f, 64.f));
 		floor1->GetComponent<Collider>()->SetAffectedCamera(true);
-		floor1->SetDownFloor(false);
+		floor1->SetDownFloor(true);
 
 		// Ceil
 		Ceil* ceil1 = object::Instantiate<Ceil>(enums::eLayerType::Floor);

@@ -34,7 +34,9 @@ namespace EH
 		
 		mTexture->Render(hdc, GetOwner()
 			, mAffectCamera
-			, Math::Vector2<float>(mTexture->GetWidth(), mTexture->GetHeight()), Math::Vector2<float>(mTexture->GetPos().x
-			, mTexture->GetPos().y), mAlpha);
+			, Math::Vector2<float>(mTexture->GetWidth(), mTexture->GetHeight())
+			, Math::Vector2<float>(mTexture->GetPos().x, mTexture->GetPos().y)
+			, Math::Vector2<float>(0.f, 0.f)
+			, mAlpha);
 	}
 }

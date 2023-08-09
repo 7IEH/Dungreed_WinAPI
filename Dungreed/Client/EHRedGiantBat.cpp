@@ -55,6 +55,8 @@ namespace EH
 
 	RedGiantBat::~RedGiantBat()
 	{
+		Destroy(mDect);
+		mDect = nullptr;
 	}
 
 	void RedGiantBat::Initialize()
@@ -97,6 +99,7 @@ namespace EH
 			UINT hp = GetHP();
 			SetHP(hp -= 20);
 			mAttack = weapon;
+			GetHitSound()->Play(false);
 		}
 	}
 
