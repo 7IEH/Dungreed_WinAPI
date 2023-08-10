@@ -45,6 +45,10 @@ namespace EH
 		void SetSlope(bool slope) { mIsSlope = slope; }
 		void SetRightSlope(bool right) { mIsRightSlope = right; }
 
+		void SetTrans(bool trans) { Trans = trans; }
+
+		void SetState(eAnimationState state) { mCurState = state; }
+
 	private:
 		int mMaxHP;
 		UINT mLevel;
@@ -53,6 +57,8 @@ namespace EH
 		UINT mFood;
 		UINT mMaxDash;
 		UINT mCurDash;
+
+		bool Trans;
 
 		eAnimationState mCurState;
 		class BackGround* mHp;

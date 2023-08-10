@@ -1,6 +1,8 @@
 #include "EHFairy.h"
 #include "EHPlayer.h"
 #include "EHObjdata.h"
+#include "EHResources.h"
+#include "EHSound.h"
 
 namespace EH
 {
@@ -10,6 +12,8 @@ namespace EH
 	{
 		Collider* col = AddComponent<Collider>();
 		col->SetScale(Math::Vector2<float>(40.f, 40.f));
+
+		mEquipSound = Resources::Load<Sound>(L"CoinEquipSound", L"..\\Resources\\Sound\\Item\\EC Collect.wav");
 	}
 
 	Fairy::~Fairy()
@@ -43,6 +47,7 @@ namespace EH
 			{
 				Objdata::SetHP(Objdata::GetHP() + mHeal);
 			}
+			mEquipSound->Play(false);
 			Destroy(this);
 		}
 	}

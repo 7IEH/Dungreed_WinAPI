@@ -30,6 +30,9 @@ namespace EH
 
 	void JailScene18::Initialize()
 	{
+		Sound* BGM = Resources::Load<Sound>(L"JailFieldBGM", L"..\\Resources\\Sound\\BGM\\1.JailField.wav");
+		SetBGM(BGM);
+
 		SetSize(Math::Vector2<float>(1536.f, 896.f));
 	
 		Texture* texture = nullptr;

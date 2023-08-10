@@ -21,7 +21,7 @@
 #pragma comment(lib, "dsound.lib")
 
 // DX11
-#include<imgui.h>
+//#include<imgui.h>
 
 // GDI+
 #include<ole2.h>

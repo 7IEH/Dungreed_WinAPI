@@ -151,6 +151,8 @@ namespace EH
 
 		Collider* playercol = other->GetOwner()->GetComponent<Collider>();
 		Collider* floorcol = GetComponent<Collider>();
+
+		JailDog* dog = dynamic_cast<JailDog*>(other->GetOwner());
 		
 		if (player != nullptr)
 		{
@@ -166,6 +168,11 @@ namespace EH
 				}
 				player->GetComponent<Rigidbody>()->SetGround(false);
 			}
+		}
+
+		if (dog != nullptr)
+		{
+			dog->GetComponent<Rigidbody>()->SetGround(false);
 		}
 	}
 }

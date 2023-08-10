@@ -9,6 +9,7 @@ namespace EH
 		enum class eTriggertype
 		{
 			  Scenechange
+			, Tresure
 			, None
 		};
 
@@ -27,6 +28,7 @@ namespace EH
 		void SetScenename(std::wstring scenename) { mScenename = scenename; }
 
 		void SceneChange();
+		void Tresure();
 
 		void SetDungeonEater(class GameObject* dungeoneater) { mDungeoneater = dungeoneater; }
 
@@ -45,6 +47,8 @@ namespace EH
 		class GameObject* mDungeoneater;
 
 		eKeyCode mSetKey;
+
+		class Sound* mOpend;
 	};
 }
 

@@ -18,6 +18,9 @@ namespace EH
 {
 	void JailScene3::Initialize()
 	{
+		Sound* BGM = Resources::Load<Sound>(L"JailFieldBGM", L"..\\Resources\\Sound\\BGM\\1.JailField.wav");
+		SetBGM(BGM);
+
 		SetSize(Math::Vector2<float>(1792.f, 768.f));
 		BackGround* JailBG3 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		JailBG3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(896.f, 384.f));

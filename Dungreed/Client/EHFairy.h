@@ -23,6 +23,8 @@ namespace EH
 
 	private:
 		UINT mHeal;
+
+		class Sound* mEquipSound;
 	};
 }
 

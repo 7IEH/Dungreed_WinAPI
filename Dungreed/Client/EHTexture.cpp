@@ -87,8 +87,8 @@ namespace EH
 
 		if (mType == eTextureType::Bmp)
 		{
-			if (alpha <= 1.0f)
-			{
+			/*if (alpha < 1.0f)
+			{*/
 				BLENDFUNCTION func = {};
 				func.BlendOp = AC_SRC_OVER;
 				func.BlendFlags = 0;
@@ -103,8 +103,8 @@ namespace EH
 					lefttop.x, lefttop.y,
 					size.x, size.y,
 					func);
-			}
-			else
+			//}
+			/*else
 			{
 				TransparentBlt(hdc,
 					pos.x - scale.x / 2.f + offset.x, pos.y - scale.y / 2.f + offset.y,
@@ -113,7 +113,7 @@ namespace EH
 					lefttop.x, lefttop.y,
 					size.x, size.y,
 					RGB(255, 0, 255));
-			}
+			}*/
 		}
 		else if (mType == eTextureType::Png)
 		{

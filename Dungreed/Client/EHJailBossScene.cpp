@@ -17,7 +17,9 @@ namespace EH
 {
 	JailBossScene::JailBossScene()
 		:
-		mIntro(0)
+		  mIntro(0)
+		, mCheck2{}
+		, mCheck1(0)
 	{
 	}
 
@@ -188,7 +190,7 @@ namespace EH
 
 		// Player
 		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(256.f, 500.f));
+		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(256.f, 700.f));
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 
 		Boss1->SetTarget(player);
@@ -202,17 +204,30 @@ namespace EH
 	{
 		Scene::Update();
 		mCheckTime += Time::GetDeltaTime();
-		if (mIntro == 0)
+		if (mIntro == 0 && 1.f < mCheckTime)
 		{
 			Camera::SetTarget(nullptr);
 			Camera::SetLookAt(Math::Vector2<float>(704.f, 598.f));
 			mBelialLaugh->Play(false);
 			mIntro++;
 		}
-
-		if (6.f < mCheckTime)
+		else if (9.f < mCheckTime)
 		{
 			Camera::SetTarget(GetPlayer());
+		}
+		else if (5.f < mCheckTime)
+		{
+			Math::Vector2<float> camerapos = Camera::GetLookAt();
+			Math::Vector2<float> playerpos = GetPlayer()->GetComponent<Transform>()->Getpos();
+
+			if (mCheck1 == 0)
+			{
+				mCheck2 = playerpos - camerapos;
+				mCheck1++;
+			}
+			
+			camerapos += mCheck2.normalized<float>() * 300.f * Time::GetDeltaTime();
+			Camera::SetLookAt(camerapos);
 		}
 	}
 

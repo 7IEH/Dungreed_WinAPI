@@ -19,7 +19,7 @@ namespace EH
 {
 	Player::Player()
 		:
-		  mCurHp(Objdata::GetHP())
+		mCurHp(Objdata::GetHP())
 		, mMaxHP(Objdata::GetMaxHP())
 		, mGold(Objdata::GetGold())
 		, mFood(Objdata::GetFood())
@@ -38,6 +38,7 @@ namespace EH
 		, mCheckTime(0.f)
 		, mWeaponCollider(nullptr)
 		, mSound(nullptr)
+		, Trans(false)
 	{
 		AddComponent<Rigidbody>();
 
@@ -68,6 +69,10 @@ namespace EH
 
 		texture = Resources::Load<Texture>(L"PlayerLeftJump", L"..\\Resources\\Player\\Basic\\Jump\\CharLeftJump.bmp");
 		animator->CreateAnimation(L"PlayerLeftJump", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+
+		texture = Resources::Load<Texture>(L"Trans", L"..\\Resources\\Player\\Basic\\Trans.png");
+		animator->CreateAnimation(L"Trans", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+
 		AddComponent<Collider>();
 		GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 128.f));
 		GetComponent<Collider>()->SetOffset(Math::Vector2<float>(0.f, 0.f));
@@ -123,6 +128,9 @@ namespace EH
 
 	void Player::Update()
 	{
+		if (Trans)
+			return;
+
 		GameObject::Update();
 		mIsJump = GetComponent<Rigidbody>()->GetGround();
 
@@ -175,7 +183,7 @@ namespace EH
 		mFood = Objdata::GetFood();
 		mCurDash = Objdata::GetDash();
 		mMaxHP = Objdata::GetMaxHP();
-		
+
 		if (mWeapon != Objdata::GetWeapon())
 		{
 			//BackGround* weapon = object::Instantiate<BackGround>(enums::eLayerType::UI);
@@ -234,35 +242,35 @@ namespace EH
 		GameObject::Render(hdc);
 
 		// UI text
-		SetTextColor(hdc, RGB(255, 255, 255));
-		SetBkMode(hdc, TRANSPARENT);
+		// SetTextColor(hdc, RGB(255, 255, 255));
+		////SetBkMode(hdc, TRANSPARENT);
 		wchar_t szFloat[50] = {};
-		HFONT hNewFont;
-		HFONT hOldFont;
-		hNewFont = CreateFont(42, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("NeoµÕ±Ù¸ð"));
-		hOldFont = (HFONT)SelectObject(hdc, hNewFont);
+		//HFONT hNewFont;
+		//HFONT hOldFont;
+		//hNewFont = CreateFont(42, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("NeoµÕ±Ù¸ð"));
+		//hOldFont = (HFONT)SelectObject(hdc, hNewFont);
 
 		swprintf_s(szFloat, 50, L"%d / %d", mCurHp, mMaxHP);
 		int strLen = wcsnlen_s(szFloat, 50);
 		TextOutW(hdc, 125, 20, szFloat, strLen);
 
-		swprintf_s(szFloat, 50, L"%d", mLevel);
-		strLen = wcsnlen_s(szFloat, 50);
-		TextOutW(hdc, 43, 20, szFloat, strLen);
+		//swprintf_s(szFloat, 50, L"%d", mLevel);
+		//strLen = wcsnlen_s(szFloat, 50);
+		//TextOutW(hdc, 43, 20, szFloat, strLen);
 
-		hNewFont = CreateFont(27, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("NeoµÕ±Ù¸ð"));
-		SelectObject(hdc, hNewFont);
+		//hNewFont = CreateFont(27, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("NeoµÕ±Ù¸ð"));
+		//SelectObject(hdc, hNewFont);
 
 		swprintf_s(szFloat, 50, L"%d", mGold);
 		strLen = wcsnlen_s(szFloat, 50);
 		TextOutW(hdc, 65, 649, szFloat, strLen);
 
-		swprintf_s(szFloat, 50, L"%d / 100", mFood);
-		strLen = wcsnlen_s(szFloat, 50);
-		TextOutW(hdc, 65, 675, szFloat, strLen);
+		//swprintf_s(szFloat, 50, L"%d / 100", mFood);
+		//strLen = wcsnlen_s(szFloat, 50);
+		//TextOutW(hdc, 65, 675, szFloat, strLen);
 
-		SelectObject(hdc, hOldFont);
-		DeleteObject(hNewFont);
+		//SelectObject(hdc, hOldFont);
+		//DeleteObject(hNewFont);
 	}
 
 	// ³ªÁß¿¡ Á¤¸®

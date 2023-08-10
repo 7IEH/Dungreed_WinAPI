@@ -18,6 +18,9 @@ namespace EH
 
 		float mCheckTime;
 		class Sound* mBelialLaugh;
+
+		Math::Vector2<float> mCheck2;
+		UINT mCheck1;
 	};
 }
 

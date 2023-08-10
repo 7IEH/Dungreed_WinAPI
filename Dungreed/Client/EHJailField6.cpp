@@ -15,6 +15,9 @@ namespace EH
 {
 	void JailField6::Initialize()
 	{
+		Sound* BGM = Resources::Load<Sound>(L"JailFieldBGM", L"..\\Resources\\Sound\\BGM\\Foodshop.wav");
+		SetBGM(BGM);
+
 		SetSize(Math::Vector2<float>(1472.f, 832.f));
 		BackGround* JailBG6 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		JailBG6->GetComponent<Transform>()->SetPos(Math::Vector2<float>(736.f, 416.f));
@@ -138,6 +141,24 @@ namespace EH
 		trigger2->SetType(Trigger::eTriggertype::Scenechange);
 		trigger2->SetScenename(L"JailScene2");
 
+		// Inn
+		GameObject* InnSt = object::Instantiate<GameObject>(enums::eLayerType::Npc);
+		Transform* tr = InnSt->GetComponent<Transform>();
+		tr->SetPos(Math::Vector2<float>(704.f, 452.f));
+		tr->SetScale(Math::Vector2<float>(792.f, 368.f));
+		texture = Resources::Load<Texture>(L"Inn", L"..\\Resources\\Dungeon\\Common\\Inn\\DungeonInn.bmp");
+		SpriteRenderer* sr = InnSt->AddComponent<SpriteRenderer>();
+		sr->SetImg(texture);
+
+		GameObject* Inn = object::Instantiate<GameObject>(enums::eLayerType::Npc);
+		tr = Inn->GetComponent<Transform>();
+		tr->SetPos(Math::Vector2<float>(960.f, 590.f));
+		tr->SetScale(Math::Vector2<float>(60.f,92.f));
+		texture = Resources::Load<Texture>(L"InnNpcIdle", L"..\\Resources\\Dungeon\\Common\\Inn\\InnSheet.bmp");
+		Animator* ani = Inn->AddComponent<Animator>();
+		ani->CreateAnimation(L"InnNpcIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(15.f, 23.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		ani->PlayAnimation(L"InnNpcIdle", true);
+
 		// Steel
 		Wall* steel2 = object::Instantiate<Wall>(enums::eLayerType::Steel);
 		steel2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(32.f, 384.f));
@@ -145,7 +166,7 @@ namespace EH
 		steel2->AddComponent<Collider>();
 		steel2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 264.f));
 		steel2->SetRight(false);
-		Animator* ani = steel2->AddComponent<Animator>();
+		ani = steel2->AddComponent<Animator>();
 		texture = Resources::Load<Texture>(L"SteelRightOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Left\\SteelOpenSheet.bmp");
 		ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
 		texture = Resources::Load<Texture>(L"SteelRightExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Left\\SteelExitSheet.bmp");

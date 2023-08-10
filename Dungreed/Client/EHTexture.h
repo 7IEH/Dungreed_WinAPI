@@ -31,7 +31,7 @@ namespace EH
 			Math::Vector2<float> size,
 			Math::Vector2<float> lefttop = Math::Vector2<float>(0.f,0.f), 
 			Math::Vector2<float> offset = Math::Vector2<float>(0.f, 0.f),
-			float alpha = 1.f);
+			float alpha = 0.9f);
 
 	    void SetWidth(UINT width) { mWidth = width; }
 		void SetHeight(UINT height) { mHeight = height; }

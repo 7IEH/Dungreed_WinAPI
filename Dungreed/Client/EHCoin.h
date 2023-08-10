@@ -18,6 +18,7 @@ namespace EH
 		virtual void OnCollisionExit(class Collider* other) override;
 
 	private:
+		class Sound* mEquipSound;
 	};
 }
 

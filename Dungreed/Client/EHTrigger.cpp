@@ -17,6 +17,7 @@ namespace EH
 		, mSetKey(eKeyCode::END)
 	{
 		mDungeoneat = Resources::Load<Sound>(L"Dungeonout", L"..\\Resources\\Sound\\Structure\\DungeonOut.wav");
+		mOpend = Resources::Load<Sound>(L"opend", L"..\\Resources\\Sound\\Item\\Chest2.wav");
 	}
 
 	Trigger::~Trigger()
@@ -52,6 +53,8 @@ namespace EH
 		case EH::Trigger::eTriggertype::Scenechange:
 			SceneChange();
 			break;
+		case EH::Trigger::eTriggertype::Tresure:
+			break;
 		case EH::Trigger::eTriggertype::None:
 			break;
 		default:
@@ -62,58 +65,75 @@ namespace EH
 	void Trigger::OnCollisionStay(Collider* other)
 	{
 		
-		if (SceneManager::GetCurScene()->GetLayer(enums::eLayerType::Enemy).GetObjects().size() == 0)
+		if (mType == eTriggertype::Tresure)
 		{
-			
-			if (Input::Getkey(mSetKey).state == eKeyState::DOWN)
+			if (Input::Getkey(eKeyCode::G).state == eKeyState::DOWN)
 			{
-				if (SceneManager::GetCurScene()->GetBGM() != nullptr)
-					SceneManager::GetCurScene()->GetBGM()->Stop(true);
-
-				Scene* mCurScene = SceneManager::LoadScene(mScenename);
-				if (mCurScene != nullptr)
-				{
-					if (mCurScene->GetBGM() != nullptr)
-						mCurScene->GetBGM()->Play(true);
-
-					if (mCurScene->GetPlayer() != nullptr)
-						Camera::SetTarget(mCurScene->GetPlayer());
-				}
+				mOpend->Play(false);
+				GetComponent<Animator>()->PlayAnimation(L"OpenTresure", false);
 			}
 		}
 
-		if (mScenename == L"JailScene1" && SceneManager::GetCurScene()->GetName() == L"TownScene")
+		if (mType == eTriggertype::Scenechange)
 		{
-			mCheckTime += Time::GetDeltaTime();
-
-			if (mDelayTime / 2.f < mCheckTime && mCheck1 == 0)
+			if (SceneManager::GetCurScene()->GetLayer(enums::eLayerType::Enemy).GetObjects().size() == 0)
 			{
-				SceneManager::GetCurScene()->GetPlayer()->GetComponent<Animator>()->SetActiveAnimation(nullptr, false);
-				mCheck1++;
-			}
 
-			if (mDelayTime < mCheckTime)
-			{
-				Scene* mCurScene = SceneManager::LoadScene(mScenename);
-				if (mCurScene != nullptr)
+				if (mSetKey != eKeyCode::END)
 				{
-					if (mCurScene->GetBGM() != nullptr)
-						mCurScene->GetBGM()->Play(true);
+					if (Input::Getkey(mSetKey).state == eKeyState::DOWN)
+					{
+						if (SceneManager::GetCurScene()->GetBGM() != nullptr)
+							SceneManager::GetCurScene()->GetBGM()->Stop(true);
 
-					if (mCurScene->GetPlayer() != nullptr)
-						Camera::SetTarget(mCurScene->GetPlayer());
+						Scene* mCurScene = SceneManager::LoadScene(mScenename);
+						if (mCurScene != nullptr)
+						{
+							if (mCurScene->GetBGM() != nullptr)
+								mCurScene->GetBGM()->Play(true);
+
+							if (mCurScene->GetPlayer() != nullptr)
+								Camera::SetTarget(mCurScene->GetPlayer());
+						}
+					}
 				}
-				mCheckTime = 0.f;
-				mCheck1 = 0;
 			}
-			else
+
+			if (mScenename == L"JailScene1" && SceneManager::GetCurScene()->GetName() == L"TownScene")
 			{
-				Player* player = dynamic_cast<Player*>(other->GetOwner());
-				Transform* playertr = player->GetComponent<Transform>();
-				Transform* duntr = mDungeoneater->GetComponent<Transform>();
-				Animator* ani = mDungeoneater->GetComponent<Animator>();
-				duntr->SetPos(Math::Vector2<float>(playertr->Getpos().x, 1127.f));
-				ani->PlayAnimation(L"Dungeoneat", false);
+				mCheckTime += Time::GetDeltaTime();
+
+				if (mDelayTime / 4.f < mCheckTime && mCheck1 == 0)
+				{
+					SceneManager::GetCurScene()->GetPlayer()->GetComponent<Animator>()->PlayAnimation(L"Trans", false);
+					SceneManager::GetCurScene()->GetPlayer()->SetTrans(true);
+
+					mCheck1++;
+				}
+
+				if (mDelayTime < mCheckTime)
+				{
+					Scene* mCurScene = SceneManager::LoadScene(mScenename);
+					if (mCurScene != nullptr)
+					{
+						if (mCurScene->GetBGM() != nullptr)
+							mCurScene->GetBGM()->Play(true);
+
+						if (mCurScene->GetPlayer() != nullptr)
+							Camera::SetTarget(mCurScene->GetPlayer());
+					}
+					mCheckTime = 0.f;
+					mCheck1 = 0;
+				}
+				else
+				{
+					Player* player = dynamic_cast<Player*>(other->GetOwner());
+					Transform* playertr = player->GetComponent<Transform>();
+					Transform* duntr = mDungeoneater->GetComponent<Transform>();
+					Animator* ani = mDungeoneater->GetComponent<Animator>();
+					duntr->SetPos(Math::Vector2<float>(playertr->Getpos().x, 1127.f));
+					ani->PlayAnimation(L"Dungeoneat", false);
+				}
 			}
 		}
 	}
@@ -139,6 +159,8 @@ namespace EH
 		else
 		{
 			SceneManager::GetCurScene()->GetPlayer()->GetComponent<Transform>()->SetPos(Math::Vector2<float>(420.f, 500.f));
+			SceneManager::GetCurScene()->GetPlayer()->SetState(eAnimationState::Idle);
+
 			Scene* mCurScene = SceneManager::LoadScene(mScenename);
 			if (mCurScene != nullptr)
 			{
@@ -149,5 +171,10 @@ namespace EH
 					Camera::SetTarget(mCurScene->GetPlayer());
 			}
 		}
+	}
+
+	void Trigger::Tresure()
+	{
+		return;
 	}
 }

@@ -15,6 +15,9 @@ namespace EH
 {
 	void JailField5::Initialize()
 	{
+		Sound* BGM = Resources::Load<Sound>(L"JailFieldBGM", L"..\\Resources\\Sound\\BGM\\1.JailField.wav");
+		SetBGM(BGM);
+
 		SetSize(Math::Vector2<float>(1280.f,720.f));
 		BackGround* JailBG5 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		JailBG5->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f, 360.f));
@@ -95,6 +98,19 @@ namespace EH
 		trigger1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
 		trigger1->SetType(Trigger::eTriggertype::Scenechange);
 		trigger1->SetScenename(L"JailScene4");
+
+		Trigger* trigger2 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
+		trigger2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(688.f, 540.f));
+		trigger2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(84.f, 64.f));
+		trigger2->AddComponent<Collider>();
+		trigger2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(84.f, 64.f));
+		trigger2->SetType(Trigger::eTriggertype::Tresure);
+		Animator* ani = trigger2->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"OpenTresure", L"..\\Resources\\Item\\Chest\\GoldTresureOpened.bmp");
+		ani->CreateAnimation(L"OpenTresure", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(21.f, 16.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"CloseTresure", L"..\\Resources\\Item\\Chest\\GoldTresureClosed.bmp");
+		ani->CreateAnimation(L"CloseTresure", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(21.f, 16.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		ani->PlayAnimation(L"CloseTresure", false);
 
 		// SceneChanger Player
 		SetPlayer(player);

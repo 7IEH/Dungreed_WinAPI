@@ -17,6 +17,9 @@ namespace EH
 {
 	void JailScene10::Initialize()
 	{
+		Sound* BGM = Resources::Load<Sound>(L"JailFieldBGM", L"..\\Resources\\Sound\\BGM\\1.JailField.wav");
+		SetBGM(BGM);
+
 		SetSize(Math::Vector2<float>(2176.f, 720.f));
 
 		BackGround* JailSubBG10 = object::Instantiate<BackGround>(enums::eLayerType::BackGround);

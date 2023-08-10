@@ -2,6 +2,7 @@
 #include "EHPlayer.h"
 #include "EHObjdata.h"
 #include "EHResources.h"
+#include "EHSound.h"
 
 namespace EH
 {
@@ -15,6 +16,8 @@ namespace EH
 		Animator* animator = AddComponent<Animator>();
 		animator->CreateAnimation(L"GoldCoin", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(7.f, 7.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
 		animator->PlayAnimation(L"GoldCoin", true);
+
+		mEquipSound = Resources::Load<Sound>(L"CoinEquipSound", L"..\\Resources\\Sound\\Item\\EC Collect.wav");
 	}
 
 	Coin::~Coin()
@@ -40,6 +43,7 @@ namespace EH
 		Player* player = dynamic_cast<Player*>(other->GetOwner());
 		if (player != nullptr)
 		{
+			mEquipSound->Play(false);
 			Objdata::SetGold(Objdata::GetGold() + 100);
 			Destroy(this);
 		}
