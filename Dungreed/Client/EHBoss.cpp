@@ -13,17 +13,17 @@ namespace EH
 {
 	Boss::Boss()
 		:
-		  mCurState(eBossState::Idle)
+		mCurState(eBossState::Idle)
 		, mCurType(eBossAttack::None)
 		, mThinkTime(5.f)
 		, mDelayTime(0.f)
 		, mCheckTime(0.f)
 		, mSubDelayTime(0.f)
 		, mSubCheckTime(0.f)
-		, mSword(0)
 		, mIsRight(true)
 		, IsDead(false)
 		, mSwordNameGroup{}
+		, mSwordNumbering(0)
 	{
 		mLeftHand = object::Instantiate<BossHand>(enums::eLayerType::Enemy);
 		Transform* tr = mLeftHand->GetComponent<Transform>();
@@ -44,6 +44,8 @@ namespace EH
 		mRightHand->GetComponent<Animator>()->CreateAnimation(L"BossRightHand", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 69.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
 		mRightHand->GetComponent<Animator>()->PlayAnimation(L"BossRightHand", true);
 		mRightHand->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		mSpawnSword = Resources::Load<Sound>(L"SpawnSword", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\Sword\\SpawnMonster.wav");
 	}
 
 	Boss::~Boss()
@@ -74,7 +76,7 @@ namespace EH
 			break;
 		}
 	}
-	
+
 	void Boss::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
@@ -194,7 +196,7 @@ namespace EH
 					LeftHandTr->SetPos(pos);
 				}
 			}
-			
+
 		}
 	}
 
@@ -203,9 +205,34 @@ namespace EH
 		mCheckTime += Time::GetDeltaTime();
 		mSubCheckTime += Time::GetDeltaTime();
 		mDelayTime = 6.f;
-		mSubDelayTime = 1.f;
-		if(mDelayTime < mCheckTime)
-		{ 
+		mSubDelayTime = 0.5f;
+
+		// sword 1개씩 생성 총 6개 만들기
+		if (mSubDelayTime < mSubCheckTime && mSwordNumbering < 6)
+		{
+			Transform* playertr = mTarget->GetComponent<Transform>();
+			Bullet* sword1 = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
+			Transform* Swordtr = sword1->GetComponent<Transform>();
+			Transform* Bosstr = GetComponent<Transform>();
+			Swordtr->SetPos(Math::Vector2<float>(500.f + mSwordNumbering * 100.f, Bosstr->Getpos().y - 40.f));
+			Swordtr->SetScale(Math::Vector2<float>(84.f, 260.f));
+			SpriteRenderer* swordsr = sword1->AddComponent<SpriteRenderer>();
+			Texture* texture = Resources::Load<Texture>(L"BossSword" + std::to_wstring(mSwordNumbering), L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Sword\\BossSword.png");
+			float radian = Math::Radian(playertr->Getpos(), Swordtr->Getpos());
+			texture->SetDegree(radian * (180.f / 3.14f) + 90.f);
+			swordsr->SetImg(texture);
+			Collider* swordcol = sword1->AddComponent<Collider>();
+			swordcol->SetScale(Math::Vector2<float>(30.f, 200.f));
+			sword1->SetDeleteTime(2.f);
+			sword1->SetStop(true);
+			mSubCheckTime = 0.f;
+			mSwordNameGroup[mSwordNumbering] = sword1;
+			mSwordNumbering += 1;
+			mSpawnSword->Play(false);
+		}
+
+		if (mSwordNumbering == 6)
+		{
 			for (Bullet* sword : mSwordNameGroup)
 			{
 				if (sword == nullptr)
@@ -217,28 +244,15 @@ namespace EH
 			mCurState = eBossState::Idle;
 			mCurType = eBossAttack::None;
 			mCheckTime = 0.f;
-			mSword = 0;
+			mSwordNumbering = 0;
 		}
 		else
 		{
-			// sword 1개씩 생성 총 6개 만들기
-			if (mSubDelayTime < mSubCheckTime)
+			for (UINT i = 0;i < mSwordNumbering;i++)
 			{
-				Bullet* sword1 = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
-				Transform* Swordtr = sword1->GetComponent<Transform>();
-				Transform* Bosstr = GetComponent<Transform>();
-				Swordtr->SetPos(Math::Vector2(600.f + mSword * 100.f,Bosstr->Getpos().y + 20.f));
-				sword1->AddComponent<Collider>();
-				sword1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(30.f, 200.f));
-				sword1->SetDeleteTime(2.f);
-				sword1->SetStop(true);
-				mSubCheckTime = 0.f;
-				mSwordNameGroup[mSword] = sword1;
-				mSword += 1;
-			}
-			else
-			{
-				// 그리고 삭제
+				Transform* playertr = mTarget->GetComponent<Transform>();	
+				float radian = Math::Radian(playertr->Getpos(), mSwordNameGroup[i]->GetComponent<Transform>()->Getpos());
+				mSwordNameGroup[i]->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(radian* (180.f / 3.14f) + 90.f);
 			}
 		}
 	}

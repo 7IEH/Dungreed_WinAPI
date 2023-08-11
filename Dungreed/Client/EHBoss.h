@@ -62,14 +62,15 @@ namespace EH
 		float mCheckTime;
 		float mSubCheckTime;
 
-		// Sword
-		int mSword;
-
 		// Right,Left
 		float mIsRight;
 
 		// Sword Group
 		class Bullet* mSwordNameGroup[6];
+		UINT mSwordNumbering;
+
+		// Sound
+		class Sound* mSpawnSword;
 	};
 }
 
