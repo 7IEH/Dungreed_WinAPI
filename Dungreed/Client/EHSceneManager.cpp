@@ -1,27 +1,6 @@
 #include "EHSceneManager.h"
-#include "EHTitleScene.h"
-#include "EHSelectScene.h"
-#include "EHTownScene.h"
-#include "EHJailScene18.h"
-#include "EHJailPrevBossScene.h"
-#include "EHJailBossScene.h"
-#include "EHJailScene1.h"
-#include "EHJailScene2.h"
-#include "EHJailScene3.h"
-#include "EHJailScene4.h"
-#include "EHJailField5.h"
-#include "EHJailField6.h"
-#include "EHJailField7.h"
-#include "EHJailField8.h"
-#include "EHJailScene9.h"
-#include "EHJailScene10.h"
-#include "EHJailScene11.h"
-#include "EHJailScene12.h"
-#include "EHJailScene13.h"
-#include "EHJailScene14.h"
-#include "EHJailScene15.h"
-#include "EHJailScene16.h"
-#include "EHJailScene17.h"
+#include "SceneHeader.h"
+
 
 namespace EH
 {
@@ -55,7 +34,28 @@ namespace EH
 		CreateScene<JailScene17>(L"JailScene17");
 		CreateScene<JailScene18>(L"JailScene18");
 
-		LoadScene(L"JailBossScene");
+		// ICE
+		CreateScene<IceScene1>(L"IceScene1");
+		CreateScene<IceScene2>(L"IceScene2");
+		CreateScene<IceScene3>(L"IceScene3");
+		CreateScene<IceScene4>(L"IceScene4");
+		CreateScene<IceScene5>(L"IceScene5");
+		CreateScene<IceScene6>(L"IceScene6");
+		CreateScene<IceScene7>(L"IceScene7");
+		CreateScene<IceScene8>(L"IceScene8");
+		CreateScene<IceScene9>(L"IceScene9");
+		CreateScene<IceScene10>(L"IceScene10");
+		CreateScene<IceScene11>(L"IceScene11");
+		CreateScene<IceScene12>(L"IceScene12");
+		CreateScene<IceScene13>(L"IceScene13");
+		CreateScene<IceScene14>(L"IceScene14");
+		CreateScene<IceScene15>(L"IceScene15");
+		CreateScene<IceScene16>(L"IceScene16");
+		CreateScene<IceScene17>(L"IceScene17");
+		CreateScene<IceScene18>(L"IceScene18");
+		CreateScene<IceScene19>(L"IceScene19");
+
+		LoadScene(L"IceScene1");
 	}
 
 	void SceneManager::Release()

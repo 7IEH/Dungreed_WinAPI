@@ -37,7 +37,7 @@ namespace EH
 		if (mbAffectedCamera)
 			pos = Camera::CaculatePos(pos);
 
-		/*HBRUSH hTransParentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+		HBRUSH hTransParentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
 		HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hTransParentBrush);
 
 		HPEN hPen = nullptr;
@@ -69,7 +69,7 @@ namespace EH
 		DeleteObject(hTransParentBrush);
 
 		SelectObject(hdc, hOldPen);
-		DeleteObject(hPen);*/
+		DeleteObject(hPen);
 	}
 
 	void Collider::OnCollisionEnter(Collider* other)

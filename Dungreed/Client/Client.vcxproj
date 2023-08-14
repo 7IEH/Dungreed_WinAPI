@@ -228,6 +228,7 @@
     <ClInclude Include="EHJailPrevBossScene.h" />
     <ClInclude Include="EHGiantBat.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SceneHeader.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="EHResource.h" />
     <ClInclude Include="EHResources.h" />

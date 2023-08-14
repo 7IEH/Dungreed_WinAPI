@@ -304,12 +304,6 @@
     <Filter Include="Contents\Scene\4.Dungeon\2.IceField\IceField\IceField5">
       <UniqueIdentifier>{a4a756b3-eda5-47fd-98a2-d6479aed2ab5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\2.IceField\IceField\IceFiedl6">
-      <UniqueIdentifier>{2b4bf105-f3db-44fe-9a8f-d3c15a4141cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\4.Dungeon\2.IceField\IceField\IceFiedl7">
-      <UniqueIdentifier>{f94ae87b-f52f-48d9-9a53-d18507491ba5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Scene\4.Dungeon\2.IceField\IceField\IceField8">
       <UniqueIdentifier>{8513e434-3729-4536-92ce-ba2154ed7b17}</UniqueIdentifier>
     </Filter>
@@ -345,6 +339,12 @@
     </Filter>
     <Filter Include="Contents\Scene\4.Dungeon\2.IceField\IceField\IceField19">
       <UniqueIdentifier>{be70f5c7-4da0-4b6b-b1f3-65b97d423782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\2.IceField\IceField\IceField6">
+      <UniqueIdentifier>{2b4bf105-f3db-44fe-9a8f-d3c15a4141cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\2.IceField\IceField\IceField7">
+      <UniqueIdentifier>{f94ae87b-f52f-48d9-9a53-d18507491ba5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -610,10 +610,10 @@
       <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField5</Filter>
     </ClInclude>
     <ClInclude Include="EHIceScene6.h">
-      <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceFiedl6</Filter>
+      <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField6</Filter>
     </ClInclude>
     <ClInclude Include="EHIceScene7.h">
-      <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceFiedl7</Filter>
+      <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField7</Filter>
     </ClInclude>
     <ClInclude Include="EHIceScene8.h">
       <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField8</Filter>
@@ -650,6 +650,9 @@
     </ClInclude>
     <ClInclude Include="EHIceScene19.h">
       <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField19</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneHeader.h">
+      <Filter>Contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -907,10 +910,10 @@
       <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField5</Filter>
     </ClCompile>
     <ClCompile Include="EHIceScene6.cpp">
-      <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceFiedl6</Filter>
+      <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField6</Filter>
     </ClCompile>
     <ClCompile Include="EHIceScene7.cpp">
-      <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceFiedl7</Filter>
+      <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField7</Filter>
     </ClCompile>
     <ClCompile Include="EHIceScene8.cpp">
       <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField8</Filter>
