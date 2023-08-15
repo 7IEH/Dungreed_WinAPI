@@ -20,6 +20,7 @@ namespace EH
         mDect = object::Instantiate<Detection>(enums::eLayerType::Detect);
         Collider* dectcol = mDect->AddComponent<Collider>();
         dectcol->SetScale(Math::Vector2<float>(500.f, 16.f));
+
         Animator* ani = AddComponent<Animator>();
         Texture* texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");
         ani->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
@@ -53,6 +54,7 @@ namespace EH
         bulletcol->SetScale(Math::Vector2<float>(100.f, 100.f));
         bulletcol->SetType(Collider::eColliderType::Circle);
         mBullet->SetDelete(false);
+        bulletcol->enabled(false);
     }
 
     JailWarrior::~JailWarrior()
@@ -149,7 +151,9 @@ namespace EH
             Collider* bulletcol = mBullet->GetComponent<Collider>();
             bulletcol->enabled(false);
 
-            mDect->GetComponent<Collider>()->enabled(false);
+            if(mDect->GetComponent<Collider>()->GetEnabled())
+                mDect->GetComponent<Collider>()->enabled(false);
+
             Transform* tr = GetComponent<Transform>();
             Transform* playertr = GetTarget()->GetComponent<Transform>();
 
@@ -202,7 +206,6 @@ namespace EH
 
     void JailWarrior::Attack()
     {
-
         Rigidbody* rigid = GetComponent<Rigidbody>();
         rigid->SetVeclocity(Math::Vector2<float>(0.f, 0.f));
         if (GetHP() <= 0.f)

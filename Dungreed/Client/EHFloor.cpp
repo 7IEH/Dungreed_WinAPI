@@ -5,6 +5,7 @@
 #include "EHCoin.h"
 #include "EHJailDog.h"
 #include "EHJailWarrior.h"
+#include "EHBigGrayIceSkel.h"
 
 namespace EH
 {
@@ -37,6 +38,7 @@ namespace EH
 		Coin* coin = dynamic_cast<Coin*>(other->GetOwner());
 		JailDog* dog = dynamic_cast<JailDog*>(other->GetOwner());
 		JailWarrior* warrior = dynamic_cast<JailWarrior*>(other->GetOwner());
+		BigGrayIceSkel* bigiceskel = dynamic_cast<BigGrayIceSkel*>(other->GetOwner());
 
 		if (player != nullptr)
 		{
@@ -134,6 +136,54 @@ namespace EH
 					Math::Vector2 warriorPos = warriortr->Getpos();
 					warriorPos.y -= (scale - len) - 1.0f;
 					warriortr->SetPos(warriorPos);
+				}
+			}
+		}
+
+		if (warrior != nullptr)
+		{
+			Transform* warriortr = warrior->GetComponent<Transform>();
+			Transform* floortr = GetComponent<Transform>();
+
+			Collider* warriorcol = warrior->GetComponent<Collider>();
+			Collider* floorcol = GetComponent<Collider>();
+
+			if (warrior->GetComponent<Rigidbody>()->GetVelocity().y > 0)
+			{
+				warrior->GetComponent<Rigidbody>()->SetGround(true);
+
+				float scale = fabs(warriorcol->GetScale().y / 2.f + floorcol->GetScale().y / 2.f);
+				float len = fabs(warriortr->Getpos().y - floortr->Getpos().y);
+
+				if (len < scale)
+				{
+					Math::Vector2 warriorPos = warriortr->Getpos();
+					warriorPos.y -= (scale - len) - 1.0f;
+					warriortr->SetPos(warriorPos);
+				}
+			}
+		}
+
+		if (bigiceskel != nullptr)
+		{
+			Transform* bigiceskeltr = bigiceskel->GetComponent<Transform>();
+			Transform* floortr = GetComponent<Transform>();
+
+			Collider* bigiceskelcol = bigiceskel->GetComponent<Collider>();
+			Collider* floorcol = GetComponent<Collider>();
+
+			if (bigiceskel->GetComponent<Rigidbody>()->GetVelocity().y > 0)
+			{
+				bigiceskel->GetComponent<Rigidbody>()->SetGround(true);
+
+				float scale = fabs(bigiceskelcol->GetScale().y / 2.f + floorcol->GetScale().y / 2.f);
+				float len = fabs(bigiceskeltr->Getpos().y - floortr->Getpos().y);
+
+				if (len < scale)
+				{
+					Math::Vector2 bigiceskelPos = bigiceskeltr->Getpos();
+					bigiceskelPos.y -= (scale - len) - 1.0f;
+					bigiceskeltr->SetPos(bigiceskelPos);
 				}
 			}
 		}

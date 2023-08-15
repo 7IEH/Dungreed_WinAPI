@@ -346,6 +346,21 @@
     <Filter Include="Contents\Scene\4.Dungeon\2.IceField\IceField\IceField7">
       <UniqueIdentifier>{f94ae87b-f52f-48d9-9a53-d18507491ba5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Enemy\IceField">
+      <UniqueIdentifier>{76c4cc93-cfd7-48b9-a591-2476e74e5bfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\IceField\Normal">
+      <UniqueIdentifier>{231345c2-30e9-4238-a111-18f118aeecca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\IceField\Boss">
+      <UniqueIdentifier>{92ca332d-4a80-492e-85c5-630816f0bbbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\IceField\Normal\SkelIceMagician">
+      <UniqueIdentifier>{a5580d34-b7a1-4e68-941a-627a691e7a61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Enemy\IceField\Normal\BigGrayIceSkel">
+      <UniqueIdentifier>{f632c572-f54d-40e3-8c98-1f754a27e392}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -494,9 +509,6 @@
     </ClInclude>
     <ClInclude Include="EHJailScene12.h">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField12</Filter>
-    </ClInclude>
-    <ClInclude Include="EHEnemy.h">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal</Filter>
     </ClInclude>
     <ClInclude Include="EHJailScene13.h">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField13</Filter>
@@ -654,6 +666,15 @@
     <ClInclude Include="SceneHeader.h">
       <Filter>Contents</Filter>
     </ClInclude>
+    <ClInclude Include="EHEnemy.h">
+      <Filter>Contents\GameObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EHBigGrayIceSkel.h">
+      <Filter>Contents\GameObject\Enemy\IceField\Normal\BigGrayIceSkel</Filter>
+    </ClInclude>
+    <ClInclude Include="EHSkelIceMagician.h">
+      <Filter>Contents\GameObject\Enemy\IceField\Normal\SkelIceMagician</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -794,9 +815,6 @@
     </ClCompile>
     <ClCompile Include="EHJailScene12.cpp">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField12</Filter>
-    </ClCompile>
-    <ClCompile Include="EHEnemy.cpp">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal</Filter>
     </ClCompile>
     <ClCompile Include="EHJailScene13.cpp">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailField\JailField13</Filter>
@@ -950,6 +968,15 @@
     </ClCompile>
     <ClCompile Include="EHIceScene19.cpp">
       <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField19</Filter>
+    </ClCompile>
+    <ClCompile Include="EHEnemy.cpp">
+      <Filter>Contents\GameObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EHBigGrayIceSkel.cpp">
+      <Filter>Contents\GameObject\Enemy\IceField\Normal\BigGrayIceSkel</Filter>
+    </ClCompile>
+    <ClCompile Include="EHSkelIceMagician.cpp">
+      <Filter>Contents\GameObject\Enemy\IceField\Normal\SkelIceMagician</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

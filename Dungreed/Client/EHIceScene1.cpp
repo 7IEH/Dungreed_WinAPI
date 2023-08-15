@@ -8,6 +8,8 @@
 #include "EHTrigger.h"
 #include "EHPlayer.h"
 #include "EHCamera.h"
+#include "EHSkelIceMagician.h"
+#include "EHBigGrayIceSkel.h"
 
 namespace EH
 {
@@ -198,6 +200,16 @@ namespace EH
         trigger2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
         trigger2->SetType(Trigger::eTriggertype::Scenechange);
         trigger2->SetScenename(L"IceScene17");
+
+        // Enemy
+       /* SkelIceMagician* magician1 = object::Instantiate<SkelIceMagician>(enums::eLayerType::Enemy);
+        Transform* tr = magician1->GetComponent<Transform>();
+        tr->SetPos(Math::Vector2<float>(400.f, 300.f));*/
+
+        BigGrayIceSkel* biggrayiceskel = object::Instantiate<BigGrayIceSkel>(enums::eLayerType::Enemy);
+        Transform* tr = biggrayiceskel->GetComponent<Transform>();
+        tr->SetPos(Math::Vector2<float>(400.f, 300.f));
+        tr->SetScale(Math::Vector2<float>(100.f, 100.f));
 
         Camera::SetTarget(player);
     }

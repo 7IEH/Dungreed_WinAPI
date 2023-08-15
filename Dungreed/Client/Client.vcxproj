@@ -137,6 +137,7 @@
     <ClInclude Include="EHApplication.h" />
     <ClInclude Include="EHBackGround.h" />
     <ClInclude Include="EHBanshee.h" />
+    <ClInclude Include="EHBigGrayIceSkel.h" />
     <ClInclude Include="EHBoss.h" />
     <ClInclude Include="EHBossHand.h" />
     <ClInclude Include="EHButton.h" />
@@ -203,6 +204,7 @@
     <ClInclude Include="EHObjdata.h" />
     <ClInclude Include="EHRedGiantBat.h" />
     <ClInclude Include="EHRigidbody.h" />
+    <ClInclude Include="EHSkelIceMagician.h" />
     <ClInclude Include="EHSlope.h" />
     <ClInclude Include="EHSoundManager.h" />
     <ClInclude Include="EHTexture.h" />
@@ -240,6 +242,7 @@
     <ClCompile Include="EHApplication.cpp" />
     <ClCompile Include="EHBackGround.cpp" />
     <ClCompile Include="EHBanshee.cpp" />
+    <ClCompile Include="EHBigGrayIceSkel.cpp" />
     <ClCompile Include="EHBoss.cpp" />
     <ClCompile Include="EHBossHand.cpp" />
     <ClCompile Include="EHButton.cpp" />
@@ -307,6 +310,7 @@
     <ClCompile Include="EHObjdata.cpp" />
     <ClCompile Include="EHRedGiantBat.cpp" />
     <ClCompile Include="EHRigidbody.cpp" />
+    <ClCompile Include="EHSkelIceMagician.cpp" />
     <ClCompile Include="EHSlope.cpp" />
     <ClCompile Include="EHSoundManager.cpp" />
     <ClCompile Include="EHTexture.cpp" />
