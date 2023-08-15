@@ -29,6 +29,10 @@ namespace EH
 		bool mIsRight;
 
 		class GameObject* mMagicCircle;
+
+		// Sound
+		class Sound* mCircleSound;
+		class Sound* mIceBreakSound;
 	};
 }
 

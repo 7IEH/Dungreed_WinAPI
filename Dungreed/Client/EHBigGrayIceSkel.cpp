@@ -6,6 +6,7 @@
 #include "EHObject.h"
 #include "EHBullet.h"
 #include "EHPlayer.h"
+#include "EHResources.h"
 
 namespace EH
 {
@@ -25,7 +26,7 @@ namespace EH
 
 		// Delay
 		SetDelayTime(3.5f);
-		SetSubDelayTime(4.f);
+		SetSubDelayTime(2.f);
 
 		// Weapon Col
 		mBullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
@@ -35,11 +36,39 @@ namespace EH
 		mBullet->SetDelete(false);
 		bulletcol->enabled(false);
 
+		//Animator
+		Animator* ani = AddComponent<Animator>();
+		Texture* texture = Resources::Load<Texture>(L"BigGreyIceSkelRightIdle", L"..\\Resources\\Enemy\\IceField\\BigGrayIceSkel\\Idle\\Right\\BigGreyIceSkelIdle.bmp");
+		ani->CreateAnimation(L"BigGreyIceSkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(33.f, 30.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+		texture = Resources::Load<Texture>(L"BigGreyIceSkelLeftIdle", L"..\\Resources\\Enemy\\IceField\\BigGrayIceSkel\\Idle\\Left\\BigGreyIceSkelIdle.bmp");
+		ani->CreateAnimation(L"BigGreyIceSkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(33.f, 30.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+		texture = Resources::Load<Texture>(L"BigGreyIceSkelRightAttack", L"..\\Resources\\Enemy\\IceField\\BigGrayIceSkel\\Attack\\Normal\\Right\\BigGrayIceSkelAttack.bmp");
+		ani->CreateAnimation(L"BigGreyIceSkelRightAttack", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(70.f, 48.f), Math::Vector2<float>(0.f, -36.f), 13, 0.1f);
+
+		texture = Resources::Load<Texture>(L"BigGreyIceSkelLeftAttack", L"..\\Resources\\Enemy\\IceField\\BigGrayIceSkel\\Attack\\Normal\\Left\\BigGreyIceSkelAttack.bmp");
+		ani->CreateAnimation(L"BigGreyIceSkelLeftAttack", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(70.f, 48.f), Math::Vector2<float>(0.f, -36.f), 13, 0.1f);
+
+		texture = Resources::Load<Texture>(L"BigGreyIceSkelRightMove", L"..\\Resources\\Enemy\\IceField\\BigGrayIceSkel\\Move\\Right\\BigGrayIceSkelMove.bmp");
+		ani->CreateAnimation(L"BigGreyIceSkelRightMove", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(33.f, 30.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+
+		texture = Resources::Load<Texture>(L"BigGreyIceSkelLeftMove", L"..\\Resources\\Enemy\\IceField\\BigGrayIceSkel\\Move\\Left\\BigGrayIceSkelMove.bmp");
+		ani->CreateAnimation(L"BigGreyIceSkelLeftMove", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(33.f, 30.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+
+		texture = Resources::Load<Texture>(L"BigGreyIceSkelRightSkill", L"..\\Resources\\Enemy\\IceField\\BigGrayIceSkel\\Attack\\Skill\\Right\\BigGrayIceSkelSkill.bmp");
+		ani->CreateAnimation(L"BigGreyIceSkelRightSkill", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(40.f, 40.f), Math::Vector2<float>(0.f, -20.f), 13, 0.1f);
+
+		texture = Resources::Load<Texture>(L"BigGreyIceSkelLeftSkill", L"..\\Resources\\Enemy\\IceField\\BigGrayIceSkel\\Attack\\Skill\\Left\\BigGrayIceSkelSkill.bmp");
+		ani->CreateAnimation(L"BigGreyIceSkelLeftSkill", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(40.f, 40.f), Math::Vector2<float>(0.f, -20.f), 13, 0.1f);
+
+
+		ani->PlayAnimation(L"BigGreyIceSkelRightIdle", true);
 		// Rigidbody
 		Rigidbody* rigid = AddComponent<Rigidbody>();
 
 		Collider* col = AddComponent<Collider>();
-		col->SetScale(Math::Vector2<float>(400.f, 300.f));
+		col->SetScale(Math::Vector2<float>(132.f, 120.f));
 	}
 
 	BigGrayIceSkel::~BigGrayIceSkel()
@@ -118,6 +147,7 @@ namespace EH
 		SetCheckTime(thinktime += Time::GetDeltaTime());
 		mIsSkill = false;
 
+		Animator* ani = GetComponent<Animator>();
 
 		if (mIsRight)
 		{
@@ -138,8 +168,16 @@ namespace EH
 			if (GetDelayTime() < thinktime)
 			{
 				// playanimation
-				
-
+				if (mIsRight)
+				{
+					tr->SetScale(Math::Vector2<float>(160.f, 160.f));
+					ani->PlayAnimation(L"BigGreyIceSkelRightSkill", false);
+				}
+				else
+				{
+					tr->SetScale(Math::Vector2<float>(160.f, 160.f));
+					ani->PlayAnimation(L"BigGreyIceSkelLeftSkill", false);
+				}
 				mIsSkill = true;
 				SetCheckTime(0.f);
 				SetState(eState::Attack);
@@ -155,7 +193,17 @@ namespace EH
 				{
 					SetCheckTime(0.f);
 					SetState(eState::Attack);
-					// 공격 애니메이션
+					// playanimation
+					if (mIsRight)
+					{
+						tr->SetScale(Math::Vector2<float>(280.f, 192.f));
+						ani->PlayAnimation(L"BigGreyIceSkelRightAttack", false);
+					}
+					else
+					{
+						tr->SetScale(Math::Vector2<float>(280.f, 192.f));
+						ani->PlayAnimation(L"BigGreyIceSkelLeftAttack", false);
+					}
 				}
 				else
 				{
@@ -164,7 +212,7 @@ namespace EH
 					{
 						// Left run
 						rigid->AddForce(Math::Vector2<float>(-200.f, 0.f));
-						//ani->PlayAnimation(L"GreySkelLeftWalk", true);
+						ani->PlayAnimation(L"BigGreyIceSkelLeftMove", true);
 
 						tr->SetPos(pos);
 						mIsRight = false;
@@ -172,7 +220,7 @@ namespace EH
 					else
 					{
 						// Right run
-						//ani->PlayAnimation(L"GreySkelRightWalk", true);
+						ani->PlayAnimation(L"BigGreyIceSkelRightMove", true);
 						rigid->AddForce(Math::Vector2<float>(200.f, 0.f));
 						tr->SetPos(pos);
 						mIsRight = true;
@@ -184,8 +232,6 @@ namespace EH
 		{
 			SetTarget(mDect->passthetarget());
 		}
-
-		
 	}
 
 	void BigGrayIceSkel::Attack()
@@ -206,6 +252,7 @@ namespace EH
 		{
 			if (mCheck1 == 6)
 			{
+				tr->SetScale(Math::Vector2<float>(132.f, 120.f));
 				mCheck1 = 0;
 				SetState(eState::Idle);
 				SetSubCheckTime(0.f);
@@ -218,10 +265,15 @@ namespace EH
 					Transform* bullettr2 = bullet->GetComponent<Transform>();
 					Collider* bulletcol2 = bullet->AddComponent<Collider>();
 					bullettr2->SetPos(tr->Getpos());
-					//bullettr2->SetScale(Math::Vector2<float>(0.f, 0.f));
-					bulletcol2->SetScale(Math::Vector2<float>(40.f, 40.f));
+					bullettr2->SetScale(Math::Vector2<float>(36.f, 72.f));
+					SpriteRenderer* sr = bullet->AddComponent<SpriteRenderer>();
+					Texture* texture = Resources::Load<Texture>(L"IceBullet" + std::to_wstring(mCheck1), L"..\\Resources\\Enemy\\IceField\\SkelIceMagician\\Attack\\IceBullet.png");
+					sr->SetImg(texture);
+					bulletcol2->SetScale(Math::Vector2<float>(36.f, 36.f));
+					float radian = Math::Radian(playertr->Getpos(), tr->Getpos());
+					texture->SetDegree(radian * (180.f / 3.14f) - 90.f);
 					bullet->SetStop(false);
-					bullet->SetRadian(Math::Radian(playertr->Getpos(),tr->Getpos()));
+					bullet->SetRadian(radian);
 					bullet->SetDeleteTime(10.f);
 					bullet->SetPass(false);
 					SetSubCheckTime(0.f);
@@ -236,6 +288,7 @@ namespace EH
 
 			if (GetSubDelayTime() < chargetime)
 			{
+				tr->SetScale(Math::Vector2<float>(132.f, 120.f));
 				SetState(eState::Idle);
 				SetSubCheckTime(0.f);
 			}
