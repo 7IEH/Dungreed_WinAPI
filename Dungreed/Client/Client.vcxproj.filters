@@ -361,6 +361,9 @@
     <Filter Include="Contents\GameObject\Enemy\IceField\Normal\BigGrayIceSkel">
       <UniqueIdentifier>{f632c572-f54d-40e3-8c98-1f754a27e392}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailAfterBossScene">
+      <UniqueIdentifier>{e1f18ee1-7e55-48e1-b740-727e43c3bb2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -675,6 +678,9 @@
     <ClInclude Include="EHSkelIceMagician.h">
       <Filter>Contents\GameObject\Enemy\IceField\Normal\SkelIceMagician</Filter>
     </ClInclude>
+    <ClInclude Include="EHJailAfterBossScene.h">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailAfterBossScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -977,6 +983,9 @@
     </ClCompile>
     <ClCompile Include="EHSkelIceMagician.cpp">
       <Filter>Contents\GameObject\Enemy\IceField\Normal\SkelIceMagician</Filter>
+    </ClCompile>
+    <ClCompile Include="EHJailAfterBossScene.cpp">
+      <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailAfterBossScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

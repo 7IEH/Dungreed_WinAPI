@@ -1,6 +1,7 @@
 #pragma once
 #include "Commoninclude.h"
 #include "EHBossHand.h"
+#include "EHEnemy.h"
 
 namespace EH
 {
@@ -21,20 +22,20 @@ namespace EH
 		, None
 	};
 
-	class Boss : public GameObject
+	class Boss : public Enemy
 	{
 	public:
 		Boss();
 		virtual ~Boss();
 
-		virtual void Initialize();
-		virtual void Update();
-		virtual void Render(HDC hdc);
+		virtual void Initialize() override;
+		virtual void Update() override;
+		virtual void Render(HDC hdc) override;
 
 		// Boss State(FSM) Function
 		void Idle();
 		void Attack();
-		void Die();
+		void Dead();
 
 		// Boss Pattern Function
 		void OneLaser();
@@ -43,6 +44,10 @@ namespace EH
 		void Barrage();
 
 		void SetTarget(class Player* target) { mTarget = target; }
+
+		virtual void OnCollisionEnter(class Collider* other) override;
+		virtual void OnCollisionStay(class Collider* other) override;
+		virtual void OnCollisionExit(class Collider* other) override;
 
 	private:
 		// Boss Parameter 
@@ -71,6 +76,12 @@ namespace EH
 
 		// Sound
 		class Sound* mSpawnSword;
+
+		// Weapon Collider
+		class Weapon* mAttack;
+
+		// Boss UI
+		class Canvas* mCanvas;
 	};
 }
 

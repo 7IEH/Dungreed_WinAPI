@@ -6,8 +6,11 @@
 #include "EHComponent.h"
 #include "EHLaser.h"
 #include "EHBullet.h"
+#include "EHWeapon.h"
+#include "EHCollisionManager.h"
+#include "EHCanvas.h"
+#include "EHImageObject.h"
 #include <time.h>
-
 
 namespace EH
 {
@@ -24,7 +27,11 @@ namespace EH
 		, IsDead(false)
 		, mSwordNameGroup{}
 		, mSwordNumbering(0)
+		, mAttack(nullptr)
+		, mCanvas(nullptr)
 	{
+		SetHP(100.f);
+
 		mLeftHand = object::Instantiate<BossHand>(enums::eLayerType::Enemy);
 		Transform* tr = mLeftHand->GetComponent<Transform>();
 		tr->SetPos(Math::Vector2<float>(370.f, 822.f));
@@ -46,10 +53,33 @@ namespace EH
 		mRightHand->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		mSpawnSword = Resources::Load<Sound>(L"SpawnSword", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\Sword\\SpawnMonster.wav");
+
+		// UI Canvas
+		// UI setting
+		Canvas* BossUICanvas = object::Instantiate<Canvas>(enums::eLayerType::UI);
+		Texture* texture = Resources::Load<Texture>(L"BossLifeBack", L"..\\Resources\\Enemy\\Boss\\UI\\BossLifeBack.png");
+		BossUICanvas->AddImageObject(L"BossLifeBack", texture, false, Math::Vector2<float>(640.f, 670.f), Math::Vector2<float>(500.f, 64.f));
+
+		texture = Resources::Load<Texture>(L"BossHP", L"..\\Resources\\Enemy\\Boss\\UI\\BossLife.png");
+		BossUICanvas->AddImageObject(L"BossHP", texture, false, Math::Vector2<float>(676.f, 670.f), Math::Vector2<float>(402.f, 56.f));
+
+		texture = Resources::Load<Texture>(L"BossHPBase", L"..\\Resources\\Enemy\\Boss\\UI\\BossLifeBase.png");
+		BossUICanvas->AddImageObject(L"BossHPBase", texture, false, Math::Vector2<float>(640.f, 670.f), Math::Vector2<float>(500.f, 64.f));
+
+		texture = Resources::Load<Texture>(L"BossPortrait", L"..\\Resources\\Enemy\\Boss\\UI\\BossSkellPortrait.png");
+		BossUICanvas->AddImageObject(L"BossPortrait", texture, false, Math::Vector2<float>(435.f, 670.f), Math::Vector2<float>(68.f, 40.f));
+
+		mCanvas = BossUICanvas;
+
+		// Collider
+		Collider* col = AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(280.f, 396.f));
 	}
 
 	Boss::~Boss()
 	{
+		Destroy(mRightHand);
+		Destroy(mLeftHand);
 	}
 
 	void Boss::Initialize()
@@ -69,12 +99,19 @@ namespace EH
 			Attack();
 			break;
 		case EH::eBossState::Die:
+			Dead();
 			break;
 		case EH::eBossState::None:
 			break;
 		default:
 			break;
 		}
+
+		// UI Update
+		ImageObject* hp = mCanvas->Find(L"BossHP");
+		Transform* tr = hp->GetComponent<Transform>();
+		tr->SetPos(Math::Vector2<float>(676.f - ((402.f - 402.f * ((float)GetHP() / (float)100.f)) / 2.f), tr->Getpos().y));
+		tr->SetScale(Math::Vector2<float>(402.f * ((float)GetHP() / (float)100.f), tr->GetScale().y));
 	}
 
 	void Boss::Render(HDC hdc)
@@ -92,13 +129,19 @@ namespace EH
 		}
 	}
 
-	void Boss::Die()
+	void Boss::Dead()
 	{
-		IsDead = true;
+		CollisionManager::ForceExit(GetComponent<Collider>(), mAttack->GetComponent<Collider>());
+		Destroy(this);
 	}
 
 	void Boss::Attack()
 	{
+		if (GetHP() <= 0)
+		{
+			mCurState = eBossState::Die;
+		}
+
 		srand((UINT)time(NULL));
 		if (mCurType == eBossAttack::None)
 			mCurType = eBossAttack(rand() % ((UINT)eBossAttack::None));
@@ -267,5 +310,26 @@ namespace EH
 			mCurType = eBossAttack::None;
 			mCheckTime = 0.f;
 		}
+	}
+
+	void Boss::OnCollisionEnter(Collider* other)
+	{
+		// 플레이어 오브젝트 충돌
+		Weapon* weapon = dynamic_cast<Weapon*>(other->GetOwner());
+		if (weapon != nullptr)
+		{
+			UINT hp = GetHP();
+			SetHP(hp -= 20);
+			mAttack = weapon;
+			GetHitSound()->Play(false);
+		}
+	}
+
+	void Boss::OnCollisionStay(Collider* other)
+	{
+	}
+
+	void Boss::OnCollisionExit(Collider* other)
+	{
 	}
 }

@@ -12,6 +12,8 @@
 #include "EHCanvas.h"
 #include "EHCollisionManager.h"
 #include "EHIntro.h"
+#include "EHWall.h"
+#include "EHTrigger.h"
 
 namespace EH
 {
@@ -177,6 +179,43 @@ namespace EH
 		JailFloor9->AddComponent<Collider>();
 		JailFloor9->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1436.f, 64.f));
 		JailFloor9->GetComponent<Collider>()->SetAffectedCamera(true);
+
+		// Trigger
+		Trigger* trigger1 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
+		trigger1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1408.f, 1000.f));
+		trigger1->AddComponent<Collider>();
+		trigger1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+		trigger1->SetType(Trigger::eTriggertype::Scenechange);
+		trigger1->SetScenename(L"JailAfterBossScene");
+
+		// Steel
+		Wall* steel1 = object::Instantiate<Wall>(enums::eLayerType::Steel);
+		steel1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(32.f, 1000.f));
+		steel1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 264.f));
+		steel1->AddComponent<Collider>();
+		steel1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 264.f));
+		steel1->SetRight(false);
+		Animator* ani = steel1->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"SteelLeftOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Left\\SteelOpenSheet.bmp");
+		ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelLeftExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Left\\SteelExitSheet.bmp");
+		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelLeftIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Left\\SteelIdleSheet.bmp");
+		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+		Wall* steel2 = object::Instantiate<Wall>(enums::eLayerType::Steel);
+		steel2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1408.f, 1000.f));
+		steel2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 264.f));
+		steel2->AddComponent<Collider>();
+		steel2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+		steel2->SetRight(true);
+		ani = steel2->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"SteelRightOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelOpenSheet.bmp");
+		ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelRightExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelExitSheet.bmp");
+		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelIdleSheet.bmp");
+		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
 
 		// Boss
 		Boss* Boss1 = object::Instantiate<Boss>(enums::eLayerType::Enemy);

@@ -30,6 +30,7 @@ namespace EH
 		mClear.insert(std::make_pair(L"JailScene16", false));
 		mClear.insert(std::make_pair(L"JailScene17", false));
 		mClear.insert(std::make_pair(L"JailScene18", false));
+		mClear.insert(std::make_pair(L"JailBossScene", false));
 	}
 
 	void DungeonManager::Update()

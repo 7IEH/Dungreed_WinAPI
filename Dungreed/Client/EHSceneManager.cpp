@@ -14,6 +14,7 @@ namespace EH
 		// CreateScene<SelectScene>(L"SelectScene");
 		CreateScene<TownScene>(L"TownScene");
 		CreateScene<JailPrevBossScene>(L"JailPrevBossScene");
+		CreateScene<JailAfterBossScene>(L"JailAfterBossScene");
 		CreateScene<JailBossScene>(L"JailBossScene");
 		CreateScene<JailScene1>(L"JailScene1");
 		CreateScene<JailScene2>(L"JailScene2");
@@ -55,7 +56,7 @@ namespace EH
 		CreateScene<IceScene18>(L"IceScene18");
 		CreateScene<IceScene19>(L"IceScene19");
 
-		LoadScene(L"IceScene1");
+		LoadScene(L"JailPrevBossScene");
 	}
 
 	void SceneManager::Release()

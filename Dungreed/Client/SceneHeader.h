@@ -26,6 +26,7 @@
 #include "EHJailScene18.h"
 #include "EHJailPrevBossScene.h"
 #include "EHJailBossScene.h"
+#include "EHJailAfterBossScene.h"
 
 // ICE
 #include "EHIceScene1.h"

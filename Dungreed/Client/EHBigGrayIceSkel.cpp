@@ -236,6 +236,11 @@ namespace EH
 
 	void BigGrayIceSkel::Attack()
 	{
+		if (GetHP() <= 0)
+		{
+			SetState(eState::Dead);
+		}
+
 		Rigidbody* rigid = GetComponent<Rigidbody>();
 		rigid->SetVeclocity(Math::Vector2<float>(0.f, 0.f));
 		Transform* tr = GetComponent<Transform>();
