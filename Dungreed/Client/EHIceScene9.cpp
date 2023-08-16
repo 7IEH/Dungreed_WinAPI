@@ -7,6 +7,7 @@
 #include "EHWall.h"
 #include "EHTrigger.h"
 #include "EHPlayer.h"
+#include "EHIntro.h"
 
 namespace EH
 {
@@ -84,6 +85,19 @@ namespace EH
         trigger1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
         trigger1->SetType(Trigger::eTriggertype::Scenechange);
         trigger1->SetScenename(L"IceScene8");
+
+        Trigger* trigger2 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
+        trigger2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(684.f, 462.f));
+        trigger2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(228.f, 260.f));
+        SpriteRenderer* sr = trigger2->AddComponent<SpriteRenderer>();
+        texture = Resources::Load<Texture>(L"IceDoor0", L"..\\Resources\\Dungeon\\Belial\\Door0.png");
+        sr->SetImg(texture);
+        sr->SetAffectCamera(true);
+        trigger2->AddComponent<Collider>();
+        trigger2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(228.f, 260.f));
+        trigger2->SetType(Trigger::eTriggertype::Scenechange);
+        trigger2->SetScenename(L"IcePrevBossScene");
+        trigger2->SetKey(eKeyCode::W);
 	}
 
 	void IceScene9::Update()

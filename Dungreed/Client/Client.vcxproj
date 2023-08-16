@@ -155,6 +155,8 @@
     <ClInclude Include="EHFairy.h" />
     <ClInclude Include="EHFloor.h" />
     <ClInclude Include="EHGameObject.h" />
+    <ClInclude Include="EHIceBossScene.h" />
+    <ClInclude Include="EHIcePrevBossScene.h" />
     <ClInclude Include="EHIceScene1.h" />
     <ClInclude Include="EHIceScene10.h" />
     <ClInclude Include="EHIceScene11.h" />
@@ -230,6 +232,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="EHJailPrevBossScene.h" />
     <ClInclude Include="EHGiantBat.h" />
+    <ClInclude Include="EHNiflheim.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneHeader.h" />
     <ClInclude Include="targetver.h" />
@@ -261,6 +264,8 @@
     <ClCompile Include="EHFairy.cpp" />
     <ClCompile Include="EHFloor.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
+    <ClCompile Include="EHIceBossScene.cpp" />
+    <ClCompile Include="EHIcePrevBossScene.cpp" />
     <ClCompile Include="EHIceScene1.cpp" />
     <ClCompile Include="EHIceScene10.cpp" />
     <ClCompile Include="EHIceScene11.cpp" />
@@ -336,6 +341,7 @@
     <ClCompile Include="EHWall.cpp" />
     <ClCompile Include="EHWeapon.cpp" />
     <ClCompile Include="EHGiantBat.cpp" />
+    <ClCompile Include="EHNiflheim.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

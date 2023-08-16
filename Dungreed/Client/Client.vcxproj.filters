@@ -681,6 +681,15 @@
     <ClInclude Include="EHJailAfterBossScene.h">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailAfterBossScene</Filter>
     </ClInclude>
+    <ClInclude Include="EHIcePrevBossScene.h">
+      <Filter>Contents\Scene\4.Dungeon\2.IceField\IcePrevBossScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EHIceBossScene.h">
+      <Filter>Contents\Scene\4.Dungeon\2.IceField\IceBossScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EHNiflheim.h">
+      <Filter>Contents\GameObject\Enemy\IceField\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -986,6 +995,15 @@
     </ClCompile>
     <ClCompile Include="EHJailAfterBossScene.cpp">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailAfterBossScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EHIcePrevBossScene.cpp">
+      <Filter>Contents\Scene\4.Dungeon\2.IceField\IcePrevBossScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EHIceBossScene.cpp">
+      <Filter>Contents\Scene\4.Dungeon\2.IceField\IceBossScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EHNiflheim.cpp">
+      <Filter>Contents\GameObject\Enemy\IceField\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

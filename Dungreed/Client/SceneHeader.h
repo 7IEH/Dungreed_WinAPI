@@ -48,3 +48,5 @@
 #include "EHIceScene17.h"
 #include "EHIceScene18.h"
 #include "EHIceScene19.h"
+#include "EHIcePrevBossScene.h"
+#include "EHIceBossScene.h"
