@@ -17,7 +17,16 @@ namespace EH
 		virtual void OnCollisionStay(class Collider* other);
 		virtual void OnCollisionExit(class Collider* other);
 
+		void SetLaserPos(Math::Vector2<float> pos);
+		void SetRight(bool isright) { mIsRight = isright; }
+
 	private:
+		bool mIsRight;
+		GameObject* mRightLaser[10];
+		GameObject* mLeftLaser[10];
+
+		float mCheckTime;
+		float mDeleteTime;
 	};
 }
 

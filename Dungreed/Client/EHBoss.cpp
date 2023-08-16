@@ -29,16 +29,23 @@ namespace EH
 		, mSwordNumbering(0)
 		, mAttack(nullptr)
 		, mCanvas(nullptr)
+		, mCheck2(0)
+		, mCheck1(0)
+		, mRightLaserani(false)
+		, mLeftLaserani(false)
 	{
 		SetHP(100.f);
 
+		// HAND
 		mLeftHand = object::Instantiate<BossHand>(enums::eLayerType::Enemy);
 		Transform* tr = mLeftHand->GetComponent<Transform>();
 		tr->SetPos(Math::Vector2<float>(370.f, 822.f));
 		tr->SetScale(Math::Vector2<float>(228.f, 276.f));
-		Texture* temp = Resources::Load<Texture>(L"BossLeftHandIdle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleLeft\\SkellBossLeftHandIdleSheet.bmp");
+		Texture* temp = Resources::Load<Texture>(L"BossLeftHandIdle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleLeft\\SkellBossLeftHandIdleSheet.bmp"); 
 		mLeftHand->AddComponent<Animator>();
 		mLeftHand->GetComponent<Animator>()->CreateAnimation(L"BossLeftHandIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 69.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		temp = Resources::Load<Texture>(L"BossLeftHandAttack", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Attack\\Laser\\Left\\SkelBossHandAttack.bmp");
+		mLeftHand->GetComponent<Animator>()->CreateAnimation(L"BossLeftHandAttack", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(70.f, 80.f), Math::Vector2<float>(0.f, 0.f), 18, 0.1f);
 		mLeftHand->GetComponent<Animator>()->PlayAnimation(L"BossLeftHandIdle", true);
 		mLeftHand->GetComponent<Animator>()->SetAffectedCamera(true);
 
@@ -46,13 +53,27 @@ namespace EH
 		tr = mRightHand->GetComponent<Transform>();
 		tr->SetPos(Math::Vector2<float>(1106.f, 542.f));
 		tr->SetScale(Math::Vector2<float>(228.f, 276.f));
-		temp = Resources::Load<Texture>(L"BossRightHand", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleRight\\SkellBossRightHandIdleSheet.bmp");
+		temp = Resources::Load<Texture>(L"BossRightHandIdle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleRight\\SkellBossRightHandIdleSheet.bmp");
 		mRightHand->AddComponent<Animator>();
-		mRightHand->GetComponent<Animator>()->CreateAnimation(L"BossRightHand", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 69.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
-		mRightHand->GetComponent<Animator>()->PlayAnimation(L"BossRightHand", true);
+		mRightHand->GetComponent<Animator>()->CreateAnimation(L"BossRightHandIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 69.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		temp = Resources::Load<Texture>(L"BossRightHandAttack", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Attack\\Laser\\Right\\SkelBossHandAttack.bmp");
+		mRightHand->GetComponent<Animator>()->CreateAnimation(L"BossRightHandAttack", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(70.f, 80.f), Math::Vector2<float>(0.f, 0.f), 18, 0.1f);
+		mRightHand->GetComponent<Animator>()->PlayAnimation(L"BossRightHandIdle", true);
 		mRightHand->GetComponent<Animator>()->SetAffectedCamera(true);
 
+		// Sound
 		mSpawnSword = Resources::Load<Sound>(L"SpawnSword", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\Sword\\SpawnMonster.wav");
+		mLaserSound = Resources::Load<Sound>(L"SpawnSword", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\iceball.wav");
+
+		// BackParticle
+		GameObject* BackParticle = object::Instantiate<GameObject>(enums::eLayerType::BackGround);
+		Transform* backparticletr = BackParticle->GetComponent<Transform>();
+		backparticletr->SetPos(Math::Vector2<float>(730.f, 660.f));
+		backparticletr->SetScale(Math::Vector2<float>(200.f,200.f));
+		Animator* backparticleani = BackParticle->AddComponent<Animator>();
+		temp = Resources::Load<Texture>(L"SkelBossBackParticle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Back\\SkelBossBack.bmp");
+		backparticleani->CreateAnimation(L"SkelBossBackParticle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(50.f, 50.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		backparticleani->PlayAnimation(L"SkelBossBackParticle", true);
 
 		// UI Canvas
 		// UI setting
@@ -121,6 +142,12 @@ namespace EH
 
 	void Boss::Idle()
 	{
+		if (GetHP() <= 0)
+		{
+			mCurState = eBossState::Die;
+		}
+
+		mCheck2 = 0;
 		mCheckTime += Time::GetDeltaTime();
 		if (mCheckTime > mThinkTime)
 		{
@@ -171,22 +198,39 @@ namespace EH
 	{
 		mCheckTime += Time::GetDeltaTime();
 		mDelayTime = 1.f;
-		if (mDelayTime < mCheckTime)
+		mSubDelayTime = 2.3f;
+		Transform* RightHandTr = mRightHand->GetComponent<Transform>();
+		Transform* PlayerTr = mTarget->GetComponent<Transform>();
+
+		Animator* RightHandani = mRightHand->GetComponent<Animator>();
+		if (mSubDelayTime < mCheckTime)
 		{
+			RightHandTr->SetScale(Math::Vector2<float>(228.f, 276.f));
+			RightHandani->PlayAnimation(L"BossRightHandIdle", true);
+			mCheckTime = 0.f;
 			mCurType = eBossAttack::None;
 			mCurState = eBossState::Idle;
-			mCheckTime = 0.f;
-			Laser* test = object::Instantiate<Laser>(enums::eLayerType::UI);
-			Transform* tr1 = test->GetComponent<Transform>();
-			Transform* tr2 = mRightHand->GetComponent<Transform>();
-			tr1->SetPos(Math::Vector2<float>(650.f, tr2->Getpos().y));
-			test->AddComponent<Collider>();
-			test->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1000.f, 220.f));
+			mCheck1 = 0;
+			return;
 		}
-		else
+
+		if (mDelayTime < mCheckTime && mCheck1 == 0)
 		{
-			Transform* RightHandTr = mRightHand->GetComponent<Transform>();
-			Transform* PlayerTr = mTarget->GetComponent<Transform>();
+			RightHandTr->SetScale(Math::Vector2<float>(280.f, 320.f));
+			RightHandani->PlayAnimation(L"BossRightHandAttack", false);
+			mCheck1++;
+			Laser* rightlaser = object::Instantiate<Laser>(enums::eLayerType::UI);
+			Transform* tr1 = rightlaser->GetComponent<Transform>();
+			Transform* tr2 = mRightHand->GetComponent<Transform>();
+			rightlaser->SetRight(true);
+			rightlaser->SetLaserPos(Math::Vector2<float>(420.f,tr2->Getpos().y));
+			tr1->SetPos(Math::Vector2<float>(420.f, tr2->Getpos().y));
+			rightlaser->AddComponent<Collider>();
+			rightlaser->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1280.f, 220.f));
+			mLaserSound->Play(false);
+		}
+		else if(mCheck1 == 0)
+		{
 			mCurType = eBossAttack::OneLaser;
 			float dir = PlayerTr->Getpos().y - RightHandTr->Getpos().y;
 			Math::Vector2<float> pos = RightHandTr->Getpos();
@@ -199,30 +243,73 @@ namespace EH
 	{
 		mCheckTime += Time::GetDeltaTime();
 		mSubCheckTime += Time::GetDeltaTime();
+		mSubCheckTime2 += Time::GetDeltaTime();
+		mSubCheckTime3 += Time::GetDeltaTime();
+
 		mDelayTime = 1.5f;
-		mSubDelayTime = 0.5f;
-		if (mDelayTime < mCheckTime)
+		mSubDelayTime = 1.f;
+
+		Transform* RightHandTr = mRightHand->GetComponent<Transform>();
+		Transform* PlayerTr = mTarget->GetComponent<Transform>();
+
+		Animator* RightHandani = mRightHand->GetComponent<Animator>();
+		Transform* LeftHandTr = mLeftHand->GetComponent<Transform>();
+
+		Animator* LeftHandani = mLeftHand->GetComponent<Animator>();
+
+		if (mCheck2 == 3)
 		{
+			mCheck1 = 0;
+			mCheck2 = 0;
 			mCurType = eBossAttack::None;
 			mCurState = eBossState::Idle;
 			mCheckTime = 0.f;
+			mSubCheckTime = 0.f;
 			mIsRight = true;
 		}
-		else
+		else if(mCheck1 < 3)
 		{
 			mCurType = eBossAttack::ThreeLaser;
 			if (mSubDelayTime < mSubCheckTime)
 			{
+				if (mIsRight)
+				{
+					RightHandTr->SetScale(Math::Vector2<float>(280.f, 320.f));
+					RightHandani->PlayAnimation(L"BossRightHandAttack", false);
+					mRightLaserani = true;
+					Laser* rightlaser = object::Instantiate<Laser>(enums::eLayerType::UI);
+					Transform* tr1 = rightlaser->GetComponent<Transform>();
+					Transform* tr2 = mRightHand->GetComponent<Transform>();
+					rightlaser->SetRight(true);
+					rightlaser->SetLaserPos(Math::Vector2<float>(420.f, tr2->Getpos().y));
+					tr1->SetPos(Math::Vector2<float>(420.f, tr2->Getpos().y));
+					rightlaser->AddComponent<Collider>();
+					rightlaser->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1280.f, 220.f));
+					mLaserSound->Play(false);
+				}
+				else
+				{
+					LeftHandTr->SetScale(Math::Vector2<float>(280.f, 320.f));
+					LeftHandani->PlayAnimation(L"BossLeftHandAttack", false);
+					mLeftLaserani = true;
+					Laser* leftlaser = object::Instantiate<Laser>(enums::eLayerType::UI);
+					Transform* tr1 = leftlaser->GetComponent<Transform>();
+					Transform* tr2 = mLeftHand->GetComponent<Transform>();
+					leftlaser->SetRight(false);
+					leftlaser->SetLaserPos(Math::Vector2<float>(1000.f, tr2->Getpos().y));
+					tr1->SetPos(Math::Vector2<float>(1000.f, tr2->Getpos().y));
+					leftlaser->AddComponent<Collider>();
+					leftlaser->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1280.f, 220.f));
+					mLaserSound->Play(false);
+				}
 				mSubCheckTime = 0.f;
 				mIsRight = !mIsRight;
+				mCheck1++;
 			}
 			else
 			{
 				if (mIsRight)
 				{
-					Transform* RightHandTr = mRightHand->GetComponent<Transform>();
-					Transform* PlayerTr = mTarget->GetComponent<Transform>();
-
 					float dir = PlayerTr->Getpos().y - RightHandTr->Getpos().y;
 					Math::Vector2<float> pos = RightHandTr->Getpos();
 					pos.y += dir * Time::GetDeltaTime() * 10.f;
@@ -230,16 +317,30 @@ namespace EH
 				}
 				else
 				{
-					Transform* LeftHandTr = mLeftHand->GetComponent<Transform>();
-					Transform* PlayerTr = mTarget->GetComponent<Transform>();
-
 					float dir = PlayerTr->Getpos().y - LeftHandTr->Getpos().y;
 					Math::Vector2<float> pos = LeftHandTr->Getpos();
 					pos.y += dir * Time::GetDeltaTime() * 10.f;
 					LeftHandTr->SetPos(pos);
 				}
 			}
+		}
 
+		if (mRightLaserani && 3.0f < mSubCheckTime2)
+		{
+			RightHandTr->SetScale(Math::Vector2<float>(228.f, 276.f));
+			RightHandani->PlayAnimation(L"BossRightHandIdle", true);
+			mSubCheckTime2 = 0.f;
+			mRightLaserani = false;
+			mCheck2++;
+		}
+
+		if(mLeftLaserani && 3.5f < mSubCheckTime3)
+		{
+			LeftHandTr->SetScale(Math::Vector2<float>(228.f, 276.f));
+			LeftHandani->PlayAnimation(L"BossLeftHandIdle", true);
+			mSubCheckTime3 = 0.f;
+			mLeftLaserani = false;
+			mCheck2++;
 		}
 	}
 

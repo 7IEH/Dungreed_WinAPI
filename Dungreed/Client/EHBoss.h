@@ -66,6 +66,16 @@ namespace EH
 		float mSubDelayTime;
 		float mCheckTime;
 		float mSubCheckTime;
+		float mSubCheckTime2;
+		float mSubCheckTime3;
+
+		// Check Variable
+		UINT mCheck1;
+		UINT mCheck2;
+
+		// Laser
+		bool mRightLaserani;
+		bool mLeftLaserani;
 
 		// Right,Left
 		float mIsRight;
@@ -76,6 +86,7 @@ namespace EH
 
 		// Sound
 		class Sound* mSpawnSword;
+		class Sound* mLaserSound;
 
 		// Weapon Collider
 		class Weapon* mAttack;
