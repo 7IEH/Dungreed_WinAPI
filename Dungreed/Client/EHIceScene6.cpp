@@ -7,6 +7,14 @@
 #include "EHWall.h"
 #include "EHTrigger.h"
 #include "EHPlayer.h"
+#include "EHJailArchor.h"
+#include "EHJailDog.h"
+#include "EHJailWarrior.h"
+#include "EHGiantBat.h"
+#include "EHRedGiantBat.h"
+#include "EHSkelIceMagician.h"
+#include "EHBigGrayIceSkel.h"
+#include "EHBanshee.h"
 
 namespace EH
 {
@@ -319,6 +327,113 @@ namespace EH
 		trigger3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
 		trigger3->SetType(Trigger::eTriggertype::Scenechange);
 		trigger3->SetScenename(L"IceScene7");
+
+		// Steel
+		Ceil* steel1 = object::Instantiate<Ceil>(enums::eLayerType::Steel);
+		steel1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(708.f, 40.f));
+		steel1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(264.f, 80.f));
+		steel1->AddComponent<Collider>();
+		steel1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(256.f, 64.f));
+		Animator* ani = steel1->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"SteelOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Ceil\\SteelOpenSheet2.bmp");
+		ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(66.f, 20.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Ceil\\SteelExitSheet.bmp");
+		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(66.f, 20.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Ceil\\SteelIdleSheet.bmp");
+		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(66.f, 20.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+		Wall* steel2 = object::Instantiate<Wall>(enums::eLayerType::Steel);
+		steel2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(40.f, 260.f));
+		steel2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 264.f));
+		steel2->AddComponent<Collider>();
+		steel2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+		ani = steel2->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"SteelRightOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelOpenSheet.bmp");
+		ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelRightExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelExitSheet.bmp");
+		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelIdleSheet.bmp");
+		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+		Wall* steel3 = object::Instantiate<Wall>(enums::eLayerType::Steel);
+		steel3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1240.f, 772.f));
+		steel3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 264.f));
+		steel3->AddComponent<Collider>();
+		steel3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+		steel3->SetRight(true);
+		ani = steel3->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"SteelRightOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelOpenSheet.bmp");
+		ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelRightExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelExitSheet.bmp");
+		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelIdleSheet.bmp");
+		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+		// Enemy
+		JailArchor* archor1 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
+		archor1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(200.f, 320.f));
+		archor1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		Collider* col = archor1->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		archor1->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");
+		archor1->GetComponent<Animator>()->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"GreySkelLeftIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Left\\GraySkelIdle.bmp");
+		archor1->GetComponent<Animator>()->CreateAnimation(L"GreySkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		archor1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailArchor* archor2 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
+		archor2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(512.f, 320.f));
+		archor2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		col = archor2->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		archor2->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");
+		archor2->GetComponent<Animator>()->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"GreySkelLeftIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Left\\GraySkelIdle.bmp");
+		archor2->GetComponent<Animator>()->CreateAnimation(L"GreySkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		archor2->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailArchor* archor3 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
+		archor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(832.f, 196.f));
+		archor3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		col = archor3->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		archor3->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");
+		archor3->GetComponent<Animator>()->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"GreySkelLeftIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Left\\GraySkelIdle.bmp");
+		archor3->GetComponent<Animator>()->CreateAnimation(L"GreySkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		archor3->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		JailArchor* archor4 = object::Instantiate<JailArchor>(enums::eLayerType::Enemy);
+		archor4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(696.f, 516.f));
+		archor4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		col = archor4->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		archor4->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");
+		archor1->GetComponent<Animator>()->CreateAnimation(L"GreySkelRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		texture = Resources::Load<Texture>(L"GreySkelLeftIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Left\\GraySkelIdle.bmp");
+		archor4->GetComponent<Animator>()->CreateAnimation(L"GreySkelLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		archor4->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+		SkelIceMagician* magician1 = object::Instantiate<SkelIceMagician>(enums::eLayerType::Enemy);
+		Transform* tr = magician1->GetComponent<Transform>();
+		tr->SetPos(Math::Vector2<float>(968.f, 420.f));
+		tr->SetScale(Math::Vector2<float>(128.f, 120.f));
+
+		BigGrayIceSkel* biggrayiceskel = object::Instantiate<BigGrayIceSkel>(enums::eLayerType::Enemy);
+		tr = biggrayiceskel->GetComponent<Transform>();
+		tr->SetPos(Math::Vector2<float>(284.f, 828.f));
+		tr->SetScale(Math::Vector2<float>(132.f, 120.f));
+
+		JailWarrior* warrior1 = object::Instantiate<JailWarrior>(enums::eLayerType::Enemy);
+		warrior1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1024.f, 824.f));
+		warrior1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+		col = warrior1->AddComponent<Collider>();
+		col->SetScale(Math::Vector2<float>(128.f, 128.f));
+		warrior1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
 	}
 
 	void IceScene6::Update()

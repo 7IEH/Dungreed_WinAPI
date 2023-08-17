@@ -133,6 +133,34 @@ namespace EH
 		floor9->GetComponent<Collider>()->SetAffectedCamera(true);
 		floor9->SetDownFloor(false);
 
+		// Steel
+		Wall* steel2 = object::Instantiate<Wall>(enums::eLayerType::Steel);
+		steel2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(40.f, 772.f));
+		steel2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 264.f));
+		steel2->AddComponent<Collider>();
+		steel2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+		Animator* ani = steel2->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"SteelRightOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelOpenSheet.bmp");
+		ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelRightExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelExitSheet.bmp");
+		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelIdleSheet.bmp");
+		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+		Wall* steel3 = object::Instantiate<Wall>(enums::eLayerType::Steel);
+		steel3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1944.f, 260.f));
+		steel3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 264.f));
+		steel3->AddComponent<Collider>();
+		steel3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+		steel3->SetRight(true);
+		ani = steel3->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"SteelRightOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelOpenSheet.bmp");
+		ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelRightExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelExitSheet.bmp");
+		ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelIdleSheet.bmp");
+		ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
 		// Enemy
 		Niflheim* nifleheim = object::Instantiate<Niflheim>(enums::eLayerType::Enemy);
 		Transform* tr = nifleheim->GetComponent<Transform>();

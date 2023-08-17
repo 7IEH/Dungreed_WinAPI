@@ -207,10 +207,10 @@ namespace EH
 		tr->SetPos(Math::Vector2<float>(400.f, 500.f));
 		tr->SetScale(Math::Vector2<float>(128.f, 120.f));*/
 
-		BigGrayIceSkel* biggrayiceskel = object::Instantiate<BigGrayIceSkel>(enums::eLayerType::Enemy);
+		/*BigGrayIceSkel* biggrayiceskel = object::Instantiate<BigGrayIceSkel>(enums::eLayerType::Enemy);
 		Transform* tr = biggrayiceskel->GetComponent<Transform>();
 		tr->SetPos(Math::Vector2<float>(400.f, 300.f));
-		tr->SetScale(Math::Vector2<float>(132.f, 120.f));
+		tr->SetScale(Math::Vector2<float>(132.f, 120.f));*/
 
 		Camera::SetTarget(player);
 	}

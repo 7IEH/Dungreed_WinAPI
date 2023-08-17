@@ -58,7 +58,7 @@ namespace EH
 		CreateScene<IcePrevBossScene>(L"IcePrevBossScene");
 		CreateScene<IceBossScene>(L"IceBossScene");
 
-		LoadScene(L"IceScene9");
+		LoadScene(L"JailBossScene");
 	}
 
 	void SceneManager::Release()

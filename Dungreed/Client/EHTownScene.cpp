@@ -555,7 +555,7 @@ namespace EH
         SetPlayer(player);
         CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Floor,true);
         CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Trigger,true);
-        Camera::SetTarget(player);
+        //Camera::SetTarget(player);
     }
 
     void TownScene::Update()

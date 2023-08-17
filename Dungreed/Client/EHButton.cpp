@@ -2,6 +2,8 @@
 #include "EHApplication.h"
 #include "EHSceneManager.h"
 #include "EHSound.h"
+#include "EHCamera.h"
+#include "EHPlayer.h"
 
 extern EH::Application application;
 
@@ -84,6 +86,7 @@ namespace EH
 
 			Scene* curscene =  SceneManager::LoadScene(mScene);
 			curscene->GetBGM()->Play(true);
+			Camera::SetTarget(curscene->GetPlayer());
 		}
 	}
 }

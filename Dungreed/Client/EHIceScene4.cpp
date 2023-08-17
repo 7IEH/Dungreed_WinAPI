@@ -7,6 +7,14 @@
 #include "EHWall.h"
 #include "EHTrigger.h"
 #include "EHPlayer.h"
+#include "EHJailArchor.h"
+#include "EHJailDog.h"
+#include "EHJailWarrior.h"
+#include "EHGiantBat.h"
+#include "EHRedGiantBat.h"
+#include "EHSkelIceMagician.h"
+#include "EHBigGrayIceSkel.h"
+#include "EHBanshee.h"
 
 namespace EH
 {
@@ -84,6 +92,39 @@ namespace EH
         trigger1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
         trigger1->SetType(Trigger::eTriggertype::Scenechange);
         trigger1->SetScenename(L"IceScene3");
+
+        // Steel
+        Wall* steel2 = object::Instantiate<Wall>(enums::eLayerType::Steel);
+        steel2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1240.f, 468.f));
+        steel2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 264.f));
+        steel2->AddComponent<Collider>();
+        steel2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 264.f));
+        steel2->SetRight(false);
+        Animator* ani = steel2->AddComponent<Animator>();
+        texture = Resources::Load<Texture>(L"SteelRightOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Left\\SteelOpenSheet.bmp");
+        ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+        texture = Resources::Load<Texture>(L"SteelRightExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Left\\SteelExitSheet.bmp");
+        ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+        texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Left\\SteelIdleSheet.bmp");
+        ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+        GiantBat* giantbat1 = object::Instantiate<GiantBat>(enums::eLayerType::Enemy);
+        giantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(648.f, 288.f));
+        giantbat1->GetComponent<Animator>()->PlayAnimation(L"GiantRightIdle", true);
+
+        JailWarrior* warrior1 = object::Instantiate<JailWarrior>(enums::eLayerType::Enemy);
+        warrior1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(448.f, 520.f));
+        warrior1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+        Collider* col = warrior1->AddComponent<Collider>();
+        col->SetScale(Math::Vector2<float>(128.f, 128.f));
+        warrior1->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+
+        JailWarrior* warrior2 = object::Instantiate<JailWarrior>(enums::eLayerType::Enemy);
+        warrior2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(860.f, 520.f));
+        warrior2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
+        col = warrior2->AddComponent<Collider>();
+        col->SetScale(Math::Vector2<float>(128.f, 128.f));
+        warrior2->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
 	}
 
 	void IceScene4::Update()

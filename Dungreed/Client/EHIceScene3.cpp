@@ -7,6 +7,14 @@
 #include "EHWall.h"
 #include "EHTrigger.h"
 #include "EHPlayer.h"
+#include "EHJailArchor.h"
+#include "EHJailDog.h"
+#include "EHJailWarrior.h"
+#include "EHGiantBat.h"
+#include "EHRedGiantBat.h"
+#include "EHSkelIceMagician.h"
+#include "EHBigGrayIceSkel.h"
+#include "EHBanshee.h"
 
 namespace EH
 {
@@ -123,6 +131,60 @@ namespace EH
         trigger2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
         trigger2->SetType(Trigger::eTriggertype::Scenechange);
         trigger2->SetScenename(L"IceScene2");
+
+        // Steel
+        Wall* steel2 = object::Instantiate<Wall>(enums::eLayerType::Steel);
+        steel2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(40.f, 404.f));
+        steel2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 264.f));
+        steel2->AddComponent<Collider>();
+        steel2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+        Animator* ani = steel2->AddComponent<Animator>();
+        texture = Resources::Load<Texture>(L"SteelRightOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelOpenSheet.bmp");
+        ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+        texture = Resources::Load<Texture>(L"SteelRightExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelExitSheet.bmp");
+        ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+        texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelIdleSheet.bmp");
+        ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+        Wall* steel3 = object::Instantiate<Wall>(enums::eLayerType::Steel);
+        steel3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1496.f, 404.f));
+        steel3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 264.f));
+        steel3->AddComponent<Collider>();
+        steel3->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+        steel3->SetRight(true);
+        ani = steel3->AddComponent<Animator>();
+        texture = Resources::Load<Texture>(L"SteelRightOpen", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelOpenSheet.bmp");
+        ani->CreateAnimation(L"SteelOpen", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+        texture = Resources::Load<Texture>(L"SteelRightExit", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelExitSheet.bmp");
+        ani->CreateAnimation(L"SteelExit", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+        texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Right\\SteelIdleSheet.bmp");
+        ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 60.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+
+        // Enemy
+        GiantBat* giantbat1 = object::Instantiate<GiantBat>(enums::eLayerType::Enemy);
+        giantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(452.f, 288.f));
+        giantbat1->GetComponent<Animator>()->PlayAnimation(L"GiantRightIdle", true);
+
+        RedGiantBat* redgiantbat1 = object::Instantiate<RedGiantBat>(enums::eLayerType::Enemy);
+        redgiantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1108.f, 288.f));
+        redgiantbat1->GetComponent<Animator>()->PlayAnimation(L"RedGiantRightIdle", true);
+
+        Banshee* banshee1 = object::Instantiate<Banshee>(enums::eLayerType::Enemy);
+        banshee1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(780.f, 228.f));
+        banshee1->GetComponent<Transform>()->SetScale(Math::Vector2<float>(80.f, 88.f));
+        banshee1->AddComponent<Animator>();
+        texture = Resources::Load<Texture>(L"BansheeIdle", L"..\\Resources\\Enemy\\JailField\\Banshee\\Idle\\BansheeIdleSheet.bmp");
+        banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+        texture = Resources::Load<Texture>(L"BansheeAttack", L"..\\Resources\\Enemy\\JailField\\Banshee\\Attack\\BansheeAttackSheet.bmp");
+        banshee1->GetComponent<Animator>()->CreateAnimation(L"BansheeAttack", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 22.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+        banshee1->GetComponent<Animator>()->PlayAnimation(L"BansheeIdle", true);
+        banshee1->SetTarget(player);
+        banshee1->SetDelayTime(2.f);
+
+        BigGrayIceSkel* biggrayiceskel = object::Instantiate<BigGrayIceSkel>(enums::eLayerType::Enemy);
+        Transform* tr = biggrayiceskel->GetComponent<Transform>();
+        tr->SetPos(Math::Vector2<float>(644.f, 460.f));
+        tr->SetScale(Math::Vector2<float>(132.f, 120.f));
 	}
 
 	void IceScene3::Update()

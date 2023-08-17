@@ -72,6 +72,7 @@ namespace EH
 		// Check Variable
 		UINT mCheck1;
 		UINT mCheck2;
+		UINT mCheck3;
 
 		// Laser
 		bool mRightLaserani;
@@ -87,12 +88,17 @@ namespace EH
 		// Sound
 		class Sound* mSpawnSword;
 		class Sound* mLaserSound;
+		class Sound* mDefeatSound;
+		class Sound* mExplosion;
 
 		// Weapon Collider
 		class Weapon* mAttack;
 
 		// Boss UI
 		class Canvas* mCanvas;
+
+		// Back Particle
+		GameObject* mBackparticle;
 	};
 }
 

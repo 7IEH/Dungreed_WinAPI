@@ -10,6 +10,9 @@
 #include "EHCollisionManager.h"
 #include "EHCanvas.h"
 #include "EHImageObject.h"
+#include "EHEffect.h"
+#include "EHCamera.h"
+#include "EHDeadObj.h"
 #include <time.h>
 
 namespace EH
@@ -41,11 +44,15 @@ namespace EH
 		Transform* tr = mLeftHand->GetComponent<Transform>();
 		tr->SetPos(Math::Vector2<float>(370.f, 822.f));
 		tr->SetScale(Math::Vector2<float>(228.f, 276.f));
-		Texture* temp = Resources::Load<Texture>(L"BossLeftHandIdle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleLeft\\SkellBossLeftHandIdleSheet.bmp"); 
+		Texture* temp = Resources::Load<Texture>(L"BossLeftHandIdle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleLeft\\SkellBossLeftHandIdleSheet.bmp");
 		mLeftHand->AddComponent<Animator>();
 		mLeftHand->GetComponent<Animator>()->CreateAnimation(L"BossLeftHandIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 69.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
 		temp = Resources::Load<Texture>(L"BossLeftHandAttack", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Attack\\Laser\\Left\\SkelBossHandAttack.bmp");
 		mLeftHand->GetComponent<Animator>()->CreateAnimation(L"BossLeftHandAttack", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(70.f, 80.f), Math::Vector2<float>(0.f, 0.f), 18, 0.1f);
+
+		temp = Resources::Load<Texture>(L"BossLeftHandDead", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleLeft\\SkellBossLeftHandIdle1.bmp");
+		mLeftHand->GetComponent<Animator>()->CreateAnimation(L"BossLeftHandDead", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 69.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+
 		mLeftHand->GetComponent<Animator>()->PlayAnimation(L"BossLeftHandIdle", true);
 		mLeftHand->GetComponent<Animator>()->SetAffectedCamera(true);
 
@@ -56,21 +63,27 @@ namespace EH
 		temp = Resources::Load<Texture>(L"BossRightHandIdle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleRight\\SkellBossRightHandIdleSheet.bmp");
 		mRightHand->AddComponent<Animator>();
 		mRightHand->GetComponent<Animator>()->CreateAnimation(L"BossRightHandIdle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 69.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+
 		temp = Resources::Load<Texture>(L"BossRightHandAttack", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Attack\\Laser\\Right\\SkelBossHandAttack.bmp");
 		mRightHand->GetComponent<Animator>()->CreateAnimation(L"BossRightHandAttack", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(70.f, 80.f), Math::Vector2<float>(0.f, 0.f), 18, 0.1f);
+
+		temp = Resources::Load<Texture>(L"BossRightHandDead", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleRight\\SkellBossLeftHandIdle1.bmp");
+		mRightHand->GetComponent<Animator>()->CreateAnimation(L"BossRightHandDead", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 69.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+
 		mRightHand->GetComponent<Animator>()->PlayAnimation(L"BossRightHandIdle", true);
 		mRightHand->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		// Sound
 		mSpawnSword = Resources::Load<Sound>(L"SpawnSword", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\Sword\\SpawnMonster.wav");
-		mLaserSound = Resources::Load<Sound>(L"SpawnSword", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\iceball.wav");
+		mLaserSound = Resources::Load<Sound>(L"Laser", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\iceball.wav");
+		mDefeatSound = Resources::Load<Sound>(L"bossDefeat", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\bossDefeat.wav");
 
 		// BackParticle
-		GameObject* BackParticle = object::Instantiate<GameObject>(enums::eLayerType::BackGround);
-		Transform* backparticletr = BackParticle->GetComponent<Transform>();
+		mBackparticle = object::Instantiate<GameObject>(enums::eLayerType::BackGround);
+		Transform* backparticletr = mBackparticle->GetComponent<Transform>();
 		backparticletr->SetPos(Math::Vector2<float>(730.f, 660.f));
-		backparticletr->SetScale(Math::Vector2<float>(200.f,200.f));
-		Animator* backparticleani = BackParticle->AddComponent<Animator>();
+		backparticletr->SetScale(Math::Vector2<float>(200.f, 200.f));
+		Animator* backparticleani = mBackparticle->AddComponent<Animator>();
 		temp = Resources::Load<Texture>(L"SkelBossBackParticle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Back\\SkelBossBack.bmp");
 		backparticleani->CreateAnimation(L"SkelBossBackParticle", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(50.f, 50.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
 		backparticleani->PlayAnimation(L"SkelBossBackParticle", true);
@@ -101,6 +114,7 @@ namespace EH
 	{
 		Destroy(mRightHand);
 		Destroy(mLeftHand);
+		Destroy(mBackparticle);
 	}
 
 	void Boss::Initialize()
@@ -158,8 +172,92 @@ namespace EH
 
 	void Boss::Dead()
 	{
-		CollisionManager::ForceExit(GetComponent<Collider>(), mAttack->GetComponent<Collider>());
-		Destroy(this);
+		float timecheck = GetCheckTime();
+		float subtimecheck = GetSubCheckTime();
+		SetCheckTime(timecheck += Time::GetDeltaTime());
+		SetSubCheckTime(subtimecheck += Time::GetDeltaTime());
+		Transform* tr = GetComponent<Transform>();
+		Math::Vector2<float> pos = tr->Getpos();
+
+		if (mCheck3 == 0)
+		{
+			Animator* ani = GetComponent<Animator>();
+			ani->PlayAnimation(L"BossDead",false);
+			mDefeatSound->Play(false);
+			mRightHand->GetComponent<Animator>()->PlayAnimation(L"BossRightHandDead", true);
+			mLeftHand->GetComponent<Animator>()->PlayAnimation(L"BossLeftHandDead", true);
+			mCheck3++;
+		}
+		// ½½·Î¿ì ¸ð¼Ç
+
+		// effect
+
+		if (2.f < timecheck)
+		{
+			if (0.2f < subtimecheck)
+			{
+				for (int j = 0;j < 10;j++)
+				{
+					Effect* effect = object::Instantiate<Effect>(enums::eLayerType::UI);
+					Transform* effecttr = effect->GetComponent<Transform>();
+					effecttr->SetPos(Math::Vector2<float>(32.f * (mCheck3 - 1) * cosf(1.57 + 0.628 * j) + pos.x + 20.f, 32.f * (mCheck3 - 1) * sinf(1.57 + 0.628 * j) + pos.y));
+					effecttr->SetScale(Math::Vector2<float>(256.f, 256.f));
+
+					Animator* effectani = effect->AddComponent<Animator>();
+					Texture* texture = Resources::Load<Texture>(L"DieEffect", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Dead\\Effect\\Die.bmp");
+					effectani->CreateAnimation(L"DieEffect", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(64.f, 64.f), Math::Vector2<float>(0.f, 0.f), 11, 0.1f);
+					effectani->PlayAnimation(L"DieEffect", false);
+					Sound* explosion = Resources::Load<Sound>(L"explosion", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\Explosion.wav");
+					explosion->Play(false);
+				}
+				mCheck3++;
+				SetSubCheckTime(0.f);
+			}
+		}
+
+		if (mCheck3 == 16)
+		{
+			CollisionManager::ForceExit(GetComponent<Collider>(), mAttack->GetComponent<Collider>());
+			Destroy(this);
+			// Á×´Â°Å ¶³±À
+
+			DeadObj* deaddown = object::Instantiate<DeadObj>(enums::eLayerType::Item);
+			Transform* objtr = deaddown->GetComponent<Transform>();
+			Collider* objcol = deaddown->AddComponent<Collider>();
+			SpriteRenderer* objsr = deaddown->AddComponent<SpriteRenderer>();
+			Rigidbody* objrigid = deaddown->AddComponent<Rigidbody>();
+			Texture* texture = Resources::Load<Texture>(L"BossDeadDown", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Dead\\SkellBossDeadDown.bmp");
+			objsr->SetImg(texture);
+			objtr->SetPos(Math::Vector2<float>(pos));
+			objtr->SetScale(Math::Vector2<float>(280.f, 132.f));
+			objcol->SetScale(Math::Vector2<float>(280.f, 132.f));
+
+			DeadObj* deadmid = object::Instantiate<DeadObj>(enums::eLayerType::Item);
+			objtr = deadmid->GetComponent<Transform>();
+			objcol = deadmid->AddComponent<Collider>();
+			objsr = deadmid->AddComponent<SpriteRenderer>();
+			objrigid = deadmid->AddComponent<Rigidbody>();
+			texture = Resources::Load<Texture>(L"BossDeadMid", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Dead\\SkellBossDeadMid.bmp");
+			objsr->SetImg(texture);
+			objtr->SetPos(Math::Vector2<float>(pos));
+			objtr->SetScale(Math::Vector2<float>(280.f, 48.f));
+			objcol->SetScale(Math::Vector2<float>(280.f, 48.f));
+
+			DeadObj* deadupper = object::Instantiate<DeadObj>(enums::eLayerType::Item);
+			objtr = deadupper->GetComponent<Transform>();
+			objcol = deadupper->AddComponent<Collider>();
+			objsr = deadupper->AddComponent<SpriteRenderer>();
+			objrigid = deadupper->AddComponent<Rigidbody>();
+			texture = Resources::Load<Texture>(L"BossDeadUpper", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Dead\\SkellBossDeadUpper.bmp");
+			objsr->SetImg(texture);
+			objtr->SetPos(Math::Vector2<float>(pos));
+			objtr->SetScale(Math::Vector2<float>(280.f,308.f));
+			objcol->SetScale(Math::Vector2<float>(280.f, 308.f));
+
+			
+
+			
+		}
 	}
 
 	void Boss::Attack()
@@ -223,13 +321,13 @@ namespace EH
 			Transform* tr1 = rightlaser->GetComponent<Transform>();
 			Transform* tr2 = mRightHand->GetComponent<Transform>();
 			rightlaser->SetRight(true);
-			rightlaser->SetLaserPos(Math::Vector2<float>(420.f,tr2->Getpos().y));
+			rightlaser->SetLaserPos(Math::Vector2<float>(420.f, tr2->Getpos().y));
 			tr1->SetPos(Math::Vector2<float>(420.f, tr2->Getpos().y));
 			rightlaser->AddComponent<Collider>();
 			rightlaser->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1280.f, 220.f));
 			mLaserSound->Play(false);
 		}
-		else if(mCheck1 == 0)
+		else if (mCheck1 == 0)
 		{
 			mCurType = eBossAttack::OneLaser;
 			float dir = PlayerTr->Getpos().y - RightHandTr->Getpos().y;
@@ -267,7 +365,7 @@ namespace EH
 			mSubCheckTime = 0.f;
 			mIsRight = true;
 		}
-		else if(mCheck1 < 3)
+		else if (mCheck1 < 3)
 		{
 			mCurType = eBossAttack::ThreeLaser;
 			if (mSubDelayTime < mSubCheckTime)
@@ -334,7 +432,7 @@ namespace EH
 			mCheck2++;
 		}
 
-		if(mLeftLaserani && 3.5f < mSubCheckTime3)
+		if (mLeftLaserani && 3.5f < mSubCheckTime3)
 		{
 			LeftHandTr->SetScale(Math::Vector2<float>(228.f, 276.f));
 			LeftHandani->PlayAnimation(L"BossLeftHandIdle", true);
@@ -394,9 +492,9 @@ namespace EH
 		{
 			for (UINT i = 0;i < mSwordNumbering;i++)
 			{
-				Transform* playertr = mTarget->GetComponent<Transform>();	
+				Transform* playertr = mTarget->GetComponent<Transform>();
 				float radian = Math::Radian(playertr->Getpos(), mSwordNameGroup[i]->GetComponent<Transform>()->Getpos());
-				mSwordNameGroup[i]->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(radian* (180.f / 3.14f) + 90.f);
+				mSwordNameGroup[i]->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(radian * (180.f / 3.14f) + 90.f);
 			}
 		}
 	}

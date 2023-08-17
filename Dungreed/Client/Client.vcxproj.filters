@@ -364,6 +364,9 @@
     <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailAfterBossScene">
       <UniqueIdentifier>{e1f18ee1-7e55-48e1-b740-727e43c3bb2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Effect">
+      <UniqueIdentifier>{04233743-a05d-4e7a-afc7-482e4020b146}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -666,9 +669,6 @@
     <ClInclude Include="EHIceScene19.h">
       <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField19</Filter>
     </ClInclude>
-    <ClInclude Include="SceneHeader.h">
-      <Filter>Contents</Filter>
-    </ClInclude>
     <ClInclude Include="EHEnemy.h">
       <Filter>Contents\GameObject\Enemy</Filter>
     </ClInclude>
@@ -689,6 +689,15 @@
     </ClInclude>
     <ClInclude Include="EHNiflheim.h">
       <Filter>Contents\GameObject\Enemy\IceField\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="EHEffect.h">
+      <Filter>Contents\GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneHeader.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="EHDeadObj.h">
+      <Filter>Contents\GameObject\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1004,6 +1013,12 @@
     </ClCompile>
     <ClCompile Include="EHNiflheim.cpp">
       <Filter>Contents\GameObject\Enemy\IceField\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="EHEffect.cpp">
+      <Filter>Contents\GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="EHDeadObj.cpp">
+      <Filter>Contents\GameObject\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

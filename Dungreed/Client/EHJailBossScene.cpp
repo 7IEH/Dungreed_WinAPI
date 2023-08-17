@@ -224,6 +224,8 @@ namespace EH
 		texture = Resources::Load<Texture>(L"BossIdle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Idle\\SkellBossIdleSheet.bmp");
 		Boss1->AddComponent<Animator>();
 		Boss1->GetComponent<Animator>()->CreateAnimation(L"BossIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(70.f, 99.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		texture = Resources::Load<Texture>(L"BossDead", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Idle\\SkellBossIdle3.bmp");
+		Boss1->GetComponent<Animator>()->CreateAnimation(L"BossDead", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(70.f, 99.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
 		Boss1->GetComponent<Animator>()->PlayAnimation(L"BossIdle", true);
 		Boss1->GetComponent<Animator>()->SetAffectedCamera(true);
 
