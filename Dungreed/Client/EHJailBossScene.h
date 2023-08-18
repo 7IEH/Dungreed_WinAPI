@@ -21,6 +21,9 @@ namespace EH
 
 		Math::Vector2<float> mCheck2;
 		UINT mCheck1;
+		UINT mCheck3;
+
+		class Boss* mBoss;
 	};
 }
 

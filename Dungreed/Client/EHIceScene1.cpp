@@ -18,7 +18,7 @@ namespace EH
 		// Sound
 		Sound* BGM = Resources::Load<Sound>(L"IceFieldBGM", L"..\\Resources\\Sound\\BGM\\2.IceField.wav");
 		SetBGM(BGM);
-		//mEnterSound = Resources::Load<Sound>(L"JailDoorSound", L"..\\Resources\\Sound\\Structure\\JailDoorSound.wav");
+		mEnterSound = Resources::Load<Sound>(L"JailDoorSound", L"..\\Resources\\Sound\\Structure\\JailDoorSound.wav");
 
 		SetSize(Math::Vector2<float>(1280.f, 1216.f));
 
@@ -201,6 +201,15 @@ namespace EH
 		trigger2->SetType(Trigger::eTriggertype::Scenechange);
 		trigger2->SetScenename(L"IceScene17");
 
+		GameObject* obj = object::Instantiate<GameObject>(enums::eLayerType::BackGround);
+		Transform* tr = obj->GetComponent<Transform>();
+		Animator* ani = obj->AddComponent<Animator>();
+		tr->SetPos(Math::Vector2<float>(552.f, 958.f));
+		tr->SetScale(Math::Vector2<float>(228.f, 260.f));
+		texture = Resources::Load<Texture>(L"IceDoor", L"..\\Resources\\Dungeon\\IceBackGround\\IceLayer\\IceDoor.bmp");
+		ani->CreateAnimation(L"IceDoor", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(57.f, 65.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+		ani->PlayAnimation(L"IceDoor", false);
+
 		// Enemy
 	    /*SkelIceMagician* magician1 = object::Instantiate<SkelIceMagician>(enums::eLayerType::Enemy);
 		Transform* tr = magician1->GetComponent<Transform>();
@@ -218,6 +227,11 @@ namespace EH
 	void IceScene1::Update()
 	{
 		Scene::Update();
+		if (mCheck1 == 0)
+		{
+			mEnterSound->Play(false);
+			mCheck1++;
+		}
 	}
 
 	void IceScene1::Render(HDC hdc)

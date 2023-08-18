@@ -24,7 +24,7 @@ namespace EH
 
 		// Player
 		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(820.f, 300.f));
+		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(410.f, 900.f));
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 
 		// SceneChanger Player
@@ -172,24 +172,40 @@ namespace EH
 	{
 		Scene::Update();
 		mCheckTime += Time::GetDeltaTime();
-		if (mIntro == 0 && 1.f < mCheckTime)
+		mCheckTime += Time::GetDeltaTime();
+		if (mIntro == 0 && 2.f < mCheckTime)
 		{
-			Camera::SetTarget(nullptr);
 			Camera::SetLookAt(Math::Vector2<float>(992.f, 512.f));
 			mIntro++;
 		}
-		else if (9.f < mCheckTime)
+		else if (mIntro == 1 && 11.f < mCheckTime)
 		{
 			Camera::SetTarget(GetPlayer());
+			mCheck3++;
 		}
-		else if (5.f < mCheckTime)
+		else if (mIntro == 1 && 6.f < mCheckTime)
 		{
+			Math::Vector2<float> camerapos = Camera::GetLookAt();
+			Math::Vector2<float> playerpos = GetPlayer()->GetComponent<Transform>()->Getpos();
+
+			if (mCheck3 == 0)
+			{
+				mCheck2 = playerpos - camerapos;
+				mCheck3++;
+			}
+
+			camerapos += mCheck2.normalized<float>() * 300.f * Time::GetDeltaTime();
+			Camera::SetLookAt(camerapos);
+		}
+		else if (mIntro == 0 && 1.f < mCheckTime)
+		{
+			Camera::SetTarget(nullptr);
 			Math::Vector2<float> camerapos = Camera::GetLookAt();
 			Math::Vector2<float> playerpos = GetPlayer()->GetComponent<Transform>()->Getpos();
 
 			if (mCheck1 == 0)
 			{
-				mCheck2 = playerpos - camerapos;
+				mCheck2 = camerapos - playerpos;
 				mCheck1++;
 			}
 

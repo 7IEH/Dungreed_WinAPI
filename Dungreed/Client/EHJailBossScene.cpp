@@ -228,10 +228,11 @@ namespace EH
 		Boss1->GetComponent<Animator>()->CreateAnimation(L"BossDead", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(70.f, 99.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
 		Boss1->GetComponent<Animator>()->PlayAnimation(L"BossIdle", true);
 		Boss1->GetComponent<Animator>()->SetAffectedCamera(true);
+		mBoss = Boss1;
 
 		// Player
 		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(256.f, 700.f));
+		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(256.f, 1100.f));
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 
 		Boss1->SetTarget(player);
@@ -245,28 +246,44 @@ namespace EH
 	{
 		Scene::Update();
 		mCheckTime += Time::GetDeltaTime();
-		if (mIntro == 0 && 1.f < mCheckTime)
+		if (mIntro == 0 && 2.f < mCheckTime)
 		{
-			Camera::SetTarget(nullptr);
 			Camera::SetLookAt(Math::Vector2<float>(704.f, 598.f));
 			mBelialLaugh->Play(false);
 			mIntro++;
 		}
-		else if (9.f < mCheckTime)
+		else if (mIntro == 1 && 11.f < mCheckTime)
 		{
 			Camera::SetTarget(GetPlayer());
+			mBoss->SetStop(false);
+			mCheck3++;
 		}
-		else if (5.f < mCheckTime)
+		else if (mIntro == 1 && 6.f < mCheckTime)
 		{
+			Math::Vector2<float> camerapos = Camera::GetLookAt();
+			Math::Vector2<float> playerpos = GetPlayer()->GetComponent<Transform>()->Getpos();
+
+			if (mCheck3 == 0)
+			{
+				mCheck2 = playerpos - camerapos;
+				mCheck3++;
+			}
+			
+			camerapos += mCheck2.normalized<float>() * 300.f * Time::GetDeltaTime();
+			Camera::SetLookAt(camerapos);
+		}
+		else if(mIntro == 0 && 1.f < mCheckTime)
+		{
+			Camera::SetTarget(nullptr);
 			Math::Vector2<float> camerapos = Camera::GetLookAt();
 			Math::Vector2<float> playerpos = GetPlayer()->GetComponent<Transform>()->Getpos();
 
 			if (mCheck1 == 0)
 			{
-				mCheck2 = playerpos - camerapos;
+				mCheck2 = camerapos - playerpos;
 				mCheck1++;
 			}
-			
+
 			camerapos += mCheck2.normalized<float>() * 300.f * Time::GetDeltaTime();
 			Camera::SetLookAt(camerapos);
 		}

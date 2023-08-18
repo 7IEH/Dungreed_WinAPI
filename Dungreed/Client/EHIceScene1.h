@@ -11,6 +11,8 @@ namespace EH
 		virtual void Render(HDC hdc) override;
 
 	private:
+		class Sound* mEnterSound;
+		UINT mCheck1;
 	};
 }
 

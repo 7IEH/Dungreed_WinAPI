@@ -49,6 +49,8 @@ namespace EH
 		virtual void OnCollisionStay(class Collider* other) override;
 		virtual void OnCollisionExit(class Collider* other) override;
 
+		void SetStop(bool stop) { mIsStop = stop; }
+
 	private:
 		// Boss Parameter 
 		BossHand* mLeftHand;
@@ -99,6 +101,9 @@ namespace EH
 
 		// Back Particle
 		GameObject* mBackparticle;
+
+		// Boss Stop
+		bool mIsStop;
 	};
 }
 

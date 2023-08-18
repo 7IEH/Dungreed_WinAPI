@@ -36,6 +36,7 @@ namespace EH
 		, mCheck1(0)
 		, mRightLaserani(false)
 		, mLeftLaserani(false)
+		, mIsStop(true)
 	{
 		SetHP(100.f);
 
@@ -125,6 +126,11 @@ namespace EH
 	{
 		GameObject::Update();
 
+		if (mIsStop)
+		{
+			return;
+		}
+
 		switch (mCurState)
 		{
 		case EH::eBossState::Idle:
@@ -184,6 +190,7 @@ namespace EH
 			Animator* ani = GetComponent<Animator>();
 			ani->PlayAnimation(L"BossDead",false);
 			mDefeatSound->Play(false);
+			SceneManager::GetCurScene()->GetBGM()->Stop(true);
 			mRightHand->GetComponent<Animator>()->PlayAnimation(L"BossRightHandDead", true);
 			mLeftHand->GetComponent<Animator>()->PlayAnimation(L"BossLeftHandDead", true);
 			mCheck3++;
@@ -253,10 +260,6 @@ namespace EH
 			objtr->SetPos(Math::Vector2<float>(pos));
 			objtr->SetScale(Math::Vector2<float>(280.f,308.f));
 			objcol->SetScale(Math::Vector2<float>(280.f, 308.f));
-
-			
-
-			
 		}
 	}
 

@@ -14,6 +14,7 @@ namespace EH
 		float mCheckTime;
 		UINT mIntro;
 		UINT mCheck1;
+		UINT mCheck3;
 		Math::Vector2<float> mCheck2;
 	};
 }
