@@ -36,6 +36,7 @@ namespace EH
 		void Dash();
 		void DownJump();
 		void Die();
+		void Inventory();
 		void Playerlogic();
 
 		// Acess function
@@ -64,7 +65,8 @@ namespace EH
 		class BackGround* mHp;
 		class Canvas* mCanvas;
 
-		class BackGround* mWeapon;
+		// Weapon, sub
+		class Weapon* mWeapon;
 		bool mIsSwing;
 		enums::eWeapon mActiveWeapon;
 		class Weapon* mWeaponCollider;
@@ -84,5 +86,20 @@ namespace EH
 
 		// Player Sound
 		class Sound* mSound;
+		class Sound* mOpeninventorysound;
+
+		// Player Inventory
+		std::wstring mInventory[3][5];
+		bool mOpeninventory;
+
+		// Weapon
+		class Weapon* sword;
+		class Weapon* swordCollider;
+
+		class Weapon* magicwand;
+
+		class Weapon* BelialSword;
+		class Weapon* BelialSwordCollider;
+		static UINT mCheck1;
 	};
 }

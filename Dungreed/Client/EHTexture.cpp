@@ -9,14 +9,15 @@ namespace EH
 {
 	Texture::Texture()
 		:
-		mImg(nullptr),
-		mWidth(0.f),
-		mHeight(0.f),
-		mType(eTextureType::None),
-		mHdc(nullptr),
-		mBitmap(nullptr),
-		mPos(0,0),
-		mDegree(0.f)
+		  mImg(nullptr)
+		, mWidth(0.f)
+		, mHeight(0.f)
+		, mType(eTextureType::None)
+		, mHdc(nullptr)
+		, mBitmap(nullptr)
+		, mPos(0,0)
+		, mDegree(0.f)
+		, mEnabled(true)
 	{
 	}
 
@@ -75,6 +76,9 @@ namespace EH
 	void Texture::Render(HDC hdc, GameObject* obj, bool affectedcamera, Math::Vector2<float>size, Math::Vector2<float> lefttop, Math::Vector2<float> offset,float alpha)
 	{
 		if (mImg == nullptr && mBitmap == nullptr)
+			return;
+
+		if(!mEnabled)
 			return;
 
 		Transform* tf = obj->GetComponent<Transform>();

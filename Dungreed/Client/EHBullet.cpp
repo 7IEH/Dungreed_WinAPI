@@ -19,6 +19,7 @@ namespace EH
 		, mIsStop(true)
 		, mIsPass(true)
 		, mIsDelete(true)
+		, mSpeed(1.f)
 	{
 		mHitSound = Resources::Load<Sound>(L"playerhitsound", L"..\\Resources\\Sound\\Enemy\\public\\Hit_Player.wav");
 	}
@@ -39,8 +40,8 @@ namespace EH
 			Transform* tr = GetComponent<Transform>();
 			mCheckTime += Time::GetDeltaTime();
 			Math::Vector2<float> pos = tr->Getpos();
-			pos.y += sinf(mRadian) * 300.f * Time::GetDeltaTime();
-			pos.x += cosf(mRadian) * 300.f * Time::GetDeltaTime();
+			pos.y += sinf(mRadian) * 300.f * Time::GetDeltaTime() * mSpeed;
+			pos.x += cosf(mRadian) * 300.f * Time::GetDeltaTime() * mSpeed;
 			tr->SetPos(pos);
 			if (mDeleteTime < mCheckTime && mIsDelete)
 			{

@@ -11,7 +11,13 @@ namespace EH
 	UINT Objdata::mLevel = 0;
 	UINT Objdata::mDash = 0;
 
-	BackGround* Objdata::mWeapon = nullptr;
+	Weapon* Objdata::sword;
+	Weapon* Objdata::swordCollider;
+	Weapon* Objdata::magicwand;
+	Weapon* Objdata::BelialSword;
+	Weapon* Objdata::BelialSwordCollider;
+
+	Weapon* Objdata::mWeapon = nullptr;
 	bool Objdata::mIsSwing = false;
 	enums::eWeapon Objdata::mActiveWeapon = enums::eWeapon::None;
 	Weapon* Objdata::mWeaponCollider = nullptr;

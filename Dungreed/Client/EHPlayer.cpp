@@ -17,6 +17,7 @@ extern EH::Application application;
 
 namespace EH
 {
+	UINT Player::mCheck1 = 0;
 	Player::Player()
 		:
 		mCurHp(Objdata::GetHP())
@@ -39,11 +40,18 @@ namespace EH
 		, mWeaponCollider(nullptr)
 		, mSound(nullptr)
 		, Trans(false)
+		, mInventory{}
+		, mOpeninventory(false)
 	{
 		AddComponent<Rigidbody>();
 
+		mInventory[0][0] = L"Sword";
+
+		Texture* texture = Resources::Load<Texture>(L"SwordInventorybox", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
+		texture->Enabled(false);
+
 		// Animation setting
-		Texture* texture = Resources::Load<Texture>(L"PlayerRightIdle", L"..\\Resources\\Player\\Basic\\Idle\\CharRightIdleSheet.bmp");
+		texture = Resources::Load<Texture>(L"PlayerRightIdle", L"..\\Resources\\Player\\Basic\\Idle\\CharRightIdleSheet.bmp");
 		Animator* animator = AddComponent<Animator>();
 		animator->CreateAnimation(L"PlayerRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 5, 0.1f);
 		animator->PlayAnimation(L"PlayerRightIdle", true);
@@ -109,13 +117,53 @@ namespace EH
 		PlayerUICanvas->AddImageObject(L"WeaponSlot", texture, false, Math::Vector2<float>(1210.f, 641.f), Math::Vector2<float>(140.f, 102.f));
 		PlayerUICanvas->AddImageObject(L"WeaponSlot2", texture, false, Math::Vector2<float>(1190.f, 657.f), Math::Vector2<float>(140.f, 102.f));
 
+		// Inventory
+		texture = Resources::Load<Texture>(L"InventoryBase", L"..\\Resources\\UI\\InventoryBase.png");
+		texture->Enabled(false);
+		PlayerUICanvas->AddImageObject(L"InventoryBase", texture, false, Math::Vector2<float>(1034.f, 360.f), Math::Vector2<float>(492.f, 720.f));
+
+		PlayerUICanvas->AddImageObject(L"InventoryWeapon", nullptr, false, Math::Vector2<float>(890.f, 165.f), Math::Vector2<float>(57.f, 21.f));
+		PlayerUICanvas->AddImageObject(L"InventorySubWeapon", nullptr, false, Math::Vector2<float>(1105.f, 165.f), Math::Vector2<float>(57.f, 21.f));
+
+		texture = Resources::Load<Texture>(L"InventoryBox", L"..\\Resources\\UI\\InventoryBox.png");
+		texture->Enabled(false);
+		for (size_t y = 0; y < 3; y++)
+		{
+			for (size_t x = 0; x < 5; x++)
+			{
+				PlayerUICanvas->AddImageObject(L"InventoryBox" + std::to_wstring(y * 5 + x), texture, false, Math::Vector2<float>(865.f + 88.f * x, 390.f + 88.f * y), Math::Vector2<float>(76.f, 76.f));
+				PlayerUICanvas->AddImageObject(L"InventoryItem" + std::to_wstring(y * 5 + x), nullptr, false, Math::Vector2<float>(865.f + 88.f * x, 390.f + 88.f * y), Math::Vector2<float>(76.f, 76.f));
+			}
+		}
+		texture = Resources::Load<Texture>(L"InventoryBox_Selected", L"..\\Resources\\UI\\InventoryBox_Selected.png");
+
 		// Sound setting
 		Sound* sound = Resources::Load<Sound>(L"PlayerRunSound", L"..\\Resources\\Sound\\Player\\Run\\step_lth1.wav");
 		sound = Resources::Load<Sound>(L"PlayerJumpSound", L"..\\Resources\\Sound\\Player\\Jump\\Jumping.wav");
 		sound = Resources::Load<Sound>(L"PlayerSwingSound", L"..\\Resources\\Sound\\Player\\Attack\\swing3.wav");
 		sound = Resources::Load<Sound>(L"PlayerDashSound", L"..\\Resources\\Sound\\Player\\Dash\\Dash.wav");
 
+		mOpeninventorysound = Resources::Load<Sound>(L"OpenInventory", L"..\\Resources\\Sound\\Player\\Inventory\\OpenInventory.wav");
+
 		mCanvas = PlayerUICanvas;
+
+		if (mCheck1 == 0)
+		{
+			sword = object::Instantiate<Weapon>(enums::eLayerType::UI);
+			texture = Resources::Load<Texture>(L"Onehand", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
+			sword->AddComponent<SpriteRenderer>();
+			sword->GetComponent<SpriteRenderer>()->SetImg(texture);
+			sword->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+
+			swordCollider = object::Instantiate<Weapon>(enums::eLayerType::Sword);
+			Collider* weaponcol = swordCollider->AddComponent<Collider>();
+			weaponcol->SetScale(Math::Vector2<float>(120.f, 120.f));
+			weaponcol->SetType(Collider::eColliderType::Circle);
+			mWeaponCollider = swordCollider;
+			weaponcol->enabled(false);
+			swordCollider->SetDelayTime(0.1f);
+			mCheck1++;
+		}
 	}
 
 	Player::~Player()
@@ -186,24 +234,15 @@ namespace EH
 
 		if (mWeapon != Objdata::GetWeapon())
 		{
-			//BackGround* weapon = object::Instantiate<BackGround>(enums::eLayerType::UI);
-			//Transform* temp = weapon->GetComponent<Transform>();
-			//temp->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
-			//temp->SetScale(Math::Vector2<float>(76.f, 28.f));
-
-			//Texture* texture = Resources::Load<Texture>(L"Onehand", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
-			////degree 구하기
-			//float radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
-			//float degree = radian * (180.f / 3.14f);
-			//texture->SetDegree(degree + 90);
-			//weapon->GetComponent<SpriteRenderer>()->SetImg(texture);
-			//weapon->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
-			//weapon->SetName(L"Test");
 			SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, Objdata::GetWeapon());
 			mWeapon = Objdata::GetWeapon();
-			Texture* texture = Resources::Load<Texture>(L"Sword1", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
-			mCanvas->AddImageObject(L"Sword1", texture, false, Math::Vector2<float>(1180.f, 660.f), Math::Vector2<float>(76.f, 28.f));
-			Objdata::SetWeapon(mWeapon);
+
+			if (mActiveWeapon == enums::eWeapon::Onehand)
+			{
+				Texture* texture = Resources::Load<Texture>(L"Sword1", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
+				mCanvas->AddImageObject(L"Sword1", texture, false, Math::Vector2<float>(1180.f, 660.f), Math::Vector2<float>(76.f, 28.f));
+				Objdata::SetWeapon(mWeapon);
+			}
 		}
 
 		if (mIsSwing != Objdata::GetSwing())
@@ -276,6 +315,8 @@ namespace EH
 	// 나중에 정리
 	void Player::Playerlogic()
 	{
+		Texture* texture = nullptr;
+
 		Transform* tr = GetComponent<Transform>();
 		if (mIsSwing)
 		{
@@ -304,24 +345,23 @@ namespace EH
 			}
 		}
 
+		POINT pt = {};
+		GetCursorPos(&pt);
+		ScreenToClient(application.GetHWND(), &pt);
+		Vector2<float> cursorpos;
+		cursorpos.x = pt.x;
+		cursorpos.y = pt.y;
+
+		cursorpos = Camera::CaculatePos(-cursorpos);
+		cursorpos = -cursorpos;
 
 		if (mActiveWeapon == enums::eWeapon::Onehand)
 		{
-			Transform* tr = GetComponent<Transform>();
 			Transform* weaponcoltr = mWeaponCollider->GetComponent<Transform>();
-			POINT pt = {};
-			GetCursorPos(&pt);
-			ScreenToClient(application.GetHWND(), &pt);
-			Vector2<float> cursorpos;
-			cursorpos.x = pt.x;
-			cursorpos.y = pt.y;
 			float radian = 0.f;
 			float radian2 = 0.f;
 			float degree = 0.f;
 			//degree 구하기
-
-			cursorpos = Camera::CaculatePos(-cursorpos);
-			cursorpos = -cursorpos;
 
 			radian2 = atan2(tr->Getpos().y - cursorpos.y, tr->Getpos().x - cursorpos.x);
 			weaponcoltr->SetPos(Math::Vector2<float>(tr->Getpos().x - 60.f * cosf(radian2), tr->Getpos().y - 60.f * sinf(radian2)));
@@ -363,17 +403,6 @@ namespace EH
 		}
 		else
 		{
-			Transform* tr = GetComponent<Transform>();
-			POINT pt = {};
-			GetCursorPos(&pt);
-			ScreenToClient(application.GetHWND(), &pt);
-			Vector2<float> cursorpos;
-			cursorpos.x = pt.x;
-			cursorpos.y = pt.y;
-
-			cursorpos = Camera::CaculatePos(-cursorpos);
-			cursorpos = -cursorpos;
-
 			if (cursorpos.x > tr->Getpos().x)
 			{
 				mIsRight = true;
@@ -381,6 +410,79 @@ namespace EH
 			else
 			{
 				mIsRight = false;
+			}
+		}
+
+		for (size_t y = 0; y < 3; y++)
+		{
+			for (size_t x = 0; x < 5; x++)
+			{
+				std::wstring name = mInventory[y][x];
+				SpriteRenderer* inventoryitem = mCanvas->Find(L"InventoryItem" + std::to_wstring(y * 5 + x))->GetComponent<SpriteRenderer>();
+				texture = Resources::Load<Texture>(name + L"Inventorybox", L"");
+				inventoryitem->SetImg(texture);
+			}
+		}
+
+		if (mOpeninventory)
+		{
+			POINT pt = {};
+			GetCursorPos(&pt);
+			ScreenToClient(application.GetHWND(), &pt);
+			Vector2<float> cursorpos;
+			cursorpos.x = pt.x;
+			cursorpos.y = pt.y;
+			UINT inventory = -1;
+			UINT dy = -1;
+			UINT dx = -1;
+			for (size_t y = 0; y < 3; y++)
+			{
+				for (size_t x = 0; x < 5; x++)
+				{
+					SpriteRenderer* inventorybox = mCanvas->Find(L"InventoryBox" + std::to_wstring(y * 5 + x))->GetComponent<SpriteRenderer>();
+					texture = Resources::Load<Texture>(L"InventoryBox", L"");
+					inventorybox->SetImg(texture);
+				}
+			}
+
+			for (size_t y = 0; y < 3; y++)
+			{
+				for (size_t x = 0; x < 5; x++)
+				{
+					if ((cursorpos.x < 865.f + 88.f * x + 38.f && cursorpos.x > 865.f + 88.f * x - 38.f) &&
+						(cursorpos.y < 390.f + 88.f * y + 38.f && cursorpos.y > 390.f + 88.f * y - 38.f))
+					{
+						inventory = y * 5 + x;
+						dy = y;
+						dx = x;
+					}
+				}
+			}
+			if (inventory != -1)
+			{
+				SpriteRenderer* inventorybox = mCanvas->Find(L"InventoryBox" + std::to_wstring(inventory))->GetComponent<SpriteRenderer>();
+				texture = Resources::Load<Texture>(L"InventoryBox_Selected", L"..\\Resources\\UI\\InventoryBox_Selected.png");
+				inventorybox->SetImg(texture);
+
+				if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::DOWN)
+				{
+					std::wstring item = mInventory[dy][dx];
+					if (item == L"Sword")
+					{
+						mActiveWeapon = enums::eWeapon::Onehand; 
+						texture = Resources::Load<Texture>(item + L"Inventorybox", L"");
+						ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+						Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
+						inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+						inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
+						mInventory[dy][dx] = L"";
+						mWeapon = sword;
+						mWeaponCollider = swordCollider;
+						Objdata::SetActiveWeapon(mActiveWeapon);
+						Objdata::SetWeapon(sword);
+						Objdata::SetWeaponCollider(swordCollider);
+					}
+				}
 			}
 		}
 	}
@@ -402,50 +504,47 @@ namespace EH
 		}
 
 		// 이것도 나중에 정리
-		if (Input::Getkey(eKeyCode::K).state == eKeyState::DOWN)
-		{
-			Transform* tr = GetComponent<Transform>();
-			POINT pt = {};
-			GetCursorPos(&pt);
-			ScreenToClient(application.GetHWND(), &pt);
-			Vector2<float> cursorpos;
-			cursorpos.x = pt.x;
-			cursorpos.y = pt.y;
+		//if (Input::Getkey(eKeyCode::K).state == eKeyState::DOWN)
+		//{
+		//	Transform* tr = GetComponent<Transform>();
+		//	POINT pt = {};
+		//	GetCursorPos(&pt);
+		//	ScreenToClient(application.GetHWND(), &pt);
+		//	Vector2<float> cursorpos;
+		//	cursorpos.x = pt.x;
+		//	cursorpos.y = pt.y;
 
-			Camera::CaculatePos(cursorpos);
+		//	Camera::CaculatePos(cursorpos);
 
-			mActiveWeapon = enums::eWeapon::Onehand;
-			BackGround* weapon = object::Instantiate<BackGround>(enums::eLayerType::UI);
-			Transform* temp = weapon->GetComponent<Transform>();
-			temp->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
-			temp->SetScale(Math::Vector2<float>(76.f, 28.f));
+		//	mActiveWeapon = enums::eWeapon::Onehand;
+		//	Weapon* weapon = object::Instantiate<Weapon>(enums::eLayerType::UI);
+		//	Transform* temp = weapon->GetComponent<Transform>();
+		//	temp->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
+		//	temp->SetScale(Math::Vector2<float>(76.f, 28.f));
 
-			Texture* texture = Resources::Load<Texture>(L"Onehand", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
-			//degree 구하기
-			float radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
-			float degree = radian * (180.f / 3.14f);
-			texture->SetDegree(degree + 90);
-			weapon->GetComponent<SpriteRenderer>()->SetImg(texture);
-			weapon->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
-			weapon->SetName(L"Test");
-			mWeapon = weapon;
-			Objdata::SetActiveWeapon(mActiveWeapon);
-			Objdata::SetWeapon(weapon);
+		//	Texture* texture = Resources::Load<Texture>(L"Onehand", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
+		//	//degree 구하기
+		//	float radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
+		//	float degree = radian * (180.f / 3.14f);
+		//	texture->SetDegree(degree + 90);
+		//	weapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+		//	weapon->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+		//	weapon->SetName(L"Test");
+		//	mWeapon = weapon;
+		//	Objdata::SetActiveWeapon(mActiveWeapon);
+		//	Objdata::SetWeapon(weapon);
 
-			Weapon* weaponcollider = object::Instantiate<Weapon>(enums::eLayerType::Sword);
-			Transform* weapontr = weaponcollider->GetComponent<Transform>();
-			Collider* weaponcol = weaponcollider->AddComponent<Collider>();
-			weapontr->SetPos(Math::Vector2<float>(tr->Getpos().x + 60.f * cosf(radian), tr->Getpos().y + 60.f * sinf(radian)));
-			weaponcol->SetScale(Math::Vector2<float>(120.f, 120.f));
-			weaponcol->SetType(Collider::eColliderType::Circle);
-			mWeaponCollider = weaponcollider;
-			weaponcol->enabled(false);
-			weaponcollider->SetDelayTime(0.1f);
-			Objdata::SetWeaponCollider(weaponcollider);
-
-			texture = Resources::Load<Texture>(L"Sword1", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
-			mCanvas->AddImageObject(L"Sword1", texture, false, Math::Vector2<float>(1180.f, 660.f), Math::Vector2<float>(76.f, 28.f));
-		}
+		//	Weapon* weaponcollider = object::Instantiate<Weapon>(enums::eLayerType::Sword);
+		//	Transform* weapontr = weaponcollider->GetComponent<Transform>();
+		//	Collider* weaponcol = weaponcollider->AddComponent<Collider>();
+		//	weapontr->SetPos(Math::Vector2<float>(tr->Getpos().x + 60.f * cosf(radian), tr->Getpos().y + 60.f * sinf(radian)));
+		//	weaponcol->SetScale(Math::Vector2<float>(120.f, 120.f));
+		//	weaponcol->SetType(Collider::eColliderType::Circle);
+		//	mWeaponCollider = weaponcollider;
+		//	weaponcol->enabled(false);
+		//	weaponcollider->SetDelayTime(0.1f);
+		//	Objdata::SetWeaponCollider(weaponcollider);
+		//}
 
 		if (Input::Getkey(eKeyCode::L).state == eKeyState::DOWN)
 		{
@@ -553,6 +652,10 @@ namespace EH
 			}
 			mSound = Resources::Find<Sound>(L"PlayerDashSound");
 			mSound->Play(false);
+		}
+		if (Input::Getkey(eKeyCode::V).state == eKeyState::DOWN)
+		{
+			Inventory();
 		}
 		if (mCurHp <= 0.f)
 		{
@@ -815,6 +918,76 @@ namespace EH
 		{
 			mCurState = eAnimationState::Idle;
 		}
+	}
+
+	void Player::Inventory()
+	{
+		ImageObject* imageobjectBase = mCanvas->Find(L"InventoryBase");
+		SpriteRenderer* Basesr = imageobjectBase->GetComponent<SpriteRenderer>();
+
+		ImageObject* imageobjectBox = mCanvas->Find(L"InventoryBox0");
+		SpriteRenderer* Boxsr = imageobjectBox->GetComponent<SpriteRenderer>();
+
+		ImageObject* imageobjectweapon = mCanvas->Find(L"InventoryWeapon");
+		SpriteRenderer* weaponsr = imageobjectweapon->GetComponent<SpriteRenderer>();
+
+		ImageObject* imageobjectSubweapon = mCanvas->Find(L"InventorySubWeapon");
+		SpriteRenderer* weaponsubsr = imageobjectSubweapon->GetComponent<SpriteRenderer>();
+		if (mOpeninventory)
+		{
+			mOpeninventorysound->Play(false);
+			Basesr->GetImg()->Enabled(false);
+			Boxsr->GetImg()->Enabled(false);
+			if (weaponsr->GetImg() != nullptr)
+			{
+				weaponsr->GetImg()->Enabled(false);
+			}
+			if (weaponsubsr->GetImg() != nullptr)
+			{
+				weaponsubsr->GetImg()->Enabled(false);
+			}
+			mOpeninventory = false;
+
+			for (size_t y = 0; y < 3; y++)
+			{
+				for (size_t x = 0; x < 5; x++)
+				{
+					if (mInventory[y][x] != L"")
+					{
+						Texture* texture = mCanvas->Find(L"InventoryItem" + std::to_wstring(y * 5 + x))->GetComponent<SpriteRenderer>()->GetImg();
+						texture->Enabled(false);
+					}
+				}
+			}
+		}
+		else
+		{
+			mOpeninventorysound->Play(false);
+			Basesr->GetImg()->Enabled(true);
+			Boxsr->GetImg()->Enabled(true);
+			if (weaponsr->GetImg() != nullptr)
+			{
+				weaponsr->GetImg()->Enabled(true);
+			}
+			if (weaponsubsr->GetImg() != nullptr)
+			{
+				weaponsubsr->GetImg()->Enabled(true);
+			}
+			mOpeninventory = true;
+
+			for (size_t y = 0; y < 3; y++)
+			{
+				for (size_t x = 0; x < 5; x++)
+				{
+					if (mInventory[y][x] != L"")
+					{
+						Texture* texture = mCanvas->Find(L"InventoryItem" + std::to_wstring(y * 5 + x))->GetComponent<SpriteRenderer>()->GetImg();
+						texture->Enabled(true);
+					}
+				}
+			}
+		}
+		mCurState = eAnimationState::Idle;
 	}
 
 	void Player::OnCollisionEnter(Collider* other)

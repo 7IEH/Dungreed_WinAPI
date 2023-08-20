@@ -35,6 +35,9 @@ namespace EH
 		void SetDelete(bool deleted) { mIsDelete = deleted; }
 		bool GetDelete() { return mIsDelete; }
 
+		void SetSpeed(float speed) { mSpeed = speed; }
+		float GetSpeed() { return mSpeed; }
+
 	private:
 		float mRadian;
 		UINT mDamage;
@@ -42,7 +45,8 @@ namespace EH
 		float mCheckTime;
 		bool mIsStop;
 		bool mIsPass;
-		
+		float mSpeed;
+
 		bool mIsDelete;
 
 		//

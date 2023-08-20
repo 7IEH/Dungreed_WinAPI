@@ -41,6 +41,8 @@ namespace EH
 		// pixel collide
 		COLORREF GetTexturePixel(int x, int y);
 
+		void Enabled(bool enabled) { mEnabled = enabled; }
+
 	private:
 		eTextureType mType;
 		Gdiplus::Image* mImg;
@@ -51,6 +53,8 @@ namespace EH
 		UINT mHeight;
 		float mDegree;
 		Math::Vector2<int> mPos;
+
+		bool mEnabled;
 	};
 }
 
