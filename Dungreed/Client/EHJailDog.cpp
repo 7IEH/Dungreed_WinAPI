@@ -207,7 +207,10 @@ namespace EH
 
     void JailDog::Dead()
     {
-        CollisionManager::ForceExit(GetComponent<Collider>(), mAttack->GetComponent<Collider>());
+        if (mAttack != nullptr)
+        {
+            CollisionManager::ForceExit(GetComponent<Collider>(), mAttack->GetComponent<Collider>());
+        }
         Destroy(this);
     }
 }

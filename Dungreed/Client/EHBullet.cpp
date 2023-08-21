@@ -7,6 +7,11 @@
 #include "EHWall.h"
 #include "EHResources.h"
 #include "EHSound.h"
+#include "EHEnemy.h"
+#include "EHSceneManager.h"
+#include "EHCollisionManager.h"
+#include "EHEffect.h"
+#include "EHObject.h"
 
 namespace EH
 {
@@ -20,8 +25,15 @@ namespace EH
 		, mIsPass(true)
 		, mIsDelete(true)
 		, mSpeed(1.f)
+		, mIsPlayer(false)
+		, mHoming(false)
+		, mTarget(nullptr)
+		, mHomingTime(0.5f)
+		, mIsLaser(false)
+		, mIsStar(false)
 	{
 		mHitSound = Resources::Load<Sound>(L"playerhitsound", L"..\\Resources\\Sound\\Enemy\\public\\Hit_Player.wav");
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Bullet, enums::eLayerType::Enemy, true);
 	}
 
 	Bullet::~Bullet()
@@ -37,15 +49,86 @@ namespace EH
 		GameObject::Update();
 		if (!mIsStop)
 		{
-			Transform* tr = GetComponent<Transform>();
-			mCheckTime += Time::GetDeltaTime();
-			Math::Vector2<float> pos = tr->Getpos();
-			pos.y += sinf(mRadian) * 300.f * Time::GetDeltaTime() * mSpeed;
-			pos.x += cosf(mRadian) * 300.f * Time::GetDeltaTime() * mSpeed;
-			tr->SetPos(pos);
-			if (mDeleteTime < mCheckTime && mIsDelete)
+			if (!mHoming)
 			{
-				Destroy(this);
+				Transform* tr = GetComponent<Transform>();
+				mCheckTime += Time::GetDeltaTime();
+				Math::Vector2<float> pos = tr->Getpos();
+				pos.y += sinf(mRadian) * 300.f * Time::GetDeltaTime() * mSpeed;
+				pos.x += cosf(mRadian) * 300.f * Time::GetDeltaTime() * mSpeed;
+				tr->SetPos(pos);
+				if (mDeleteTime < mCheckTime && mIsDelete)
+				{
+					Destroy(this);
+				}
+			}
+			else
+			{
+				mHomingCheckTime += Time::GetDeltaTime();
+				if (mTarget == nullptr)
+				{
+					if (!SceneManager::GetCurScene()->GetLayer(enums::eLayerType::Enemy).GetObjects().empty())
+					{
+						mTarget = dynamic_cast<Enemy*>(SceneManager::GetCurScene()->GetLayer(enums::eLayerType::Enemy).GetObjects().front());
+					}
+					if (mTarget == nullptr)
+					{
+						Destroy(this);
+					}
+				}
+
+				if (mTarget != nullptr)
+				{
+					if (mHomingTime > mHomingCheckTime)
+					{
+						Transform* tr = GetComponent<Transform>();
+						Math::Vector2<float> pos = tr->Getpos();
+						pos.y += sinf(mRadian) * 300.f * Time::GetDeltaTime() * mSpeed;
+						pos.x += cosf(mRadian) * 300.f * Time::GetDeltaTime() * mSpeed;
+						tr->SetPos(pos);
+					}
+					else
+					{
+						Transform* tr = GetComponent<Transform>();
+						if (mTarget == nullptr)
+							return;
+						Transform* targettr = mTarget->GetComponent<Transform>();
+						if (targettr == nullptr)
+							return;
+						Math::Vector2<float> targettrpos = targettr->Getpos();
+						float radian = Math::Radian(targettrpos, tr->Getpos()) * (mCheckTime / 1.f);
+						Math::Vector2<float> pos = tr->Getpos();
+						pos.y += sinf(radian) * 300.f * Time::GetDeltaTime() * mSpeed;
+						pos.x += cosf(radian) * 300.f * Time::GetDeltaTime() * mSpeed;
+						tr->SetPos(pos);
+					}
+				}
+				mCheckTime += Time::GetDeltaTime();
+				if (mDeleteTime < mCheckTime && mIsDelete)
+				{
+					Effect* bulletFX = object::Instantiate<Effect>(enums::eLayerType::UI);
+					Texture* texture = Resources::Load<Texture>(L"StarBulletFX", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\StarBulletFX\\StarBulletFX.bmp");
+					Transform* tr = bulletFX->GetComponent<Transform>();
+					Animator* ani = bulletFX->AddComponent<Animator>();
+
+					tr->SetPos(GetComponent<Transform>()->Getpos());
+					tr->SetScale(Math::Vector2<float>(144.f, 140.f));
+
+					ani->CreateAnimation(L"StarBulletFX", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(36.f, 35.f), Math::Vector2<float>(0.f, 0.f), 7, 0.1f);
+					ani->PlayAnimation(L"StarBulletFX", false);
+					Destroy(this);
+				}
+			}
+		}
+		else
+		{
+			if (mIsLaser)
+			{
+				mCheckTime += Time::GetDeltaTime();
+				if (mDeleteTime < mCheckTime && mIsDelete)
+				{
+					Destroy(this);
+				}
 			}
 		}
 	}
@@ -57,32 +140,86 @@ namespace EH
 
 	void Bullet::OnCollisionEnter(Collider* other)
 	{
-		Player* player = dynamic_cast<Player*>(other->GetOwner());
-
-		if (player != nullptr)
+		if (!mIsPlayer)
 		{
-			Objdata::SetHP(Objdata::GetHP() - mDamage);
-			mHitSound->Play(false);
-			if(mIsDelete)
-				Destroy(this);
+			Player* player = dynamic_cast<Player*>(other->GetOwner());
+
+			if (player != nullptr)
+			{
+				Objdata::SetHP(Objdata::GetHP() - mDamage);
+				mHitSound->Play(false);
+				if (mIsDelete)
+					Destroy(this);
+			}
+
+			if (!mIsPass)
+			{
+				Ceil* ceil = dynamic_cast<Ceil*>(other->GetOwner());
+				Floor* floor = dynamic_cast<Floor*>(other->GetOwner());
+				Wall* wall = dynamic_cast<Wall*>(other->GetOwner());
+				if (ceil != nullptr)
+				{
+					Destroy(this);
+				}
+				else if (floor != nullptr)
+				{
+					Destroy(this);
+				}
+				else if (wall != nullptr)
+				{
+					Destroy(this);
+				}
+			}
 		}
-
-		if (!mIsPass)
+		else
 		{
-			Ceil* ceil = dynamic_cast<Ceil*>(other->GetOwner());
-			Floor* floor = dynamic_cast<Floor*>(other->GetOwner());
-			Wall* wall = dynamic_cast<Wall*>(other->GetOwner());
-			if (ceil != nullptr)
+			Enemy* enemy = dynamic_cast<Enemy*>(other->GetOwner());
+
+			if (enemy != nullptr)
 			{
-				Destroy(this);
+				UINT hp = enemy->GetHP();
+				enemy->SetHP(hp -= mDamage);
+				mHitSound->Play(false);
+				if (mIsDelete && mIsStar)
+				{
+					Destroy(this);
+					Effect* bulletFX = object::Instantiate<Effect>(enums::eLayerType::UI);
+					Texture* texture = Resources::Load<Texture>(L"StarBulletFX", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\StarBulletFX\\StarBulletFX.bmp");
+					Transform* tr = bulletFX->GetComponent<Transform>();
+					Animator* ani = bulletFX->AddComponent<Animator>();
+
+					tr->SetPos(GetComponent<Transform>()->Getpos());
+					tr->SetScale(Math::Vector2<float>(144.f, 140.f));
+
+					ani->CreateAnimation(L"StarBulletFX", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(36.f, 35.f), Math::Vector2<float>(0.f, 0.f), 7, 0.1f);
+					ani->PlayAnimation(L"StarBulletFX", false);
+				}
+				else if(mIsDelete && !mIsLaser)
+				{
+					Destroy(this);
+				}
 			}
-			else if (floor != nullptr)
+
+			if (!mIsPass)
 			{
-				Destroy(this);
-			}
-			else if (wall != nullptr)
-			{
-				Destroy(this);
+				Ceil* ceil = dynamic_cast<Ceil*>(other->GetOwner());
+				Floor* floor = dynamic_cast<Floor*>(other->GetOwner());
+				Wall* wall = dynamic_cast<Wall*>(other->GetOwner());
+				if (ceil != nullptr)
+				{
+					Destroy(this);
+					// 부서지는거
+				}
+				else if (floor != nullptr)
+				{
+					// 부서지는거
+					Destroy(this);
+				}
+				else if (wall != nullptr)
+				{
+					// 부서지는거
+					Destroy(this);
+				}
 			}
 		}
 	}

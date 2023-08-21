@@ -12,6 +12,9 @@
 #include "EHObjdata.h"
 #include "EHImageObject.h"
 #include "EHSound.h"
+#include "EHBullet.h"
+#include "EHEffect.h"
+#include "EHLaser.h"
 
 extern EH::Application application;
 
@@ -52,6 +55,8 @@ namespace EH
 			mCheck1++;
 			mInventory[0][0] = L"Sword";
 			mInventory[0][1] = L"Wand";
+			mInventory[0][2] = L"TwoHand";
+			mInventory[0][3] = L"Gun";
 			Objdata::SetInventory(mInventory);
 		}
 
@@ -59,6 +64,12 @@ namespace EH
 		texture->Enabled(false);
 
 		texture = Resources::Load<Texture>(L"WandInventorybox", L"..\\Resources\\Player\\Basic\\Attack\\Lalawand\\Lala'sMagicWand.png");
+		texture->Enabled(false);
+
+		texture = Resources::Load<Texture>(L"TwoHandInventorybox", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\SkeletonKingJewelSword.png");
+		texture->Enabled(false);
+
+		texture = Resources::Load<Texture>(L"GunInventorybox", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Right\\Revolver2.png");
 		texture->Enabled(false);
 
 		// Animation setting
@@ -154,6 +165,10 @@ namespace EH
 		sound = Resources::Load<Sound>(L"PlayerSwingSound", L"..\\Resources\\Sound\\Player\\Attack\\swing3.wav");
 		sound = Resources::Load<Sound>(L"PlayerDashSound", L"..\\Resources\\Sound\\Player\\Dash\\Dash.wav");
 
+		mTwoHandSkillSound = Resources::Load<Sound>(L"PlayerTwoHandSkillSound", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\iceball.wav");
+		mWandSkillSound = Resources::Load<Sound>(L"PlayerWandSkillSound", L"..\\Resources\\Sound\\Player\\Attack\\Wand\\MagicWandSkill.wav");
+		mGunSound = Resources::Load<Sound>(L"PlayerGunSound", L"..\\Resources\\Sound\\Player\\Attack\\Gun\\Gun.wav");
+		mWandSound = Resources::Load<Sound>(L"PlayerWandSound", L"..\\Resources\\Sound\\Player\\Attack\\Wand\\MagicWandAttack.wav");
 		mOpeninventorysound = Resources::Load<Sound>(L"OpenInventory", L"..\\Resources\\Sound\\Player\\Inventory\\OpenInventory.wav");
 
 		mCanvas = PlayerUICanvas;
@@ -194,6 +209,9 @@ namespace EH
 			break;
 		case eAnimationState::Dash:
 			Dash();
+			break;
+		case eAnimationState::Skill:
+			Skill();
 			break;
 		case EH::eAnimationState::Die:
 			Die();
@@ -268,8 +286,6 @@ namespace EH
 		tr->SetPos(Math::Vector2<float>(110.f - ((82.f - 82.f * ((float)mFood / 100.f)) / 2.f), tr->Getpos().y));
 		tr->SetScale(Math::Vector2<float>(82.f * ((float)mFood / 100.f), tr->GetScale().y));
 
-
-
 		Playerlogic();
 	}
 
@@ -320,26 +336,50 @@ namespace EH
 		{
 			if (mIsRight)
 			{
-				if (mActiveWeapon != enums::eWeapon::None)
+				if (mActiveWeapon == enums::eWeapon::Onehand || mActiveWeapon == enums::eWeapon::Wand)
 					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
+
+				if(mActiveWeapon == enums::eWeapon::Gun)
+					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
+
+				if (mActiveWeapon == enums::eWeapon::Twohand)
+					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x + 40.f, tr->Getpos().y - 30.f));
 			}
 			else
 			{
-				if (mActiveWeapon != enums::eWeapon::None)
+				if (mActiveWeapon == enums::eWeapon::Onehand || mActiveWeapon == enums::eWeapon::Wand)
 					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x - 30.f, tr->Getpos().y));
+
+				if (mActiveWeapon == enums::eWeapon::Gun)
+					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x - 30.f, tr->Getpos().y));
+
+				if (mActiveWeapon == enums::eWeapon::Twohand)
+					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x - 40.f, tr->Getpos().y - 30.f));
 			}
 		}
 		else
 		{
 			if (mIsRight)
 			{
-				if (mActiveWeapon != enums::eWeapon::None)
+				if (mActiveWeapon == enums::eWeapon::Onehand || mActiveWeapon == enums::eWeapon::Wand)
 					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y + 50.f));
+
+				if (mActiveWeapon == enums::eWeapon::Gun)
+					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y) + 20.f);
+
+				if (mActiveWeapon == enums::eWeapon::Twohand)
+					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x + 40.f, tr->Getpos().y + 50.f));
 			}
 			else
 			{
-				if (mActiveWeapon != enums::eWeapon::None)
+				if (mActiveWeapon == enums::eWeapon::Onehand || mActiveWeapon == enums::eWeapon::Wand)
 					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x - 30.f, tr->Getpos().y + 50.f));
+
+				if (mActiveWeapon == enums::eWeapon::Gun)
+					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x - 30.f, tr->Getpos().y + 20.f));
+
+				if (mActiveWeapon == enums::eWeapon::Twohand)
+					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x - 40.f, tr->Getpos().y + 50.f));
 			}
 		}
 
@@ -353,7 +393,7 @@ namespace EH
 		cursorpos = Camera::CaculatePos(-cursorpos);
 		cursorpos = -cursorpos;
 
-		if (mActiveWeapon == enums::eWeapon::Onehand || mActiveWeapon == enums::eWeapon::Wand)
+		if (mActiveWeapon == enums::eWeapon::Onehand)
 		{
 			float radian = 0.f;
 			float radian2 = 0.f;
@@ -399,6 +439,125 @@ namespace EH
 					radian = atan2(tr->Getpos().y - cursorpos.y, tr->Getpos().x - cursorpos.x);
 					degree = radian * (180.f / 3.14f);
 					mWeapon->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(180 + 277 + degree);
+					mIsRight = false;
+				}
+			}
+		}
+		else if (mActiveWeapon == enums::eWeapon::Wand)
+		{
+			float radian = 0.f;
+			float radian2 = 0.f;
+			float degree = 0.f;
+			//degree 구하기
+
+			radian2 = atan2(tr->Getpos().y - cursorpos.y, tr->Getpos().x - cursorpos.x);
+			if (mIsSwing)
+			{
+				if (cursorpos.x > tr->Getpos().x)
+				{
+					radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
+					degree = radian * (180.f / 3.14f);
+					mWeapon->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(-(7 + degree));
+					mIsRight = true;
+				}
+				else
+				{
+					radian = atan2(tr->Getpos().y - cursorpos.y, tr->Getpos().x - cursorpos.x);
+					degree = radian * (180.f / 3.14f);
+					mWeapon->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(7 + degree);
+					mIsRight = false;
+				}
+			}
+			else
+			{
+				if (cursorpos.x > tr->Getpos().x)
+				{
+					radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
+					degree = radian * (180.f / 3.14f);
+					mWeapon->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(-7 - degree - 180);
+					mIsRight = true;
+				}
+				else
+				{
+					radian = atan2(tr->Getpos().y - cursorpos.y, tr->Getpos().x - cursorpos.x);
+					degree = radian * (180.f / 3.14f);
+					mWeapon->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(180 + 7 + degree);
+					mIsRight = false;
+				}
+			}
+		}
+		else if (mActiveWeapon == enums::eWeapon::Gun)
+		{
+			float radian = 0.f;
+			float radian2 = 0.f;
+			float degree = 0.f;
+			//degree 구하기
+
+			if (cursorpos.x > tr->Getpos().x)
+			{
+				radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
+				degree = radian * (180.f / 3.14f);
+				texture = Resources::Load<Texture>(L"GunRight", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Right\\Revolver2.png");
+				mWeapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+				mWeapon->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(-degree);
+				mIsRight = true;
+			}
+			else
+			{
+				radian = atan2(tr->Getpos().y - cursorpos.y, tr->Getpos().x - cursorpos.x);
+				degree = radian * (180.f / 3.14f);
+				texture = Resources::Load<Texture>(L"GunLeft", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Left\\Revolver2.png");
+				mWeapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+				mWeapon->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(degree);
+				mIsRight = false;
+			}
+		}
+		else if (mActiveWeapon == enums::eWeapon::Twohand)
+		{
+			float radian = 0.f;
+			float radian2 = 0.f;
+			float degree = 0.f;
+			//degree 구하기
+
+			radian2 = atan2(tr->Getpos().y - cursorpos.y, tr->Getpos().x - cursorpos.x);
+
+			if (mWeaponCollider != nullptr)
+			{
+				Transform* weaponcoltr = mWeaponCollider->GetComponent<Transform>();
+				weaponcoltr->SetPos(Math::Vector2<float>(tr->Getpos().x - 60.f * cosf(radian2), tr->Getpos().y - 60.f * sinf(radian2)));
+			}
+
+			if (mIsSwing)
+			{
+				if (cursorpos.x > tr->Getpos().x)
+				{
+					radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
+					degree = radian * (180.f / 3.14f);
+					mWeapon->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(-(7 + degree));
+					mIsRight = true;
+				}
+				else
+				{
+					radian = atan2(tr->Getpos().y - cursorpos.y, tr->Getpos().x - cursorpos.x);
+					degree = radian * (180.f / 3.14f);
+					mWeapon->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(7 + degree);
+					mIsRight = false;
+				}
+			}
+			else
+			{
+				if (cursorpos.x > tr->Getpos().x)
+				{
+					radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
+					degree = radian * (180.f / 3.14f);
+					mWeapon->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(-7 - degree - 180);
+					mIsRight = true;
+				}
+				else
+				{
+					radian = atan2(tr->Getpos().y - cursorpos.y, tr->Getpos().x - cursorpos.x);
+					degree = radian * (180.f / 3.14f);
+					mWeapon->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(180 + 7 + degree);
 					mIsRight = false;
 				}
 			}
@@ -495,6 +654,7 @@ namespace EH
 									if (mInventory[y][x] == L"")
 									{
 										mInventory[y][x] = L"Wand";
+										Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
 										mCheck1 = 1;
 										break;
 									}
@@ -502,7 +662,44 @@ namespace EH
 								if (mCheck1 == 1)
 									break;
 							}
-
+						}
+						else if (mActiveWeapon == enums::eWeapon::Twohand)
+						{
+							UINT mCheck1 = 0;
+							for (int y = 0;y < 3;y++)
+							{
+								for (int x = 0;x < 5;x++)
+								{
+									if (mInventory[y][x] == L"")
+									{
+										mInventory[y][x] = L"TwoHand";
+										Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+										mCheck1 = 1;
+										break;
+									}
+								}
+								if (mCheck1 == 1)
+									break;
+							}
+						}
+						else if (mActiveWeapon == enums::eWeapon::Gun)
+						{
+							UINT mCheck1 = 0;
+							for (int y = 0;y < 3;y++)
+							{
+								for (int x = 0;x < 5;x++)
+								{
+									if (mInventory[y][x] == L"")
+									{
+										mInventory[y][x] = L"Gun";
+										Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+										mCheck1 = 1;
+										break;
+									}
+								}
+								if (mCheck1 == 1)
+									break;
+							}
 						}
 						mActiveWeapon = enums::eWeapon::Onehand;
 						texture = Resources::Load<Texture>(item + L"Inventorybox", L"");
@@ -531,6 +728,45 @@ namespace EH
 									if (mInventory[y][x] == L"")
 									{
 										mInventory[y][x] = L"Sword";
+										Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+										mCheck1 = 1;
+										break;
+									}
+								}
+								if (mCheck1 == 1)
+									break;
+							}
+						}
+						else if (mActiveWeapon == enums::eWeapon::Twohand)
+						{
+							UINT mCheck1 = 0;
+							for (int y = 0;y < 3;y++)
+							{
+								for (int x = 0;x < 5;x++)
+								{
+									if (mInventory[y][x] == L"")
+									{
+										mInventory[y][x] = L"TwoHand";
+										Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+										mCheck1 = 1;
+										break;
+									}
+								}
+								if (mCheck1 == 1)
+									break;
+							}
+						}
+						else if (mActiveWeapon == enums::eWeapon::Gun)
+						{
+							UINT mCheck1 = 0;
+							for (int y = 0;y < 3;y++)
+							{
+								for (int x = 0;x < 5;x++)
+								{
+									if (mInventory[y][x] == L"")
+									{
+										mInventory[y][x] = L"Gun";
+										Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
 										mCheck1 = 1;
 										break;
 									}
@@ -551,6 +787,153 @@ namespace EH
 						Objdata::SetActiveWeapon(mActiveWeapon);
 						Objdata::SetWeapon(mWeapon);
 						Objdata::SetWeaponCollider(nullptr);
+						SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, mWeapon);
+					}
+					else if (item == L"TwoHand")
+					{
+						mInventory[dy][dx] = L"";
+						if (mActiveWeapon == enums::eWeapon::Wand)
+						{
+							UINT mCheck1 = 0;
+							for (int y = 0;y < 3;y++)
+							{
+								for (int x = 0;x < 5;x++)
+								{
+									if (mInventory[y][x] == L"")
+									{
+										mInventory[y][x] = L"Wand";
+										Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+										mCheck1 = 1;
+										break;
+									}
+								}
+								if (mCheck1 == 1)
+									break;
+							}
+						}
+						else if (mActiveWeapon == enums::eWeapon::Onehand)
+						{
+							UINT mCheck1 = 0;
+							for (int y = 0;y < 3;y++)
+							{
+								for (int x = 0;x < 5;x++)
+								{
+									if (mInventory[y][x] == L"")
+									{
+										mInventory[y][x] = L"Sword";
+										Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+										mCheck1 = 1;
+										break;
+									}
+								}
+								if (mCheck1 == 1)
+									break;
+							}
+						}
+						else if (mActiveWeapon == enums::eWeapon::Gun)
+						{
+							UINT mCheck1 = 0;
+							for (int y = 0;y < 3;y++)
+							{
+								for (int x = 0;x < 5;x++)
+								{
+									if (mInventory[y][x] == L"")
+									{
+										mInventory[y][x] = L"Gun";
+										Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+										mCheck1 = 1;
+										break;
+									}
+								}
+								if (mCheck1 == 1)
+									break;
+							}
+						}
+						mActiveWeapon = enums::eWeapon::Twohand;
+						texture = Resources::Load<Texture>(item + L"Inventorybox", L"");
+						ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+						Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
+						inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+						inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
+						mWeapon = Objdata::GetBelialSword();
+						mWeaponCollider = Objdata::GetBelialSwordCollider();
+						Objdata::SetActiveWeapon(mActiveWeapon);
+						Objdata::SetWeapon(mWeapon);
+						Objdata::SetWeaponCollider(mWeaponCollider);
+						SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, mWeapon);
+						SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Sword, mWeaponCollider);
+					}
+					else if (item == L"Gun")
+					{
+						mInventory[dy][dx] = L"";
+						if (mActiveWeapon == enums::eWeapon::Wand)
+						{
+							UINT mCheck1 = 0;
+							for (int y = 0;y < 3;y++)
+							{
+								for (int x = 0;x < 5;x++)
+								{
+									if (mInventory[y][x] == L"")
+									{
+										mInventory[y][x] = L"Wand";
+										Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+										mCheck1 = 1;
+										break;
+									}
+								}
+								if (mCheck1 == 1)
+									break;
+							}
+						}
+						else if (mActiveWeapon == enums::eWeapon::Twohand)
+						{
+							UINT mCheck1 = 0;
+							for (int y = 0;y < 3;y++)
+							{
+								for (int x = 0;x < 5;x++)
+								{
+									if (mInventory[y][x] == L"")
+									{
+										mInventory[y][x] = L"TwoHand";
+										Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+										mCheck1 = 1;
+										break;
+									}
+								}
+								if (mCheck1 == 1)
+									break;
+							}
+						}
+						else if (mActiveWeapon == enums::eWeapon::Onehand)
+						{
+							UINT mCheck1 = 0;
+							for (int y = 0;y < 3;y++)
+							{
+								for (int x = 0;x < 5;x++)
+								{
+									if (mInventory[y][x] == L"")
+									{
+										mInventory[y][x] = L"Sword";
+										Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+										mCheck1 = 1;
+										break;
+									}
+								}
+								if (mCheck1 == 1)
+									break;
+							}
+						}
+						mActiveWeapon = enums::eWeapon::Gun;
+						texture = Resources::Load<Texture>(item + L"Inventorybox", L"");
+						ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+						Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
+						inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+						inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
+						mWeapon = Objdata::GetGun();
+						mWeaponCollider = nullptr;
+						Objdata::SetActiveWeapon(mActiveWeapon);
+						Objdata::SetWeapon(mWeapon);
+						Objdata::SetWeaponCollider(mWeaponCollider);
 						SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, mWeapon);
 					}
 					Objdata::SetInventory(mInventory);
@@ -617,6 +1000,44 @@ namespace EH
 										break;
 								}
 							}
+							else if (mActiveWeapon == enums::eWeapon::Twohand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"TwoHand";
+											mCheck1 = 1;
+											Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mActiveWeapon == enums::eWeapon::Gun)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Gun";
+											mCheck1 = 1;
+											Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
 							mActiveWeapon = enums::eWeapon::Onehand;
 							texture = Resources::Load<Texture>(mClickedName + L"Inventorybox", L"");
 							ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
@@ -654,6 +1075,44 @@ namespace EH
 										break;
 								}
 							}
+							else if (mActiveWeapon == enums::eWeapon::Twohand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"TwoHand";
+											mCheck1 = 1;
+											Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mActiveWeapon == enums::eWeapon::Gun)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Gun";
+											mCheck1 = 1;
+											Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
 							mActiveWeapon = enums::eWeapon::Wand;
 							texture = Resources::Load<Texture>(mClickedName + L"Inventorybox", L"");
 							ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
@@ -666,6 +1125,153 @@ namespace EH
 							Objdata::SetActiveWeapon(mActiveWeapon);
 							Objdata::SetWeapon(mWeapon);
 							Objdata::SetWeaponCollider(nullptr);
+							SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, mWeapon);
+						}
+						else if (mClickedName == L"TwoHand")
+						{
+							mInventory[ly][lx] = L"";
+							if (mActiveWeapon == enums::eWeapon::Wand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Wand";
+											Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											mCheck1 = 1;
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mActiveWeapon == enums::eWeapon::Onehand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Sword";
+											Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											mCheck1 = 1;
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mActiveWeapon == enums::eWeapon::Gun)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Gun";
+											Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											mCheck1 = 1;
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							mActiveWeapon = enums::eWeapon::Twohand;
+							texture = Resources::Load<Texture>(mClickedName + L"Inventorybox", L"");
+							ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+							Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
+							inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+							inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
+							mWeapon = Objdata::GetBelialSword();
+							mWeaponCollider = Objdata::GetBelialSwordCollider();
+							Objdata::SetActiveWeapon(mActiveWeapon);
+							Objdata::SetWeapon(mWeapon);
+							Objdata::SetWeaponCollider(mWeaponCollider);
+							SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, mWeapon);
+							SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Sword, mWeaponCollider);
+						}
+						else if (mClickedName == L"Gun")
+						{
+							mInventory[ly][lx] = L"";
+							if (mActiveWeapon == enums::eWeapon::Wand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Wand";
+											Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											mCheck1 = 1;
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mActiveWeapon == enums::eWeapon::Twohand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"TwoHand";
+											Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											mCheck1 = 1;
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mActiveWeapon == enums::eWeapon::Onehand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Sword";
+											Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											mCheck1 = 1;
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							mActiveWeapon = enums::eWeapon::Gun;
+							texture = Resources::Load<Texture>(mClickedName + L"Inventorybox", L"");
+							ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+							Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
+							inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+							inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
+							mWeapon = Objdata::GetGun();
+							mWeaponCollider = nullptr;
+							Objdata::SetActiveWeapon(mActiveWeapon);
+							Objdata::SetWeapon(mWeapon);
+							Objdata::SetWeaponCollider(mWeaponCollider);
 							SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, mWeapon);
 						}
 						Objdata::SetInventory(mInventory);
@@ -696,11 +1302,6 @@ namespace EH
 		if (mSound != nullptr)
 		{
 			mSound->Stop(true);
-		}
-
-		if (Input::Getkey(eKeyCode::L).state == eKeyState::DOWN)
-		{
-			EH::Destroy(mWeapon);
 		}
 
 		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
@@ -782,7 +1383,7 @@ namespace EH
 
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN && !mIsAttack)
 		{
-			if (mActiveWeapon != enums::eWeapon::None)
+			if (mActiveWeapon == enums::eWeapon::Onehand)
 			{
 				mCurState = eAnimationState::Attack;
 				mIsSwing = !mIsSwing;
@@ -793,6 +1394,38 @@ namespace EH
 				}
 				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
 				mSound->Play(false);
+			}
+			else if (mActiveWeapon == enums::eWeapon::Wand)
+			{
+				mCurState = eAnimationState::Attack;
+				mIsSwing = !mIsSwing;
+				Objdata::SetSwing(mIsSwing);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mWandSound->Play(false);
+			}
+			else if (mActiveWeapon == enums::eWeapon::Twohand)
+			{
+				mCurState = eAnimationState::Attack;
+				mIsSwing = !mIsSwing;
+				Objdata::SetSwing(mIsSwing);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
+				mSound->Play(false);
+			}
+			else if (mActiveWeapon == enums::eWeapon::Gun)
+			{
+				mCurState = eAnimationState::Attack;
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mGunSound->Play(false);
 			}
 		}
 		if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::DOWN)
@@ -805,10 +1438,17 @@ namespace EH
 			mSound = Resources::Find<Sound>(L"PlayerDashSound");
 			mSound->Play(false);
 		}
+
 		if (Input::Getkey(eKeyCode::V).state == eKeyState::DOWN)
 		{
 			Inventory();
 		}
+
+		if (Input::Getkey(eKeyCode::Q).state == eKeyState::DOWN)
+		{
+			mCurState = eAnimationState::Skill;
+		}
+
 		if (mCurHp <= 0.f)
 		{
 			mCurState = eAnimationState::Die;
@@ -917,7 +1557,7 @@ namespace EH
 		}
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN && !mIsAttack)
 		{
-			if (mActiveWeapon != enums::eWeapon::None)
+			if (mActiveWeapon == enums::eWeapon::Onehand)
 			{
 				mCurState = eAnimationState::Attack;
 				mIsSwing = !mIsSwing;
@@ -928,6 +1568,17 @@ namespace EH
 				}
 				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
 				mSound->Play(false);
+			}
+			else if (mActiveWeapon == enums::eWeapon::Wand)
+			{
+				mCurState = eAnimationState::Attack;
+				mIsSwing = !mIsSwing;
+				Objdata::SetSwing(mIsSwing);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mWandSound->Play(false);
 			}
 		}
 		if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::DOWN)
@@ -963,7 +1614,7 @@ namespace EH
 	{
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN && !mIsAttack)
 		{
-			if (mActiveWeapon != enums::eWeapon::None)
+			if (mActiveWeapon == enums::eWeapon::Onehand)
 			{
 				mCurState = eAnimationState::Attack;
 				mIsSwing = !mIsSwing;
@@ -974,6 +1625,17 @@ namespace EH
 				}
 				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
 				mSound->Play(false);
+			}
+			else if (mActiveWeapon == enums::eWeapon::Wand)
+			{
+				mCurState = eAnimationState::Attack;
+				mIsSwing = !mIsSwing;
+				Objdata::SetSwing(mIsSwing);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mWandSound->Play(false);
 			}
 		}
 		if (mCurHp <= 0.f)
@@ -1029,6 +1691,88 @@ namespace EH
 			mWeaponCollider->GetComponent<Collider>()->enabled(true);
 			mIsAttack = true;
 			mCheckTime = 0.f;
+		}
+		if (mActiveWeapon == enums::eWeapon::Wand)
+		{
+			POINT pt = {};
+			GetCursorPos(&pt);
+			ScreenToClient(application.GetHWND(), &pt);
+			Vector2<float> cursorpos;
+			cursorpos.x = pt.x;
+			cursorpos.y = pt.y;
+
+			cursorpos = Camera::CaculatePos(-cursorpos);
+			cursorpos = -cursorpos;
+			Transform* playertr = GetComponent<Transform>();
+			Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
+			Animator* ani = bullet->AddComponent<Animator>();
+			Texture* texture = Resources::Load<Texture>(L"StarBullet", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\StarBullet\\StarBullet.bmp");
+			Collider* col = bullet->AddComponent<Collider>();
+			Transform* tr = bullet->GetComponent<Transform>();
+			ani->CreateAnimation(L"StarBullet", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(14.f, 13.f), Math::Vector2<float>(0.f, 0.f), 4, 0.1f);
+			ani->PlayAnimation(L"StarBullet", true);
+			col->SetScale(Math::Vector2<float>(56.f,52.f));
+			tr->SetScale(Math::Vector2<float>(56.f, 52.f));
+			tr->SetPos(playertr->Getpos());
+			bullet->SetDeleteTime(10.f);
+			bullet->SetDamage(10.f);
+			bullet->SetSpeed(2.f);
+			bullet->SetPlayer(true);
+			bullet->SetStop(false);
+			bullet->SetStar(true);
+			float radian = Math::Radian(cursorpos, tr->Getpos());
+			bullet->SetRadian(radian);
+			bullet->setHoming(true);
+			mCurState = eAnimationState::Idle;
+
+			Effect* bulletFX = object::Instantiate<Effect>(enums::eLayerType::UI);
+			texture = Resources::Load<Texture>(L"StarBulletFX", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\StarBulletFX\\StarBulletFX.bmp");
+			tr = bulletFX->GetComponent<Transform>();
+			ani = bulletFX->AddComponent<Animator>();
+
+			tr->SetPos(playertr->Getpos());
+			tr->SetScale(Math::Vector2<float>(144.f,140.f));
+
+			ani->CreateAnimation(L"StarBulletFX", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(36.f, 35.f), Math::Vector2<float>(0.f, 0.f), 7, 0.1f);
+			ani->PlayAnimation(L"StarBulletFX", false);
+		}
+		if (mActiveWeapon == enums::eWeapon::Twohand)
+		{
+			mWeaponCollider->GetComponent<Collider>()->enabled(true);
+			mIsAttack = true;
+			mCheckTime = 0.f;
+		}
+		if (mActiveWeapon == enums::eWeapon::Gun)
+		{
+			POINT pt = {};
+			GetCursorPos(&pt);
+			ScreenToClient(application.GetHWND(), &pt);
+			Vector2<float> cursorpos;
+			cursorpos.x = pt.x;
+			cursorpos.y = pt.y;
+
+			cursorpos = Camera::CaculatePos(-cursorpos);
+			cursorpos = -cursorpos;
+			Transform* playertr = GetComponent<Transform>();
+			Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
+			SpriteRenderer* sr = bullet->AddComponent<SpriteRenderer>();
+			Texture* texture = Resources::Load<Texture>(L"StarBullet", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Bullet02.png");
+			Collider* col = bullet->AddComponent<Collider>();
+			Transform* tr = bullet->GetComponent<Transform>();
+			sr->SetImg(texture);
+			col->SetScale(Math::Vector2<float>(20.f, 36.f));
+			tr->SetScale(Math::Vector2<float>(20.f, 36.f));
+			tr->SetPos(playertr->Getpos());
+			bullet->SetDeleteTime(10.f);
+			bullet->SetDamage(10.f);
+			bullet->SetSpeed(3.f);
+			bullet->SetPlayer(true);
+			bullet->SetStop(false);
+			bullet->SetPass(false);
+			float radian = Math::Radian(cursorpos, tr->Getpos());
+			bullet->SetRadian(radian);
+			texture->SetDegree(90 + radian * 180.f / 3.14f);
+			mCurState = eAnimationState::Idle;
 		}
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::UP)
 		{
@@ -1137,6 +1881,134 @@ namespace EH
 						texture->Enabled(true);
 					}
 				}
+			}
+		}
+		mCurState = eAnimationState::Idle;
+	}
+
+	void Player::Skill()
+	{
+		if (mActiveWeapon == enums::eWeapon::Wand)
+		{
+			mWandSkillSound->Play(false);
+			POINT pt = {};
+			GetCursorPos(&pt);
+			ScreenToClient(application.GetHWND(), &pt);
+			Vector2<float> cursorpos;
+			cursorpos.x = pt.x;
+			cursorpos.y = pt.y;
+
+			cursorpos = Camera::CaculatePos(-cursorpos);
+			cursorpos = -cursorpos;
+			Transform* playertr = GetComponent<Transform>();
+			Animator* ani = nullptr;
+			Transform* tr = nullptr;
+			Collider* col = nullptr;
+			Texture* texture= nullptr;
+			for (int i = -4;i < 4;i++)
+			{
+				Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
+				ani = bullet->AddComponent<Animator>();
+				texture = Resources::Load<Texture>(L"StarBullet", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\StarBullet\\StarBullet.bmp");
+				col = bullet->AddComponent<Collider>();
+				tr = bullet->GetComponent<Transform>();
+				ani->CreateAnimation(L"StarBullet", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(14.f, 13.f), Math::Vector2<float>(0.f, 0.f), 4, 0.1f);
+				ani->PlayAnimation(L"StarBullet", true);
+				col->SetScale(Math::Vector2<float>(56.f, 52.f));
+				tr->SetScale(Math::Vector2<float>(56.f, 52.f));
+				tr->SetPos(playertr->Getpos());
+				bullet->SetDeleteTime(10.f);
+				bullet->SetDamage(10.f);
+				bullet->SetSpeed(2.f);
+				bullet->SetPlayer(true);
+				bullet->SetStop(false);
+				float radian = Math::Radian(cursorpos, tr->Getpos());
+				bullet->SetRadian(radian + 0.261 * i);
+				bullet->setHoming(true);
+				bullet->SetStar(true);
+			}
+			
+			// Effect
+			Effect* bulletFX = object::Instantiate<Effect>(enums::eLayerType::UI);
+			texture = Resources::Load<Texture>(L"StarBulletFX", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\StarBulletFX\\StarBulletFX.bmp");
+			tr = bulletFX->GetComponent<Transform>();
+			ani = bulletFX->AddComponent<Animator>();
+
+			tr->SetPos(playertr->Getpos());
+			tr->SetScale(Math::Vector2<float>(144.f, 140.f));
+
+			ani->CreateAnimation(L"StarBulletFX", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(36.f, 35.f), Math::Vector2<float>(0.f, 0.f), 7, 0.1f);
+			ani->PlayAnimation(L"StarBulletFX", false);
+		}
+		else if(mActiveWeapon == enums::eWeapon::Twohand)
+		{
+			mTwoHandSkillSound->Play(false);
+
+			POINT pt = {};
+			GetCursorPos(&pt);
+			ScreenToClient(application.GetHWND(), &pt);
+			Vector2<float> cursorpos;
+			cursorpos.x = pt.x;
+			cursorpos.y = pt.y;
+
+			cursorpos = Camera::CaculatePos(-cursorpos);
+			cursorpos = -cursorpos;
+
+			Transform* tr = GetComponent<Transform>();
+			Math::Vector2<float> pos = tr->Getpos();
+			float radian = Math::Radian(pos, cursorpos);
+
+			Math::Vector2<float> startpos = pos;
+			startpos.x += 200.f * cosf(radian);
+			startpos.y += 200.f * sinf(radian);
+
+			Effect* handeffect = object::Instantiate<Effect>(enums::eLayerType::UI);
+			tr = handeffect->GetComponent<Transform>();
+			tr->SetPos(startpos);
+			tr->SetScale(Math::Vector2<float>(156.f, 160.f));
+			Texture* texture = Resources::Load<Texture>(L"TwoHandSkillHand", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\Skill\\Hand\\SkeletonKingSwordHand.png");
+			texture->SetDegree(radian * 180.f / 3.14f + 270.f);
+			Animator* ani = handeffect->AddComponent<Animator>();
+			ani->CreateAnimation(L"TwoHandSkillHand", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(39.f, 40.f), Math::Vector2<float>(0.f, 0.f), 13, 0.1f);
+			ani->PlayAnimation(L"TwoHandSkillHand", false);
+
+			Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
+			ani = bullet->AddComponent<Animator>();
+			texture = Resources::Load<Texture>(L"SkellBossWeaponHead", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\Skill\\Laser\\SkellBossWeaponHead.png");
+			texture->SetDegree(radian * 180.f / 3.14f + 270.f);
+			Collider* col = bullet->AddComponent<Collider>();
+			tr = bullet->GetComponent<Transform>();
+			ani->CreateAnimation(L"SkellBossWeaponHead", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(55.f, 32.f), Math::Vector2<float>(0.f, 0.f), 7, 0.1f);
+			ani->PlayAnimation(L"SkellBossWeaponHead", false);
+			col->SetScale(Math::Vector2<float>(220.f, 128.f));
+			tr->SetScale(Math::Vector2<float>(220.f, 128.f));
+			tr->SetPos(startpos);
+			bullet->SetDeleteTime(0.7f);
+			bullet->SetDamage(10.f);
+			bullet->SetStop(true);
+			bullet->SetPlayer(true);
+			bullet->SetLaser(true);
+
+			for (int i = 0;i < 8;i++)
+			{
+				Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
+				ani = bullet->AddComponent<Animator>();
+				texture = Resources::Load<Texture>(L"SkellBossWeaponBody"+std::to_wstring(i), L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\Skill\\Laser\\SkellBossWeaponLaserBody.png");
+				texture->SetDegree(radian * 180.f / 3.14f + 270.f);
+				Collider* col = bullet->AddComponent<Collider>();
+				tr = bullet->GetComponent<Transform>();
+				ani->CreateAnimation(L"SkellBossWeaponBody", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(55.f, 32.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+				ani->PlayAnimation(L"SkellBossWeaponBody", false);
+				col->SetScale(Math::Vector2<float>(120.f, 120.f));
+				tr->SetScale(Math::Vector2<float>(220.f, 128.f));
+				startpos.x -= 120.f * cosf(radian);
+			    startpos.y -= 120.f * sinf(radian);
+				tr->SetPos(startpos);
+				bullet->SetPlayer(true);
+				bullet->SetDeleteTime(0.7f);
+				bullet->SetDamage(10.f);
+				bullet->SetStop(true);
+				bullet->SetLaser(true);
 			}
 		}
 		mCurState = eAnimationState::Idle;

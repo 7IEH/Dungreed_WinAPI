@@ -34,7 +34,7 @@ namespace EH
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Math::Vector2<float> pos = tr->Getpos();
 
-		/*if (mbAffectedCamera)
+		if (mbAffectedCamera)
 			pos = Camera::CaculatePos(pos);
 
 		HBRUSH hTransParentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
@@ -69,7 +69,7 @@ namespace EH
 		DeleteObject(hTransParentBrush);
 
 		SelectObject(hdc, hOldPen);
-		DeleteObject(hPen);*/
+		DeleteObject(hPen);
 	}
 
 	void Collider::OnCollisionEnter(Collider* other)

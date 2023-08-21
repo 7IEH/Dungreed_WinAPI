@@ -224,8 +224,12 @@ namespace EH
 
 		if (mCheck3 == 16)
 		{
-			CollisionManager::ForceExit(GetComponent<Collider>(), mAttack->GetComponent<Collider>());
+			if (mAttack != nullptr)
+			{
+				CollisionManager::ForceExit(GetComponent<Collider>(), mAttack->GetComponent<Collider>());
+			}
 			Destroy(this);
+
 			// Á×´Â°Å ¶³±À
 
 			DeadObj* deaddown = object::Instantiate<DeadObj>(enums::eLayerType::Item);

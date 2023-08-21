@@ -11,6 +11,7 @@ namespace EH
 		, Attack
 		, Dash
 		, DownJump
+		, Skill
 		, Die
 		, End
 	};
@@ -38,6 +39,7 @@ namespace EH
 		void Die();
 		void Inventory();
 		void Playerlogic();
+		void Skill();
 
 		// Acess function
 		bool GetDir() { return mIsRight; }
@@ -87,6 +89,10 @@ namespace EH
 		// Player Sound
 		class Sound* mSound;
 		class Sound* mOpeninventorysound;
+		class Sound* mWandSound;
+		class Sound* mGunSound;
+		class Sound* mWandSkillSound;
+		class Sound* mTwoHandSkillSound;
 
 		// Player Inventory
 		std::wstring mInventory[3][5];

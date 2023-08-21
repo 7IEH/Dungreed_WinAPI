@@ -18,6 +18,8 @@ namespace EH
 	Weapon* Objdata::magicwand = nullptr;
 	Weapon* Objdata::BelialSword = nullptr;
 	Weapon* Objdata::BelialSwordCollider = nullptr;
+	Weapon* Objdata::Gun = nullptr;
+
 
 	Weapon* Objdata::mWeapon = nullptr;
 	bool Objdata::mIsSwing = false;
@@ -50,5 +52,29 @@ namespace EH
 		magicwand->AddComponent<SpriteRenderer>();
 		magicwand->GetComponent<SpriteRenderer>()->SetImg(texture);
 		magicwand->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+
+		BelialSword = object::Instantiate<Weapon>(enums::eLayerType::UI);
+		texture = Resources::Load<Texture>(L"TwoHand", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\SkeletonKingJewelSword.png");
+		tr = BelialSword->GetComponent<Transform>();
+		tr->SetScale(Math::Vector2<float>(68.f, 144.f));
+		BelialSword->AddComponent<SpriteRenderer>();
+		BelialSword->GetComponent<SpriteRenderer>()->SetImg(texture);
+		BelialSword->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+
+		BelialSwordCollider = object::Instantiate<Weapon>(enums::eLayerType::Sword);
+		weaponcol = BelialSwordCollider->AddComponent<Collider>();
+		weaponcol->SetScale(Math::Vector2<float>(120.f, 120.f));
+		weaponcol->SetType(Collider::eColliderType::Circle);
+		weaponcol->enabled(false);
+		BelialSwordCollider->SetDelayTime(0.1f);
+
+		Gun = object::Instantiate<Weapon>(enums::eLayerType::UI);
+		texture = Resources::Load<Texture>(L"GunLeft", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Left\\Revolver2.png");
+		texture = Resources::Load<Texture>(L"GunRight", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Right\\Revolver2.png");		
+		tr = Gun->GetComponent<Transform>();
+		tr->SetScale(Math::Vector2<float>(64.f, 36.f));
+		Gun->AddComponent<SpriteRenderer>();
+		Gun->GetComponent<SpriteRenderer>()->SetImg(texture);
+		Gun->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
 	}
 }

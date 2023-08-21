@@ -148,8 +148,7 @@ namespace EH
 
 	void Banshee::Dead()
 	{
-		CollisionManager::ForceExit(this->GetComponent<Collider>(), mAttack->GetComponent<Collider>());
-
+		
 		Transform* enemytr = GetComponent<Transform>();
 		Coin* coin = object::Instantiate<Coin>(enums::eLayerType::Item);
 		Math::Vector2<float> pos = enemytr->Getpos();
@@ -168,6 +167,10 @@ namespace EH
 		animator->CreateAnimation(L"FairyM", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 20.f), Math::Vector2<float>(0.f, 0.f), 16, 0.1f);
 		animator->PlayAnimation(L"FairyM", true);
 
+		if (mAttack != nullptr)
+		{
+			CollisionManager::ForceExit(GetComponent<Collider>(), mAttack->GetComponent<Collider>());
+		}
 		Destroy(this);
 	}
 }

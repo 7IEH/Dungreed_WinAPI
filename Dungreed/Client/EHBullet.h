@@ -38,18 +38,38 @@ namespace EH
 		void SetSpeed(float speed) { mSpeed = speed; }
 		float GetSpeed() { return mSpeed; }
 
+		void SetPlayer(bool isplayer) { mIsPlayer = isplayer; }
+		bool GetPlayer() { return mIsPlayer; }
+
+		void SetTarget(class Enemy* enemy) { mTarget = enemy; }
+
+		void setHoming(bool homing) { mHoming = homing; }
+
+		void SetLaser(bool islaser) { mIsLaser = islaser; }
+
+		void SetStar(bool isstar) { mIsStar = isstar; }
 	private:
 		float mRadian;
 		UINT mDamage;
 		float mDeleteTime;
 		float mCheckTime;
+
+		float mHomingTime;
+		float mHomingCheckTime;
 		bool mIsStop;
 		bool mIsPass;
 		float mSpeed;
-
 		bool mIsDelete;
+
+		bool mIsStar;
 
 		//
 		class Sound* mHitSound;
+
+		bool mIsPlayer;
+		bool mIsLaser;
+
+		bool mHoming;
+		class Enemy* mTarget;
 	};
 }

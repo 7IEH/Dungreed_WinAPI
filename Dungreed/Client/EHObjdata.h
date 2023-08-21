@@ -43,6 +43,7 @@ namespace EH
 		static class Weapon* GetMagicWand() { return magicwand; }
 		static class Weapon* GetBelialSword() { return BelialSword; }
 		static class Weapon* GetBelialSwordCollider() { return BelialSwordCollider; }
+		static class Weapon* GetGun() { return Gun; }
 
 		static void GetInventory(std::wstring inventory[3][5]) 
 		{ 
@@ -84,6 +85,7 @@ namespace EH
 		static class Weapon* magicwand;
 		static class Weapon* BelialSword;
 		static class Weapon* BelialSwordCollider;
+		static class Weapon* Gun;
 
 		// Inventory
 		static std::wstring mInventory[3][5];
