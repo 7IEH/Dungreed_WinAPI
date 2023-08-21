@@ -6,7 +6,7 @@ namespace EH
 	class Objdata
 	{
 	public:
-		void Initialize();
+		static void Initialize();
 
 		static void SetMaxHP(int hp) { mMaxhp = hp; }
 		static int GetMaxHP() { return mMaxhp; }
@@ -44,6 +44,27 @@ namespace EH
 		static class Weapon* GetBelialSword() { return BelialSword; }
 		static class Weapon* GetBelialSwordCollider() { return BelialSwordCollider; }
 
+		static void GetInventory(std::wstring inventory[3][5]) 
+		{ 
+			for (int y = 0;y < 3;y++)
+			{
+				for (int x = 0;x < 5;x++)
+				{
+					inventory[y][x] = mInventory[y][x];
+				}
+			}
+		}
+		static void SetInventory(std::wstring inventory[3][5])
+		{
+			for (int y = 0;y < 3;y++)
+			{
+				for (int x = 0;x < 5;x++)
+				{
+					mInventory[y][x] = inventory[y][x];
+				}
+			}
+		}
+
 	private:
 		static int mMaxhp;
 		static int mCurHp;
@@ -63,6 +84,9 @@ namespace EH
 		static class Weapon* magicwand;
 		static class Weapon* BelialSword;
 		static class Weapon* BelialSwordCollider;
+
+		// Inventory
+		static std::wstring mInventory[3][5];
 	};
 }
 

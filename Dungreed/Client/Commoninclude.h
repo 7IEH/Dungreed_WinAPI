@@ -71,6 +71,7 @@ namespace EH::enums
 	{
 		  Onehand
 		, Twohand
+		, Wand
 		, Gun
 		, None
 	};

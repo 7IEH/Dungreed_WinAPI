@@ -75,6 +75,9 @@ namespace EH
 		// DungeonManager Initialize
 		DungeonManager::Initialize();
 
+		//
+		Objdata::Initialize();
+
 		mHbit = CreateCompatibleBitmap(mHdc, 1280, 720);
 		mHmemdc = CreateCompatibleDC(mHdc);
 		HBITMAP hOldBit = (HBITMAP)SelectObject(mHmemdc, mHbit);

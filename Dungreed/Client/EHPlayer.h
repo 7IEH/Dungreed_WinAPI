@@ -91,15 +91,9 @@ namespace EH
 		// Player Inventory
 		std::wstring mInventory[3][5];
 		bool mOpeninventory;
+		bool mClicked;
+		std::wstring mClickedName;
 
-		// Weapon
-		class Weapon* sword;
-		class Weapon* swordCollider;
-
-		class Weapon* magicwand;
-
-		class Weapon* BelialSword;
-		class Weapon* BelialSwordCollider;
 		static UINT mCheck1;
 	};
 }

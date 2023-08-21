@@ -18,6 +18,7 @@ extern EH::Application application;
 namespace EH
 {
 	UINT Player::mCheck1 = 0;
+
 	Player::Player()
 		:
 		mCurHp(Objdata::GetHP())
@@ -42,12 +43,22 @@ namespace EH
 		, Trans(false)
 		, mInventory{}
 		, mOpeninventory(false)
+		, mClicked(false)
 	{
 		AddComponent<Rigidbody>();
 
-		mInventory[0][0] = L"Sword";
+		if (mCheck1 == 0)
+		{
+			mCheck1++;
+			mInventory[0][0] = L"Sword";
+			mInventory[0][1] = L"Wand";
+			Objdata::SetInventory(mInventory);
+		}
 
-		Texture* texture = Resources::Load<Texture>(L"SwordInventorybox", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
+		Texture* texture = Resources::Load<Texture>(L"SwordInventorybox", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword\\ShortSword.png");
+		texture->Enabled(false);
+
+		texture = Resources::Load<Texture>(L"WandInventorybox", L"..\\Resources\\Player\\Basic\\Attack\\Lalawand\\Lala'sMagicWand.png");
 		texture->Enabled(false);
 
 		// Animation setting
@@ -146,24 +157,6 @@ namespace EH
 		mOpeninventorysound = Resources::Load<Sound>(L"OpenInventory", L"..\\Resources\\Sound\\Player\\Inventory\\OpenInventory.wav");
 
 		mCanvas = PlayerUICanvas;
-
-		if (mCheck1 == 0)
-		{
-			sword = object::Instantiate<Weapon>(enums::eLayerType::UI);
-			texture = Resources::Load<Texture>(L"Onehand", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
-			sword->AddComponent<SpriteRenderer>();
-			sword->GetComponent<SpriteRenderer>()->SetImg(texture);
-			sword->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
-
-			swordCollider = object::Instantiate<Weapon>(enums::eLayerType::Sword);
-			Collider* weaponcol = swordCollider->AddComponent<Collider>();
-			weaponcol->SetScale(Math::Vector2<float>(120.f, 120.f));
-			weaponcol->SetType(Collider::eColliderType::Circle);
-			mWeaponCollider = swordCollider;
-			weaponcol->enabled(false);
-			swordCollider->SetDelayTime(0.1f);
-			mCheck1++;
-		}
 	}
 
 	Player::~Player()
@@ -232,6 +225,8 @@ namespace EH
 		mCurDash = Objdata::GetDash();
 		mMaxHP = Objdata::GetMaxHP();
 
+		Objdata::GetInventory(mInventory);
+		
 		if (mWeapon != Objdata::GetWeapon())
 		{
 			SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, Objdata::GetWeapon());
@@ -239,7 +234,7 @@ namespace EH
 
 			if (mActiveWeapon == enums::eWeapon::Onehand)
 			{
-				Texture* texture = Resources::Load<Texture>(L"Sword1", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
+				Texture* texture = Resources::Load<Texture>(L"Sword1", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword\\ShortSword.png");
 				mCanvas->AddImageObject(L"Sword1", texture, false, Math::Vector2<float>(1180.f, 660.f), Math::Vector2<float>(76.f, 28.f));
 				Objdata::SetWeapon(mWeapon);
 			}
@@ -272,6 +267,8 @@ namespace EH
 		tr = foodgage->GetComponent<Transform>();
 		tr->SetPos(Math::Vector2<float>(110.f - ((82.f - 82.f * ((float)mFood / 100.f)) / 2.f), tr->Getpos().y));
 		tr->SetScale(Math::Vector2<float>(82.f * ((float)mFood / 100.f), tr->GetScale().y));
+
+
 
 		Playerlogic();
 	}
@@ -318,6 +315,7 @@ namespace EH
 		Texture* texture = nullptr;
 
 		Transform* tr = GetComponent<Transform>();
+
 		if (mIsSwing)
 		{
 			if (mIsRight)
@@ -355,16 +353,20 @@ namespace EH
 		cursorpos = Camera::CaculatePos(-cursorpos);
 		cursorpos = -cursorpos;
 
-		if (mActiveWeapon == enums::eWeapon::Onehand)
+		if (mActiveWeapon == enums::eWeapon::Onehand || mActiveWeapon == enums::eWeapon::Wand)
 		{
-			Transform* weaponcoltr = mWeaponCollider->GetComponent<Transform>();
 			float radian = 0.f;
 			float radian2 = 0.f;
 			float degree = 0.f;
 			//degree 구하기
 
 			radian2 = atan2(tr->Getpos().y - cursorpos.y, tr->Getpos().x - cursorpos.x);
-			weaponcoltr->SetPos(Math::Vector2<float>(tr->Getpos().x - 60.f * cosf(radian2), tr->Getpos().y - 60.f * sinf(radian2)));
+
+			if (mWeaponCollider != nullptr)
+			{
+				Transform* weaponcoltr = mWeaponCollider->GetComponent<Transform>();
+				weaponcoltr->SetPos(Math::Vector2<float>(tr->Getpos().x - 60.f * cosf(radian2), tr->Getpos().y - 60.f * sinf(radian2)));
+			}
 
 			if (mIsSwing)
 			{
@@ -424,6 +426,7 @@ namespace EH
 			}
 		}
 
+		// Inventory
 		if (mOpeninventory)
 		{
 			POINT pt = {};
@@ -442,6 +445,18 @@ namespace EH
 					SpriteRenderer* inventorybox = mCanvas->Find(L"InventoryBox" + std::to_wstring(y * 5 + x))->GetComponent<SpriteRenderer>();
 					texture = Resources::Load<Texture>(L"InventoryBox", L"");
 					inventorybox->SetImg(texture);
+				}
+			}
+
+			for (size_t y = 0; y < 3; y++)
+			{
+				for (size_t x = 0; x < 5; x++)
+				{
+					if (mInventory[y][x] != L"")
+					{
+						Texture* texture = mCanvas->Find(L"InventoryItem" + std::to_wstring(y * 5 + x))->GetComponent<SpriteRenderer>()->GetImg();
+						texture->Enabled(true);
+					}
 				}
 			}
 
@@ -469,21 +484,201 @@ namespace EH
 					std::wstring item = mInventory[dy][dx];
 					if (item == L"Sword")
 					{
-						mActiveWeapon = enums::eWeapon::Onehand; 
+						mInventory[dy][dx] = L"";
+						if (mActiveWeapon == enums::eWeapon::Wand)
+						{
+							UINT mCheck1 = 0;
+							for (int y = 0;y < 3;y++)
+							{
+								for (int x = 0;x < 5;x++)
+								{
+									if (mInventory[y][x] == L"")
+									{
+										mInventory[y][x] = L"Wand";
+										mCheck1 = 1;
+										break;
+									}
+								}
+								if (mCheck1 == 1)
+									break;
+							}
+
+						}
+						mActiveWeapon = enums::eWeapon::Onehand;
 						texture = Resources::Load<Texture>(item + L"Inventorybox", L"");
 						ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
 						Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
 						inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
 						inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
-						mInventory[dy][dx] = L"";
-						mWeapon = sword;
-						mWeaponCollider = swordCollider;
+						mWeapon = Objdata::GetSword();
+						mWeaponCollider = Objdata::GetSwordCollider();
 						Objdata::SetActiveWeapon(mActiveWeapon);
-						Objdata::SetWeapon(sword);
-						Objdata::SetWeaponCollider(swordCollider);
+						Objdata::SetWeapon(mWeapon);
+						Objdata::SetWeaponCollider(mWeaponCollider);
+						SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, mWeapon);
+						SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Sword, mWeaponCollider);
+					}
+					else if (item == L"Wand")
+					{
+						mInventory[dy][dx] = L"";
+						if (mActiveWeapon == enums::eWeapon::Onehand)
+						{
+							UINT mCheck1 = 0;
+							for (int y = 0;y < 3;y++)
+							{
+								for (int x = 0;x < 5;x++)
+								{
+									if (mInventory[y][x] == L"")
+									{
+										mInventory[y][x] = L"Sword";
+										mCheck1 = 1;
+										break;
+									}
+								}
+								if (mCheck1 == 1)
+									break;
+							}
+						}
+
+						mActiveWeapon = enums::eWeapon::Wand;
+						texture = Resources::Load<Texture>(item + L"Inventorybox", L"");
+						ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+						Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
+						inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+						inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
+						mWeapon = Objdata::GetMagicWand();
+						mWeaponCollider = nullptr;
+						Objdata::SetActiveWeapon(mActiveWeapon);
+						Objdata::SetWeapon(mWeapon);
+						Objdata::SetWeaponCollider(nullptr);
+						SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, mWeapon);
+					}
+					Objdata::SetInventory(mInventory);
+				}
+			}
+
+			if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN)
+			{
+				for (int y = 0;y < 3;y++)
+				{
+					for (int x = 0;x < 5;x++)
+					{
+						if ((cursorpos.x < 865.f + 88.f * x + 38.f && cursorpos.x > 865.f + 88.f * x - 38.f) &&
+							(cursorpos.y < 390.f + 88.f * y + 38.f && cursorpos.y > 390.f + 88.f * y - 38.f))
+						{
+							mClickedName = mInventory[y][x];
+							mClicked = true;
+						}
 					}
 				}
 			}
+
+			if (mClicked)
+			{
+				if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::UP)
+				{
+					UINT lx = -1;
+					UINT ly = -1;
+
+					for (int y = 0;y < 3;y++)
+					{
+						for (int x = 0;x < 5;x++)
+						{
+							if (mInventory[y][x] == mClickedName)
+							{
+								lx = x;
+								ly = y;
+							}
+						}
+					}
+
+					if ((cursorpos.x < 890.f + 38.f && cursorpos.x > 890.f - 38.f) &&
+						(cursorpos.y < 165.f + 38.f && cursorpos.y > 165.f - 38.f))
+					{
+						if (mClickedName == L"Sword")
+						{
+							mInventory[ly][lx] = L"";
+							if (mActiveWeapon == enums::eWeapon::Wand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Wand";
+											mCheck1 = 1;
+											Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							mActiveWeapon = enums::eWeapon::Onehand;
+							texture = Resources::Load<Texture>(mClickedName + L"Inventorybox", L"");
+							ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+							Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
+							inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+							inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
+							mWeapon = Objdata::GetSword();
+							Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+							mWeaponCollider = Objdata::GetSwordCollider();
+							Objdata::SetActiveWeapon(mActiveWeapon);
+							Objdata::SetWeapon(mWeapon);
+							Objdata::SetWeaponCollider(mWeaponCollider);
+							SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, mWeapon);
+							SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Sword, mWeaponCollider);
+						}
+						else if (mClickedName == L"Wand")
+						{
+							mInventory[ly][lx] = L"";
+							if (mActiveWeapon == enums::eWeapon::Onehand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Sword";
+											mCheck1 = 1;
+											Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							mActiveWeapon = enums::eWeapon::Wand;
+							texture = Resources::Load<Texture>(mClickedName + L"Inventorybox", L"");
+							ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+							Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
+							inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+							inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
+							mWeapon = Objdata::GetMagicWand();
+							Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+							mWeaponCollider = nullptr;
+							Objdata::SetActiveWeapon(mActiveWeapon);
+							Objdata::SetWeapon(mWeapon);
+							Objdata::SetWeaponCollider(nullptr);
+							SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, mWeapon);
+						}
+						Objdata::SetInventory(mInventory);
+					}
+
+					if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::NONE)
+					{
+						mClickedName = L"";
+						mClicked = false;
+					}
+				}
+			}
+
 		}
 	}
 
@@ -502,49 +697,6 @@ namespace EH
 		{
 			mSound->Stop(true);
 		}
-
-		// 이것도 나중에 정리
-		//if (Input::Getkey(eKeyCode::K).state == eKeyState::DOWN)
-		//{
-		//	Transform* tr = GetComponent<Transform>();
-		//	POINT pt = {};
-		//	GetCursorPos(&pt);
-		//	ScreenToClient(application.GetHWND(), &pt);
-		//	Vector2<float> cursorpos;
-		//	cursorpos.x = pt.x;
-		//	cursorpos.y = pt.y;
-
-		//	Camera::CaculatePos(cursorpos);
-
-		//	mActiveWeapon = enums::eWeapon::Onehand;
-		//	Weapon* weapon = object::Instantiate<Weapon>(enums::eLayerType::UI);
-		//	Transform* temp = weapon->GetComponent<Transform>();
-		//	temp->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
-		//	temp->SetScale(Math::Vector2<float>(76.f, 28.f));
-
-		//	Texture* texture = Resources::Load<Texture>(L"Onehand", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword.png");
-		//	//degree 구하기
-		//	float radian = atan2(tr->Getpos().y - cursorpos.y, cursorpos.x - tr->Getpos().x);
-		//	float degree = radian * (180.f / 3.14f);
-		//	texture->SetDegree(degree + 90);
-		//	weapon->GetComponent<SpriteRenderer>()->SetImg(texture);
-		//	weapon->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
-		//	weapon->SetName(L"Test");
-		//	mWeapon = weapon;
-		//	Objdata::SetActiveWeapon(mActiveWeapon);
-		//	Objdata::SetWeapon(weapon);
-
-		//	Weapon* weaponcollider = object::Instantiate<Weapon>(enums::eLayerType::Sword);
-		//	Transform* weapontr = weaponcollider->GetComponent<Transform>();
-		//	Collider* weaponcol = weaponcollider->AddComponent<Collider>();
-		//	weapontr->SetPos(Math::Vector2<float>(tr->Getpos().x + 60.f * cosf(radian), tr->Getpos().y + 60.f * sinf(radian)));
-		//	weaponcol->SetScale(Math::Vector2<float>(120.f, 120.f));
-		//	weaponcol->SetType(Collider::eColliderType::Circle);
-		//	mWeaponCollider = weaponcollider;
-		//	weaponcol->enabled(false);
-		//	weaponcollider->SetDelayTime(0.1f);
-		//	Objdata::SetWeaponCollider(weaponcollider);
-		//}
 
 		if (Input::Getkey(eKeyCode::L).state == eKeyState::DOWN)
 		{
