@@ -24,6 +24,7 @@ namespace EH
 	Weapon* Objdata::mWeapon = nullptr;
 	bool Objdata::mIsSwing = false;
 	enums::eWeapon Objdata::mActiveWeapon = enums::eWeapon::None;
+	enums::eWeapon Objdata::mSubWeapon = enums::eWeapon::None;
 	Weapon* Objdata::mWeaponCollider = nullptr;
 
 	std::wstring Objdata::mInventory[3][5] = {};

@@ -4,6 +4,9 @@
 #include "EHCamera.h"
 #include "EHDungeonManager.h"
 #include "EHResources.h"
+#include "EHObject.h"
+#include "EHCollisionManager.h"
+#include "EHObjdata.h"
 
 namespace EH
 {
@@ -15,6 +18,7 @@ namespace EH
 		, mDelayTime(0.f)
 		, mCheck1(0)
 		, mSetKey(eKeyCode::END)
+		, mCheck2(0)
 	{
 		mDungeoneat = Resources::Load<Sound>(L"Dungeonout", L"..\\Resources\\Sound\\Structure\\DungeonOut.wav");
 		mOpend = Resources::Load<Sound>(L"opend", L"..\\Resources\\Sound\\Item\\Chest2.wav");
@@ -67,10 +71,105 @@ namespace EH
 		
 		if (mType == eTriggertype::Tresure)
 		{
-			if (Input::Getkey(eKeyCode::G).state == eKeyState::DOWN)
+			if (Input::Getkey(eKeyCode::G).state == eKeyState::DOWN && mCheck2 == 0)
 			{
 				mOpend->Play(false);
 				GetComponent<Animator>()->PlayAnimation(L"OpenTresure", false);
+
+				Texture* texture = nullptr;
+				if (mWeaponname == L"Gun")
+				{
+					texture = Resources::Load<Texture>(L"GunItem", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Right\\Revolver2.png");
+				}
+				else if (mWeaponname == L"Wand")
+				{
+					texture = Resources::Load<Texture>(L"WandItem", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\Lala'sMagicWand.png");
+				}
+				else if (mWeaponname == L"TwoHand")
+				{
+					texture = Resources::Load<Texture>(L"TwoHandItem", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\SkeletonKingJewelSword.png");
+				}
+
+				Trigger* weapon = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
+				weapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(688.f, 300.f));
+				weapon->GetComponent<Transform>()->SetScale(Math::Vector2<float>(84.f, 64.f));
+				SpriteRenderer* sr = weapon->AddComponent<SpriteRenderer>();
+				sr->SetImg(texture);
+				weapon->AddComponent<Collider>();
+				weapon->AddComponent<Rigidbody>();
+				weapon->GetComponent<Collider>()->SetScale(Math::Vector2<float>(84.f, 64.f));
+				weapon->SetType(Trigger::eTriggertype::Weapon);
+				weapon->SetWeaponName(mWeaponname);
+				mCheck2 = 1;
+			}
+		}
+
+		if (mType == eTriggertype::Weapon)
+		{
+			if (Input::Getkey(eKeyCode::F).state == eKeyState::DOWN && mCheck2 == 0)
+			{
+				std::wstring inventory[3][5] = {};
+				Objdata::GetInventory(inventory);
+
+				if (mWeaponname == L"Gun")
+				{
+					UINT check1 = 0;
+					for (int y = 0;y < 3;y++)
+					{
+						for (int x = 0;x < 5;x++)
+						{
+							if (inventory[y][x] == L"")
+							{
+								inventory[y][x] = mWeaponname;
+								check1++;
+								mCheck2 = 1;
+								break;
+							}
+						}
+						if (check1 == 1)
+							break;
+					}
+				}
+				else if (mWeaponname == L"Wand")
+				{
+					UINT check1 = 0;
+					for (int y = 0;y < 3;y++)
+					{
+						for (int x = 0;x < 5;x++)
+						{
+							if (inventory[y][x] == L"")
+							{
+								inventory[y][x] = mWeaponname;
+								check1++;
+								mCheck2 = 1;
+								break;
+							}
+						}
+						if (check1 == 1)
+							break;
+					}
+				}
+				else if (mWeaponname == L"TwoHand")
+				{
+					UINT check1 = 0;
+					for (int y = 0;y < 3;y++)
+					{
+						for (int x = 0;x < 5;x++)
+						{
+							if (inventory[y][x] == L"")
+							{
+								inventory[y][x] = mWeaponname;
+								check1++;
+								mCheck2 = 1;
+								break;
+							}
+						}
+						if (check1 == 1)
+							break;
+					}
+				}
+				Objdata::SetInventory(inventory);
+				Destroy(this);
 			}
 		}
 

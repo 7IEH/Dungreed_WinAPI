@@ -9,7 +9,7 @@
 #include "EHTrigger.h"
 #include "EHWall.h"
 #include "EHCeil.h"
-
+#include "EHCollisionManager.h"
 
 namespace EH
 {
@@ -111,7 +111,10 @@ namespace EH
 		texture = Resources::Load<Texture>(L"CloseTresure", L"..\\Resources\\Item\\Chest\\GoldTresureClosed.bmp");
 		ani->CreateAnimation(L"CloseTresure", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(21.f, 16.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
 		ani->PlayAnimation(L"CloseTresure", false);
+		trigger2->SetWeaponName(L"Gun");
 
+
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Trigger, enums::eLayerType::Floor, true);
 		// SceneChanger Player
 		SetPlayer(player);
 	}

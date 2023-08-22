@@ -33,6 +33,7 @@ namespace EH
 		, mIsDead(false)
 		, mCurState(eAnimationState::Idle)
 		, mActiveWeapon(enums::eWeapon::None)
+		, mSubWeapon(enums::eWeapon::None)
 		, mJumpStack(0)
 		, mWeapon(nullptr)
 		, mIsJump(false)
@@ -54,9 +55,9 @@ namespace EH
 		{
 			mCheck1++;
 			mInventory[0][0] = L"Sword";
-			mInventory[0][1] = L"Wand";
-			mInventory[0][2] = L"TwoHand";
-			mInventory[0][3] = L"Gun";
+			//mInventory[0][1] = L"Wand";
+			//mInventory[0][2] = L"TwoHand";
+			//mInventory[0][3] = L"Gun";
 			Objdata::SetInventory(mInventory);
 		}
 
@@ -170,8 +171,10 @@ namespace EH
 		mGunSound = Resources::Load<Sound>(L"PlayerGunSound", L"..\\Resources\\Sound\\Player\\Attack\\Gun\\Gun.wav");
 		mWandSound = Resources::Load<Sound>(L"PlayerWandSound", L"..\\Resources\\Sound\\Player\\Attack\\Wand\\MagicWandAttack.wav");
 		mOpeninventorysound = Resources::Load<Sound>(L"OpenInventory", L"..\\Resources\\Sound\\Player\\Inventory\\OpenInventory.wav");
+		mSwapSound= Resources::Load<Sound>(L"SwapWeapon", L"..\\Resources\\Sound\\Player\\Inventory\\etc-sound0033_swap.wav");
 
 		mCanvas = PlayerUICanvas;
+		mCanvas->AddImageObject(L"Swordslot", nullptr, false, Math::Vector2<float>(1180.f, 660.f), Math::Vector2<float>(76.f, 28.f));
 	}
 
 	Player::~Player()
@@ -244,18 +247,11 @@ namespace EH
 		mMaxHP = Objdata::GetMaxHP();
 
 		Objdata::GetInventory(mInventory);
-		
+
 		if (mWeapon != Objdata::GetWeapon())
 		{
 			SceneManager::GetCurScene()->SetLayer(enums::eLayerType::UI, Objdata::GetWeapon());
 			mWeapon = Objdata::GetWeapon();
-
-			if (mActiveWeapon == enums::eWeapon::Onehand)
-			{
-				Texture* texture = Resources::Load<Texture>(L"Sword1", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword\\ShortSword.png");
-				mCanvas->AddImageObject(L"Sword1", texture, false, Math::Vector2<float>(1180.f, 660.f), Math::Vector2<float>(76.f, 28.f));
-				Objdata::SetWeapon(mWeapon);
-			}
 		}
 
 		if (mIsSwing != Objdata::GetSwing())
@@ -266,6 +262,11 @@ namespace EH
 		if (mActiveWeapon != Objdata::GetActiveWeapon())
 		{
 			mActiveWeapon = Objdata::GetActiveWeapon();
+		}
+
+		if (mSubWeapon != Objdata::GetSubWeapon())
+		{
+			mSubWeapon = Objdata::GetSubWeapon();
 		}
 
 		if (mWeaponCollider != Objdata::GetWeaponCollider())
@@ -339,7 +340,7 @@ namespace EH
 				if (mActiveWeapon == enums::eWeapon::Onehand || mActiveWeapon == enums::eWeapon::Wand)
 					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
 
-				if(mActiveWeapon == enums::eWeapon::Gun)
+				if (mActiveWeapon == enums::eWeapon::Gun)
 					mWeapon->GetComponent<Transform>()->SetPos(Math::Vector2<float>(tr->Getpos().x + 30.f, tr->Getpos().y));
 
 				if (mActiveWeapon == enums::eWeapon::Twohand)
@@ -395,6 +396,14 @@ namespace EH
 
 		if (mActiveWeapon == enums::eWeapon::Onehand)
 		{
+			Texture* texture = Resources::Load<Texture>(L"SwordWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword\\ShortSword.png");
+			ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			texture = Resources::Load<Texture>(L"Swordslot", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword\\ShortSword.png");
+			mCanvas->Find(L"Swordslot")->GetComponent<SpriteRenderer>()->SetImg(texture);
+
+
+			mWeapon->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
 			float radian = 0.f;
 			float radian2 = 0.f;
 			float degree = 0.f;
@@ -445,6 +454,14 @@ namespace EH
 		}
 		else if (mActiveWeapon == enums::eWeapon::Wand)
 		{
+			Texture* texture = Resources::Load<Texture>(L"WandWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\Lala'sMagicWand.png");
+			ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			texture = Resources::Load<Texture>(L"Wandslot", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\Lala'sMagicWand.png");
+			mCanvas->Find(L"Swordslot")->GetComponent<SpriteRenderer>()->SetImg(texture);
+
+			mIsAttack = false;
+			mWeapon->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
 			float radian = 0.f;
 			float radian2 = 0.f;
 			float degree = 0.f;
@@ -488,6 +505,14 @@ namespace EH
 		}
 		else if (mActiveWeapon == enums::eWeapon::Gun)
 		{
+			Texture* texture = Resources::Load<Texture>(L"GunWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Right\\Revolver2.png");
+			ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			texture = Resources::Load<Texture>(L"Gunslot", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Right\\Revolver2.png");
+			mCanvas->Find(L"Swordslot")->GetComponent<SpriteRenderer>()->SetImg(texture);
+
+			mIsAttack = false;
+			mWeapon->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
 			float radian = 0.f;
 			float radian2 = 0.f;
 			float degree = 0.f;
@@ -514,6 +539,13 @@ namespace EH
 		}
 		else if (mActiveWeapon == enums::eWeapon::Twohand)
 		{
+			Texture* texture = Resources::Load<Texture>(L"TwoHandWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\SkeletonKingJewelSword.png");
+			ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			texture = Resources::Load<Texture>(L"TwoHandslot", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\SkeletonKingJewelSword.png");
+			mCanvas->Find(L"Swordslot")->GetComponent<SpriteRenderer>()->SetImg(texture);
+
+			mWeapon->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
 			float radian = 0.f;
 			float radian2 = 0.f;
 			float degree = 0.f;
@@ -564,6 +596,12 @@ namespace EH
 		}
 		else
 		{
+			Texture* texture = Resources::Load<Texture>(L"TransWeaponbox", L"..\\Resources\\Player\\Basic\\Trans.png");
+			ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
+			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			texture = Resources::Load<Texture>(L"TransWeapon", L"..\\Resources\\Player\\Basic\\Trans.png");
+			mCanvas->Find(L"Swordslot")->GetComponent<SpriteRenderer>()->SetImg(texture);
+
 			if (cursorpos.x > tr->Getpos().x)
 			{
 				mIsRight = true;
@@ -574,6 +612,38 @@ namespace EH
 			}
 		}
 
+		if (mSubWeapon == enums::eWeapon::Onehand)
+		{
+			Texture* texture = Resources::Load<Texture>(L"SwordWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword\\ShortSword.png");
+			ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
+			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+		}
+		else if (mSubWeapon == enums::eWeapon::Wand)
+		{
+			Texture* texture = Resources::Load<Texture>(L"WandWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\Lala'sMagicWand.png");
+			ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
+			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+		}
+		else if (mSubWeapon == enums::eWeapon::Gun)
+		{
+			Texture* texture = Resources::Load<Texture>(L"GunWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Right\\Revolver2.png");
+			ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
+			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+		}
+		else if (mSubWeapon == enums::eWeapon::Twohand)
+		{
+			Texture* texture = Resources::Load<Texture>(L"TwoHandWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\SkeletonKingJewelSword.png");
+			ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
+			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+		}
+		else
+		{
+			Texture* texture = Resources::Load<Texture>(L"TransWeaponbox", L"..\\Resources\\Player\\Basic\\Trans.png");
+			ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
+			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+		}
+
+		// 아이템 설정
 		for (size_t y = 0; y < 3; y++)
 		{
 			for (size_t x = 0; x < 5; x++)
@@ -597,6 +667,7 @@ namespace EH
 			UINT inventory = -1;
 			UINT dy = -1;
 			UINT dx = -1;
+			// 인벤토리 박스 초기화
 			for (size_t y = 0; y < 3; y++)
 			{
 				for (size_t x = 0; x < 5; x++)
@@ -607,6 +678,7 @@ namespace EH
 				}
 			}
 
+			// 박스 위 아이템 표시
 			for (size_t y = 0; y < 3; y++)
 			{
 				for (size_t x = 0; x < 5; x++)
@@ -616,9 +688,15 @@ namespace EH
 						Texture* texture = mCanvas->Find(L"InventoryItem" + std::to_wstring(y * 5 + x))->GetComponent<SpriteRenderer>()->GetImg();
 						texture->Enabled(true);
 					}
+					else
+					{
+						Texture* texture = mCanvas->Find(L"InventoryItem" + std::to_wstring(y * 5 + x))->GetComponent<SpriteRenderer>()->GetImg();
+						texture->Enabled(false);
+					}
 				}
 			}
 
+			// 아이템 선택 확인
 			for (size_t y = 0; y < 3; y++)
 			{
 				for (size_t x = 0; x < 5; x++)
@@ -940,6 +1018,7 @@ namespace EH
 				}
 			}
 
+			// 왼쪽 선택 확인
 			if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN)
 			{
 				for (int y = 0;y < 3;y++)
@@ -1190,8 +1269,8 @@ namespace EH
 							mActiveWeapon = enums::eWeapon::Twohand;
 							texture = Resources::Load<Texture>(mClickedName + L"Inventorybox", L"");
 							ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
-							Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
 							inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+							Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
 							inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
 							mWeapon = Objdata::GetBelialSword();
 							mWeaponCollider = Objdata::GetBelialSwordCollider();
@@ -1276,6 +1355,301 @@ namespace EH
 						}
 						Objdata::SetInventory(mInventory);
 					}
+
+					if ((cursorpos.x < 1105.f + 38.f && cursorpos.x > 1105.f - 38.f) &&
+						(cursorpos.y < 165.f + 38.f && cursorpos.y > 165.f - 38.f))
+					{
+						if (mClickedName == L"Sword")
+						{
+							mInventory[ly][lx] = L"";
+							if (mSubWeapon == enums::eWeapon::Wand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Wand";
+											mCheck1 = 1;
+											Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mSubWeapon == enums::eWeapon::Twohand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"TwoHand";
+											mCheck1 = 1;
+											Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mSubWeapon == enums::eWeapon::Gun)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Gun";
+											mCheck1 = 1;
+											Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							mSubWeapon = enums::eWeapon::Onehand;
+							texture = Resources::Load<Texture>(mClickedName + L"Inventorybox", L"");
+							ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
+							Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
+							inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+							inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
+							Objdata::SetSubWeapon(mSubWeapon);
+						}
+						else if (mClickedName == L"Wand")
+						{
+							mInventory[ly][lx] = L"";
+							if (mSubWeapon == enums::eWeapon::Onehand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Sword";
+											mCheck1 = 1;
+											Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mSubWeapon == enums::eWeapon::Twohand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"TwoHand";
+											mCheck1 = 1;
+											Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mSubWeapon == enums::eWeapon::Gun)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Gun";
+											mCheck1 = 1;
+											Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							mSubWeapon = enums::eWeapon::Wand;
+							texture = Resources::Load<Texture>(mClickedName + L"Inventorybox", L"");
+							ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
+							Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
+							inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+							inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
+							Objdata::SetSubWeapon(mSubWeapon);
+						}
+						else if (mClickedName == L"TwoHand")
+						{
+							mInventory[ly][lx] = L"";
+							if (mSubWeapon == enums::eWeapon::Wand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Wand";
+											Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											mCheck1 = 1;
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mSubWeapon == enums::eWeapon::Onehand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Sword";
+											Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											mCheck1 = 1;
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mSubWeapon == enums::eWeapon::Gun)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Gun";
+											Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											mCheck1 = 1;
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							mSubWeapon = enums::eWeapon::Twohand;
+							texture = Resources::Load<Texture>(mClickedName + L"Inventorybox", L"");
+							ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
+							Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
+							inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+							inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
+							Objdata::SetSubWeapon(mSubWeapon);
+						}
+						else if (mClickedName == L"Gun")
+						{
+							mInventory[ly][lx] = L"";
+							if (mSubWeapon == enums::eWeapon::Wand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Wand";
+											Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											mCheck1 = 1;
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mSubWeapon == enums::eWeapon::Twohand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"TwoHand";
+											Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											mCheck1 = 1;
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							else if (mSubWeapon == enums::eWeapon::Onehand)
+							{
+								UINT mCheck1 = 0;
+								for (int y = 0;y < 3;y++)
+								{
+									for (int x = 0;x < 5;x++)
+									{
+										if (mInventory[y][x] == L"")
+										{
+											mInventory[y][x] = L"Sword";
+											Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+											mCheck1 = 1;
+											break;
+										}
+									}
+									if (mCheck1 == 1)
+										break;
+								}
+							}
+							mSubWeapon = enums::eWeapon::Gun;
+							texture = Resources::Load<Texture>(mClickedName + L"Inventorybox", L"");
+							ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
+							Transform* inventorytr = inventoryweapon->GetComponent<Transform>();
+							inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+							inventorytr->SetScale(Math::Vector2<float>(57.f, 21.f));
+							Objdata::SetSubWeapon(mSubWeapon);
+						}
+						Objdata::SetInventory(mInventory);
+					}
+
+					for (int y = 0;y < 3;y++)
+					{
+						for (int x = 0;x < 5;x++)
+						{
+							if ((cursorpos.x < 865.f + 88.f * x + 38.f && cursorpos.x > 865.f + 88.f * x - 38.f) &&
+								(cursorpos.y < 390.f + 88.f * y + 38.f && cursorpos.y > 390.f + 88.f * y - 38.f))
+							{
+								mInventory[ly][lx] = L"";
+								mInventory[y][x] = mClickedName;
+							}
+						}
+					}
+
+
+
+					Objdata::SetInventory(mInventory);
 
 					if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::NONE)
 					{
@@ -1442,6 +1816,11 @@ namespace EH
 		if (Input::Getkey(eKeyCode::V).state == eKeyState::DOWN)
 		{
 			Inventory();
+		}
+
+		if (Input::Getkey(eKeyCode::Tap).state == eKeyState::DOWN)
+		{
+			Swap();
 		}
 
 		if (Input::Getkey(eKeyCode::Q).state == eKeyState::DOWN)
@@ -1711,7 +2090,7 @@ namespace EH
 			Transform* tr = bullet->GetComponent<Transform>();
 			ani->CreateAnimation(L"StarBullet", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(14.f, 13.f), Math::Vector2<float>(0.f, 0.f), 4, 0.1f);
 			ani->PlayAnimation(L"StarBullet", true);
-			col->SetScale(Math::Vector2<float>(56.f,52.f));
+			col->SetScale(Math::Vector2<float>(56.f, 52.f));
 			tr->SetScale(Math::Vector2<float>(56.f, 52.f));
 			tr->SetPos(playertr->Getpos());
 			bullet->SetDeleteTime(10.f);
@@ -1731,10 +2110,11 @@ namespace EH
 			ani = bulletFX->AddComponent<Animator>();
 
 			tr->SetPos(playertr->Getpos());
-			tr->SetScale(Math::Vector2<float>(144.f,140.f));
+			tr->SetScale(Math::Vector2<float>(144.f, 140.f));
 
 			ani->CreateAnimation(L"StarBulletFX", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(36.f, 35.f), Math::Vector2<float>(0.f, 0.f), 7, 0.1f);
 			ani->PlayAnimation(L"StarBulletFX", false);
+			mIsAttack = false;
 		}
 		if (mActiveWeapon == enums::eWeapon::Twohand)
 		{
@@ -1756,7 +2136,7 @@ namespace EH
 			Transform* playertr = GetComponent<Transform>();
 			Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
 			SpriteRenderer* sr = bullet->AddComponent<SpriteRenderer>();
-			Texture* texture = Resources::Load<Texture>(L"StarBullet", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Bullet02.png");
+			Texture* texture = Resources::Load<Texture>(L"RevolverBullet", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Bullet02.png");
 			Collider* col = bullet->AddComponent<Collider>();
 			Transform* tr = bullet->GetComponent<Transform>();
 			sr->SetImg(texture);
@@ -1773,6 +2153,7 @@ namespace EH
 			bullet->SetRadian(radian);
 			texture->SetDegree(90 + radian * 180.f / 3.14f);
 			mCurState = eAnimationState::Idle;
+			mIsAttack = false;
 		}
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::UP)
 		{
@@ -1886,6 +2267,100 @@ namespace EH
 		mCurState = eAnimationState::Idle;
 	}
 
+	void Player::Swap()
+	{
+		mSwapSound->Play(false);
+		enums::eWeapon temp = mActiveWeapon;
+		mActiveWeapon = mSubWeapon;
+		mSubWeapon = temp;
+		Objdata::SetActiveWeapon(mActiveWeapon);
+		Objdata::SetSubWeapon(mSubWeapon);
+
+		if (mActiveWeapon == enums::eWeapon::Onehand)
+		{
+			Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+			mWeapon = Objdata::GetSword();
+			mWeaponCollider = Objdata::GetSwordCollider();
+
+			if (mSubWeapon == enums::eWeapon::Twohand)
+			{
+				Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+			}
+			else if(mSubWeapon == enums::eWeapon::Wand)
+			{
+				Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+			}
+			else if (mSubWeapon == enums::eWeapon::Gun)
+			{
+				Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+			}
+		}
+		else if (mActiveWeapon == enums::eWeapon::Twohand)
+		{
+			Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+			mWeapon = Objdata::GetBelialSword();
+			mWeaponCollider = Objdata::GetBelialSwordCollider();
+
+			if (mSubWeapon == enums::eWeapon::Onehand)
+			{
+				Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+			}
+			else if (mSubWeapon == enums::eWeapon::Wand)
+			{
+				Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+			}
+			else if (mSubWeapon == enums::eWeapon::Gun)
+			{
+				Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+			}
+		}
+		else if (mActiveWeapon == enums::eWeapon::Wand)
+		{
+			Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+			mWeapon = Objdata::GetMagicWand();
+			mWeaponCollider = nullptr;
+
+			if (mSubWeapon == enums::eWeapon::Twohand)
+			{
+				Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+			}
+			else if (mSubWeapon == enums::eWeapon::Onehand)
+			{
+				Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+			}
+			else if (mSubWeapon == enums::eWeapon::Gun)
+			{
+				Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+			}
+		}
+		else if (mActiveWeapon == enums::eWeapon::Gun)
+		{
+			Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+			mWeapon = Objdata::GetGun();
+			mWeaponCollider = nullptr;
+
+			if (mSubWeapon == enums::eWeapon::Twohand)
+			{
+				Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+			}
+			else if (mSubWeapon == enums::eWeapon::Wand)
+			{
+				Objdata::GetMagicWand()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+			}
+			else if (mSubWeapon == enums::eWeapon::Onehand)
+			{
+				Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+			}
+		}
+		else
+		{
+			mWeapon = nullptr;
+			mWeaponCollider = nullptr;
+		}
+		Objdata::SetWeapon(mWeapon);
+		Objdata::SetWeaponCollider(mWeaponCollider);
+	}
+
 	void Player::Skill()
 	{
 		if (mActiveWeapon == enums::eWeapon::Wand)
@@ -1904,7 +2379,7 @@ namespace EH
 			Animator* ani = nullptr;
 			Transform* tr = nullptr;
 			Collider* col = nullptr;
-			Texture* texture= nullptr;
+			Texture* texture = nullptr;
 			for (int i = -4;i < 4;i++)
 			{
 				Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
@@ -1927,7 +2402,7 @@ namespace EH
 				bullet->setHoming(true);
 				bullet->SetStar(true);
 			}
-			
+
 			// Effect
 			Effect* bulletFX = object::Instantiate<Effect>(enums::eLayerType::UI);
 			texture = Resources::Load<Texture>(L"StarBulletFX", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\StarBulletFX\\StarBulletFX.bmp");
@@ -1940,7 +2415,7 @@ namespace EH
 			ani->CreateAnimation(L"StarBulletFX", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(36.f, 35.f), Math::Vector2<float>(0.f, 0.f), 7, 0.1f);
 			ani->PlayAnimation(L"StarBulletFX", false);
 		}
-		else if(mActiveWeapon == enums::eWeapon::Twohand)
+		else if (mActiveWeapon == enums::eWeapon::Twohand)
 		{
 			mTwoHandSkillSound->Play(false);
 
@@ -1993,7 +2468,7 @@ namespace EH
 			{
 				Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
 				ani = bullet->AddComponent<Animator>();
-				texture = Resources::Load<Texture>(L"SkellBossWeaponBody"+std::to_wstring(i), L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\Skill\\Laser\\SkellBossWeaponLaserBody.png");
+				texture = Resources::Load<Texture>(L"SkellBossWeaponBody" + std::to_wstring(i), L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\Skill\\Laser\\SkellBossWeaponLaserBody.png");
 				texture->SetDegree(radian * 180.f / 3.14f + 270.f);
 				Collider* col = bullet->AddComponent<Collider>();
 				tr = bullet->GetComponent<Transform>();
@@ -2002,7 +2477,7 @@ namespace EH
 				col->SetScale(Math::Vector2<float>(120.f, 120.f));
 				tr->SetScale(Math::Vector2<float>(220.f, 128.f));
 				startpos.x -= 120.f * cosf(radian);
-			    startpos.y -= 120.f * sinf(radian);
+				startpos.y -= 120.f * sinf(radian);
 				tr->SetPos(startpos);
 				bullet->SetPlayer(true);
 				bullet->SetDeleteTime(0.7f);

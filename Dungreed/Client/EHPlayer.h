@@ -37,6 +37,7 @@ namespace EH
 		void Dash();
 		void DownJump();
 		void Die();
+		void Swap();
 		void Inventory();
 		void Playerlogic();
 		void Skill();
@@ -71,6 +72,7 @@ namespace EH
 		class Weapon* mWeapon;
 		bool mIsSwing;
 		enums::eWeapon mActiveWeapon;
+		enums::eWeapon mSubWeapon;
 		class Weapon* mWeaponCollider;
 
 		bool mIsRight;
@@ -93,6 +95,7 @@ namespace EH
 		class Sound* mGunSound;
 		class Sound* mWandSkillSound;
 		class Sound* mTwoHandSkillSound;
+		class Sound* mSwapSound;
 
 		// Player Inventory
 		std::wstring mInventory[3][5];

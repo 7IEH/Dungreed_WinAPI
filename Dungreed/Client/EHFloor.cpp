@@ -7,6 +7,7 @@
 #include "EHJailWarrior.h"
 #include "EHBigGrayIceSkel.h"
 #include "EHDeadObj.h"
+#include "EHTrigger.h"
 
 namespace EH
 {
@@ -41,6 +42,7 @@ namespace EH
 		JailWarrior* warrior = dynamic_cast<JailWarrior*>(other->GetOwner());
 		BigGrayIceSkel* bigiceskel = dynamic_cast<BigGrayIceSkel*>(other->GetOwner());
 		DeadObj* deadobj = dynamic_cast<DeadObj*>(other->GetOwner());
+		Trigger* trigger = dynamic_cast<Trigger*>(other->GetOwner());
 
 		if (player != nullptr)
 		{
@@ -214,6 +216,32 @@ namespace EH
 			}
 		}
 
+		if (trigger != nullptr)
+		{
+			Transform* tirggertr = trigger->GetComponent<Transform>();
+			Transform* floortr = GetComponent<Transform>();
+
+			Collider* triggercol = trigger->GetComponent<Collider>();
+			Collider* floorcol = GetComponent<Collider>();
+
+			if (trigger->GetComponent<Rigidbody>() == nullptr)
+				return;
+
+			if (trigger->GetComponent<Rigidbody>()->GetVelocity().y > 0)
+			{
+				trigger->GetComponent<Rigidbody>()->SetGround(true);
+
+				float scale = fabs(triggercol->GetScale().y / 2.f + floorcol->GetScale().y / 2.f);
+				float len = fabs(tirggertr->Getpos().y - floortr->Getpos().y);
+
+				if (len < scale)
+				{
+					Math::Vector2 playerPos = tirggertr->Getpos();
+					playerPos.y -= (scale - len) - 1.0f;
+					tirggertr->SetPos(playerPos);
+				}
+			}
+		}
 	}
 
 	void Floor::OnCollisionStay(Collider* other)

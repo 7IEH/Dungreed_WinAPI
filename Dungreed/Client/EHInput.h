@@ -18,7 +18,7 @@ namespace EH
 		Z,X,C,V,B,N,M,
 		UP,DOWN,LEFT,RIGHT,
 		MouseRightClick,MouseLeftClick,MouseWheelClick,
-		Space,
+		Space,Tap,
 		END,
 	};
 

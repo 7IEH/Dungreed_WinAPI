@@ -35,6 +35,9 @@ namespace EH
 		static void SetActiveWeapon(enums::eWeapon weapon) { mActiveWeapon = weapon; }
 		static enums::eWeapon GetActiveWeapon() { return mActiveWeapon; }
 
+		static void SetSubWeapon(enums::eWeapon weapon) { mSubWeapon = weapon; }
+		static enums::eWeapon GetSubWeapon() { return mSubWeapon; }
+
 		static void SetWeaponCollider(class Weapon* weaponcollider) { mWeaponCollider = weaponcollider; }
 		static class Weapon* GetWeaponCollider() { return mWeaponCollider; }
 
@@ -77,6 +80,7 @@ namespace EH
 		static class Weapon* mWeapon;
 		static bool mIsSwing;
 		static enums::eWeapon mActiveWeapon;
+		static enums::eWeapon mSubWeapon;
 		static class Weapon* mWeaponCollider;
 
 		// Weapon

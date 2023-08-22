@@ -10,6 +10,7 @@ namespace EH
 		{
 			  Scenechange
 			, Tresure
+			, Weapon
 			, None
 		};
 
@@ -34,9 +35,12 @@ namespace EH
 
 		void SetKey(eKeyCode code) { mSetKey = code; }
 
+		void SetWeaponName(std::wstring name) { mWeaponname = name; }
+
 	private:
 		eTriggertype mType;
 		std::wstring mScenename;
+		std::wstring mWeaponname;
 
 		float mCheckTime;
 		float mDelayTime;
@@ -49,6 +53,8 @@ namespace EH
 		eKeyCode mSetKey;
 
 		class Sound* mOpend;
+		
+		UINT mCheck2;
 	};
 }
 
