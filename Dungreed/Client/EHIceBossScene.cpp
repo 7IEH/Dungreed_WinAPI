@@ -24,7 +24,7 @@ namespace EH
 
 		// Player
 		Player* player = object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(410.f, 900.f));
+		player->GetComponent<Transform>()->SetPos(Math::Vector2<float>(410.f, 200.f));
 		player->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
 
 		// SceneChanger Player

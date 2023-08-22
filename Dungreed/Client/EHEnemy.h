@@ -8,9 +8,10 @@ namespace EH
 	public:
 		enum class eState
 		{
-			Idle
-			,Attack
-			,Dead
+			  Idle
+			, Attack
+			, Dealtime
+			, Dead
 		};
 
 		Enemy();

@@ -1,8 +1,18 @@
 #pragma once
-#include "EHEnemy.h"
+#include "EHIcePillar.h"
 
 namespace EH
 {
+	enum class eBossAttack
+	{
+		  Bullet
+		, Barrage
+		, FourBarrage
+		, SquareFourBarrage
+		, Bullet2
+		, None
+	};
+
 	class Niflheim : public Enemy
 	{
 	public:
@@ -18,13 +28,38 @@ namespace EH
 		virtual void OnCollisionExit(class Collider* other) override;
 
 		void Idle();
+		void Dealtime();
 		void Attack();
 		void Dead();
 
+		void Bullet();
+		void Barrage();
+		void FourBarrage();
+		void SquareFourBarrage();
+		void Bullet2();
+
+		void SetCheck(UINT check2) { mCheck2 = check2; }
+		UINT GetCheck() { return mCheck2; }
+
+		void SetStop(bool stop) { mStop = stop; }
 	private:
 		// Enter
 		UINT mEnter;
 
+		// IcePillar
+		IcePillar* mIcePillar[4];
+
+		// Attack Type
+		eBossAttack mType;
+
+		// Attack Time;
+		UINT mCheck1;
+		UINT mCheck2;
+
+		bool mStop;
+
+		// mMove
+		float mMove;
 	};
 }
 

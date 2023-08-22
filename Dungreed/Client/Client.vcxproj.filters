@@ -699,6 +699,9 @@
     <ClInclude Include="EHDeadObj.h">
       <Filter>Contents\GameObject\Item</Filter>
     </ClInclude>
+    <ClInclude Include="EHIcePillar.h">
+      <Filter>Contents\GameObject\Enemy\IceField\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -1019,6 +1022,9 @@
     </ClCompile>
     <ClCompile Include="EHDeadObj.cpp">
       <Filter>Contents\GameObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="EHIcePillar.cpp">
+      <Filter>Contents\GameObject\Enemy\IceField\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

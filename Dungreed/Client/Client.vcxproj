@@ -158,6 +158,7 @@
     <ClInclude Include="EHFloor.h" />
     <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHIceBossScene.h" />
+    <ClInclude Include="EHIcePillar.h" />
     <ClInclude Include="EHIcePrevBossScene.h" />
     <ClInclude Include="EHIceScene1.h" />
     <ClInclude Include="EHIceScene10.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="EHFloor.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHIceBossScene.cpp" />
+    <ClCompile Include="EHIcePillar.cpp" />
     <ClCompile Include="EHIcePrevBossScene.cpp" />
     <ClCompile Include="EHIceScene1.cpp" />
     <ClCompile Include="EHIceScene10.cpp" />
