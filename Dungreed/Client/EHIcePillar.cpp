@@ -3,14 +3,17 @@
 #include "EHNiflheim.h"
 #include "EHObject.h"
 #include "EHBullet.h"
+#include "EHWeapon.h"
 
 namespace EH
 {
+	UINT IcePillar::mNum = 0;
 	UINT IcePillar::mCheck1 = 0;
 	IcePillar::IcePillar()
 		:
 		  mDegree(0.f)
 		, mType(ePillarAttack::None)
+		, mAttack(nullptr)
 	{
 		Transform* tr = GetComponent<Transform>();
 		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
@@ -20,6 +23,8 @@ namespace EH
 		Collider* col = AddComponent<Collider>();
 		col->SetScale(Math::Vector2<float>(40.f, 40.f));
 		mCheck1++;
+
+		mIceBulletSound = Resources::Load<Sound>(L"IceBulletSound", L"..\\Resources\\Sound\\Enemy\\public\\Fantasy_Game_Magic_Ice_Instant_Cast_Spell_B _Niflheimfire.wav");
 	}
 
 	IcePillar::~IcePillar()
@@ -44,12 +49,7 @@ namespace EH
 			BulletP();
 			break;
 		case EH::ePillarAttack::Barrage:
-			break;
-		case EH::ePillarAttack::FourBarrage:
-			break;
-		case EH::ePillarAttack::SquareFourBarrage:
-			break;
-		case EH::ePillarAttack::Bullet2:
+			Barrage();
 			break;
 		case EH::ePillarAttack::None:
 			break;
@@ -61,6 +61,27 @@ namespace EH
 	void IcePillar::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
+	}
+
+	void IcePillar::OnCollisionEnter(Collider* other)
+	{
+		// 플레이어 오브젝트 충돌
+		Weapon* weapon = dynamic_cast<Weapon*>(other->GetOwner());
+		if (weapon != nullptr)
+		{
+			UINT hp = GetHP();
+			SetHP(hp -= 20);
+			mAttack = weapon;
+			GetHitSound()->Play(false);
+		}
+	}
+
+	void IcePillar::OnCollisionStay(Collider* other)
+	{
+	}
+
+	void IcePillar::OnCollisionExit(Collider* other)
+	{
 	}
 
 	void IcePillar::BulletP()
@@ -81,14 +102,19 @@ namespace EH
 		float radian = Math::Radian(mTarget, tr->Getpos());
 		
 
-		if (0.2f < createtime)
+		if (0.1f < createtime)
 		{
+			mNum++;
 			SetSubCheckTime(0.f);
 			Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
+			SpriteRenderer* sr = bullet->AddComponent<SpriteRenderer>();
+			Texture* texture = Resources::Load<Texture>(L"Icebullet" + std::to_wstring(mNum), L"..\\Resources\\Enemy\\IceField\\SkelIceMagician\\Attack\\IceBullet.png");
 			Collider* col = bullet->AddComponent<Collider>();
-
+			sr->SetImg(texture);
 			Transform* bullettr = bullet->GetComponent<Transform>();
 			bullettr->SetPos(tr->Getpos());
+
+			texture->SetDegree((radian * 180.f / 3.14f) + 90.f);
 
 			col->SetScale(Math::Vector2<float>(40.f, 40.f));
 			bullettr->SetScale(Math::Vector2<float>(36.f, 72.f));
@@ -96,16 +122,47 @@ namespace EH
 			bullet->SetRadian(radian);
 			bullet->SetStop(false);
 			bullet->SetDeleteTime(10.f);
+			mIceBulletSound->Play(false);
 		}
 	}
 
 	void IcePillar::Barrage()
 	{
+		float checktime = GetCheckTime();
+		SetCheckTime(checktime += Time::GetDeltaTime());
 
-	}
+		float createtime = GetSubCheckTime();
+		SetSubCheckTime(createtime += Time::GetDeltaTime());
+		if (5.f < checktime)
+		{
+			mOwner->SetStop(false);
+			mOwner->SetCheck(mOwner->GetCheck() + 1);
+			SetCheckTime(0.f);
+			mType = ePillarAttack::None;
+		}
+		Transform* tr = GetComponent<Transform>();
 
-	void IcePillar::Barrage2()
-	{
+		if (0.05f < createtime)
+		{
+			mNum++;
+			SetSubCheckTime(0.f);
+			Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
+			SpriteRenderer* sr = bullet->AddComponent<SpriteRenderer>();
+			Texture* texture = Resources::Load<Texture>(L"Icebullet" + std::to_wstring(mNum), L"..\\Resources\\Enemy\\IceField\\SkelIceMagician\\Attack\\IceBullet.png");
+			Collider* col = bullet->AddComponent<Collider>();
+			sr->SetImg(texture);
+			Transform* bullettr = bullet->GetComponent<Transform>();
+			bullettr->SetPos(tr->Getpos());
 
+			texture->SetDegree(mDegree + 90.f);
+
+			col->SetScale(Math::Vector2<float>(40.f, 40.f));
+			bullettr->SetScale(Math::Vector2<float>(36.f, 72.f));
+
+			bullet->SetRadian(mDegree * (3.14f/180.f));
+			bullet->SetStop(false);
+			bullet->SetDeleteTime(10.f);
+			mIceBulletSound->Play(false);
+		}
 	}
 }

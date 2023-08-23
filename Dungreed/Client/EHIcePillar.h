@@ -7,9 +7,6 @@ namespace EH
 	{
 		  Bullet
 		, Barrage
-		, FourBarrage
-		, SquareFourBarrage
-		, Bullet2
 		, None
 	};
 
@@ -23,9 +20,12 @@ namespace EH
 		virtual void Update() override;
 		virtual void Render(HDC hdc) override;
 
+		virtual void OnCollisionEnter(class Collider* other) override;
+		virtual void OnCollisionStay(class Collider* other) override;
+		virtual void OnCollisionExit(class Collider* other) override;
+
 		void BulletP();
 		void Barrage();
-		void Barrage2();
 
 		void SetDegree(float degree) { mDegree = degree; }
 		float GetDegree() { return mDegree; }
@@ -44,6 +44,13 @@ namespace EH
 		Math::Vector2<float> mTarget;
 
 		ePillarAttack mType;
+		static UINT mNum;
+
+		class Weapon* mAttack;
+
+
+		// Sound
+		class Sound* mIceBulletSound;
 	};
 }
 

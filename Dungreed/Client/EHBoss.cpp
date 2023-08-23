@@ -13,6 +13,7 @@
 #include "EHEffect.h"
 #include "EHCamera.h"
 #include "EHDeadObj.h"
+#include "EHTrigger.h"
 #include <time.h>
 
 namespace EH
@@ -21,7 +22,7 @@ namespace EH
 		:
 		mCurState(eBossState::Idle)
 		, mCurType(eBossAttack::None)
-		, mThinkTime(5.f)
+		, mThinkTime(2.f)
 		, mDelayTime(0.f)
 		, mCheckTime(0.f)
 		, mSubDelayTime(0.f)
@@ -39,6 +40,8 @@ namespace EH
 		, mIsStop(true)
 	{
 		SetHP(100.f);
+
+		srand((UINT)time(NULL));
 
 		// HAND
 		mLeftHand = object::Instantiate<BossHand>(enums::eLayerType::Enemy);
@@ -231,7 +234,6 @@ namespace EH
 			Destroy(this);
 
 			// Á×´Â°Å ¶³±À
-
 			DeadObj* deaddown = object::Instantiate<DeadObj>(enums::eLayerType::Item);
 			Transform* objtr = deaddown->GetComponent<Transform>();
 			Collider* objcol = deaddown->AddComponent<Collider>();
@@ -264,6 +266,20 @@ namespace EH
 			objtr->SetPos(Math::Vector2<float>(pos));
 			objtr->SetScale(Math::Vector2<float>(280.f,308.f));
 			objcol->SetScale(Math::Vector2<float>(280.f, 308.f));
+
+			Trigger* trigger2 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
+			trigger2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(Math::Vector2<float>(pos.x, pos.y + 500.f)));
+			trigger2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(84.f, 64.f));
+			trigger2->AddComponent<Collider>();
+			trigger2->GetComponent<Collider>()->SetScale(Math::Vector2<float>(84.f, 64.f));
+			trigger2->SetType(Trigger::eTriggertype::Tresure);
+			Animator* ani = trigger2->AddComponent<Animator>();
+			texture = Resources::Load<Texture>(L"OpenTresure", L"..\\Resources\\Item\\Chest\\GoldTresureOpened.bmp");
+			ani->CreateAnimation(L"OpenTresure", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(21.f, 16.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+			texture = Resources::Load<Texture>(L"CloseTresure", L"..\\Resources\\Item\\Chest\\GoldTresureClosed.bmp");
+			ani->CreateAnimation(L"CloseTresure", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(21.f, 16.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+			ani->PlayAnimation(L"CloseTresure", false);
+			trigger2->SetWeaponName(L"TwoHand");
 		}
 	}
 
@@ -274,7 +290,6 @@ namespace EH
 			mCurState = eBossState::Die;
 		}
 
-		srand((UINT)time(NULL));
 		if (mCurType == eBossAttack::None)
 			mCurType = eBossAttack(rand() % ((UINT)eBossAttack::None));
 

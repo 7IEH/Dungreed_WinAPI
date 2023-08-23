@@ -55,11 +55,14 @@ namespace EH
 		// Attack Time;
 		UINT mCheck1;
 		UINT mCheck2;
+		UINT mCheck3;
 
 		bool mStop;
 
 		// mMove
 		float mMove;
+
+		class Weapon* mAttack;
 	};
 }
 

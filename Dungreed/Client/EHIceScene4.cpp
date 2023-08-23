@@ -108,7 +108,7 @@ namespace EH
         texture = Resources::Load<Texture>(L"SteelRightIdle", L"..\\Resources\\Dungeon\\DungeonStructure\\DungeonSteel\\Left\\SteelIdleSheet.bmp");
         ani->CreateAnimation(L"SteelIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(20.f, 66.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
 
-        GiantBat* giantbat1 = object::Instantiate<GiantBat>(enums::eLayerType::Enemy);
+       /* GiantBat* giantbat1 = object::Instantiate<GiantBat>(enums::eLayerType::Enemy);
         giantbat1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(648.f, 288.f));
         giantbat1->GetComponent<Animator>()->PlayAnimation(L"GiantRightIdle", true);
 
@@ -124,7 +124,21 @@ namespace EH
         warrior2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(128.f, 128.f));
         col = warrior2->AddComponent<Collider>();
         col->SetScale(Math::Vector2<float>(128.f, 128.f));
-        warrior2->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);
+        warrior2->GetComponent<Animator>()->PlayAnimation(L"GreySkelRightIdle", true);*/
+
+        Trigger* trigger4 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
+        trigger4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(Math::Vector2<float>(648.f, 562.f)));
+        trigger4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(84.f, 64.f));
+        trigger4->AddComponent<Collider>();
+        trigger4->GetComponent<Collider>()->SetScale(Math::Vector2<float>(84.f, 64.f));
+        trigger4->SetType(Trigger::eTriggertype::Tresure);
+        ani = trigger4->AddComponent<Animator>();
+        texture = Resources::Load<Texture>(L"OpenTresure", L"..\\Resources\\Item\\Chest\\GoldTresureOpened.bmp");
+        ani->CreateAnimation(L"OpenTresure", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(21.f, 16.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+        texture = Resources::Load<Texture>(L"CloseTresure", L"..\\Resources\\Item\\Chest\\GoldTresureClosed.bmp");
+        ani->CreateAnimation(L"CloseTresure", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(21.f, 16.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+        ani->PlayAnimation(L"CloseTresure", false);
+        trigger4->SetWeaponName(L"Wand");
 	}
 
 	void IceScene4::Update()

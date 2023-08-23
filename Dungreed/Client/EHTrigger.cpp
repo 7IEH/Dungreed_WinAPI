@@ -52,17 +52,21 @@ namespace EH
 
 	void Trigger::OnCollisionEnter(Collider* other)
 	{
-		switch (mType)
+		Player* player = dynamic_cast<Player*>(other->GetOwner());
+		if (player != nullptr)
 		{
-		case EH::Trigger::eTriggertype::Scenechange:
-			SceneChange();
-			break;
-		case EH::Trigger::eTriggertype::Tresure:
-			break;
-		case EH::Trigger::eTriggertype::None:
-			break;
-		default:
-			break;
+			switch (mType)
+			{
+			case EH::Trigger::eTriggertype::Scenechange:
+				SceneChange();
+				break;
+			case EH::Trigger::eTriggertype::Tresure:
+				break;
+			case EH::Trigger::eTriggertype::None:
+				break;
+			default:
+				break;
+			}
 		}
 	}
 

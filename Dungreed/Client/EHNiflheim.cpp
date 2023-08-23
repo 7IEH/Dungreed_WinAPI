@@ -2,6 +2,7 @@
 #include "EHResources.h"
 #include "EHObject.h"
 #include "EHPlayer.h"
+#include "EHWeapon.h"
 #include <time.h>
 
 namespace EH
@@ -14,9 +15,13 @@ namespace EH
 		, mCheck2(0)
 		, mStop(false)
 		, mMove(0.f)
+		, mCheck3(0)
+		, mAttack(nullptr)
 	{
 		// Time
 		SetDelayTime(3.f);
+
+		srand((UINT)time(NULL));
 
 		// Animator
 		Animator* ani = AddComponent<Animator>();
@@ -46,6 +51,7 @@ namespace EH
 		{
 			mIcePillar[i] = object::Instantiate<IcePillar>(enums::eLayerType::Enemy);
 			mIcePillar[i]->SetOwner(this);
+			mIcePillar[i]->SetHP(40.f);
 		}	
 	}
 
@@ -60,6 +66,37 @@ namespace EH
 	void Niflheim::Update()
 	{
 		GameObject::Update();
+
+		mCheck1 = 0;
+		for (size_t i = 0; i < 4; i++)
+		{
+			if (mIcePillar[i] == nullptr)
+			{
+				mCheck1++;
+			}
+			else if (mIcePillar[i]->GetHP() <= 0)
+			{
+				Destroy(mIcePillar[i]);
+				mIcePillar[i] = nullptr;
+				mCheck1++;
+			}
+		}
+
+		if (GetState() != eState::Dealtime)
+		{
+			if (mCheck1 == 4)
+			{
+				mCheck1 = 0;
+				SetState(eState::Dealtime);
+				Rigidbody* rigid = GetComponent<Rigidbody>();
+				Collider* col = GetComponent<Collider>();
+				col->enabled(true);
+				rigid->SetGround(false);
+				SetCheckTime(0.f);
+				return;
+			}
+		}
+		
 		switch (GetState())
 		{
 		case EH::Enemy::eState::Idle:
@@ -77,7 +114,6 @@ namespace EH
 		default:
 			break;
 		}
-
 	}
 
 	void Niflheim::Render(HDC hdc)
@@ -87,6 +123,15 @@ namespace EH
 
 	void Niflheim::OnCollisionEnter(Collider* other)
 	{
+		// 플레이어 오브젝트 충돌
+		Weapon* weapon = dynamic_cast<Weapon*>(other->GetOwner());
+		if (weapon != nullptr)
+		{
+			UINT hp = GetHP();
+			SetHP(hp -= 20);
+			mAttack = weapon;
+			GetHitSound()->Play(false);
+		}
 	}
 
 	void Niflheim::OnCollisionStay(Collider* other)
@@ -103,26 +148,6 @@ namespace EH
 		Transform* tr = GetComponent<Transform>();
 
 		tr->SetPos(Math::Vector2<float>(992.f, 520.f));
-
-		/*for (size_t i = 0; i < 4; i++)
-		{
-			if(mIcePillar[i]->GetHP()<=0)
-			{
-				mCheck1++;
-			}
-		}*/
-
-		if (mCheck1 == 4)
-		{
-			SetState(eState::Dealtime);
-			Rigidbody* rigid = GetComponent<Rigidbody>();
-			rigid->SetGround(false);
-			return;
-		}
-		else
-		{
-			mCheck1 = 0;
-		}
 
 		if (mEnter != 1)
 		{
@@ -149,6 +174,8 @@ namespace EH
 		mMove += 0.1f;
 		for (int i = 0;i < 4;i++)
 		{
+			if (mIcePillar[i] == nullptr)
+				continue;
 			Transform* pillartr = mIcePillar[i]->GetComponent<Transform>();
 			mIcePillar[i]->SetDegree((70.f * mMove + 90.f* i)+90.f);
 			pillartr->SetPos(Math::Vector2<float>(tr->Getpos().x + 200.f * cosf((70.f * mMove + 90.f * i) * (3.14f / 180.f)), tr->Getpos().y + 200.f * sinf((70.f * mMove + 90.f * i) * (3.14f / 180.f))));
@@ -157,9 +184,8 @@ namespace EH
 
 	void Niflheim::Attack()
 	{
-		srand((UINT)time(NULL));
 		if (mType == eBossAttack::None)
-			mType = eBossAttack::Bullet;
+			mType = eBossAttack(rand() % ((UINT)eBossAttack::None));
 
 		switch (mType)
 		{
@@ -197,7 +223,14 @@ namespace EH
 			Rigidbody* rigid = GetComponent<Rigidbody>();
 			rigid->SetGround(true);
 			col->enabled(false);
+			SetCheckTime(0.f);
 			SetState(eState::Idle);
+			for (int i = 0;i < 4;i++)
+			{
+				mIcePillar[i] = object::Instantiate<IcePillar>(enums::eLayerType::Enemy);
+				mIcePillar[i]->SetOwner(this);
+				mIcePillar[i]->SetHP(40.f);
+			}
 			mCheck1 = 0;
 		}
 	}
@@ -212,8 +245,7 @@ namespace EH
 		float movetime = GetCheckTime();
 		SetCheckTime(movetime += Time::GetDeltaTime());
 
-
-		if (mCheck2 == 4)
+		if (mCheck2 == (4-mCheck1))
 		{
 			SetState(eState::Idle);
 			SetCheckTime(0.f);
@@ -229,15 +261,20 @@ namespace EH
 
 			if (!mStop)
 			{
-				mIcePillar[mCheck2]->SetTargetPos(GetTarget()->GetComponent<Transform>()->Getpos());
-				mStop = true;
-				mIcePillar[mCheck2]->SetType(ePillarAttack::Bullet);
+				if (mIcePillar[mCheck2] != nullptr)
+				{
+					mIcePillar[mCheck2]->SetTargetPos(GetTarget()->GetComponent<Transform>()->Getpos());
+					mStop = true;
+					mIcePillar[mCheck2]->SetType(ePillarAttack::Bullet);
+				}
 			}
 				
 
 			mMove += 0.1f;
 			for (int i = 0;i < 4;i++)
 			{
+				if (mIcePillar[i] == nullptr)
+					continue;
 				mIcePillar[i]->SetDegree((70.f * mMove + 90.f * i) + 90.f);
 			}
 		}
@@ -245,6 +282,8 @@ namespace EH
 		{
 			for (int i = 0;i < 4;i++)
 			{
+				if (mIcePillar[i] == nullptr)
+					continue;
 				Transform* tr = mIcePillar[i]->GetComponent<Transform>();
 				Math::Vector2<float> dir;
 				if (i == 0)
@@ -270,7 +309,7 @@ namespace EH
 				dir.normalized<float>();
 
 				
-				tr->SetPos(Math::Vector2<float>(tr->Getpos().x + 400.f * dir.x * Time::GetDeltaTime(), tr->Getpos().y + 400.f * dir.y * Time::GetDeltaTime()));
+				tr->SetPos(Math::Vector2<float>(tr->Getpos().x + 500.f * dir.x * Time::GetDeltaTime(), tr->Getpos().y + 500.f * dir.y * Time::GetDeltaTime()));
 			}
 		}
 		
@@ -278,20 +317,206 @@ namespace EH
 
 	void Niflheim::Barrage()
 	{
-		SetState(eState::Idle);
-		mType = eBossAttack::None;
+		float movetime = GetCheckTime();
+		SetCheckTime(movetime += Time::GetDeltaTime());
+		Transform* tr = GetComponent<Transform>();
+		if (mCheck2 == 4)
+		{
+			SetState(eState::Idle);
+			SetCheckTime(0.f);
+			mType = eBossAttack::None;
+			mCheck2 = 0;
+			mCheck3 = 0;
+			return;
+		}
+
+		if (2.f < movetime)
+		{
+			float bullettime = GetSubCheckTime();
+			SetSubCheckTime(bullettime += Time::GetDeltaTime());
+
+			if (mCheck3 == 0)
+			{
+				for (int i = 0;i < 4;i++)
+				{
+					if (mIcePillar[i] == nullptr)
+					{
+						mCheck2++;
+					}
+					else
+					{
+						mIcePillar[i]->SetType(ePillarAttack::Barrage);
+					}
+				}
+				mCheck3++;
+			}
+		}
+
+		mMove += 0.1f;
+		for (int i = 0;i < 4;i++)
+		{
+			if (mIcePillar[i] == nullptr)
+				continue;
+			Transform* pillartr = mIcePillar[i]->GetComponent<Transform>();
+			mIcePillar[i]->SetDegree((70.f * mMove + 90.f * i) + 90.f);
+			pillartr->SetPos(Math::Vector2<float>(tr->Getpos().x + 200.f * cosf((70.f * mMove + 90.f * i) * (3.14f / 180.f)), tr->Getpos().y + 200.f * sinf((70.f * mMove + 90.f * i) * (3.14f / 180.f))));
+		}
 	}
 
 	void Niflheim::FourBarrage()
 	{
-		SetState(eState::Idle);
-		mType = eBossAttack::None;
+		float movetime = GetCheckTime();
+		SetCheckTime(movetime += Time::GetDeltaTime());
+
+		if (mCheck2 == 4)
+		{
+			SetState(eState::Idle);
+			SetCheckTime(0.f);
+			mType = eBossAttack::None;
+			mCheck2 = 0;
+			mCheck3 = 0;
+			return;
+		}
+
+		if (2.f < movetime)
+		{
+			float bullettime = GetSubCheckTime();
+			SetSubCheckTime(bullettime += Time::GetDeltaTime());
+
+			if (mCheck3 == 0)
+			{
+				for (int i = 0;i < 4;i++)
+				{
+					if (mIcePillar[i] == nullptr)
+					{
+						mCheck2++;
+					}
+					else
+					{
+						mIcePillar[i]->SetType(ePillarAttack::Barrage);
+					}
+				}
+				mCheck3++;
+			}
+
+
+			mMove += 0.1f;
+			for (int i = 0;i < 4;i++)
+			{
+				if (mIcePillar[i] == nullptr)
+					continue;
+				mIcePillar[i]->SetDegree((70.f * mMove + 90.f * i) + 90.f);
+			}
+		}
+		else
+		{
+			for (int i = 0;i < 4;i++)
+			{
+				if (mIcePillar[i] == nullptr)
+					continue;
+				Transform* tr = mIcePillar[i]->GetComponent<Transform>();
+				Math::Vector2<float> dir;
+				if (i == 0)
+				{
+					dir = Math::Vector2<float>(600.f, 500.f) - tr->Getpos();
+				}
+				else if (i == 1)
+				{
+					dir = Math::Vector2<float>(850.f, 500.f) - tr->Getpos();
+
+				}
+				else if (i == 2)
+				{
+					dir = Math::Vector2<float>(1100.f, 500.f) - tr->Getpos();
+
+				}
+				else
+				{
+					dir = Math::Vector2<float>(1350.f, 500.f) - tr->Getpos();
+
+				}
+
+				dir.normalized<float>();
+				tr->SetPos(Math::Vector2<float>(tr->Getpos().x + 500.f * dir.x * Time::GetDeltaTime(), tr->Getpos().y + 500.f * dir.y * Time::GetDeltaTime()));
+			}
+		}
 	}
 
 	void Niflheim::SquareFourBarrage()
 	{
-		SetState(eState::Idle);
-		mType = eBossAttack::None;
+		float movetime = GetCheckTime();
+		SetCheckTime(movetime += Time::GetDeltaTime());
+
+		if (mCheck2 == 4)
+		{
+			SetState(eState::Idle);
+			SetCheckTime(0.f);
+			mType = eBossAttack::None;
+			mCheck2 = 0;
+			mCheck3 = 0;
+			return;
+		}
+
+		if (2.f < movetime)
+		{
+			float bullettime = GetSubCheckTime();
+			SetSubCheckTime(bullettime += Time::GetDeltaTime());
+
+			if (mCheck3 == 0)
+			{
+				for (int i = 0;i < 4;i++)
+				{
+					if (mIcePillar[i] == nullptr)
+					{
+						mCheck2++;
+					}
+					else
+					{
+						mIcePillar[i]->SetType(ePillarAttack::Barrage);
+					}
+				}
+				mCheck3++;
+			}
+
+
+			mMove += 0.1f;
+			for (int i = 0;i < 4;i++)
+			{
+				mIcePillar[i]->SetDegree((70.f * mMove + 90.f * i) + 90.f);
+			}
+		}
+		else
+		{
+			for (int i = 0;i < 4;i++)
+			{
+				if (mIcePillar[i] == nullptr)
+					continue;
+				Transform* tr = mIcePillar[i]->GetComponent<Transform>();
+				Math::Vector2<float> dir;
+				if (i == 0)
+				{
+					dir = Math::Vector2<float>(1584.f, 800.f) - tr->Getpos();
+				}
+				else if (i == 1)
+				{
+					dir = Math::Vector2<float>(1584.f, 200.f) - tr->Getpos();
+
+				}
+				else if (i == 2)
+				{
+					dir = Math::Vector2<float>(400.f, 200.f) - tr->Getpos();
+
+				}
+				else
+				{
+					dir = Math::Vector2<float>(400.f, 800.f) - tr->Getpos();
+
+				}
+
+				dir.normalized<float>();
+				tr->SetPos(Math::Vector2<float>(tr->Getpos().x + 500.f * dir.x * Time::GetDeltaTime(), tr->Getpos().y + 500.f * dir.y * Time::GetDeltaTime()));
+			}
+		}
 	}
 
 	void Niflheim::Bullet2()

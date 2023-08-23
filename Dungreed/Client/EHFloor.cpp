@@ -8,6 +8,7 @@
 #include "EHBigGrayIceSkel.h"
 #include "EHDeadObj.h"
 #include "EHTrigger.h"
+#include "EHNiflheim.h"
 
 namespace EH
 {
@@ -43,6 +44,7 @@ namespace EH
 		BigGrayIceSkel* bigiceskel = dynamic_cast<BigGrayIceSkel*>(other->GetOwner());
 		DeadObj* deadobj = dynamic_cast<DeadObj*>(other->GetOwner());
 		Trigger* trigger = dynamic_cast<Trigger*>(other->GetOwner());
+		Niflheim* niflheim = dynamic_cast<Niflheim*>(other->GetOwner());
 
 		if (player != nullptr)
 		{
@@ -242,6 +244,34 @@ namespace EH
 				}
 			}
 		}
+
+		if (niflheim != nullptr)
+		{
+			Transform* niflheimtr = niflheim->GetComponent<Transform>();
+			Transform* floortr = GetComponent<Transform>();
+
+			Collider* niflheimcol = niflheim->GetComponent<Collider>();
+			Collider* floorcol = GetComponent<Collider>();
+
+			if (niflheim->GetComponent<Rigidbody>() == nullptr)
+				return;
+
+			if (niflheim->GetComponent<Rigidbody>()->GetVelocity().y > 0)
+			{
+				niflheim->GetComponent<Rigidbody>()->SetGround(true);
+
+				float scale = fabs(niflheimcol->GetScale().y / 2.f + floorcol->GetScale().y / 2.f);
+				float len = fabs(niflheimtr->Getpos().y - floortr->Getpos().y);
+
+				if (len < scale)
+				{
+					Math::Vector2 niflheimpos = niflheimtr->Getpos();
+					niflheimpos.y -= (scale - len) - 1.0f;
+					niflheimtr->SetPos(niflheimpos);
+				}
+			}
+		}
+
 	}
 
 	void Floor::OnCollisionStay(Collider* other)

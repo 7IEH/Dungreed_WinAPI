@@ -43,8 +43,8 @@ namespace EH
 		void SetState(eState state) { mCurState = state; }
 		eState GetState() { return mCurState; }
 
-		void SetHP(UINT hp) { mHP = hp; }
-		UINT GetHP() { return mHP; }
+		void SetHP(int hp) { mHP = hp; }
+		int GetHP() { return mHP; }
 		
 		class Sound* GetHitSound() { return mHitMonster; }
 
@@ -60,7 +60,7 @@ namespace EH
 		class Sound* mHitMonster;
  
 		// stat
-		UINT mHP;
+		int mHP;
 	};
 }
 
