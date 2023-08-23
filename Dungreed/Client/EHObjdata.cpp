@@ -38,6 +38,7 @@ namespace EH
 		sword->AddComponent<SpriteRenderer>();
 		sword->GetComponent<SpriteRenderer>()->SetImg(texture);
 		sword->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+		texture->Enabled(false);
 
 		swordCollider = object::Instantiate<Weapon>(enums::eLayerType::Sword);
 		Collider* weaponcol = swordCollider->AddComponent<Collider>();

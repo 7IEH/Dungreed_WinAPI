@@ -14,6 +14,13 @@ namespace EH
 		virtual void Render(HDC hdc) override;
 
 	private:
+		float mCheck1;
+
+		class BackGround* mFrontcloud1;
+		class BackGround* mFrontcloud2;
+						  
+		class BackGround* mBackcloud1;
+		class BackGround* mBackcloud2;
 	};
 }
 

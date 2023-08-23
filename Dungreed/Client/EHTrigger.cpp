@@ -202,40 +202,44 @@ namespace EH
 				}
 			}
 
-			if (mScenename == L"JailScene1" && SceneManager::GetCurScene()->GetName() == L"TownScene")
+			Player* player1 = dynamic_cast<Player*>(other->GetOwner());
+			if (player1 != nullptr)
 			{
-				mCheckTime += Time::GetDeltaTime();
-
-				if (mDelayTime / 4.f < mCheckTime && mCheck1 == 0)
+				if (mScenename == L"JailScene1" && SceneManager::GetCurScene()->GetName() == L"TownScene")
 				{
-					SceneManager::GetCurScene()->GetPlayer()->GetComponent<Animator>()->PlayAnimation(L"Trans", false);
-					SceneManager::GetCurScene()->GetPlayer()->SetTrans(true);
+					mCheckTime += Time::GetDeltaTime();
 
-					mCheck1++;
-				}
-
-				if (mDelayTime < mCheckTime)
-				{
-					Scene* mCurScene = SceneManager::LoadScene(mScenename);
-					if (mCurScene != nullptr)
+					if (mDelayTime / 4.f < mCheckTime && mCheck1 == 0)
 					{
-						if (mCurScene->GetBGM() != nullptr)
-							mCurScene->GetBGM()->Play(true);
+						SceneManager::GetCurScene()->GetPlayer()->GetComponent<Animator>()->PlayAnimation(L"Trans", false);
+						SceneManager::GetCurScene()->GetPlayer()->SetTrans(true);
 
-						if (mCurScene->GetPlayer() != nullptr)
-							Camera::SetTarget(mCurScene->GetPlayer());
+						mCheck1++;
 					}
-					mCheckTime = 0.f;
-					mCheck1 = 0;
-				}
-				else
-				{
-					Player* player = dynamic_cast<Player*>(other->GetOwner());
-					Transform* playertr = player->GetComponent<Transform>();
-					Transform* duntr = mDungeoneater->GetComponent<Transform>();
-					Animator* ani = mDungeoneater->GetComponent<Animator>();
-					duntr->SetPos(Math::Vector2<float>(playertr->Getpos().x, 1127.f));
-					ani->PlayAnimation(L"Dungeoneat", false);
+
+					if (mDelayTime < mCheckTime)
+					{
+						Scene* mCurScene = SceneManager::LoadScene(mScenename);
+						if (mCurScene != nullptr)
+						{
+							if (mCurScene->GetBGM() != nullptr)
+								mCurScene->GetBGM()->Play(true);
+
+							if (mCurScene->GetPlayer() != nullptr)
+								Camera::SetTarget(mCurScene->GetPlayer());
+						}
+						mCheckTime = 0.f;
+						mCheck1 = 0;
+					}
+					else
+					{
+						Player* player = dynamic_cast<Player*>(other->GetOwner());
+						Transform* playertr = player->GetComponent<Transform>();
+						Transform* duntr = mDungeoneater->GetComponent<Transform>();
+						Animator* ani = mDungeoneater->GetComponent<Animator>();
+						duntr->SetPos(Math::Vector2<float>(playertr->Getpos().x, 1127.f));
+						ani->PlayAnimation(L"Dungeoneat", false);
+					}
 				}
 			}
 		}

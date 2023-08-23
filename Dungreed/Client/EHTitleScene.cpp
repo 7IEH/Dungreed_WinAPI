@@ -8,6 +8,8 @@
 #include "EHSound.h"
 #include "EHCamera.h"
 #include "EHButton.h"
+#include "EHBullet.h"
+#include <time.h>
 
 namespace EH
 {
@@ -22,6 +24,7 @@ namespace EH
 
 	void TitleScene::Initialize()
 	{
+		srand((UINT)time(NULL));
 		// Sound
 		Sound* BGM = Resources::Load<Sound>(L"BGM", L"..\\Resources\\Sound\\BGM\\title.wav");
 		SetBGM(BGM);
@@ -37,6 +40,16 @@ namespace EH
 		temp = Resources::Load<Texture>(L"BackCloud",L"..\\Client\\Resources\\EnterScene\\BackCloud.png");
 		BackCloud->GetComponent<SpriteRenderer>()->SetImg(temp);
 		BackCloud->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		mBackcloud1 = BackCloud;
+
+
+		BackGround* BackCloud2 = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		BackCloud2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3840.f, 360.f));
+		BackCloud2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(2560.f, 720.f));
+		temp = Resources::Load<Texture>(L"BackCloud", L"..\\Client\\Resources\\EnterScene\\BackCloud.png");
+		BackCloud2->GetComponent<SpriteRenderer>()->SetImg(temp);
+		BackCloud2->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		mBackcloud2 = BackCloud2;
 
 		// FrontCloud
 		BackGround* FrontCloud = object::Instantiate<BackGround>(enums::eLayerType::UI);
@@ -45,6 +58,15 @@ namespace EH
 		temp = Resources::Load<Texture>(L"FrontCloud", L"..\\Resources\\EnterScene\\FrontCloud.png");
 		FrontCloud->GetComponent<SpriteRenderer>()->SetImg(temp);
 		FrontCloud->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		mFrontcloud1 = FrontCloud;
+
+		BackGround* FrontCloud2 = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		FrontCloud2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(3840.f, 360.f));
+		FrontCloud2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(2560.f, 720.f));
+		temp = Resources::Load<Texture>(L"FrontCloud", L"..\\Resources\\EnterScene\\FrontCloud.png");
+		FrontCloud2->GetComponent<SpriteRenderer>()->SetImg(temp);
+		FrontCloud2->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		mFrontcloud2 = FrontCloud2;
 
 		// Main Logo
 		BackGround* MainLogo = object::Instantiate<BackGround>(enums::eLayerType::UI);
@@ -87,11 +109,66 @@ namespace EH
 		Exit->SetTransition(eButtonState::Selected, temp);
 		Exit->SetTransition(eButtonState::Pressed, temp);
 		Exit->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+
 	}
 
 	void TitleScene::Update()
 	{
 		Scene::Update();
+
+		Transform* fronttr1 = mFrontcloud1->GetComponent<Transform>();
+		Transform* fronttr2 = mFrontcloud2->GetComponent<Transform>();
+		Transform* backtr1 = mBackcloud1->GetComponent<Transform>();
+		Transform* backtr2 = mBackcloud2->GetComponent<Transform>();
+
+		Math::Vector2<float> frontpos1 = fronttr1->Getpos();
+		Math::Vector2<float> frontpos2 = fronttr2->Getpos();
+		Math::Vector2<float> backpos1 = backtr1->Getpos();
+		Math::Vector2<float> backpos2 = backtr2->Getpos();
+
+		if (frontpos1.x <= -1280.f)
+		{
+			fronttr1->SetPos(Math::Vector2<float>(3840.f, 360.f));
+		}
+		
+		if (frontpos2.x <= -1280.f)
+		{
+			fronttr2->SetPos(Math::Vector2<float>(3840.f, 360.f));
+		}
+
+		if (backpos1.x <= -1280.f)
+		{
+			backtr1->SetPos(Math::Vector2<float>(3840.f, 360.f));
+		}
+
+		if (backpos2.x <= -1280.f)
+		{
+			backtr2->SetPos(Math::Vector2<float>(3840.f, 360.f));
+		}
+
+		fronttr1->SetPos(Math::Vector2<float>(frontpos1.x - 100.f*Time::GetDeltaTime(),360.f));
+		fronttr2->SetPos(Math::Vector2<float>(frontpos2.x - 100.f * Time::GetDeltaTime(), 360.f));
+		backtr1->SetPos(Math::Vector2<float>(backpos1.x - 50.f * Time::GetDeltaTime(), 360.f));
+		backtr2->SetPos(Math::Vector2<float>(backpos2.x - 50.f * Time::GetDeltaTime(), 360.f));
+
+		int ran = rand() % 7;
+		mCheck1 += Time::GetDeltaTime();
+
+		if (2.f < mCheck1)
+		{
+			Bullet* bird = object::Instantiate<Bullet>(enums::eLayerType::BackGround);
+			bird->GetComponent<Transform>()->SetPos(Math::Vector2<float>(0.f, 100.f*ran));
+			bird->GetComponent<Transform>()->SetScale(Math::Vector2<float>(48.f, 32.f));
+			Texture* texture = Resources::Load<Texture>(L"Bird", L"..\\Resources\\EnterScene\\Bird.bmp");
+			Animator* ani = bird->AddComponent<Animator>();
+			ani->CreateAnimation(L"Bird", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(12.f, 8.f), Math::Vector2<float>(0.f, 0.f), 8, 0.1f);
+			ani->PlayAnimation(L"Bird", true);
+			bird->SetStop(false);
+			bird->SetRadian(0.f);
+			bird->SetDeleteTime(10.f);
+			mCheck1 = 0;
+		}
 	}
 
 	void TitleScene::Render(HDC hdc)
