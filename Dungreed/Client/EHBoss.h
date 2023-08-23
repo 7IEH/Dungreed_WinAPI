@@ -51,6 +51,9 @@ namespace EH
 
 		void SetStop(bool stop) { mIsStop = stop; }
 
+		void SetCheck(UINT check) { mCheck2 = check; }
+		UINT GetCheck() { return mCheck2; }
+
 	private:
 		// Boss Parameter 
 		BossHand* mLeftHand;
@@ -75,6 +78,9 @@ namespace EH
 		UINT mCheck1;
 		UINT mCheck2;
 		UINT mCheck3;
+		UINT mCheck4;
+
+		float mMove;
 
 		// Laser
 		bool mRightLaserani;
@@ -104,6 +110,9 @@ namespace EH
 
 		// Boss Stop
 		bool mIsStop;
+
+		// Boss BulletCreator
+		class BulletCreator* mBulletct[4];
 	};
 }
 

@@ -140,6 +140,7 @@
     <ClInclude Include="EHBigGrayIceSkel.h" />
     <ClInclude Include="EHBoss.h" />
     <ClInclude Include="EHBossHand.h" />
+    <ClInclude Include="EHBulletCreator.h" />
     <ClInclude Include="EHButton.h" />
     <ClInclude Include="EHCamera.h" />
     <ClInclude Include="EHCanvas.h" />
@@ -252,6 +253,7 @@
     <ClCompile Include="EHBigGrayIceSkel.cpp" />
     <ClCompile Include="EHBoss.cpp" />
     <ClCompile Include="EHBossHand.cpp" />
+    <ClCompile Include="EHBulletCreator.cpp" />
     <ClCompile Include="EHButton.cpp" />
     <ClCompile Include="EHCamera.cpp" />
     <ClCompile Include="EHCanvas.cpp" />

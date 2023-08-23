@@ -14,6 +14,7 @@
 #include "EHCamera.h"
 #include "EHDeadObj.h"
 #include "EHTrigger.h"
+#include "EHBulletCreator.h"
 #include <time.h>
 
 namespace EH
@@ -112,6 +113,12 @@ namespace EH
 		// Collider
 		Collider* col = AddComponent<Collider>();
 		col->SetScale(Math::Vector2<float>(280.f, 396.f));
+
+		for (int i = 0;i < 4;i++)
+		{
+			mBulletct[i] = object::Instantiate<BulletCreator>(enums::eLayerType::Enemy);
+			mBulletct[i]->SetOwner(this);
+		}
 	}
 
 	Boss::~Boss()
@@ -191,7 +198,7 @@ namespace EH
 		if (mCheck3 == 0)
 		{
 			Animator* ani = GetComponent<Animator>();
-			ani->PlayAnimation(L"BossDead",false);
+			ani->PlayAnimation(L"BossDead", false);
 			mDefeatSound->Play(false);
 			SceneManager::GetCurScene()->GetBGM()->Stop(true);
 			mRightHand->GetComponent<Animator>()->PlayAnimation(L"BossRightHandDead", true);
@@ -264,7 +271,7 @@ namespace EH
 			texture = Resources::Load<Texture>(L"BossDeadUpper", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\Dead\\SkellBossDeadUpper.bmp");
 			objsr->SetImg(texture);
 			objtr->SetPos(Math::Vector2<float>(pos));
-			objtr->SetScale(Math::Vector2<float>(280.f,308.f));
+			objtr->SetScale(Math::Vector2<float>(280.f, 308.f));
 			objcol->SetScale(Math::Vector2<float>(280.f, 308.f));
 
 			Trigger* trigger2 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
@@ -523,13 +530,50 @@ namespace EH
 
 	void Boss::Barrage()
 	{
-		mCheckTime += Time::GetDeltaTime();
-		mDelayTime = 2.f;
-		if (mDelayTime < mCheckTime)
+		float movetime = GetCheckTime();
+		SetCheckTime(movetime += Time::GetDeltaTime());
+		Transform* tr = GetComponent<Transform>();
+		Animator* ani = GetComponent<Animator>();
+
+		if (mCheck4 == 0)
 		{
+			Transform* tr = GetComponent<Transform>();
+			tr->SetScale(Math::Vector2<float>(280.f, 512.f));
+			ani->PlayAnimation(L"BossAttack", false);
+			mCheck4 = 1;
+		}
+
+		if (mCheck2 == 4)
+		{
+			SetCheckTime(0.f);
 			mCurState = eBossState::Idle;
 			mCurType = eBossAttack::None;
-			mCheckTime = 0.f;
+			mCheck2 = 0;
+			mCheck3 = 0;
+			tr->SetScale(Math::Vector2<float>(280.f, 396.f));
+			ani->PlayAnimation(L"BossIdle", true);
+			mCheck4 = 0;
+			return;
+		}
+
+		if (2.f < movetime)
+		{
+			if (mCheck3 == 0)
+			{
+				for (int i = 0;i < 4;i++)
+				{
+					mBulletct[i]->SetType(AttackType::Barrage);
+				}
+				mCheck3++;
+			}
+		}
+
+		mMove += 0.01f;
+		for (int i = 0;i < 4;i++)
+		{
+			Transform* bulletcttr = mBulletct[i]->GetComponent<Transform>();
+			mBulletct[i]->SetDegree((70.f * mMove + 90.f * i));
+			bulletcttr->SetPos(Math::Vector2<float>(tr->Getpos().x+ 50.f + 40.f * cosf((mMove + 90.f * i) * (3.14f / 180.f)), tr->Getpos().y + 50.f + 50.f * sinf((mMove + 90.f * i) * (3.14f / 180.f))));
 		}
 	}
 

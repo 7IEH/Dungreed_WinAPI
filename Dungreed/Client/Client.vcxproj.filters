@@ -702,6 +702,9 @@
     <ClInclude Include="EHIcePillar.h">
       <Filter>Contents\GameObject\Enemy\IceField\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="EHBulletCreator.h">
+      <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -1025,6 +1028,9 @@
     </ClCompile>
     <ClCompile Include="EHIcePillar.cpp">
       <Filter>Contents\GameObject\Enemy\IceField\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="EHBulletCreator.cpp">
+      <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
