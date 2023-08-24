@@ -54,6 +54,7 @@ namespace EH
 		magicwand->AddComponent<SpriteRenderer>();
 		magicwand->GetComponent<SpriteRenderer>()->SetImg(texture);
 		magicwand->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+		texture->Enabled(false);
 
 		BelialSword = object::Instantiate<Weapon>(enums::eLayerType::UI);
 		texture = Resources::Load<Texture>(L"TwoHand", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\SkeletonKingJewelSword.png");
@@ -62,6 +63,7 @@ namespace EH
 		BelialSword->AddComponent<SpriteRenderer>();
 		BelialSword->GetComponent<SpriteRenderer>()->SetImg(texture);
 		BelialSword->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+		texture->Enabled(false);
 
 		BelialSwordCollider = object::Instantiate<Weapon>(enums::eLayerType::Sword);
 		weaponcol = BelialSwordCollider->AddComponent<Collider>();
@@ -78,5 +80,6 @@ namespace EH
 		Gun->AddComponent<SpriteRenderer>();
 		Gun->GetComponent<SpriteRenderer>()->SetImg(texture);
 		Gun->GetComponent<SpriteRenderer>()->SetAffectCamera(true);
+		texture->Enabled(false);
 	}
 }

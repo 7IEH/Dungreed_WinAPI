@@ -153,6 +153,7 @@
     <ClInclude Include="EHDetection.h" />
     <ClInclude Include="EHDungeonManager.h" />
     <ClInclude Include="EHEffect.h" />
+    <ClInclude Include="EHEndingScene.h" />
     <ClInclude Include="EHEnemy.h" />
     <ClInclude Include="EHEntity.h" />
     <ClInclude Include="EHFairy.h" />
@@ -266,6 +267,7 @@
     <ClCompile Include="EHDetection.cpp" />
     <ClCompile Include="EHDungeonManager.cpp" />
     <ClCompile Include="EHEffect.cpp" />
+    <ClCompile Include="EHEndingScene.cpp" />
     <ClCompile Include="EHEnemy.cpp" />
     <ClCompile Include="EHEntity.cpp" />
     <ClCompile Include="EHFairy.cpp" />

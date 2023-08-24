@@ -58,6 +58,8 @@ namespace EH
 		CreateScene<IcePrevBossScene>(L"IcePrevBossScene");
 		CreateScene<IceBossScene>(L"IceBossScene");
 
+		CreateScene<EndingScene>(L"EndingScene");
+
 		LoadScene(L"TitleScene");
 	}
 

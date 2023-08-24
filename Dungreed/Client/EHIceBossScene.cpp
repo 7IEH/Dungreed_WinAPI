@@ -166,6 +166,13 @@ namespace EH
 		Transform* tr = nifleheim->GetComponent<Transform>();
 		tr->SetPos(Math::Vector2<float>(992.f, 520.f));
 		tr->SetScale(Math::Vector2<float>(168.f, 132.f));
+
+		Trigger* trigger1 = object::Instantiate<Trigger>(enums::eLayerType::Trigger);
+		trigger1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1952.f, 256.f));
+		trigger1->AddComponent<Collider>();
+		trigger1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 256.f));
+		trigger1->SetType(Trigger::eTriggertype::Scenechange);
+		trigger1->SetScenename(L"EndingScene");
 	}
 
 	void IceBossScene::Update()
@@ -211,6 +218,12 @@ namespace EH
 
 			camerapos += mCheck2.normalized<float>() * 300.f * Time::GetDeltaTime();
 			Camera::SetLookAt(camerapos);
+		}
+
+		if (Input::Getkey(eKeyCode::Z).state == eKeyState::DOWN)
+		{
+			Camera::SetLookAt(Math::Vector2<float>(640.f, 360.f));
+			SceneManager::LoadScene(L"EndingScene");
 		}
 	}
 

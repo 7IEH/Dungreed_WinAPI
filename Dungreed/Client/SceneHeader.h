@@ -50,3 +50,6 @@
 #include "EHIceScene19.h"
 #include "EHIcePrevBossScene.h"
 #include "EHIceBossScene.h"
+
+// Ending
+#include "EHEndingScene.h"

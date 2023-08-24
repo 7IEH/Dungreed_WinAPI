@@ -367,6 +367,9 @@
     <Filter Include="Contents\GameObject\Effect">
       <UniqueIdentifier>{04233743-a05d-4e7a-afc7-482e4020b146}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Scene\5.Ending">
+      <UniqueIdentifier>{631a8ef5-68ed-4adb-aa04-a592074bc5c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -705,6 +708,9 @@
     <ClInclude Include="EHBulletCreator.h">
       <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="EHEndingScene.h">
+      <Filter>Contents\Scene\5.Ending</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -1031,6 +1037,9 @@
     </ClCompile>
     <ClCompile Include="EHBulletCreator.cpp">
       <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="EHEndingScene.cpp">
+      <Filter>Contents\Scene\5.Ending</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
