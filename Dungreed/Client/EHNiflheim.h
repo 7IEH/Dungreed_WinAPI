@@ -63,6 +63,12 @@ namespace EH
 		float mMove;
 
 		class Weapon* mAttack;
+
+		// Sound
+		class Sound* mDefeatSound;
+
+		// Boss UI
+		class Canvas* mCanvas;
 	};
 }
 

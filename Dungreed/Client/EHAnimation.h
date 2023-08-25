@@ -42,6 +42,8 @@ namespace EH
 		bool IsComplete() { return mbComplete; }
 		void SetAnimator(Animator* animator) { mAnimator = animator; }
 
+		Texture* GetTexture() { return mTexture; }
+
 	private:
 		Animator* mAnimator;
 		Texture* mTexture;

@@ -7,6 +7,7 @@ namespace EH
 	{
 		  Bullet
 		, Barrage
+		, Dead
 		, None
 	};
 
@@ -26,6 +27,7 @@ namespace EH
 
 		void BulletP();
 		void Barrage();
+		void Dead();
 
 		void SetDegree(float degree) { mDegree = degree; }
 		float GetDegree() { return mDegree; }
@@ -35,6 +37,7 @@ namespace EH
 		void SetTargetPos(Math::Vector2<float> pos) { mTarget = pos; }
 
 		void SetType(ePillarAttack type) { mType = type;}
+		ePillarAttack GetType() { return mType; }
 
 	private:
 		float mDegree;

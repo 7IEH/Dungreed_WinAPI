@@ -3,13 +3,17 @@
 #include "EHObject.h"
 #include "EHPlayer.h"
 #include "EHWeapon.h"
+#include "EHCollisionManager.h"
+#include "EHDeadObj.h"
+#include "EHCanvas.h"
+#include "EHImageObject.h"
 #include <time.h>
 
 namespace EH
 {
 	Niflheim::Niflheim()
 		:
-		  mEnter(0)
+		mEnter(0)
 		, mType(eBossAttack::None)
 		, mCheck1(0)
 		, mCheck2(0)
@@ -18,6 +22,8 @@ namespace EH
 		, mCheck3(0)
 		, mAttack(nullptr)
 	{
+		SetHP(100.f);
+
 		// Time
 		SetDelayTime(3.f);
 
@@ -31,6 +37,10 @@ namespace EH
 		ani->CreateAnimation(L"NiflheimRightIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(42.f, 33.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
 		texture = Resources::Load<Texture>(L"NiflheimLeftIdle", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Idle\\Left\\NiflheimLeftIdle.bmp");
 		ani->CreateAnimation(L"NiflheimLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(42.f, 33.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		texture = Resources::Load<Texture>(L"NiflheimRightAttack", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Attack\\Right\\NiflheimAttack.bmp");
+		ani->CreateAnimation(L"NiflheimLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(42.f, 33.f), Math::Vector2<float>(0.f, 0.f), 11, 0.1f);
+		texture = Resources::Load<Texture>(L"NiflheimLeftAttack", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Attack\\Left\\NiflheimAttack.bmp");
+		ani->CreateAnimation(L"NiflheimLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(42.f, 33.f), Math::Vector2<float>(0.f, 0.f), 11, 0.1f);
 		ani->PlayAnimation(L"NiflheimRightEnter", true);
 
 		// Collider
@@ -52,7 +62,24 @@ namespace EH
 			mIcePillar[i] = object::Instantiate<IcePillar>(enums::eLayerType::Enemy);
 			mIcePillar[i]->SetOwner(this);
 			mIcePillar[i]->SetHP(40.f);
-		}	
+		}
+
+		Canvas* BossUICanvas = object::Instantiate<Canvas>(enums::eLayerType::UI);
+		texture = Resources::Load<Texture>(L"BossLifeBack", L"..\\Resources\\Enemy\\Boss\\UI\\BossLifeBack.png");
+		BossUICanvas->AddImageObject(L"BossLifeBack", texture, false, Math::Vector2<float>(640.f, 670.f), Math::Vector2<float>(500.f, 64.f));
+
+		texture = Resources::Load<Texture>(L"BossHP", L"..\\Resources\\Enemy\\Boss\\UI\\BossLife.png");
+		BossUICanvas->AddImageObject(L"BossHP", texture, false, Math::Vector2<float>(676.f, 670.f), Math::Vector2<float>(402.f, 56.f));
+
+		texture = Resources::Load<Texture>(L"BossHPBase", L"..\\Resources\\Enemy\\Boss\\UI\\BossLifeBase.png");
+		BossUICanvas->AddImageObject(L"BossHPBase", texture, false, Math::Vector2<float>(640.f, 670.f), Math::Vector2<float>(500.f, 64.f));
+
+		texture = Resources::Load<Texture>(L"BossPortrait", L"..\\Resources\\Enemy\\Boss\\UI\\BossSkellPortrait.png");
+		BossUICanvas->AddImageObject(L"BossPortrait", texture, false, Math::Vector2<float>(435.f, 670.f), Math::Vector2<float>(68.f, 40.f));
+
+		mCanvas = BossUICanvas;
+
+		mDefeatSound = Resources::Load<Sound>(L"bossDefeat", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\bossDefeat.wav");
 	}
 
 	Niflheim::~Niflheim()
@@ -76,27 +103,46 @@ namespace EH
 			}
 			else if (mIcePillar[i]->GetHP() <= 0)
 			{
-				Destroy(mIcePillar[i]);
+				if (mIcePillar[i]->GetType() == ePillarAttack::Barrage)
+				{
+					mCheck2++;
+				}
+				mIcePillar[i]->SetType(ePillarAttack::Dead);
+				mIcePillar[i]->GetComponent<Animator>()->PlayAnimation(L"IcePillarDestroy", false);
 				mIcePillar[i] = nullptr;
 				mCheck1++;
 			}
 		}
 
-		if (GetState() != eState::Dealtime)
+		if (GetState() != eState::Dead)
 		{
-			if (mCheck1 == 4)
+			if (GetState() != eState::Dealtime)
 			{
-				mCheck1 = 0;
-				SetState(eState::Dealtime);
-				Rigidbody* rigid = GetComponent<Rigidbody>();
-				Collider* col = GetComponent<Collider>();
-				col->enabled(true);
-				rigid->SetGround(false);
-				SetCheckTime(0.f);
-				return;
+				if (mCheck1 == 4)
+				{
+					mCheck1 = 0;
+					SetState(eState::Dealtime);
+					Rigidbody* rigid = GetComponent<Rigidbody>();
+					Collider* col = GetComponent<Collider>();
+					col->enabled(true);
+					rigid->SetGround(false);
+					SetCheckTime(0.f);
+					return;
+				}
 			}
 		}
-		
+
+		if (GetHP() <= 0)
+		{
+			SetState(eState::Dead);
+		}
+
+		// UI Update
+		ImageObject* hp = mCanvas->Find(L"BossHP");
+		Transform* tr = hp->GetComponent<Transform>();
+		tr->SetPos(Math::Vector2<float>(676.f - ((402.f - 402.f * ((float)GetHP() / (float)100.f)) / 2.f), tr->Getpos().y));
+		tr->SetScale(Math::Vector2<float>(402.f * ((float)GetHP() / (float)100.f), tr->GetScale().y));
+
 		switch (GetState())
 		{
 		case EH::Enemy::eState::Idle:
@@ -177,7 +223,7 @@ namespace EH
 			if (mIcePillar[i] == nullptr)
 				continue;
 			Transform* pillartr = mIcePillar[i]->GetComponent<Transform>();
-			mIcePillar[i]->SetDegree((70.f * mMove + 90.f* i)+90.f);
+			mIcePillar[i]->SetDegree((70.f * mMove + 90.f * i) + 90.f);
 			pillartr->SetPos(Math::Vector2<float>(tr->Getpos().x + 200.f * cosf((70.f * mMove + 90.f * i) * (3.14f / 180.f)), tr->Getpos().y + 200.f * sinf((70.f * mMove + 90.f * i) * (3.14f / 180.f))));
 		}
 	}
@@ -232,12 +278,39 @@ namespace EH
 				mIcePillar[i]->SetHP(40.f);
 			}
 			mCheck1 = 0;
+			mCheck2 = 0;
+			mCheck3 = 0;
 		}
 	}
 
 	void Niflheim::Dead()
 	{
+		float timecheck = GetCheckTime();
+		float subtimecheck = GetSubCheckTime();
+		SetCheckTime(timecheck += Time::GetDeltaTime());
+		SetSubCheckTime(subtimecheck += Time::GetDeltaTime());
+		Transform* tr = GetComponent<Transform>();
+		Math::Vector2<float> pos = tr->Getpos();
 
+		if (mCheck3 == 0)
+		{
+			if (mAttack != nullptr)
+			{
+				CollisionManager::ForceExit(GetComponent<Collider>(), mAttack->GetComponent<Collider>());
+			}
+			Destroy(this);
+			mDefeatSound->Play(false);
+			SceneManager::GetCurScene()->GetBGM()->Stop(true);
+			mCheck3++;
+			DeadObj* deadobj = object::Instantiate<DeadObj>(enums::eLayerType::UI);
+			Transform* deadtr = deadobj->GetComponent<Transform>();
+			deadtr->SetPos(pos);
+			deadtr->SetScale(Math::Vector2<float>(168.f,132.f));
+			Animator* deadani = deadobj->AddComponent<Animator>();
+			Texture* texture = Resources::Load<Texture>(L"Niflheimdead", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Dead\\NiflheimDie.bmp");
+			deadani->CreateAnimation(L"Niflheimdead", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(42.f, 33.f), Math::Vector2<float>(0.f, 0.f), 30, 0.1f);
+			deadani->PlayAnimation(L"Niflheimdead", false);
+		}
 	}
 
 	void Niflheim::Bullet()
@@ -245,7 +318,7 @@ namespace EH
 		float movetime = GetCheckTime();
 		SetCheckTime(movetime += Time::GetDeltaTime());
 
-		if (mCheck2 == (4-mCheck1))
+		if (mCheck2 == 4)
 		{
 			SetState(eState::Idle);
 			SetCheckTime(0.f);
@@ -259,8 +332,16 @@ namespace EH
 			float bullettime = GetSubCheckTime();
 			SetSubCheckTime(bullettime += Time::GetDeltaTime());
 
+			if (mIcePillar[mCheck2] == nullptr)
+			{
+				mCheck2++;
+				mStop = false;
+			}
+			 
 			if (!mStop)
 			{
+				if (mCheck2 == 4)
+					return;
 				if (mIcePillar[mCheck2] != nullptr)
 				{
 					mIcePillar[mCheck2]->SetTargetPos(GetTarget()->GetComponent<Transform>()->Getpos());
@@ -268,7 +349,7 @@ namespace EH
 					mIcePillar[mCheck2]->SetType(ePillarAttack::Bullet);
 				}
 			}
-				
+
 
 			mMove += 0.1f;
 			for (int i = 0;i < 4;i++)
@@ -293,26 +374,26 @@ namespace EH
 				else if (i == 1)
 				{
 					dir = Math::Vector2<float>(1584.f, 200.f) - tr->Getpos();
-					
+
 				}
 				else if (i == 2)
 				{
 					dir = Math::Vector2<float>(400.f, 200.f) - tr->Getpos();
-					
+
 				}
 				else
 				{
 					dir = Math::Vector2<float>(400.f, 800.f) - tr->Getpos();
-					
+
 				}
 
 				dir.normalized<float>();
 
-				
+
 				tr->SetPos(Math::Vector2<float>(tr->Getpos().x + 500.f * dir.x * Time::GetDeltaTime(), tr->Getpos().y + 500.f * dir.y * Time::GetDeltaTime()));
 			}
 		}
-		
+
 	}
 
 	void Niflheim::Barrage()
@@ -378,7 +459,7 @@ namespace EH
 			return;
 		}
 
-		if (2.f < movetime)
+		if (1.f < movetime)
 		{
 			float bullettime = GetSubCheckTime();
 			SetSubCheckTime(bullettime += Time::GetDeltaTime());
@@ -482,6 +563,8 @@ namespace EH
 			mMove += 0.1f;
 			for (int i = 0;i < 4;i++)
 			{
+				if (mIcePillar[i] == nullptr)
+					continue;
 				mIcePillar[i]->SetDegree((70.f * mMove + 90.f * i) + 90.f);
 			}
 		}

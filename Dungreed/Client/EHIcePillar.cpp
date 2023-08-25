@@ -11,15 +11,18 @@ namespace EH
 	UINT IcePillar::mCheck1 = 0;
 	IcePillar::IcePillar()
 		:
-		  mDegree(0.f)
+		mDegree(0.f)
 		, mType(ePillarAttack::None)
 		, mAttack(nullptr)
 	{
 		Transform* tr = GetComponent<Transform>();
-		SpriteRenderer* sr = AddComponent<SpriteRenderer>();
-		Texture* texture = Resources::Load<Texture>(L"IcePillar" + std::to_wstring(mCheck1), L"..\\Resources\\Enemy\\Boss\\Niflheim\\UI\\IcePillar19.png");
+		Animator* ani = AddComponent<Animator>();
+		Texture* texture = Resources::Load<Texture>(L"IcePillar" + std::to_wstring(mCheck1), L"..\\Resources\\Enemy\\Boss\\Niflheim\\UI\\IcePillar.png");
 		tr->SetScale(Math::Vector2<float>(248.f, 132.f));
-		sr->SetImg(texture);
+		ani->CreateAnimation(L"IcePillar", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(62.f, 33.f), Math::Vector2<float>(0.f, 0.f), 20, 0.1f);
+		texture = Resources::Load<Texture>(L"IcePillarDestroy" + std::to_wstring(mCheck1), L"..\\Resources\\Enemy\\Boss\\Niflheim\\UI\\IcePillarDestroy.png");
+		ani->CreateAnimation(L"IcePillarDestroy", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(62.f, 33.f), Math::Vector2<float>(0.f, 0.f), 3, 0.3f);
+		ani->PlayAnimation(L"IcePillar",false);
 		Collider* col = AddComponent<Collider>();
 		col->SetScale(Math::Vector2<float>(40.f, 40.f));
 		mCheck1++;
@@ -39,8 +42,8 @@ namespace EH
 	{
 		GameObject::Update();
 
-		SpriteRenderer* sr = GetComponent<SpriteRenderer>();
-		Texture* texture = sr->GetImg();
+		Animator* ani = GetComponent<Animator>();
+		Texture* texture = ani->GetActiveAnimation()->GetTexture();
 		texture->SetDegree(mDegree);
 
 		switch (mType)
@@ -52,6 +55,9 @@ namespace EH
 			Barrage();
 			break;
 		case EH::ePillarAttack::None:
+			break;
+		case EH::ePillarAttack::Dead:
+			Dead();
 			break;
 		default:
 			break;
@@ -100,7 +106,7 @@ namespace EH
 		}
 		Transform* tr = GetComponent<Transform>();
 		float radian = Math::Radian(mTarget, tr->Getpos());
-		
+
 
 		if (0.1f < createtime)
 		{
@@ -159,10 +165,21 @@ namespace EH
 			col->SetScale(Math::Vector2<float>(40.f, 40.f));
 			bullettr->SetScale(Math::Vector2<float>(36.f, 72.f));
 
-			bullet->SetRadian(mDegree * (3.14f/180.f));
+			bullet->SetRadian(mDegree * (3.14f / 180.f));
 			bullet->SetStop(false);
 			bullet->SetDeleteTime(10.f);
 			mIceBulletSound->Play(false);
+		}
+	}
+
+	void IcePillar::Dead()
+	{
+		float checktime = GetCheckTime();
+		SetCheckTime(checktime += Time::GetDeltaTime());
+
+		if (1.f < checktime)
+		{
+			Destroy(this);
 		}
 	}
 }

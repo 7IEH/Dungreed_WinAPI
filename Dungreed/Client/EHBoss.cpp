@@ -46,6 +46,8 @@ namespace EH
 
 		// HAND
 		mLeftHand = object::Instantiate<BossHand>(enums::eLayerType::Enemy);
+		mLeftHand->SetOwner(this);
+		mLeftHand->SetRight(false);
 		Transform* tr = mLeftHand->GetComponent<Transform>();
 		tr->SetPos(Math::Vector2<float>(370.f, 822.f));
 		tr->SetScale(Math::Vector2<float>(228.f, 276.f));
@@ -63,6 +65,7 @@ namespace EH
 
 		mRightHand = object::Instantiate<BossHand>(enums::eLayerType::Enemy);
 		tr = mRightHand->GetComponent<Transform>();
+		mRightHand->SetOwner(this);
 		tr->SetPos(Math::Vector2<float>(1106.f, 542.f));
 		tr->SetScale(Math::Vector2<float>(228.f, 276.f));
 		temp = Resources::Load<Texture>(L"BossRightHandIdle", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\HandleRight\\SkellBossRightHandIdleSheet.bmp");
@@ -126,6 +129,11 @@ namespace EH
 		Destroy(mRightHand);
 		Destroy(mLeftHand);
 		Destroy(mBackparticle);
+
+		for (int i = 0; i < 4;i++)
+		{
+			Destroy(mBulletct[i]);
+		}
 	}
 
 	void Boss::Initialize()
@@ -413,6 +421,7 @@ namespace EH
 					rightlaser->AddComponent<Collider>();
 					rightlaser->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1280.f, 220.f));
 					mLaserSound->Play(false);
+					mRightHand->SetType(eAttack::Attack);
 				}
 				else
 				{
@@ -428,6 +437,7 @@ namespace EH
 					leftlaser->AddComponent<Collider>();
 					leftlaser->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1280.f, 220.f));
 					mLaserSound->Play(false);
+					mLeftHand->SetType(eAttack::Attack);
 				}
 				mSubCheckTime = 0.f;
 				mIsRight = !mIsRight;
@@ -450,24 +460,6 @@ namespace EH
 					LeftHandTr->SetPos(pos);
 				}
 			}
-		}
-
-		if (mRightLaserani && 3.0f < mSubCheckTime2)
-		{
-			RightHandTr->SetScale(Math::Vector2<float>(228.f, 276.f));
-			RightHandani->PlayAnimation(L"BossRightHandIdle", true);
-			mSubCheckTime2 = 0.f;
-			mRightLaserani = false;
-			mCheck2++;
-		}
-
-		if (mLeftLaserani && 3.5f < mSubCheckTime3)
-		{
-			LeftHandTr->SetScale(Math::Vector2<float>(228.f, 276.f));
-			LeftHandani->PlayAnimation(L"BossLeftHandIdle", true);
-			mSubCheckTime3 = 0.f;
-			mLeftLaserani = false;
-			mCheck2++;
 		}
 	}
 

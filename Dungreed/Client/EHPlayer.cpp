@@ -271,9 +271,17 @@ namespace EH
 
 		if (mWeaponCollider != Objdata::GetWeaponCollider())
 		{
-			SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Sword, Objdata::GetWeaponCollider());
-			mWeaponCollider = Objdata::GetWeaponCollider();
-			Objdata::SetWeaponCollider(mWeaponCollider);
+			if (Objdata::GetWeaponCollider() == nullptr)
+			{
+				mWeaponCollider = Objdata::GetWeaponCollider();
+				Objdata::SetWeaponCollider(mWeaponCollider);
+			}
+			else
+			{
+				SceneManager::GetCurScene()->SetLayer(enums::eLayerType::Sword, Objdata::GetWeaponCollider());
+				mWeaponCollider = Objdata::GetWeaponCollider();
+				Objdata::SetWeaponCollider(mWeaponCollider);
+			}
 		}
 
 		// UI Update
@@ -2276,11 +2284,30 @@ namespace EH
 		Objdata::SetActiveWeapon(mActiveWeapon);
 		Objdata::SetSubWeapon(mSubWeapon);
 
+		bool IsExist = false;
+
+		Scene* mCurScene = SceneManager::GetCurScene();
+
 		if (mActiveWeapon == enums::eWeapon::Onehand)
 		{
 			Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
 			mWeapon = Objdata::GetSword();
 			mWeaponCollider = Objdata::GetSwordCollider();
+
+			for (GameObject* obj : mCurScene->GetLayer(enums::eLayerType::UI).GetObjects())
+			{
+				if (obj == Objdata::GetSword())
+				{
+					IsExist = true;
+					break;
+				}
+			}
+
+			if (!IsExist)
+			{
+				mCurScene->SetLayer(enums::eLayerType::UI, Objdata::GetSword());
+				mCurScene->SetLayer(enums::eLayerType::Sword, Objdata::GetSwordCollider());
+			}
 
 			if (mSubWeapon == enums::eWeapon::Twohand)
 			{
@@ -2301,6 +2328,21 @@ namespace EH
 			mWeapon = Objdata::GetBelialSword();
 			mWeaponCollider = Objdata::GetBelialSwordCollider();
 
+			for (GameObject* obj : mCurScene->GetLayer(enums::eLayerType::UI).GetObjects())
+			{
+				if (obj == Objdata::GetBelialSword())
+				{
+					IsExist = true;
+					break;
+				}
+			}
+
+			if (!IsExist)
+			{
+				mCurScene->SetLayer(enums::eLayerType::UI, Objdata::GetBelialSword());
+				mCurScene->SetLayer(enums::eLayerType::Sword, Objdata::GetBelialSwordCollider());
+			}
+
 			if (mSubWeapon == enums::eWeapon::Onehand)
 			{
 				Objdata::GetSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
@@ -2320,6 +2362,20 @@ namespace EH
 			mWeapon = Objdata::GetMagicWand();
 			mWeaponCollider = nullptr;
 
+			for (GameObject* obj : mCurScene->GetLayer(enums::eLayerType::UI).GetObjects())
+			{
+				if (obj == Objdata::GetMagicWand())
+				{
+					IsExist = true;
+					break;
+				}
+			}
+
+			if (!IsExist)
+			{
+				mCurScene->SetLayer(enums::eLayerType::UI, Objdata::GetMagicWand());
+			}
+
 			if (mSubWeapon == enums::eWeapon::Twohand)
 			{
 				Objdata::GetBelialSword()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
@@ -2338,6 +2394,20 @@ namespace EH
 			Objdata::GetGun()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
 			mWeapon = Objdata::GetGun();
 			mWeaponCollider = nullptr;
+
+			for (GameObject* obj : mCurScene->GetLayer(enums::eLayerType::UI).GetObjects())
+			{
+				if (obj == Objdata::GetGun())
+				{
+					IsExist = true;
+					break;
+				}
+			}
+
+			if (!IsExist)
+			{
+				mCurScene->SetLayer(enums::eLayerType::UI, Objdata::GetGun());
+			}
 
 			if (mSubWeapon == enums::eWeapon::Twohand)
 			{
