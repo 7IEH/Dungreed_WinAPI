@@ -127,6 +127,13 @@ namespace EH
 		temp = Resources::Load<Texture>(L"copypratice", L"..\\Resources\\EnterScene\\copypratice.bmp");
 		copypratice->GetComponent<SpriteRenderer>()->SetImg(temp);
 		copypratice->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+
+		BackGround* version = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		version->GetComponent<Transform>()->SetPos(Math::Vector2<float>(1240.f, 700.f));
+		version->GetComponent<Transform>()->SetScale(Math::Vector2<float>(50.f, 18.f));
+		temp = Resources::Load<Texture>(L"version", L"..\\Resources\\EnterScene\\Ver.bmp");
+		version->GetComponent<SpriteRenderer>()->SetImg(temp);
+		version->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 	}
 
 	void TitleScene::Update()
