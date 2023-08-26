@@ -4,6 +4,7 @@
 #include "EHSound.h"
 #include "EHCamera.h"
 #include "EHPlayer.h"
+#include <shellapi.h>
 
 extern EH::Application application;
 
@@ -87,6 +88,11 @@ namespace EH
 			Scene* curscene =  SceneManager::LoadScene(mScene);
 			curscene->GetBGM()->Play(true);
 			Camera::SetTarget(curscene->GetPlayer());
+		}
+
+		if (mEvent == eClickEvent::BugReport)
+		{
+			ShellExecute(application.GetHWND(), L"open", L"https://velog.io/@youkitea/%EB%B2%84%EA%B7%B8%EC%A0%9C%EB%B3%B4", NULL, NULL, SW_SHOW);
 		}
 	}
 }

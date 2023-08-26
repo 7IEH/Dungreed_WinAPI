@@ -140,6 +140,8 @@ namespace EH
 		PlayerUICanvas->AddImageObject(L"WeaponSlot", texture, false, Math::Vector2<float>(1210.f, 641.f), Math::Vector2<float>(140.f, 102.f));
 		PlayerUICanvas->AddImageObject(L"WeaponSlot2", texture, false, Math::Vector2<float>(1190.f, 657.f), Math::Vector2<float>(140.f, 102.f));
 
+
+
 		// Inventory
 		texture = Resources::Load<Texture>(L"InventoryBase", L"..\\Resources\\UI\\InventoryBase.png");
 		texture->Enabled(false);
@@ -175,6 +177,135 @@ namespace EH
 
 		mCanvas = PlayerUICanvas;
 		mCanvas->AddImageObject(L"Swordslot", nullptr, false, Math::Vector2<float>(1180.f, 660.f), Math::Vector2<float>(76.f, 28.f));
+
+		UINT curten = mCurHp / 10;
+		UINT curone = mCurHp % 10;
+
+		UINT maxten = mMaxHP / 10;
+		UINT maxone = mMaxHP % 10;
+
+		Objdata::SetGold(1000);
+
+		GameObject* ten1 = object::Instantiate<GameObject>(enums::eLayerType::UI);
+		Transform* tr = ten1->GetComponent<Transform>();
+		Animator* ani = ten1->AddComponent<Animator>();
+		texture = Resources::Load<Texture>(L"numberfont", L"..\\Resources\\UI\\NumberFont.bmp");
+		tr->SetPos(Math::Vector2<float>(150.f, 40.f));
+		tr->SetScale(Math::Vector2<float>(21.f, 33.f));
+		for (int i = 0;i < 9;i++)
+		{
+			ani->CreateAnimation(L"NUM" + std::to_wstring(i), texture, Math::Vector2<float>(i * 7.f, 0.f), Math::Vector2<float>(7.f, 11.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		}
+		ani->PlayAnimation(L"NUM"+std::to_wstring(curten), false);
+		ani->SetAffectedCamera(false);
+		mCurhpImage1 = ten1;
+
+		GameObject* one1 = object::Instantiate<GameObject>(enums::eLayerType::UI);
+		tr = one1->GetComponent<Transform>();
+		ani = one1->AddComponent<Animator>();
+		tr->SetPos(Math::Vector2<float>(171.f, 40.f));
+		tr->SetScale(Math::Vector2<float>(21.f, 33.f));
+		for (int i = 0;i < 9;i++)
+		{
+			ani->CreateAnimation(L"NUM" + std::to_wstring(i), texture, Math::Vector2<float>(i * 7.f, 0.f), Math::Vector2<float>(7.f, 11.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		}
+		ani->PlayAnimation(L"NUM" + std::to_wstring(curten), false);
+		ani->SetAffectedCamera(false);
+		mCurhpImage2 = one1;
+
+		GameObject* slash = object::Instantiate<GameObject>(enums::eLayerType::UI);
+		tr = slash->GetComponent<Transform>();
+		ani = slash->AddComponent<Animator>();
+		tr->SetPos(Math::Vector2<float>(190.5f, 40.f));
+		tr->SetScale(Math::Vector2<float>(18.f, 30.f));
+		Texture* texture2 = Resources::Load<Texture>(L"slash", L"..\\Resources\\UI\\slash.bmp");
+		ani->CreateAnimation(L"slash", texture2, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(6.f, 10.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		ani->PlayAnimation(L"slash", false);
+		ani->SetAffectedCamera(false);
+
+
+		GameObject* ten2 = object::Instantiate<GameObject>(enums::eLayerType::UI);
+		tr = ten2->GetComponent<Transform>();
+		ani = ten2->AddComponent<Animator>();
+		tr->SetPos(Math::Vector2<float>(210.f, 40.f));
+		tr->SetScale(Math::Vector2<float>(21.f, 33.f));
+		for (int i = 0;i < 9;i++)
+		{
+			ani->CreateAnimation(L"NUM" + std::to_wstring(i), texture, Math::Vector2<float>(i * 7.f, 0.f), Math::Vector2<float>(7.f, 11.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		}
+		ani->PlayAnimation(L"NUM" + std::to_wstring(curten), false);
+		ani->SetAffectedCamera(false);
+		mMaxhpImage1 = ten2;
+
+		GameObject* one2 = object::Instantiate<GameObject>(enums::eLayerType::UI);
+		tr = one2->GetComponent<Transform>();
+		ani = one2->AddComponent<Animator>();
+		tr->SetPos(Math::Vector2<float>(231.f, 40.f));
+		tr->SetScale(Math::Vector2<float>(21.f, 33.f));
+		for (int i = 0;i < 9;i++)
+		{
+			ani->CreateAnimation(L"NUM" + std::to_wstring(i), texture, Math::Vector2<float>(i * 7.f, 0.f), Math::Vector2<float>(7.f, 11.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		}
+		ani->PlayAnimation(L"NUM" + std::to_wstring(curten), false);
+		ani->SetAffectedCamera(false);
+		mMaxhpImage2 = one2;
+
+		UINT thousand = mGold / 1000;
+		UINT hundred = mGold / 100;
+		UINT ten = mGold / 10;
+		UINT one4 = mGold % 10;
+
+		GameObject* goldt = object::Instantiate<GameObject>(enums::eLayerType::UI);
+		tr = goldt->GetComponent<Transform>();
+		ani = goldt->AddComponent<Animator>();
+		tr->SetPos(Math::Vector2<float>(75.f, 655.f));
+		tr->SetScale(Math::Vector2<float>(14.f, 22.f));
+		for (int i = 0;i < 9;i++)
+		{
+			ani->CreateAnimation(L"NUM" + std::to_wstring(i), texture, Math::Vector2<float>(i * 7.f, 0.f), Math::Vector2<float>(7.f, 11.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		}
+		ani->PlayAnimation(L"NUM" + std::to_wstring(thousand), false);
+		ani->SetAffectedCamera(false);
+		mGoldt = goldt;
+
+		GameObject* goldh = object::Instantiate<GameObject>(enums::eLayerType::UI);
+		tr = goldh->GetComponent<Transform>();
+		ani = goldh->AddComponent<Animator>();
+		tr->SetPos(Math::Vector2<float>(89.f, 655.f));
+		tr->SetScale(Math::Vector2<float>(14.f, 22.f));
+		for (int i = 0;i < 9;i++)
+		{
+			ani->CreateAnimation(L"NUM" + std::to_wstring(i), texture, Math::Vector2<float>(i * 7.f, 0.f), Math::Vector2<float>(7.f, 11.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		}
+		ani->PlayAnimation(L"NUM" + std::to_wstring(hundred), false);
+		ani->SetAffectedCamera(false);
+		mGoldh = goldh;
+
+		GameObject* goldten = object::Instantiate<GameObject>(enums::eLayerType::UI);
+		tr = goldten->GetComponent<Transform>();
+		ani = goldten->AddComponent<Animator>();
+		tr->SetPos(Math::Vector2<float>(103.f, 655.f));
+		tr->SetScale(Math::Vector2<float>(14.f, 22.f));
+		for (int i = 0;i < 9;i++)
+		{
+			ani->CreateAnimation(L"NUM" + std::to_wstring(i), texture, Math::Vector2<float>(i * 7.f, 0.f), Math::Vector2<float>(7.f, 11.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		}
+		ani->PlayAnimation(L"NUM" + std::to_wstring(ten), false);
+		ani->SetAffectedCamera(false);
+		mGoldten = goldten;
+
+		GameObject* goldone = object::Instantiate<GameObject>(enums::eLayerType::UI);
+		tr = goldone->GetComponent<Transform>();
+		ani = goldone->AddComponent<Animator>();
+		tr->SetPos(Math::Vector2<float>(117.f, 655.f));
+		tr->SetScale(Math::Vector2<float>(14.f, 22.f));
+		for (int i = 0;i < 9;i++)
+		{
+			ani->CreateAnimation(L"NUM" + std::to_wstring(i), texture, Math::Vector2<float>(i * 7.f, 0.f), Math::Vector2<float>(7.f, 11.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		}
+		ani->PlayAnimation(L"NUM" + std::to_wstring(one4), false);
+		ani->SetAffectedCamera(false);
+		mGoldone = goldone;
 	}
 
 	Player::~Player()
@@ -295,43 +426,34 @@ namespace EH
 		tr->SetPos(Math::Vector2<float>(110.f - ((82.f - 82.f * ((float)mFood / 100.f)) / 2.f), tr->Getpos().y));
 		tr->SetScale(Math::Vector2<float>(82.f * ((float)mFood / 100.f), tr->GetScale().y));
 
+
+		UINT curten = mCurHp / 10;
+		UINT curone = mCurHp % 10;
+
+		UINT maxten = mMaxHP / 10;
+		UINT maxone = mMaxHP % 10;
+
+		mCurhpImage1->GetComponent<Animator>()->PlayAnimation(L"NUM" + std::to_wstring(curten), false);
+		mCurhpImage2->GetComponent<Animator>()->PlayAnimation(L"NUM" + std::to_wstring(curone), false);
+		mMaxhpImage1->GetComponent<Animator>()->PlayAnimation(L"NUM" + std::to_wstring(maxten), false);
+		mMaxhpImage2->GetComponent<Animator>()->PlayAnimation(L"NUM" + std::to_wstring(maxone), false);
+
+		UINT thousand = mGold / 1000;
+		UINT hundred = mGold / 100;
+		UINT ten = mGold / 10;
+		UINT one4 = mGold % 10;
+
+		mGoldt->GetComponent<Animator>()->PlayAnimation(L"NUM" + std::to_wstring(thousand), false);
+		mGoldh->GetComponent<Animator>()->PlayAnimation(L"NUM" + std::to_wstring(hundred), false);
+		mGoldten->GetComponent<Animator>()->PlayAnimation(L"NUM" + std::to_wstring(ten), false);
+		mGoldone->GetComponent<Animator>()->PlayAnimation(L"NUM" + std::to_wstring(one4), false);
+
 		Playerlogic();
 	}
 
 	void Player::Render(HDC hdc)
 	{
 		GameObject::Render(hdc);
-
-		// UI text
-		// SetTextColor(hdc, RGB(255, 255, 255));
-		////SetBkMode(hdc, TRANSPARENT);
-		wchar_t szFloat[50] = {};
-		//HFONT hNewFont;
-		//HFONT hOldFont;
-		//hNewFont = CreateFont(42, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("Neo둥근모"));
-		//hOldFont = (HFONT)SelectObject(hdc, hNewFont);
-
-		swprintf_s(szFloat, 50, L"%d / %d", mCurHp, mMaxHP);
-		int strLen = wcsnlen_s(szFloat, 50);
-		TextOutW(hdc, 125, 20, szFloat, strLen);
-
-		//swprintf_s(szFloat, 50, L"%d", mLevel);
-		//strLen = wcsnlen_s(szFloat, 50);
-		//TextOutW(hdc, 43, 20, szFloat, strLen);
-
-		//hNewFont = CreateFont(27, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("Neo둥근모"));
-		//SelectObject(hdc, hNewFont);
-
-		swprintf_s(szFloat, 50, L"%d", mGold);
-		strLen = wcsnlen_s(szFloat, 50);
-		TextOutW(hdc, 65, 649, szFloat, strLen);
-
-		//swprintf_s(szFloat, 50, L"%d / 100", mFood);
-		//strLen = wcsnlen_s(szFloat, 50);
-		//TextOutW(hdc, 65, 675, szFloat, strLen);
-
-		//SelectObject(hdc, hOldFont);
-		//DeleteObject(hNewFont);
 	}
 
 	// 나중에 정리
@@ -2101,7 +2223,7 @@ namespace EH
 			col->SetScale(Math::Vector2<float>(56.f, 52.f));
 			tr->SetScale(Math::Vector2<float>(56.f, 52.f));
 			tr->SetPos(playertr->Getpos());
-			bullet->SetDeleteTime(10.f);
+			bullet->SetDeleteTime(5.f);
 			bullet->SetDamage(10.f);
 			bullet->SetSpeed(2.f);
 			bullet->SetPlayer(true);

@@ -22,6 +22,7 @@ namespace EH
 	{
 		mDungeoneat = Resources::Load<Sound>(L"Dungeonout", L"..\\Resources\\Sound\\Structure\\DungeonOut.wav");
 		mOpend = Resources::Load<Sound>(L"opend", L"..\\Resources\\Sound\\Item\\Chest2.wav");
+		mNewItem = Resources::Load<Sound>(L"NewItem", L"..\\Resources\\Sound\\Item\\newItems.wav");
 	}
 
 	Trigger::~Trigger()
@@ -112,6 +113,7 @@ namespace EH
 		{
 			if (Input::Getkey(eKeyCode::F).state == eKeyState::DOWN && mCheck2 == 0)
 			{
+				mNewItem->Play(false);
 				std::wstring inventory[3][5] = {};
 				Objdata::GetInventory(inventory);
 

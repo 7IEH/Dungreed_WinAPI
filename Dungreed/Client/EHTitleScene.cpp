@@ -110,7 +110,23 @@ namespace EH
 		Exit->SetTransition(eButtonState::Pressed, temp);
 		Exit->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
+		// Exit
+		Button* bug = object::Instantiate<Button>(enums::eLayerType::UI);
+		bug->GetComponent<Transform>()->SetPos(Math::Vector2<float>(100.f, 700.f));
+		bug->GetComponent<Transform>()->SetScale(Math::Vector2<float>(118.f, 18.f));
+		temp = Resources::Load<Texture>(L"bugreport", L"..\\Resources\\EnterScene\\BugReport.bmp");
+		bug->SetTransition(eButtonState::Selected, temp);
+		bug->SetTransition(eButtonState::Pressed, temp);
+		bug->SetTransition(eButtonState::Idle, temp);
+		bug->SetClickEvent(eClickEvent::BugReport);
+		bug->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 
+		BackGround* copypratice = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		copypratice->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f, 690.f));
+		copypratice->GetComponent<Transform>()->SetScale(Math::Vector2<float>(396.f, 33.f));
+		temp = Resources::Load<Texture>(L"copypratice", L"..\\Resources\\EnterScene\\copypratice.bmp");
+		copypratice->GetComponent<SpriteRenderer>()->SetImg(temp);
+		copypratice->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 	}
 
 	void TitleScene::Update()

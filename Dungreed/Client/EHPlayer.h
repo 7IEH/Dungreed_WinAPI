@@ -104,5 +104,18 @@ namespace EH
 		std::wstring mClickedName;
 
 		static UINT mCheck1;
+
+		// UI
+		GameObject* mCurhpImage1;
+		GameObject* mCurhpImage2;
+
+		GameObject* mMaxhpImage1;
+		GameObject* mMaxhpImage2;
+
+		GameObject* mGoldt;
+		GameObject* mGoldh;
+
+		GameObject* mGoldten;
+		GameObject* mGoldone;
 	};
 }

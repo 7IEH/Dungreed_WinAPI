@@ -78,6 +78,22 @@ namespace EH
 			else
 			{
 				mHomingCheckTime += Time::GetDeltaTime();
+
+				if (SceneManager::GetCurScene()->GetLayer(enums::eLayerType::Enemy).GetObjects().size() == 0)
+				{
+					Effect* bulletFX = object::Instantiate<Effect>(enums::eLayerType::UI);
+					Texture* texture = Resources::Load<Texture>(L"StarBulletFX", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\StarBulletFX\\StarBulletFX.bmp");
+					Transform* tr = bulletFX->GetComponent<Transform>();
+					Animator* ani = bulletFX->AddComponent<Animator>();
+
+					tr->SetPos(GetComponent<Transform>()->Getpos());
+					tr->SetScale(Math::Vector2<float>(144.f, 140.f));
+
+					ani->CreateAnimation(L"StarBulletFX", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(36.f, 35.f), Math::Vector2<float>(0.f, 0.f), 7, 0.1f);
+					ani->PlayAnimation(L"StarBulletFX", false);
+					Destroy(this);
+				}
+
 				if (mTarget == nullptr)
 				{
 					if (!SceneManager::GetCurScene()->GetLayer(enums::eLayerType::Enemy).GetObjects().empty())

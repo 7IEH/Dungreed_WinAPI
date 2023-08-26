@@ -48,6 +48,7 @@ namespace EH
 		UINT mCheck1;
 
 		class Sound* mDungeoneat;
+		class Sound* mNewItem;
 		class GameObject* mDungeoneater;
 
 		eKeyCode mSetKey;

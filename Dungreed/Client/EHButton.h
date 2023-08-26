@@ -14,8 +14,9 @@ namespace EH
 
 	enum class eClickEvent
 	{
-		 SceneChange
-		,None  
+		  SceneChange
+		, BugReport
+		, None  
 	};
 
 	class Button : public GameObject
