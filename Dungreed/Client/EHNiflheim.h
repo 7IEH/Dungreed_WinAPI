@@ -10,6 +10,8 @@ namespace EH
 		, FourBarrage
 		, SquareFourBarrage
 		, Bullet2
+		, Icicle
+		, Spear
 		, None
 	};
 
@@ -32,11 +34,13 @@ namespace EH
 		void Attack();
 		void Dead();
 
-		void Bullet();
+		void Bulletp();
 		void Barrage();
 		void FourBarrage();
 		void SquareFourBarrage();
 		void Bullet2();
+		void Icicle();
+		void Spear();
 
 		void SetCheck(UINT check2) { mCheck2 = check2; }
 		UINT GetCheck() { return mCheck2; }
@@ -69,6 +73,20 @@ namespace EH
 
 		// Boss UI
 		class Canvas* mCanvas;
+
+		// bool
+		bool mIsRight;
+
+		// Icicle
+		class Bullet* mIcicle[8];
+		class GameObject* mRedZone[8];
+
+		// IceSpear; 
+		class Bullet* mSpear;
+		class GameObject* mRedSpearZone;
+
+		// Phase
+		UINT mPhase;
 	};
 }
 

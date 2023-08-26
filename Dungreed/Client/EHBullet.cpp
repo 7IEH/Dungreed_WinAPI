@@ -59,6 +59,19 @@ namespace EH
 				tr->SetPos(pos);
 				if (mDeleteTime < mCheckTime && mIsDelete)
 				{
+					if (mIsStar)
+					{
+						Effect* bulletFX = object::Instantiate<Effect>(enums::eLayerType::UI);
+						Texture* texture = Resources::Load<Texture>(L"Icicledestroy", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Attack\\Icicle\\IcicleDestroy.bmp");
+						Transform* tr = bulletFX->GetComponent<Transform>();
+						Animator* ani = bulletFX->AddComponent<Animator>();
+
+						tr->SetPos(GetComponent<Transform>()->Getpos());
+						tr->SetScale(Math::Vector2<float>(140.f, 192.f));
+
+						ani->CreateAnimation(L"Icicledestroy", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(35.f, 48.f), Math::Vector2<float>(0.f, 0.f), 3, 0.1f);
+						ani->PlayAnimation(L"Icicledestroy", false);
+					}
 					Destroy(this);
 				}
 			}

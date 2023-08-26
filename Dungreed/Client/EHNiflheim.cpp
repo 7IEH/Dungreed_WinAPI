@@ -7,6 +7,7 @@
 #include "EHDeadObj.h"
 #include "EHCanvas.h"
 #include "EHImageObject.h"
+#include "EHBullet.h"
 #include <time.h>
 
 namespace EH
@@ -21,6 +22,8 @@ namespace EH
 		, mMove(0.f)
 		, mCheck3(0)
 		, mAttack(nullptr)
+		, mIsRight(true)
+		, mPhase(0)
 	{
 		SetHP(100.f);
 
@@ -38,9 +41,9 @@ namespace EH
 		texture = Resources::Load<Texture>(L"NiflheimLeftIdle", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Idle\\Left\\NiflheimLeftIdle.bmp");
 		ani->CreateAnimation(L"NiflheimLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(42.f, 33.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
 		texture = Resources::Load<Texture>(L"NiflheimRightAttack", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Attack\\Right\\NiflheimAttack.bmp");
-		ani->CreateAnimation(L"NiflheimLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(42.f, 33.f), Math::Vector2<float>(0.f, 0.f), 11, 0.1f);
+		ani->CreateAnimation(L"NiflheimRightAttack", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(42.f, 33.f), Math::Vector2<float>(0.f, 0.f), 11, 0.1f);
 		texture = Resources::Load<Texture>(L"NiflheimLeftAttack", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Attack\\Left\\NiflheimAttack.bmp");
-		ani->CreateAnimation(L"NiflheimLeftIdle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(42.f, 33.f), Math::Vector2<float>(0.f, 0.f), 11, 0.1f);
+		ani->CreateAnimation(L"NiflheimLeftAttack", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(42.f, 33.f), Math::Vector2<float>(0.f, 0.f), 11, 0.1f);
 		ani->PlayAnimation(L"NiflheimRightEnter", true);
 
 		// Collider
@@ -132,6 +135,11 @@ namespace EH
 			}
 		}
 
+		if (GetHP() <= 50)
+		{
+			mPhase = 1;
+		}
+
 		if (GetHP() <= 0)
 		{
 			SetState(eState::Dead);
@@ -192,6 +200,8 @@ namespace EH
 	{
 		float checkTime = GetCheckTime();
 		Transform* tr = GetComponent<Transform>();
+		Transform* targettr = GetTarget()->GetComponent<Transform>();
+		Animator* ani = GetComponent<Animator>();
 
 		tr->SetPos(Math::Vector2<float>(992.f, 520.f));
 
@@ -201,7 +211,6 @@ namespace EH
 		}
 		if (mEnter == 0 && 1.7f < checkTime)
 		{
-			Animator* ani = GetComponent<Animator>();
 			ani->PlayAnimation(L"NiflheimRightIdle", true);
 			mEnter = 1;
 			SetCheckTime(0.f);
@@ -214,6 +223,17 @@ namespace EH
 		{
 			SetState(eState::Attack);
 			SetCheckTime(0.f);
+		}
+
+		if (tr->Getpos().x < targettr->Getpos().x)
+		{
+			ani->PlayAnimation(L"NiflheimRightIdle", true);
+			mIsRight = true;
+		}
+		else
+		{
+			ani->PlayAnimation(L"NiflheimLeftIdle", true);
+			mIsRight = false;
 		}
 
 		// È¸Àü
@@ -230,13 +250,22 @@ namespace EH
 
 	void Niflheim::Attack()
 	{
-		if (mType == eBossAttack::None)
-			mType = eBossAttack(rand() % ((UINT)eBossAttack::None));
+
+		if (mPhase == 0)
+		{
+			if (mType == eBossAttack::None)
+				mType = eBossAttack(rand() % (6));
+		}
+		else if (mPhase == 1)
+		{
+			if (mType == eBossAttack::None)
+				mType = eBossAttack(rand() % ((UINT)eBossAttack::None));
+		}
 
 		switch (mType)
 		{
 		case EH::eBossAttack::Bullet:
-			Bullet();
+			Bulletp();
 			break;
 		case EH::eBossAttack::Barrage:
 			Barrage();
@@ -249,6 +278,12 @@ namespace EH
 			break;
 		case EH::eBossAttack::Bullet2:
 			Bullet2();
+			break;
+		case EH::eBossAttack::Icicle:
+			Icicle();
+			break;
+		case EH::eBossAttack::Spear:
+			Spear();
 			break;
 		case EH::eBossAttack::None:
 			break;
@@ -313,7 +348,7 @@ namespace EH
 		}
 	}
 
-	void Niflheim::Bullet()
+	void Niflheim::Bulletp()
 	{
 		float movetime = GetCheckTime();
 		SetCheckTime(movetime += Time::GetDeltaTime());
@@ -606,5 +641,180 @@ namespace EH
 	{
 		SetState(eState::Idle);
 		mType = eBossAttack::None;
+	}
+
+	void Niflheim::Icicle()
+	{
+		float checktime = GetCheckTime();
+		Animator* ani = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
+		Transform* playertr = GetTarget()->GetComponent<Transform>();
+		if (mCheck2 == 1)
+		{
+			SetCheckTime(checktime += Time::GetDeltaTime());
+		}
+
+		if (mCheck3 == 2)
+		{
+			SetState(eState::Idle);
+			mType = eBossAttack::None;
+			mCheck3 = 0;
+			mCheck2 = 0;
+			return;
+		}
+
+		if (1.f < checktime && mCheck2 == 1)
+		{
+			for (int i = 0;i < 8;i++)
+			{
+				Destroy(mRedZone[i]);
+				mIcicle[i]->SetStop(false);
+			}
+
+			SetCheckTime(0.f);
+			mCheck2 = 0;
+			mCheck3++;
+		}
+
+		if (mCheck2 == 0 && mCheck3 < 2)
+		{
+			for (int i = 0;i < 8;i++)
+			{
+				Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
+				Transform* bullettr = bullet->GetComponent<Transform>();
+				Animator* bulletani = bullet->AddComponent<Animator>();
+				Collider* bulletcol = bullet->AddComponent<Collider>();
+				bullettr->SetPos(Math::Vector2<float>((118.f + 108.f * mCheck3) + 216.f * i, 128.f));
+				bullettr->SetScale(Math::Vector2<float>(108.f, 160.f));
+				bulletcol->SetScale(Math::Vector2<float>(80.f, 160.f));
+				Texture* texture = Resources::Load<Texture>(L"Icicle", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Attack\\Icicle\\Icicle.bmp");
+				bulletani->CreateAnimation(L"Icicle", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(27.f, 40.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
+				bulletani->PlayAnimation(L"Icicle", false);
+				bullet->SetDeleteTime(0.8f);
+				bullet->SetSpeed(3.f);
+				bullet->SetRadian(1.57f);
+				mIcicle[i] = bullet;
+				bullet->SetStar(true);
+
+				GameObject* redzone = object::Instantiate<GameObject>(enums::eLayerType::UI);
+				Transform* redtr = redzone->GetComponent<Transform>();
+				SpriteRenderer* redsr = redzone->AddComponent<SpriteRenderer>();
+				texture = Resources::Load<Texture>(L"RedZone", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Attack\\DangerousArea.bmp");
+				redsr->SetImg(texture);
+				redtr->SetPos(Math::Vector2<float>((118.f + 108.f * mCheck3) + 216.f * i, 512.f));
+				redtr->SetScale(Math::Vector2<float>(30.f,768.f));
+				mRedZone[i] = redzone;
+			}
+
+			if (tr->Getpos().x < playertr->Getpos().x)
+			{
+				ani->PlayAnimation(L"NiflheimRightAttack", true);
+			}
+			else
+			{
+				ani->PlayAnimation(L"NiflheimLeftAttack", true);
+			}
+
+			mCheck2 = 1;
+		}
+
+		mMove += 0.1f;
+		for (int i = 0;i < 4;i++)
+		{
+			if (mIcePillar[i] == nullptr)
+				continue;
+			Transform* pillartr = mIcePillar[i]->GetComponent<Transform>();
+			mIcePillar[i]->SetDegree((70.f * mMove + 90.f * i) + 90.f);
+			pillartr->SetPos(Math::Vector2<float>(tr->Getpos().x + 200.f * cosf((70.f * mMove + 90.f * i) * (3.14f / 180.f)), tr->Getpos().y + 200.f * sinf((70.f * mMove + 90.f * i) * (3.14f / 180.f))));
+		}
+	}
+
+	void Niflheim::Spear()
+	{
+		Animator* ani = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
+		Transform* playertr = GetTarget()->GetComponent<Transform>();
+		bool right = rand() % 2;
+		float checktime = GetCheckTime();
+
+		if (mCheck2)
+		{
+			SetCheckTime(checktime += Time::GetDeltaTime());
+		}
+
+		if (1.f<checktime && mCheck2)
+		{
+			Destroy(mRedSpearZone);
+			mSpear->SetStop(false);
+			SetState(eState::Idle);
+			mType = eBossAttack::None;
+			SetCheckTime(3.f);
+			mCheck2 = 0;
+			mCheck3 = 0;
+			return;
+		}
+
+		if (mCheck3 == 0)
+		{
+			Bullet* bullet = object::Instantiate<Bullet>(enums::eLayerType::Bullet);
+			Transform* bullettr = bullet->GetComponent<Transform>();
+			Animator* bulletani = bullet->AddComponent<Animator>();
+			Collider* bulletcol = bullet->AddComponent<Collider>();
+			Texture* texture = nullptr;
+			bullettr->SetScale(Math::Vector2<float>(100.f, 444.f));
+			bulletcol->SetScale(Math::Vector2<float>(444.f, 100.f));
+			Math::Vector2<float> playerpos = playertr->Getpos();
+			if (right)
+			{
+				texture = Resources::Load<Texture>(L"IceRightSpear", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Attack\\Spear\\IceSpear.png");
+				bullettr->SetPos(Math::Vector2<float>(1984.f, playertr->Getpos().y));
+				texture->SetDegree(-90.f);
+				bullet->SetRadian(3.14f);
+				bulletani->CreateAnimation(L"IceRightSpear", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(25.f, 111.f), Math::Vector2<float>(0.f, 0.f), 13, 0.1f);
+				bulletani->PlayAnimation(L"IceRightSpear", false);
+			}
+			else
+			{
+				texture = Resources::Load<Texture>(L"IceLeftSpear", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Attack\\Spear\\IceSpear.png");
+				bullettr->SetPos(Math::Vector2<float>(0.f, playerpos.y));
+				texture->SetDegree(90.f);
+				bullet->SetRadian(0.f);
+				bulletani->CreateAnimation(L"IceLeftSpear", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(25.f, 111.f), Math::Vector2<float>(0.f, 0.f), 13, 0.1f);
+				bulletani->PlayAnimation(L"IceLeftSpear", false);
+			}
+			bullet->SetDeleteTime(4.f);
+			bullet->SetSpeed(10.f);
+			mSpear = bullet;
+
+			GameObject* redzone = object::Instantiate<GameObject>(enums::eLayerType::UI);
+			Transform* redzonetr = redzone->GetComponent<Transform>();
+			SpriteRenderer* redzonesr = redzone->AddComponent<SpriteRenderer>();
+			texture = Resources::Load<Texture>(L"RedZone", L"..\\Resources\\Enemy\\Boss\\Niflheim\\Attack\\DangerousArea.bmp");
+			redzonetr->SetScale(Math::Vector2<float>(1984.f, 40.f));
+			redzonetr->SetPos(Math::Vector2<float>(992.f, playerpos.y));
+			redzonesr->SetImg(texture);
+			mRedSpearZone = redzone;
+
+			mCheck2 = 1;
+			mCheck3 = 1;
+			if (tr->Getpos().x < playertr->Getpos().x)
+			{
+				ani->PlayAnimation(L"NiflheimRightAttack", true);
+			}
+			else
+			{
+				ani->PlayAnimation(L"NiflheimLeftAttack", true);
+			}
+		}
+
+		mMove += 0.1f;
+		for (int i = 0;i < 4;i++)
+		{
+			if (mIcePillar[i] == nullptr)
+				continue;
+			Transform* pillartr = mIcePillar[i]->GetComponent<Transform>();
+			mIcePillar[i]->SetDegree((70.f * mMove + 90.f * i) + 90.f);
+			pillartr->SetPos(Math::Vector2<float>(tr->Getpos().x + 200.f * cosf((70.f * mMove + 90.f * i) * (3.14f / 180.f)), tr->Getpos().y + 200.f * sinf((70.f * mMove + 90.f * i) * (3.14f / 180.f))));
+		}
 	}
 }
