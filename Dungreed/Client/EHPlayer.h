@@ -117,5 +117,8 @@ namespace EH
 
 		GameObject* mGoldten;
 		GameObject* mGoldone;
+
+		// Dust
+		GameObject* mDust;
 	};
 }

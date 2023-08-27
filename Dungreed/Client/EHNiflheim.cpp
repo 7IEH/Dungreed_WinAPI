@@ -426,6 +426,15 @@ namespace EH
 
 
 				tr->SetPos(Math::Vector2<float>(tr->Getpos().x + 500.f * dir.x * Time::GetDeltaTime(), tr->Getpos().y + 500.f * dir.y * Time::GetDeltaTime()));
+
+				mMove += 0.1f;
+				for (int i = 0;i < 4;i++)
+				{
+					if (mIcePillar[i] == nullptr)
+						continue;
+					Transform* pillartr = mIcePillar[i]->GetComponent<Transform>();
+					mIcePillar[i]->SetDegree((70.f * mMove + 90.f * i) + 90.f);
+				}
 			}
 		}
 
@@ -555,6 +564,16 @@ namespace EH
 				dir.normalized<float>();
 				tr->SetPos(Math::Vector2<float>(tr->Getpos().x + 500.f * dir.x * Time::GetDeltaTime(), tr->Getpos().y + 500.f * dir.y * Time::GetDeltaTime()));
 			}
+
+
+			mMove += 0.1f;
+			for (int i = 0;i < 4;i++)
+			{
+				if (mIcePillar[i] == nullptr)
+					continue;
+				Transform* pillartr = mIcePillar[i]->GetComponent<Transform>();
+				mIcePillar[i]->SetDegree((70.f * mMove + 90.f * i) + 90.f);
+			}
 		}
 	}
 
@@ -633,6 +652,16 @@ namespace EH
 
 				dir.normalized<float>();
 				tr->SetPos(Math::Vector2<float>(tr->Getpos().x + 500.f * dir.x * Time::GetDeltaTime(), tr->Getpos().y + 500.f * dir.y * Time::GetDeltaTime()));
+			}
+
+
+			mMove += 0.1f;
+			for (int i = 0;i < 4;i++)
+			{
+				if (mIcePillar[i] == nullptr)
+					continue;
+				Transform* pillartr = mIcePillar[i]->GetComponent<Transform>();
+				mIcePillar[i]->SetDegree((70.f * mMove + 90.f * i) + 90.f);
 			}
 		}
 	}

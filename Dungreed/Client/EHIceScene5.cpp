@@ -55,7 +55,7 @@ namespace EH
 		floor1->AddComponent<Collider>();
 		floor1->GetComponent<Collider>()->SetScale(Math::Vector2<float>(1152.f, 64.f));
 		floor1->GetComponent<Collider>()->SetAffectedCamera(true);
-		floor1->SetDownFloor(false);
+		floor1->SetDownFloor(true);
 
 		Floor* floor3 = object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(246.f, 612.f));

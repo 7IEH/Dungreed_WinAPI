@@ -12,6 +12,7 @@
 #include "EHCollisionManager.h"
 #include "EHEffect.h"
 #include "EHObject.h"
+#include "EHWeapon.h"
 
 namespace EH
 {
@@ -31,6 +32,7 @@ namespace EH
 		, mHomingTime(0.5f)
 		, mIsLaser(false)
 		, mIsStar(false)
+		, mIsHit(false)
 	{
 		mHitSound = Resources::Load<Sound>(L"playerhitsound", L"..\\Resources\\Sound\\Enemy\\public\\Hit_Player.wav");
 		CollisionManager::CollisionLayerCheck(enums::eLayerType::Bullet, enums::eLayerType::Enemy, true);
@@ -72,7 +74,6 @@ namespace EH
 						ani->CreateAnimation(L"Icicledestroy", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(35.f, 48.f), Math::Vector2<float>(0.f, 0.f), 3, 0.1f);
 						ani->PlayAnimation(L"Icicledestroy", false);
 					}
-					Destroy(this);
 				}
 			}
 			else
@@ -169,6 +170,15 @@ namespace EH
 
 	void Bullet::OnCollisionEnter(Collider* other)
 	{
+		if (mIsHit)
+		{
+			Weapon* weapon = dynamic_cast<Weapon*>(other->GetOwner());
+			if (weapon != nullptr)
+			{
+				Destroy(this);
+			}
+		}
+
 		if (!mIsPlayer)
 		{
 			Player* player = dynamic_cast<Player*>(other->GetOwner());

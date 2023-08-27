@@ -63,7 +63,7 @@ namespace EH
 				other->GetOwner()->GetComponent<Rigidbody>()->SetGround(true);
 
 				float scale = fabs(playercol->GetScale().y / 2.f + floorcol->GetScale().y / 2.f);
-				float len = fabs(playertr->Getpos().y - floortr->Getpos().y);
+				float len = fabs(playertr->Getpos().y + playercol->GetOffset().y + -floortr->Getpos().y);
 
 				if (len < scale)
 				{

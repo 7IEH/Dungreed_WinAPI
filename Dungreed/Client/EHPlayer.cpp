@@ -15,6 +15,7 @@
 #include "EHBullet.h"
 #include "EHEffect.h"
 #include "EHLaser.h"
+#include "EHCollisionManager.h"
 
 extern EH::Application application;
 
@@ -50,6 +51,8 @@ namespace EH
 		, mClicked(false)
 	{
 		AddComponent<Rigidbody>();
+
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Sword, enums::eLayerType::Bullet,true);
 
 		if (mCheck1 == 0)
 		{
@@ -105,8 +108,8 @@ namespace EH
 		animator->CreateAnimation(L"Trans", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
 
 		AddComponent<Collider>();
-		GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 128.f));
-		GetComponent<Collider>()->SetOffset(Math::Vector2<float>(0.f, 0.f));
+		GetComponent<Collider>()->SetScale(Math::Vector2<float>(64.f, 75.f));
+		GetComponent<Collider>()->SetOffset(Math::Vector2<float>(0.f, 28.5f));
 		animator->SetAffectedCamera(true);
 		GetComponent<Collider>()->SetAffectedCamera(true);
 
@@ -140,7 +143,19 @@ namespace EH
 		PlayerUICanvas->AddImageObject(L"WeaponSlot", texture, false, Math::Vector2<float>(1210.f, 641.f), Math::Vector2<float>(140.f, 102.f));
 		PlayerUICanvas->AddImageObject(L"WeaponSlot2", texture, false, Math::Vector2<float>(1190.f, 657.f), Math::Vector2<float>(140.f, 102.f));
 
-
+		// Dust
+		GameObject* effect = object::Instantiate<GameObject>(enums::eLayerType::UI);
+		Transform* effecttr = effect->GetComponent<Transform>();
+		Animator* effectani = effect->AddComponent<Animator>();
+		effecttr->SetScale(Math::Vector2<float>(64.f, 64.f));
+		texture = Resources::Load<Texture>(L"workrightdust", L"..\\Resources\\Player\\Basic\\Rightdust\\Dust.bmp");
+		effectani->CreateAnimation(L"rightdust", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(16.f, 16.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		texture = Resources::Load<Texture>(L"workleftdust", L"..\\Resources\\Player\\Basic\\Leftdust\\Dust.bmp");
+		effectani->CreateAnimation(L"leftdust", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(16.f, 16.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		texture = Resources::Load<Texture>(L"worktrans", L"..\\Resources\\Player\\Basic\\Trans.png");
+		effectani->CreateAnimation(L"worktrans", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(16.f, 16.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		//effectani->PlayAnimation(L"worktrans", false);
+		mDust = effect;
 
 		// Inventory
 		texture = Resources::Load<Texture>(L"InventoryBase", L"..\\Resources\\UI\\InventoryBase.png");
@@ -251,8 +266,8 @@ namespace EH
 		mMaxhpImage2 = one2;
 
 		UINT thousand = mGold / 1000;
-		UINT hundred = mGold / 100;
-		UINT ten = mGold / 10;
+		UINT hundred = (mGold- thousand *1000) / 100;
+		UINT ten = (mGold - thousand * 1000 + hundred*100) / 10;
 		UINT one4 = mGold % 10;
 
 		GameObject* goldt = object::Instantiate<GameObject>(enums::eLayerType::UI);
@@ -439,8 +454,8 @@ namespace EH
 		mMaxhpImage2->GetComponent<Animator>()->PlayAnimation(L"NUM" + std::to_wstring(maxone), false);
 
 		UINT thousand = mGold / 1000;
-		UINT hundred = mGold / 100;
-		UINT ten = mGold / 10;
+		UINT hundred = (mGold - thousand * 1000) / 100;
+		UINT ten = (mGold - thousand * 1000 + hundred * 100) / 10;
 		UINT one4 = mGold % 10;
 
 		mGoldt->GetComponent<Animator>()->PlayAnimation(L"NUM" + std::to_wstring(thousand), false);
@@ -1794,6 +1809,19 @@ namespace EH
 
 	void Player::Idle()
 	{
+		// Cursor
+		POINT pt = {};
+		GetCursorPos(&pt);
+		ScreenToClient(application.GetHWND(), &pt);
+		Vector2<float> cursorpos;
+		cursorpos.x = pt.x;
+		cursorpos.y = pt.y;
+
+		cursorpos = Camera::CaculatePos(-cursorpos);
+		cursorpos = -cursorpos;
+
+		Transform* tr = GetComponent<Transform>();
+
 		if (mIsRight && mIsJump)
 			GetComponent<Animator>()->PlayAnimation(L"PlayerRightIdle", true);
 		else if (!mIsRight && mIsJump)
@@ -1802,6 +1830,8 @@ namespace EH
 			GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
 		else if (!mIsRight && !mIsJump)
 			GetComponent<Animator>()->PlayAnimation(L"PlayerLeftJump", false);
+
+		mDust->GetComponent<Animator>()->PlayAnimation(L"worktrans", false);
 
 		if (mSound != nullptr)
 		{
@@ -1898,6 +1928,18 @@ namespace EH
 				}
 				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
 				mSound->Play(false);
+
+				float radian2 = Math::Radian(tr->Getpos(), cursorpos);
+
+				Effect* effect = object::Instantiate<Effect>(enums::eLayerType::UI);
+				Transform* effecttr = effect->GetComponent<Transform>();
+				Animator* effectani = effect->AddComponent<Animator>();
+				effecttr->SetPos(Math::Vector2<float>(tr->Getpos().x - 60.f * cosf(radian2), tr->Getpos().y - 60.f * sinf(radian2)));
+				effecttr->SetScale(Math::Vector2<float>(160.f,112.f));
+				Texture* texture2 = Resources::Load<Texture>(L"swingfx", L"..\\Resources\\Player\\Basic\\Attack\\SwingFX.png");
+				texture2->SetDegree(radian2 * (180.f / 3.14f) - 90.f);
+				effectani->CreateAnimation(L"swingfx",texture2,Math::Vector2<float>(0.f,0.f), Math::Vector2<float>(40.f, 28.f), Math::Vector2<float>(0.f, 0.f),3,0.1f);
+				effectani->PlayAnimation(L"swingfx",false);
 			}
 			else if (mActiveWeapon == enums::eWeapon::Wand)
 			{
@@ -1921,6 +1963,18 @@ namespace EH
 				}
 				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
 				mSound->Play(false);
+
+				float radian2 = Math::Radian(tr->Getpos(), cursorpos);
+
+				Effect* effect = object::Instantiate<Effect>(enums::eLayerType::UI);
+				Transform* effecttr = effect->GetComponent<Transform>();
+				Animator* effectani = effect->AddComponent<Animator>();
+				effecttr->SetPos(Math::Vector2<float>(tr->Getpos().x - 60.f * cosf(radian2), tr->Getpos().y - 60.f * sinf(radian2)));
+				effecttr->SetScale(Math::Vector2<float>(160.f, 112.f));
+				Texture* texture2 = Resources::Load<Texture>(L"swingfx", L"..\\Resources\\Player\\Basic\\Attack\\SwingFX.png");
+				texture2->SetDegree(radian2 * (180.f / 3.14f) - 90.f);
+				effectani->CreateAnimation(L"swingfx", texture2, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(40.f, 28.f), Math::Vector2<float>(0.f, 0.f), 3, 0.1f);
+				effectani->PlayAnimation(L"swingfx", false);
 			}
 			else if (mActiveWeapon == enums::eWeapon::Gun)
 			{
@@ -1972,8 +2026,21 @@ namespace EH
 
 	void Player::Move()
 	{
+		POINT pt = {};
+		GetCursorPos(&pt);
+		ScreenToClient(application.GetHWND(), &pt);
+		Vector2<float> cursorpos;
+		cursorpos.x = pt.x;
+		cursorpos.y = pt.y;
+
+		cursorpos = Camera::CaculatePos(-cursorpos);
+		cursorpos = -cursorpos;
+
 		Transform* tr = GetComponent<Transform>();
 		Math::Vector2<float> pos = tr->Getpos();
+
+		Transform* dusteffecttr = mDust->GetComponent<Transform>();
+		Animator* dusteffectani = mDust->GetComponent<Animator>();
 
 		if (mIsRight && !mIsJump)
 			GetComponent<Animator>()->PlayAnimation(L"PlayerRightJump", false);
@@ -1982,6 +2049,8 @@ namespace EH
 
 		if (Input::Getkey(eKeyCode::A).state == eKeyState::PRESSED)
 		{
+			dusteffecttr->SetPos(Math::Vector2<float>(pos.x + 40.f, pos.y + 40.f));
+			dusteffectani->PlayAnimation(L"leftdust", true);
 			if (mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
@@ -2015,6 +2084,8 @@ namespace EH
 		}
 		if (Input::Getkey(eKeyCode::D).state == eKeyState::PRESSED)
 		{
+			dusteffecttr->SetPos(Math::Vector2<float>(pos.x - 40.f, pos.y + 40.f));
+			dusteffectani->PlayAnimation(L"rightdust", true);
 			if (mIsRight && mIsJump)
 			{
 				GetComponent<Animator>()->PlayAnimation(L"PlayerRightRun", true);
@@ -2077,6 +2148,18 @@ namespace EH
 				}
 				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
 				mSound->Play(false);
+
+				float radian2 = Math::Radian(tr->Getpos(), cursorpos);
+
+				Effect* effect = object::Instantiate<Effect>(enums::eLayerType::UI);
+				Transform* effecttr = effect->GetComponent<Transform>();
+				Animator* effectani = effect->AddComponent<Animator>();
+				effecttr->SetPos(Math::Vector2<float>(tr->Getpos().x - 60.f * cosf(radian2), tr->Getpos().y - 60.f * sinf(radian2)));
+				effecttr->SetScale(Math::Vector2<float>(160.f, 112.f));
+				Texture* texture2 = Resources::Load<Texture>(L"swingfx", L"..\\Resources\\Player\\Basic\\Attack\\SwingFX.png");
+				texture2->SetDegree(radian2* (180.f / 3.14f) - 90.f);
+				effectani->CreateAnimation(L"swingfx", texture2, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(40.f, 28.f), Math::Vector2<float>(0.f, 0.f), 3, 0.1f);
+				effectani->PlayAnimation(L"swingfx", false);
 			}
 			else if (mActiveWeapon == enums::eWeapon::Wand)
 			{
@@ -2088,6 +2171,39 @@ namespace EH
 					mSound->Stop(true);
 				}
 				mWandSound->Play(false);
+			}
+			else if (mActiveWeapon == enums::eWeapon::Twohand)
+			{
+				mCurState = eAnimationState::Attack;
+				mIsSwing = !mIsSwing;
+				Objdata::SetSwing(mIsSwing);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
+				mSound->Play(false);
+
+				float radian2 = Math::Radian(tr->Getpos(), cursorpos);
+
+				Effect* effect = object::Instantiate<Effect>(enums::eLayerType::UI);
+				Transform* effecttr = effect->GetComponent<Transform>();
+				Animator* effectani = effect->AddComponent<Animator>();
+				effecttr->SetPos(Math::Vector2<float>(tr->Getpos().x - 60.f * cosf(radian2), tr->Getpos().y - 60.f * sinf(radian2)));
+				effecttr->SetScale(Math::Vector2<float>(160.f, 112.f));
+				Texture* texture2 = Resources::Load<Texture>(L"swingfx", L"..\\Resources\\Player\\Basic\\Attack\\SwingFX.png");
+				texture2->SetDegree(radian2* (180.f / 3.14f) - 90.f);
+				effectani->CreateAnimation(L"swingfx", texture2, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(40.f, 28.f), Math::Vector2<float>(0.f, 0.f), 3, 0.1f);
+				effectani->PlayAnimation(L"swingfx", false);
+			}
+			else if (mActiveWeapon == enums::eWeapon::Gun)
+			{
+				mCurState = eAnimationState::Attack;
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mGunSound->Play(false);
 			}
 		}
 		if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::DOWN)
@@ -2121,6 +2237,17 @@ namespace EH
 
 	void Player::Jump()
 	{
+		Transform* tr = GetComponent<Transform>();
+		POINT pt = {};
+		GetCursorPos(&pt);
+		ScreenToClient(application.GetHWND(), &pt);
+		Vector2<float> cursorpos;
+		cursorpos.x = pt.x;
+		cursorpos.y = pt.y;
+
+		cursorpos = Camera::CaculatePos(-cursorpos);
+		cursorpos = -cursorpos;
+
 		if (Input::Getkey(eKeyCode::MouseLeftClick).state == eKeyState::DOWN && !mIsAttack)
 		{
 			if (mActiveWeapon == enums::eWeapon::Onehand)
@@ -2134,6 +2261,18 @@ namespace EH
 				}
 				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
 				mSound->Play(false);
+
+				float radian2 = Math::Radian(tr->Getpos(), cursorpos);
+
+				Effect* effect = object::Instantiate<Effect>(enums::eLayerType::UI);
+				Transform* effecttr = effect->GetComponent<Transform>();
+				Animator* effectani = effect->AddComponent<Animator>();
+				effecttr->SetPos(Math::Vector2<float>(tr->Getpos().x - 60.f * cosf(radian2), tr->Getpos().y - 60.f * sinf(radian2)));
+				effecttr->SetScale(Math::Vector2<float>(160.f, 112.f));
+				Texture* texture2 = Resources::Load<Texture>(L"swingfx", L"..\\Resources\\Player\\Basic\\Attack\\SwingFX.png");
+				texture2->SetDegree(radian2 * (180.f / 3.14f) - 90.f);
+				effectani->CreateAnimation(L"swingfx", texture2, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(40.f, 28.f), Math::Vector2<float>(0.f, 0.f), 3, 0.1f);
+				effectani->PlayAnimation(L"swingfx", false);
 			}
 			else if (mActiveWeapon == enums::eWeapon::Wand)
 			{
@@ -2145,6 +2284,39 @@ namespace EH
 					mSound->Stop(true);
 				}
 				mWandSound->Play(false);
+			}
+			else if (mActiveWeapon == enums::eWeapon::Twohand)
+			{
+				mCurState = eAnimationState::Attack;
+				mIsSwing = !mIsSwing;
+				Objdata::SetSwing(mIsSwing);
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mSound = Resources::Find<Sound>(L"PlayerSwingSound");
+				mSound->Play(false);
+
+				float radian2 = Math::Radian(tr->Getpos(), cursorpos);
+
+				Effect* effect = object::Instantiate<Effect>(enums::eLayerType::UI);
+				Transform* effecttr = effect->GetComponent<Transform>();
+				Animator* effectani = effect->AddComponent<Animator>();
+				effecttr->SetPos(Math::Vector2<float>(tr->Getpos().x - 60.f * cosf(radian2), tr->Getpos().y - 60.f * sinf(radian2)));
+				effecttr->SetScale(Math::Vector2<float>(160.f, 112.f));
+				Texture* texture2 = Resources::Load<Texture>(L"swingfx", L"..\\Resources\\Player\\Basic\\Attack\\SwingFX.png");
+				texture2->SetDegree(radian2 * (180.f / 3.14f) - 90.f);
+				effectani->CreateAnimation(L"swingfx", texture2, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(40.f, 28.f), Math::Vector2<float>(0.f, 0.f), 3, 0.1f);
+				effectani->PlayAnimation(L"swingfx", false);
+			}
+			else if (mActiveWeapon == enums::eWeapon::Gun)
+			{
+				mCurState = eAnimationState::Attack;
+				if (mSound != nullptr)
+				{
+					mSound->Stop(true);
+				}
+				mGunSound->Play(false);
 			}
 		}
 		if (mCurHp <= 0.f)

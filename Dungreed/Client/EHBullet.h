@@ -48,6 +48,8 @@ namespace EH
 		void SetLaser(bool islaser) { mIsLaser = islaser; }
 
 		void SetStar(bool isstar) { mIsStar = isstar; }
+
+		void SetHit(bool hit) { mIsHit = hit; }
 	private:
 		float mRadian;
 		UINT mDamage;
@@ -71,5 +73,7 @@ namespace EH
 
 		bool mHoming;
 		class Enemy* mTarget;
+
+		bool mIsHit;
 	};
 }

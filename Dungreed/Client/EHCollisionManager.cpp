@@ -136,8 +136,11 @@ namespace EH
 		Math::Vector2<float> rightpos = right->GetOwner()->GetComponent<Transform>()->Getpos();
 		Math::Vector2<float> rightscale = right->GetScale();
 
-		if (fabs(leftpos.x - rightpos.x) <= fabs(leftscale.x / 2.f + rightscale.x / 2.f)
-			&& fabs(leftpos.y - rightpos.y) <= fabs(leftscale.y / 2.f + rightscale.y / 2.f))
+		Math::Vector2<float> leftoffset = left->GetOffset();
+		Math::Vector2<float> rightoffset = right->GetOffset();
+
+		if (fabs((leftpos.x + leftoffset.x) - (rightpos.x + rightoffset.x)) <= fabs(leftscale.x / 2.f + rightscale.x / 2.f)
+			&& fabs((leftpos.y +leftoffset.y) - (rightpos.y+rightoffset.y)) <= fabs(leftscale.y / 2.f + rightscale.y / 2.f))
 		{
 			return true;
 		}

@@ -100,29 +100,11 @@
     <Filter Include="Contents\GameObject">
       <UniqueIdentifier>{4231ac59-7de2-4126-b0a4-68c4ec74de8f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\Player">
-      <UniqueIdentifier>{65243745-a050-46d3-b053-7f8a353a5ddb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObject\BackGround">
       <UniqueIdentifier>{a2b23ba5-7e46-45fa-b8ed-b07601611866}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\GameObject\Npc">
       <UniqueIdentifier>{f3f60cb8-43bb-4762-8784-6c90c25eda7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy">
-      <UniqueIdentifier>{b8a96e5d-105c-4de6-a854-419e2fe77a81}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField">
-      <UniqueIdentifier>{addafbe6-b1a1-4d0d-83ed-8a0c7498c3cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Normal">
-      <UniqueIdentifier>{f39b3a9c-5629-4261-af10-a0ddcf69eab7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Banshee">
-      <UniqueIdentifier>{efa5b4e0-1656-4491-b1cc-f726df57663d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Boss">
-      <UniqueIdentifier>{e5b74477-4174-4cbd-bd44-8cba51d7a73b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\GameObject\UI">
       <UniqueIdentifier>{093d9fa3-0f53-4306-9240-4722e72b3148}</UniqueIdentifier>
@@ -253,29 +235,8 @@
     <Filter Include="Contents\GameObject\Detection">
       <UniqueIdentifier>{5fc08dbe-c168-4e91-8d28-452516664c81}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\GreySkel">
-      <UniqueIdentifier>{1055aa75-b481-47e8-bd78-886836aa4cb8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\GreySkel\Warrior">
-      <UniqueIdentifier>{d0af4424-d6c7-433e-873e-3ee8f6ba2a3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\GreySkel\Archor">
-      <UniqueIdentifier>{f3f1829b-1aa8-4644-9931-b7b7b044c51a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\SkelDog">
-      <UniqueIdentifier>{883561ec-3aa4-45ad-b417-eb035913dcbb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObject\Structure\Slope">
       <UniqueIdentifier>{b2444961-e54f-4faf-9a3e-dd39cc62010d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Bat">
-      <UniqueIdentifier>{46609ded-2c4b-4752-a54b-9dbec34b1f7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Bat\GianBat">
-      <UniqueIdentifier>{fd28a6c7-4803-48eb-b727-a43070658c7c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\JailField\Normal\Bat\RedGiantBat">
-      <UniqueIdentifier>{fbc94060-e0c5-4af3-be46-37715a92d000}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\GameObject\Intro">
       <UniqueIdentifier>{32846a06-40fb-44f2-bb02-9fc07c955aa1}</UniqueIdentifier>
@@ -346,21 +307,6 @@
     <Filter Include="Contents\Scene\4.Dungeon\2.IceField\IceField\IceField7">
       <UniqueIdentifier>{f94ae87b-f52f-48d9-9a53-d18507491ba5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\Enemy\IceField">
-      <UniqueIdentifier>{76c4cc93-cfd7-48b9-a591-2476e74e5bfe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\IceField\Normal">
-      <UniqueIdentifier>{231345c2-30e9-4238-a111-18f118aeecca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\IceField\Boss">
-      <UniqueIdentifier>{92ca332d-4a80-492e-85c5-630816f0bbbf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\IceField\Normal\SkelIceMagician">
-      <UniqueIdentifier>{a5580d34-b7a1-4e68-941a-627a691e7a61}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Enemy\IceField\Normal\BigGrayIceSkel">
-      <UniqueIdentifier>{f632c572-f54d-40e3-8c98-1f754a27e392}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Scene\4.Dungeon\1.JailFieldScene\JailAfterBossScene">
       <UniqueIdentifier>{e1f18ee1-7e55-48e1-b740-727e43c3bb2d}</UniqueIdentifier>
     </Filter>
@@ -369,6 +315,60 @@
     </Filter>
     <Filter Include="Contents\Scene\5.Ending">
       <UniqueIdentifier>{631a8ef5-68ed-4adb-aa04-a592074bc5c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\1.Player">
+      <UniqueIdentifier>{65243745-a050-46d3-b053-7f8a353a5ddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy">
+      <UniqueIdentifier>{b8a96e5d-105c-4de6-a854-419e2fe77a81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\JailField">
+      <UniqueIdentifier>{addafbe6-b1a1-4d0d-83ed-8a0c7498c3cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\JailField\Normal">
+      <UniqueIdentifier>{f39b3a9c-5629-4261-af10-a0ddcf69eab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\JailField\Normal\Banshee">
+      <UniqueIdentifier>{efa5b4e0-1656-4491-b1cc-f726df57663d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\JailField\Normal\GreySkel">
+      <UniqueIdentifier>{1055aa75-b481-47e8-bd78-886836aa4cb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\JailField\Normal\GreySkel\Warrior">
+      <UniqueIdentifier>{d0af4424-d6c7-433e-873e-3ee8f6ba2a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\JailField\Normal\GreySkel\Archor">
+      <UniqueIdentifier>{f3f1829b-1aa8-4644-9931-b7b7b044c51a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\JailField\Normal\SkelDog">
+      <UniqueIdentifier>{883561ec-3aa4-45ad-b417-eb035913dcbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\JailField\Normal\Bat">
+      <UniqueIdentifier>{46609ded-2c4b-4752-a54b-9dbec34b1f7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\JailField\Normal\Bat\GianBat">
+      <UniqueIdentifier>{fd28a6c7-4803-48eb-b727-a43070658c7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\JailField\Normal\Bat\RedGiantBat">
+      <UniqueIdentifier>{fbc94060-e0c5-4af3-be46-37715a92d000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\JailField\Boss">
+      <UniqueIdentifier>{e5b74477-4174-4cbd-bd44-8cba51d7a73b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\IceField">
+      <UniqueIdentifier>{76c4cc93-cfd7-48b9-a591-2476e74e5bfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\IceField\Normal">
+      <UniqueIdentifier>{231345c2-30e9-4238-a111-18f118aeecca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\IceField\Normal\SkelIceMagician">
+      <UniqueIdentifier>{a5580d34-b7a1-4e68-941a-627a691e7a61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\IceField\Normal\BigGrayIceSkel">
+      <UniqueIdentifier>{f632c572-f54d-40e3-8c98-1f754a27e392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\2.Enemy\IceField\Boss">
+      <UniqueIdentifier>{92ca332d-4a80-492e-85c5-630816f0bbbf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -439,7 +439,7 @@
       <Filter>Contents\Scene\3.TownScene</Filter>
     </ClInclude>
     <ClInclude Include="EHPlayer.h">
-      <Filter>Contents\GameObject\Player</Filter>
+      <Filter>Contents\GameObject\1.Player</Filter>
     </ClInclude>
     <ClInclude Include="EHResource.h">
       <Filter>Engine\Resource</Filter>
@@ -547,16 +547,16 @@
       <Filter>Contents\GameObject\Structure\Floor</Filter>
     </ClInclude>
     <ClInclude Include="EHBoss.h">
-      <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Boss</Filter>
     </ClInclude>
     <ClInclude Include="EHBossHand.h">
-      <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Boss</Filter>
     </ClInclude>
     <ClInclude Include="EHBanshee.h">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\Banshee</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Normal\Banshee</Filter>
     </ClInclude>
     <ClInclude Include="EHJailArchor.h">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\GreySkel\Archor</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Normal\GreySkel\Archor</Filter>
     </ClInclude>
     <ClInclude Include="EHLaser.h">
       <Filter>Contents\GameObject\EnemyAttack\Laser</Filter>
@@ -601,16 +601,16 @@
       <Filter>Contents\GameObject\Detection</Filter>
     </ClInclude>
     <ClInclude Include="EHJailWarrior.h">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\GreySkel\Warrior</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Normal\GreySkel\Warrior</Filter>
     </ClInclude>
     <ClInclude Include="EHJailDog.h">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\SkelDog</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Normal\SkelDog</Filter>
     </ClInclude>
     <ClInclude Include="EHGiantBat.h">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\Bat\GianBat</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Normal\Bat\GianBat</Filter>
     </ClInclude>
     <ClInclude Include="EHRedGiantBat.h">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\Bat\RedGiantBat</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Normal\Bat\RedGiantBat</Filter>
     </ClInclude>
     <ClInclude Include="EHIntro.h">
       <Filter>Contents\GameObject\Intro</Filter>
@@ -673,13 +673,13 @@
       <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField19</Filter>
     </ClInclude>
     <ClInclude Include="EHEnemy.h">
-      <Filter>Contents\GameObject\Enemy</Filter>
+      <Filter>Contents\GameObject\2.Enemy</Filter>
     </ClInclude>
     <ClInclude Include="EHBigGrayIceSkel.h">
-      <Filter>Contents\GameObject\Enemy\IceField\Normal\BigGrayIceSkel</Filter>
+      <Filter>Contents\GameObject\2.Enemy\IceField\Normal\BigGrayIceSkel</Filter>
     </ClInclude>
     <ClInclude Include="EHSkelIceMagician.h">
-      <Filter>Contents\GameObject\Enemy\IceField\Normal\SkelIceMagician</Filter>
+      <Filter>Contents\GameObject\2.Enemy\IceField\Normal\SkelIceMagician</Filter>
     </ClInclude>
     <ClInclude Include="EHJailAfterBossScene.h">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailAfterBossScene</Filter>
@@ -691,7 +691,7 @@
       <Filter>Contents\Scene\4.Dungeon\2.IceField\IceBossScene</Filter>
     </ClInclude>
     <ClInclude Include="EHNiflheim.h">
-      <Filter>Contents\GameObject\Enemy\IceField\Boss</Filter>
+      <Filter>Contents\GameObject\2.Enemy\IceField\Boss</Filter>
     </ClInclude>
     <ClInclude Include="EHEffect.h">
       <Filter>Contents\GameObject\Effect</Filter>
@@ -703,10 +703,10 @@
       <Filter>Contents\GameObject\Item</Filter>
     </ClInclude>
     <ClInclude Include="EHIcePillar.h">
-      <Filter>Contents\GameObject\Enemy\IceField\Boss</Filter>
+      <Filter>Contents\GameObject\2.Enemy\IceField\Boss</Filter>
     </ClInclude>
     <ClInclude Include="EHBulletCreator.h">
-      <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Boss</Filter>
     </ClInclude>
     <ClInclude Include="EHEndingScene.h">
       <Filter>Contents\Scene\5.Ending</Filter>
@@ -769,7 +769,7 @@
       <Filter>Contents\Scene\3.TownScene</Filter>
     </ClCompile>
     <ClCompile Include="EHPlayer.cpp">
-      <Filter>Contents\GameObject\Player</Filter>
+      <Filter>Contents\GameObject\1.Player</Filter>
     </ClCompile>
     <ClCompile Include="EHResource.cpp">
       <Filter>Engine\Resource</Filter>
@@ -880,16 +880,16 @@
       <Filter>Contents\GameObject\Structure\Floor</Filter>
     </ClCompile>
     <ClCompile Include="EHBoss.cpp">
-      <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Boss</Filter>
     </ClCompile>
     <ClCompile Include="EHBossHand.cpp">
-      <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Boss</Filter>
     </ClCompile>
     <ClCompile Include="EHBanshee.cpp">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\Banshee</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Normal\Banshee</Filter>
     </ClCompile>
     <ClCompile Include="EHJailArchor.cpp">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\GreySkel\Archor</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Normal\GreySkel\Archor</Filter>
     </ClCompile>
     <ClCompile Include="EHLaser.cpp">
       <Filter>Contents\GameObject\EnemyAttack\Laser</Filter>
@@ -934,16 +934,16 @@
       <Filter>Contents\GameObject\Detection</Filter>
     </ClCompile>
     <ClCompile Include="EHJailWarrior.cpp">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\GreySkel\Warrior</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Normal\GreySkel\Warrior</Filter>
     </ClCompile>
     <ClCompile Include="EHJailDog.cpp">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\SkelDog</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Normal\SkelDog</Filter>
     </ClCompile>
     <ClCompile Include="EHGiantBat.cpp">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\Bat\GianBat</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Normal\Bat\GianBat</Filter>
     </ClCompile>
     <ClCompile Include="EHRedGiantBat.cpp">
-      <Filter>Contents\GameObject\Enemy\JailField\Normal\Bat\RedGiantBat</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Normal\Bat\RedGiantBat</Filter>
     </ClCompile>
     <ClCompile Include="EHIntro.cpp">
       <Filter>Contents\GameObject\Intro</Filter>
@@ -1006,13 +1006,13 @@
       <Filter>Contents\Scene\4.Dungeon\2.IceField\IceField\IceField19</Filter>
     </ClCompile>
     <ClCompile Include="EHEnemy.cpp">
-      <Filter>Contents\GameObject\Enemy</Filter>
+      <Filter>Contents\GameObject\2.Enemy</Filter>
     </ClCompile>
     <ClCompile Include="EHBigGrayIceSkel.cpp">
-      <Filter>Contents\GameObject\Enemy\IceField\Normal\BigGrayIceSkel</Filter>
+      <Filter>Contents\GameObject\2.Enemy\IceField\Normal\BigGrayIceSkel</Filter>
     </ClCompile>
     <ClCompile Include="EHSkelIceMagician.cpp">
-      <Filter>Contents\GameObject\Enemy\IceField\Normal\SkelIceMagician</Filter>
+      <Filter>Contents\GameObject\2.Enemy\IceField\Normal\SkelIceMagician</Filter>
     </ClCompile>
     <ClCompile Include="EHJailAfterBossScene.cpp">
       <Filter>Contents\Scene\4.Dungeon\1.JailFieldScene\JailAfterBossScene</Filter>
@@ -1024,7 +1024,7 @@
       <Filter>Contents\Scene\4.Dungeon\2.IceField\IceBossScene</Filter>
     </ClCompile>
     <ClCompile Include="EHNiflheim.cpp">
-      <Filter>Contents\GameObject\Enemy\IceField\Boss</Filter>
+      <Filter>Contents\GameObject\2.Enemy\IceField\Boss</Filter>
     </ClCompile>
     <ClCompile Include="EHEffect.cpp">
       <Filter>Contents\GameObject\Effect</Filter>
@@ -1033,10 +1033,10 @@
       <Filter>Contents\GameObject\Item</Filter>
     </ClCompile>
     <ClCompile Include="EHIcePillar.cpp">
-      <Filter>Contents\GameObject\Enemy\IceField\Boss</Filter>
+      <Filter>Contents\GameObject\2.Enemy\IceField\Boss</Filter>
     </ClCompile>
     <ClCompile Include="EHBulletCreator.cpp">
-      <Filter>Contents\GameObject\Enemy\JailField\Boss</Filter>
+      <Filter>Contents\GameObject\2.Enemy\JailField\Boss</Filter>
     </ClCompile>
     <ClCompile Include="EHEndingScene.cpp">
       <Filter>Contents\Scene\5.Ending</Filter>
