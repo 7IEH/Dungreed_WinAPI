@@ -143,6 +143,7 @@ namespace EH
 		if (GetHP() <= 0)
 		{
 			SetState(eState::Dead);
+			mCheck3 = 0;
 		}
 
 		// UI Update

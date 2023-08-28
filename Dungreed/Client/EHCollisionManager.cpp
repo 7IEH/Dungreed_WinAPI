@@ -81,8 +81,6 @@ namespace EH
 		}
 	}
 
-
-
 	void CollisionManager::ColliderCollision(Collider* left, Collider* right)
 	{
 		ColliderID id = {};

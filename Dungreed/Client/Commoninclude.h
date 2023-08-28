@@ -41,6 +41,7 @@ namespace EH::enums
 	enum class eLayerType
 	{
 		  BackGround
+		, Effect
 		, Steel
 		, Trigger
 		, Floor

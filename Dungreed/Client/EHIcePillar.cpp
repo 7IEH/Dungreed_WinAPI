@@ -168,7 +168,7 @@ namespace EH
 
 			bullet->SetRadian(mDegree * (3.14f / 180.f));
 			bullet->SetStop(false);
-			bullet->SetDeleteTime(10.f);
+			bullet->SetDeleteTime(5.f);
 			bullet->SetHit(true);
 			mIceBulletSound->Play(false);
 		}

@@ -52,7 +52,7 @@ namespace EH
 	{
 		AddComponent<Rigidbody>();
 
-		CollisionManager::CollisionLayerCheck(enums::eLayerType::Sword, enums::eLayerType::Bullet,true);
+		//CollisionManager::CollisionLayerCheck(enums::eLayerType::Sword, enums::eLayerType::Bullet,true);
 
 		if (mCheck1 == 0)
 		{
@@ -2472,10 +2472,31 @@ namespace EH
 		Math::Vector2<float> cursurpos(pt.x, pt.y);
 		cursurpos = Camera::CaculatePos(-cursurpos);
 		cursurpos = -cursurpos;
-		float radian = Math::Radian(cursurpos, pos);
 
-		pos.x += cosf(radian) * 20.f;
-		pos.y += sinf(radian) * 20.f;
+		Effect* dasheffect = object::Instantiate<Effect>(enums::eLayerType::Effect);
+		Transform* effecttr = dasheffect->GetComponent<Transform>();
+		Animator* effectani = dasheffect->AddComponent<Animator>();
+		effecttr->SetPos(pos);
+		effecttr->SetScale(Math::Vector2<float>(128.f, 128.f));
+		Texture* texture = nullptr;
+		if (mIsRight)
+		{
+			texture = Resources::Load<Texture>(L"PlayerRightJump", L"..\\Resources\\Player\\Basic\\Jump\\CharRightJump.bmp");
+		}
+		else
+		{
+			texture = Resources::Load<Texture>(L"PlayerLeftJump", L"..\\Resources\\Player\\Basic\\Jump\\CharLeftJump.bmp");
+		}
+
+		effectani->SetAlpha(0.5f);
+		effectani->CreateAnimation(L"jump", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 1, 0.1f);
+		effectani->PlayAnimation(L"jump", false);
+
+		Math::Vector2<float> dir = cursurpos - pos;
+		dir.normalized<float>();
+
+		pos.x += dir.x * 1500.f * Time::GetDeltaTime();
+		pos.y += dir.y * 1500.f * Time::GetDeltaTime();
 
 		GetComponent<Transform>()->SetPos(pos);
 
