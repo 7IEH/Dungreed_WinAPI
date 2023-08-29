@@ -1,5 +1,8 @@
 #include "EHDamageEffect.h"
 #include "EHResources.h"
+#include "EHScene.h"
+#include "EHSceneManager.h"
+#include "EHPlayer.h"
 
 namespace EH
 {
@@ -37,9 +40,18 @@ namespace EH
 		Rigidbody* rigid = GetComponent<Rigidbody>();
 		Animator* ani = GetComponent<Animator>();
 
-		if (mCheck1 == 0)
+		Scene* mCurScene = SceneManager::GetCurScene();
+		Player* player = mCurScene->GetPlayer();
+		bool misright = player->GetDir();
+
+		if (mCheck1 == 0 && misright)
 		{
 			rigid->SetVeclocity(Math::Vector2<float>(+100.f, -400.f));
+			mCheck1 = 1;
+		}
+		else if (mCheck1 == 0 && !misright)
+		{
+			rigid->SetVeclocity(Math::Vector2<float>(-100.f, -400.f));
 			mCheck1 = 1;
 		}
 

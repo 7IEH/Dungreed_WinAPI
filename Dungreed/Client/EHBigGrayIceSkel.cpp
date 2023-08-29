@@ -8,6 +8,7 @@
 #include "EHPlayer.h"
 #include "EHResources.h"
 #include "EHDamageEffect.h"
+#include "EHImageObject.h"
 
 namespace EH
 {
@@ -84,7 +85,7 @@ namespace EH
 
 	void BigGrayIceSkel::Update()
 	{
-		GameObject::Update();
+		Enemy::Update();
 
 		switch (GetState())
 		{
@@ -123,6 +124,9 @@ namespace EH
 			GetHitSound()->Play(false);
 
 			Transform* tr = GetComponent<Transform>();
+
+			GetHpImage()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+			GetHpBaseImage()->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
 
 			DamageEffect* damageef = object::Instantiate<DamageEffect>(enums::eLayerType::UI);
 			Transform* eftr = damageef->GetComponent<Transform>();

@@ -45,8 +45,14 @@ namespace EH
 
 		void SetHP(int hp) { mHP = hp; }
 		int GetHP() { return mHP; }
+
+		void SetMaxHP(int maxhp) { mMaxHp = maxhp; }
+		int GetMaxHP() { return mMaxHp; }
 		
 		class Sound* GetHitSound() { return mHitMonster; }
+
+		class ImageObject* GetHpBaseImage() { return mHpbaseimage; }
+		class ImageObject* GetHpImage() { return mHpimage; }
 
 	private:
 		class Player* mTarget;
@@ -61,6 +67,14 @@ namespace EH
  
 		// stat
 		int mHP;
+		int mMaxHp;
+
+		class ImageObject* mHpbaseimage;
+		class ImageObject* mHpimage;
+
+		// check
+		static UINT mCheck1;
+
 	};
 }
 
