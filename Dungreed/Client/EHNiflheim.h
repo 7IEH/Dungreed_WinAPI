@@ -70,6 +70,7 @@ namespace EH
 
 		// Sound
 		class Sound* mDefeatSound;
+		class Sound* mIcicleSound;
 
 		// Boss UI
 		class Canvas* mCanvas;

@@ -15,6 +15,7 @@
 #include "EHDeadObj.h"
 #include "EHTrigger.h"
 #include "EHBulletCreator.h"
+#include "EHDamageEffect.h"
 #include <time.h>
 
 namespace EH
@@ -579,6 +580,20 @@ namespace EH
 			SetHP(hp -= 20);
 			mAttack = weapon;
 			GetHitSound()->Play(false);
+
+			Transform* tr = GetComponent<Transform>();
+
+			DamageEffect* damageef = object::Instantiate<DamageEffect>(enums::eLayerType::UI);
+			Transform* eftr = damageef->GetComponent<Transform>();
+			eftr->SetPos(tr->Getpos());
+			eftr->SetScale(Math::Vector2<float>(14.f, 22.f));
+			damageef->SetDamage(2);
+
+			DamageEffect* damageef2 = object::Instantiate<DamageEffect>(enums::eLayerType::UI);
+			eftr = damageef2->GetComponent<Transform>();
+			eftr->SetPos(Math::Vector2<float>(tr->Getpos().x + 14.f, tr->Getpos().y));
+			eftr->SetScale(Math::Vector2<float>(14.f, 22.f));
+			damageef2->SetDamage(0);
 		}
 	}
 

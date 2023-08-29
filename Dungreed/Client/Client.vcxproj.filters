@@ -370,6 +370,12 @@
     <Filter Include="Contents\GameObject\2.Enemy\IceField\Boss">
       <UniqueIdentifier>{92ca332d-4a80-492e-85c5-630816f0bbbf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Effect\Effect1">
+      <UniqueIdentifier>{ff1426c0-0b4d-45dc-8a8a-e3c690666d31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Effect\Effect2">
+      <UniqueIdentifier>{79b1e355-1398-4302-ac47-569215165732}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -693,9 +699,6 @@
     <ClInclude Include="EHNiflheim.h">
       <Filter>Contents\GameObject\2.Enemy\IceField\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="EHEffect.h">
-      <Filter>Contents\GameObject\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="SceneHeader.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
@@ -710,6 +713,12 @@
     </ClInclude>
     <ClInclude Include="EHEndingScene.h">
       <Filter>Contents\Scene\5.Ending</Filter>
+    </ClInclude>
+    <ClInclude Include="EHEffect.h">
+      <Filter>Contents\GameObject\Effect\Effect1</Filter>
+    </ClInclude>
+    <ClInclude Include="EHDamageEffect.h">
+      <Filter>Contents\GameObject\Effect\Effect2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1026,9 +1035,6 @@
     <ClCompile Include="EHNiflheim.cpp">
       <Filter>Contents\GameObject\2.Enemy\IceField\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="EHEffect.cpp">
-      <Filter>Contents\GameObject\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="EHDeadObj.cpp">
       <Filter>Contents\GameObject\Item</Filter>
     </ClCompile>
@@ -1040,6 +1046,12 @@
     </ClCompile>
     <ClCompile Include="EHEndingScene.cpp">
       <Filter>Contents\Scene\5.Ending</Filter>
+    </ClCompile>
+    <ClCompile Include="EHEffect.cpp">
+      <Filter>Contents\GameObject\Effect\Effect1</Filter>
+    </ClCompile>
+    <ClCompile Include="EHDamageEffect.cpp">
+      <Filter>Contents\GameObject\Effect\Effect2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

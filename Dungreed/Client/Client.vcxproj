@@ -149,6 +149,7 @@
     <ClInclude Include="EHCollider.h" />
     <ClInclude Include="EHCollisionManager.h" />
     <ClInclude Include="EHComponent.h" />
+    <ClInclude Include="EHDamageEffect.h" />
     <ClInclude Include="EHDeadObj.h" />
     <ClInclude Include="EHDetection.h" />
     <ClInclude Include="EHDungeonManager.h" />
@@ -263,6 +264,7 @@
     <ClCompile Include="EHCollider.cpp" />
     <ClCompile Include="EHCollisionManager.cpp" />
     <ClCompile Include="EHComponent.cpp" />
+    <ClCompile Include="EHDamageEffect.cpp" />
     <ClCompile Include="EHDeadObj.cpp" />
     <ClCompile Include="EHDetection.cpp" />
     <ClCompile Include="EHDungeonManager.cpp" />

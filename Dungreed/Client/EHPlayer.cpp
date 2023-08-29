@@ -25,7 +25,7 @@ namespace EH
 
 	Player::Player()
 		:
-		mCurHp(Objdata::GetHP())
+		  mCurHp(Objdata::GetHP())
 		, mMaxHP(Objdata::GetMaxHP())
 		, mGold(Objdata::GetGold())
 		, mFood(Objdata::GetFood())

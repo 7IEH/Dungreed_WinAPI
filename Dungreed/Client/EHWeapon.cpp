@@ -1,8 +1,9 @@
 #include "EHWeapon.h"
 #include "EHTime.h"
+#include "EHEnemy.h"
 
 namespace EH
-{	
+{
 	void Weapon::Initialize()
 	{
 	}

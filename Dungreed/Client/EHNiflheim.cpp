@@ -8,6 +8,7 @@
 #include "EHCanvas.h"
 #include "EHImageObject.h"
 #include "EHBullet.h"
+#include "EHDamageEffect.h"
 #include <time.h>
 
 namespace EH
@@ -83,6 +84,7 @@ namespace EH
 		mCanvas = BossUICanvas;
 
 		mDefeatSound = Resources::Load<Sound>(L"bossDefeat", L"..\\Resources\\Sound\\Enemy\\JailField\\Belial\\bossDefeat.wav");
+		mIcicleSound = Resources::Load<Sound>(L"icicle", L"..\\Resources\\Sound\\Enemy\\IceField\\ice_spell_forming_shards_03.wav");
 	}
 
 	Niflheim::~Niflheim()
@@ -186,6 +188,20 @@ namespace EH
 			SetHP(hp -= 20);
 			mAttack = weapon;
 			GetHitSound()->Play(false);
+
+			Transform* tr = GetComponent<Transform>();
+
+			DamageEffect* damageef = object::Instantiate<DamageEffect>(enums::eLayerType::UI);
+			Transform* eftr = damageef->GetComponent<Transform>();
+			eftr->SetPos(tr->Getpos());
+			eftr->SetScale(Math::Vector2<float>(14.f, 22.f));
+			damageef->SetDamage(2);
+
+			DamageEffect* damageef2 = object::Instantiate<DamageEffect>(enums::eLayerType::UI);
+			eftr = damageef2->GetComponent<Transform>();
+			eftr->SetPos(Math::Vector2<float>(tr->Getpos().x + 14.f, tr->Getpos().y));
+			eftr->SetScale(Math::Vector2<float>(14.f, 22.f));
+			damageef2->SetDamage(0);
 		}
 	}
 
@@ -695,6 +711,7 @@ namespace EH
 
 		if (1.f < checktime && mCheck2 == 1)
 		{
+			mIcicleSound->Play(false);
 			for (int i = 0;i < 8;i++)
 			{
 				Destroy(mRedZone[i]);
