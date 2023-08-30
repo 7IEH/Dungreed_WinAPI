@@ -36,6 +36,8 @@ namespace EH
 		, mActiveWeapon(enums::eWeapon::None)
 		, mSubWeapon(enums::eWeapon::None)
 		, mJumpStack(0)
+		, mCurDash(0)
+		, mMaxDash(3)
 		, mWeapon(nullptr)
 		, mIsJump(false)
 		, mOnBlock(false)
@@ -124,8 +126,14 @@ namespace EH
 		texture = Resources::Load<Texture>(L"HPBase", L"..\\Resources\\UI\\PlayerLifeBase 1.png");
 		PlayerUICanvas->AddImageObject(L"HPBase", texture, false, Math::Vector2<float>(157.f, 42.f), Math::Vector2<float>(296.f, 64.f));
 
-		texture = Resources::Load<Texture>(L"DashBase", L"..\\Resources\\UI\\DashCountBase.png");
-		PlayerUICanvas->AddImageObject(L"DashBase", texture, false, Math::Vector2<float>(135.f, 97.f), Math::Vector2<float>(252.f, 34.f));
+		texture = Resources::Load<Texture>(L"DashBack", L"..\\Resources\\UI\\DashCountBack.bmp");
+		PlayerUICanvas->AddImageObject(L"DashBack", texture, false, Math::Vector2<float>(75.f, 97.f), Math::Vector2<float>(116.f, 16.f));
+
+		texture = Resources::Load<Texture>(L"Dash", L"..\\Resources\\UI\\Dash.bmp");
+		PlayerUICanvas->AddImageObject(L"Dash", texture, false, Math::Vector2<float>(75.f, 97.f), Math::Vector2<float>(116.f, 16.f));
+
+		texture = Resources::Load<Texture>(L"DashBase", L"..\\Resources\\UI\\DashCountBase.bmp");
+		PlayerUICanvas->AddImageObject(L"DashBase", texture, false, Math::Vector2<float>(75.f, 97.f), Math::Vector2<float>(132.f, 32.f));
 
 		texture = Resources::Load<Texture>(L"CoinUI", L"..\\Resources\\UI\\Coin.png");
 		PlayerUICanvas->AddImageObject(L"CoinUI", texture, false, Math::Vector2<float>(29.f, 657.f), Math::Vector2<float>(34.f, 28.f));
@@ -391,6 +399,7 @@ namespace EH
 		mFood = Objdata::GetFood();
 		mCurDash = Objdata::GetDash();
 		mMaxHP = Objdata::GetMaxHP();
+		mCurDash = Objdata::GetDash();
 
 		Objdata::GetInventory(mInventory);
 
@@ -430,6 +439,15 @@ namespace EH
 			}
 		}
 
+		mDashTime += Time::GetDeltaTime();
+		if (1.f < mDashTime)
+		{
+			if (mCurDash <= mMaxDash && mCurDash > 0)
+			{
+				Objdata::SetDash(Objdata::GetDash() - 1);
+			}
+			mDashTime = 0.f;
+		}
 		// UI Update
 		ImageObject* hp = mCanvas->Find(L"HP");
 		Transform* tr = hp->GetComponent<Transform>();
@@ -440,6 +458,11 @@ namespace EH
 		tr = foodgage->GetComponent<Transform>();
 		tr->SetPos(Math::Vector2<float>(110.f - ((82.f - 82.f * ((float)mFood / 100.f)) / 2.f), tr->Getpos().y));
 		tr->SetScale(Math::Vector2<float>(82.f * ((float)mFood / 100.f), tr->GetScale().y));
+
+		ImageObject* dash = mCanvas->Find(L"Dash");
+		tr = dash->GetComponent<Transform>();
+		tr->SetPos(Math::Vector2<float>(75.f - ((116.f - 116.f * ((float)(mMaxDash - mCurDash) / mMaxDash)) / 2.f), tr->Getpos().y));
+		tr->SetScale(Math::Vector2<float>(116.f * ((float)(mMaxDash - mCurDash) / mMaxDash), tr->GetScale().y));
 
 
 		UINT curten = mCurHp / 10;
@@ -1986,8 +2009,9 @@ namespace EH
 				mGunSound->Play(false);
 			}
 		}
-		if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::DOWN)
+		if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::DOWN && mCurDash<mMaxDash)
 		{
+			Objdata::SetDash(mCurDash + 1);
 			mCurState = eAnimationState::Dash;
 			if (mSound != nullptr)
 			{
@@ -2206,8 +2230,9 @@ namespace EH
 				mGunSound->Play(false);
 			}
 		}
-		if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::DOWN)
+		if (Input::Getkey(eKeyCode::MouseRightClick).state == eKeyState::DOWN && mCurDash<mMaxDash)
 		{
+			Objdata::SetDash(mCurDash + 1);
 			mCurState = eAnimationState::Dash;
 
 			if (mSound != nullptr)

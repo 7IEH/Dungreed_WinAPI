@@ -120,5 +120,8 @@ namespace EH
 
 		// Dust
 		GameObject* mDust;
+
+		// Dash Time
+		float mDashTime;
 	};
 }

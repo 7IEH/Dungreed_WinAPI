@@ -50,7 +50,7 @@ namespace EH
 		Objdata::SetGold(0);
 		Objdata::SetFood(0);
 		Objdata::SetLevel(1);
-		Objdata::SetDash(5);
+		Objdata::SetDash(0);
 
 		// Time Initialize
 		Time::Initialize();
