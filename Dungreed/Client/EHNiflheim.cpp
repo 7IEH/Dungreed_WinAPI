@@ -254,7 +254,7 @@ namespace EH
 		}
 
 		// È¸Àü
-		mMove += 0.1f;
+		mMove += 5.f * Time::GetDeltaTime();
 		for (int i = 0;i < 4;i++)
 		{
 			if (mIcePillar[i] == nullptr)
@@ -375,6 +375,7 @@ namespace EH
 			SetState(eState::Idle);
 			SetCheckTime(0.f);
 			mType = eBossAttack::None;
+			mMove = 0.f;
 			mCheck2 = 0;
 			return;
 		}
@@ -403,7 +404,7 @@ namespace EH
 			}
 
 
-			mMove += 0.1f;
+			mMove += 5.f * Time::GetDeltaTime();
 			for (int i = 0;i < 4;i++)
 			{
 				if (mIcePillar[i] == nullptr)
@@ -469,6 +470,7 @@ namespace EH
 			mType = eBossAttack::None;
 			mCheck2 = 0;
 			mCheck3 = 0;
+			mMove = 0.f;
 			return;
 		}
 
@@ -517,6 +519,7 @@ namespace EH
 			mType = eBossAttack::None;
 			mCheck2 = 0;
 			mCheck3 = 0;
+			mMove = 0.f;
 			return;
 		}
 
@@ -606,6 +609,7 @@ namespace EH
 			mType = eBossAttack::None;
 			mCheck2 = 0;
 			mCheck3 = 0;
+			mMove = 0.f;
 			return;
 		}
 
@@ -706,6 +710,7 @@ namespace EH
 			mType = eBossAttack::None;
 			mCheck3 = 0;
 			mCheck2 = 0;
+			mMove = 0.f;
 			return;
 		}
 
@@ -798,6 +803,7 @@ namespace EH
 			SetCheckTime(3.f);
 			mCheck2 = 0;
 			mCheck3 = 0;
+			mMove = 0.f;
 			return;
 		}
 

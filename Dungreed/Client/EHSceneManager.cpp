@@ -61,7 +61,7 @@ namespace EH
 
 		CreateScene<EndingScene>(L"EndingScene");
 
-		LoadScene(L"TitleScene");
+		LoadScene(L"IceScene5");
 	}
 
 	void SceneManager::Release()

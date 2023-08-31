@@ -543,6 +543,7 @@ namespace EH
 			mCurType = eBossAttack::None;
 			mCheck2 = 0;
 			mCheck3 = 0;
+			mMove = 0.f;
 			tr->SetScale(Math::Vector2<float>(280.f, 396.f));
 			ani->PlayAnimation(L"BossIdle", true);
 			mCheck4 = 0;
@@ -561,7 +562,8 @@ namespace EH
 			}
 		}
 
-		mMove += 0.003f;
+		//mMove += 0.003f;
+		mMove += 0.5f * Time::GetDeltaTime();
 		for (int i = 0;i < 4;i++)
 		{
 			Transform* bulletcttr = mBulletct[i]->GetComponent<Transform>();
