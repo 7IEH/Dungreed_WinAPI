@@ -561,7 +561,7 @@ namespace EH
 			}
 		}
 
-		mMove += 0.01f;
+		mMove += 0.003f;
 		for (int i = 0;i < 4;i++)
 		{
 			Transform* bulletcttr = mBulletct[i]->GetComponent<Transform>();

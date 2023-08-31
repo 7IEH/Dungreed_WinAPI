@@ -54,7 +54,7 @@ namespace EH
 	{
 		AddComponent<Rigidbody>();
 
-		//CollisionManager::CollisionLayerCheck(enums::eLayerType::Sword, enums::eLayerType::Bullet,true);
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Sword, enums::eLayerType::Bullet,true);
 
 		if (mCheck1 == 0)
 		{

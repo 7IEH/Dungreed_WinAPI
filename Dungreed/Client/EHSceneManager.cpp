@@ -9,12 +9,13 @@ namespace EH
 
 	void SceneManager::Initialize()
 	{
-		// scene 만들고 처음 할거 load
 		CreateScene<TitleScene>(L"TitleScene");
 		// CreateScene<SelectScene>(L"SelectScene");
+
 		CreateScene<TownScene>(L"TownScene");
 		CreateScene<JailPrevBossScene>(L"JailPrevBossScene");
 		CreateScene<JailAfterBossScene>(L"JailAfterBossScene");
+		// JailScene
 		CreateScene<JailBossScene>(L"JailBossScene");
 		CreateScene<JailScene1>(L"JailScene1");
 		CreateScene<JailScene2>(L"JailScene2");
