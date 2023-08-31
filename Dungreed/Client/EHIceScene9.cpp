@@ -90,7 +90,7 @@ namespace EH
         trigger2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(684.f, 462.f));
         trigger2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(228.f, 260.f));
         SpriteRenderer* sr = trigger2->AddComponent<SpriteRenderer>();
-        texture = Resources::Load<Texture>(L"IceDoor0", L"..\\Resources\\Dungeon\\Belial\\Door0.png");
+        texture = Resources::Load<Texture>(L"IceDoor0", L"..\\Resources\\Dungeon\\IceBackGround\\IceLayer\\IceDoor0.png");
         sr->SetImg(texture);
         sr->SetAffectCamera(true);
         trigger2->AddComponent<Collider>();

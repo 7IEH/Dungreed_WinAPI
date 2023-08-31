@@ -18,10 +18,18 @@ namespace EH
 		class BackGround* mBG2;
 
 		class BackGround* mLogo;
+		class BackGround* mPratice;
+		class BackGround* mQa;
+
+		class BackGround* mPracticeChar;
+		class BackGround* mQaChar;
+
 		float mCheck1;
 
 		BackGround* mBG3;
 		BackGround* mThankyou;
+
+
 
 		float mCheck2;
 		float mCheck3;

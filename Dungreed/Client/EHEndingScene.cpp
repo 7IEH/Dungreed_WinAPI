@@ -89,6 +89,40 @@ namespace EH
 		MainLogo->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
 		mLogo = MainLogo;
 
+		BackGround* practice = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		practice->GetComponent<Transform>()->SetPos(Math::Vector2<float>(940.f, 950.f));
+		practice->GetComponent<Transform>()->SetScale(Math::Vector2<float>(396.f, 33.f));
+		temp = Resources::Load<Texture>(L"Practice2", L"..\\Resources\\Ending\\copypratice.bmp");
+		practice->GetComponent<SpriteRenderer>()->SetImg(temp);
+		practice->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		mPratice = practice;
+
+		BackGround* qa = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		qa->GetComponent<Transform>()->SetPos(Math::Vector2<float>(940.f, 1030.f));
+		qa->GetComponent<Transform>()->SetScale(Math::Vector2<float>(357.f, 36.f));
+		temp = Resources::Load<Texture>(L"Qa", L"..\\Resources\\Ending\\Qa.bmp");
+		qa->GetComponent<SpriteRenderer>()->SetImg(temp);
+		qa->GetComponent<SpriteRenderer>()->SetAffectCamera(false);
+		mQa = qa;
+
+		BackGround* practicechar = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		practicechar->GetComponent<Transform>()->SetPos(Math::Vector2<float>(700.f, 950.f));
+		practicechar->GetComponent<Transform>()->SetScale(Math::Vector2<float>(96.f, 96.f));
+		temp = Resources::Load<Texture>(L"practicechar", L"..\\Resources\\Ending\\CharIdle\\CharIdle.bmp");
+		ani = practicechar->AddComponent<Animator>();
+		ani->CreateAnimation(L"practicechar", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 32.f), Math::Vector2<float>(0.f, 0.f), 5, 0.1f);
+		ani->PlayAnimation(L"practicechar", true);
+		mPracticeChar = practicechar;
+
+		BackGround* qachar = object::Instantiate<BackGround>(enums::eLayerType::UI);
+		qachar->GetComponent<Transform>()->SetPos(Math::Vector2<float>(700.f, 1030.f));
+		qachar->GetComponent<Transform>()->SetScale(Math::Vector2<float>(75.f, 96.f));
+		temp = Resources::Load<Texture>(L"qachar", L"..\\Resources\\Ending\\DearFarmer\\DeerFarmIdle.bmp");
+		ani = qachar->AddComponent<Animator>();
+		ani->CreateAnimation(L"qachar", temp, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(25.f, 32.f), Math::Vector2<float>(0.f, 0.f), 6, 0.1f);
+		ani->PlayAnimation(L"qachar", true);
+		mQaChar = qachar;
+
 		BackGround* black = object::Instantiate<BackGround>(enums::eLayerType::UI);
 		black->GetComponent<Transform>()->SetPos(Math::Vector2<float>(640.f, 360.f));
 		black->GetComponent<Transform>()->SetScale(Math::Vector2<float>(1280.f, 720.f));
@@ -154,8 +188,12 @@ namespace EH
 		backtr1->SetPos(Math::Vector2<float>(backpos1.x + 50.f * Time::GetDeltaTime(), 360.f));
 		backtr2->SetPos(Math::Vector2<float>(backpos2.x + 50.f * Time::GetDeltaTime(), 360.f));
 		mLogo->GetComponent<Transform>()->SetPos(Math::Vector2<float>(940.f, mLogo->GetComponent<Transform>()->Getpos().y - 50.f * Time::GetDeltaTime()));
+		mPratice->GetComponent<Transform>()->SetPos(Math::Vector2<float>(940.f, mPratice->GetComponent<Transform>()->Getpos().y - 50.f * Time::GetDeltaTime()));
+		mQa->GetComponent<Transform>()->SetPos(Math::Vector2<float>(940.f, mQa->GetComponent<Transform>()->Getpos().y - 50.f * Time::GetDeltaTime()));
+		mPracticeChar->GetComponent<Transform>()->SetPos(Math::Vector2<float>(700.f, mPracticeChar->GetComponent<Transform>()->Getpos().y - 50.f * Time::GetDeltaTime()));
+		mQaChar->GetComponent<Transform>()->SetPos(Math::Vector2<float>(700.f, mQaChar->GetComponent<Transform>()->Getpos().y - 50.f * Time::GetDeltaTime()));
 
-		if (14.f<mCheck1)
+		if (16.f<mCheck1)
 		{
 			if (mCheck2 < 0.9f)
 			{
