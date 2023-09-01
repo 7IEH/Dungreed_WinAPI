@@ -178,6 +178,5 @@ namespace EH
 	void JailScene10::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
-		TextOut(hdc, 10, 10, L"JailScene10", 11);
 	}
 }

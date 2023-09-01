@@ -471,6 +471,16 @@ namespace EH
 		mDelayTime = 6.f;
 		mSubDelayTime = 0.5f;
 
+		if (mSwordAttack == 6)
+		{
+			mSwordAttack = 0;
+			mCurState = eBossState::Idle;
+			mCurType = eBossAttack::None;
+			mCheckTime = 0.f;
+			mSwordNumbering = 0;
+			return;
+		}
+
 		// sword 1개씩 생성 총 6개 만들기
 		if (mSubDelayTime < mSubCheckTime && mSwordNumbering < 6)
 		{
@@ -489,6 +499,7 @@ namespace EH
 			swordcol->SetScale(Math::Vector2<float>(30.f, 200.f));
 			sword1->SetDeleteTime(2.f);
 			sword1->SetStop(true);
+			sword1->SetSpeed(4.f);
 			mSubCheckTime = 0.f;
 			mSwordNameGroup[mSwordNumbering] = sword1;
 			mSwordNumbering += 1;
@@ -497,26 +508,22 @@ namespace EH
 
 		if (mSwordNumbering == 6)
 		{
-			for (Bullet* sword : mSwordNameGroup)
-			{
-				if (sword == nullptr)
-					continue;
-				sword->SetRadian(Math::Radian(mTarget->GetComponent<Transform>()->Getpos()
-					, sword->GetComponent<Transform>()->Getpos()));
-				sword->SetStop(false);
-			}
-			mCurState = eBossState::Idle;
-			mCurType = eBossAttack::None;
-			mCheckTime = 0.f;
-			mSwordNumbering = 0;
-		}
-		else
-		{
-			for (UINT i = 0;i < mSwordNumbering;i++)
+			mSubCheckTime3 += Time::GetDeltaTime();
+
+			for (UINT i = mSwordAttack;i < mSwordNumbering;i++)
 			{
 				Transform* playertr = mTarget->GetComponent<Transform>();
 				float radian = Math::Radian(playertr->Getpos(), mSwordNameGroup[i]->GetComponent<Transform>()->Getpos());
 				mSwordNameGroup[i]->GetComponent<SpriteRenderer>()->GetImg()->SetDegree(radian * (180.f / 3.14f) + 90.f);
+			}
+
+			if (0.5f < mSubCheckTime3)
+			{
+				mSwordNameGroup[mSwordAttack]->SetRadian(Math::Radian(mTarget->GetComponent<Transform>()->Getpos()
+					, mSwordNameGroup[mSwordAttack]->GetComponent<Transform>()->Getpos()));
+				mSwordNameGroup[mSwordAttack]->SetStop(false);
+				mSwordAttack++;
+				mSubCheckTime3 = 0;
 			}
 		}
 	}

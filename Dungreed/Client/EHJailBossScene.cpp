@@ -295,6 +295,5 @@ namespace EH
 	void JailBossScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
-		TextOut(hdc, 10, 10, L"JailBossScene", 13);
 	}
 }

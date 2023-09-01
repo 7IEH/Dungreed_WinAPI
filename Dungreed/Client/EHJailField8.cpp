@@ -360,6 +360,5 @@ namespace EH
 	void JailField8::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
-		TextOut(hdc, 10, 10, L"JailScene8", 10);
 	}
 }

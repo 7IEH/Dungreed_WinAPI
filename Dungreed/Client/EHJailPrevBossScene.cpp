@@ -137,6 +137,5 @@ namespace EH
 		DeleteObject(hNewBrush);
 		DeleteObject(hNewPen);
 		Scene::Render(hdc);
-		TextOut(hdc, 10, 10, L"JailPrevScene", 13);
 	}
 }

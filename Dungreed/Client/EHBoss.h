@@ -92,6 +92,7 @@ namespace EH
 		// Sword Group
 		class Bullet* mSwordNameGroup[6];
 		UINT mSwordNumbering;
+		UINT mSwordAttack;
 
 		// Sound
 		class Sound* mSpawnSword;
