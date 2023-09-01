@@ -16,14 +16,14 @@ namespace  EH
 		Transform* tr = nullptr;
 		Texture* texture = nullptr;
 
-		mRightLaser[0] = object::Instantiate<GameObject>(enums::eLayerType::BackGround);
+		mRightLaser[0] = object::Instantiate<GameObject>(enums::eLayerType::Laser);
 		tr = mRightLaser[0]->GetComponent<Transform>();
 		tr->SetScale(Math::Vector2<float>(128.f, 220.f));
 		texture = Resources::Load<Texture>(L"LaserRighthead", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\RightLaser\\SkellBossLaserHeadSheet.bmp");
 		ani = mRightLaser[0]->AddComponent<Animator>();
 		ani->CreateAnimation(L"LaserRighthead", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 55.f), Math::Vector2<float>(0.f, 0.f), 7, 0.2f);
 
-		mLeftLaser[0] = object::Instantiate<GameObject>(enums::eLayerType::BackGround);
+		mLeftLaser[0] = object::Instantiate<GameObject>(enums::eLayerType::Laser);
 		tr = mLeftLaser[0]->GetComponent<Transform>();
 		tr->SetScale(Math::Vector2<float>(128.f, 220.f));
 		texture = Resources::Load<Texture>(L"LaserLefthead", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\LeftLaser\\SkellBossLaserHeadSheet.bmp");
@@ -32,14 +32,14 @@ namespace  EH
 
 		for (int i = 1;i < 10;i++)
 		{
-			mRightLaser[i] = object::Instantiate<GameObject>(enums::eLayerType::BackGround);
+			mRightLaser[i] = object::Instantiate<GameObject>(enums::eLayerType::Laser);
 			tr = mRightLaser[i]->GetComponent<Transform>();
 			tr->SetScale(Math::Vector2<float>(128.f, 220.f));
 			texture = Resources::Load<Texture>(L"LaserRightBody", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\RightLaser\\SkellBossLaserBodySheet.bmp");
 			ani = mRightLaser[i]->AddComponent<Animator>();
 			ani->CreateAnimation(L"LaserRightBody", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 55.f), Math::Vector2<float>(0.f, 0.f), 7, 0.2f);
 
-			mLeftLaser[i] = object::Instantiate<GameObject>(enums::eLayerType::BackGround);
+			mLeftLaser[i] = object::Instantiate<GameObject>(enums::eLayerType::Laser);
 			tr = mLeftLaser[i]->GetComponent<Transform>();
 			tr->SetScale(Math::Vector2<float>(128.f, 220.f));
 			texture = Resources::Load<Texture>(L"LaserLeftBody", L"..\\Resources\\Enemy\\Boss\\SkellBoss\\LeftLaser\\SkellBossLaserBodySheet.bmp");
