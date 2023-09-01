@@ -36,6 +36,9 @@ namespace EH
 		void enabled(bool enabled) { mbEnabled = enabled; }
 		bool GetEnabled() { return mbEnabled; }
 
+		static void SetRender(bool render) { mRender = render; }
+		static bool GetRender() { return mRender; }
+
 	private:
 		eColliderType mType;
 		bool mbisCollision;
@@ -43,5 +46,7 @@ namespace EH
 		Math::Vector2<float> mScale;
 		Math::Vector2<float> mOffset;
 		bool mbEnabled;
+
+		static bool mRender;
 	};
 }

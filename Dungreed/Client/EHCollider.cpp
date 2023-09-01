@@ -5,6 +5,8 @@
 
 namespace EH
 {
+	bool Collider::mRender = false;
+
 	Collider::Collider()
 		:
 		Component(enums::eComponentType::Collider)
@@ -34,42 +36,45 @@ namespace EH
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Math::Vector2<float> pos = tr->Getpos();
 
-		/*if (mbAffectedCamera)
-			pos = Camera::CaculatePos(pos);
-
-		HBRUSH hTransParentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
-		HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hTransParentBrush);
-
-		HPEN hPen = nullptr;
-		HPEN hOldPen = nullptr;
-
-		if (mbisCollision)
+		if (mRender)
 		{
-			hPen = (HPEN)CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-			hOldPen = (HPEN)SelectObject(hdc, hPen);
-		}
-		else
-		{
-			hPen = (HPEN)CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
-			hOldPen = (HPEN)SelectObject(hdc, hPen);
-		}
+			if (mbAffectedCamera)
+				pos = Camera::CaculatePos(pos);
 
-		if (mType == eColliderType::Box)
-		{
-			Rectangle(hdc, pos.x - mScale.x / 2.f + mOffset.x, pos.y - mScale.y / 2.f + mOffset.y,
-				pos.x + mScale.x / 2.f + mOffset.x, pos.y + mScale.y / 2.f + mOffset.y);
-		}
-		else if (mType == eColliderType::Circle)
-		{
-			Ellipse(hdc, pos.x - mScale.x / 2.f + mOffset.x, pos.y - mScale.y / 2.f + mOffset.y,
-				pos.x + mScale.x / 2.f + mOffset.x, pos.y + mScale.y / 2.f + mOffset.y);
-		}
+			HBRUSH hTransParentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+			HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hTransParentBrush);
 
-		SelectObject(hdc, hOldBrush);
-		DeleteObject(hTransParentBrush);
+			HPEN hPen = nullptr;
+			HPEN hOldPen = nullptr;
 
-		SelectObject(hdc, hOldPen);
-		DeleteObject(hPen);*/
+			if (mbisCollision)
+			{
+				hPen = (HPEN)CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+				hOldPen = (HPEN)SelectObject(hdc, hPen);
+			}
+			else
+			{
+				hPen = (HPEN)CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
+				hOldPen = (HPEN)SelectObject(hdc, hPen);
+			}
+
+			if (mType == eColliderType::Box)
+			{
+				Rectangle(hdc, pos.x - mScale.x / 2.f + mOffset.x, pos.y - mScale.y / 2.f + mOffset.y,
+					pos.x + mScale.x / 2.f + mOffset.x, pos.y + mScale.y / 2.f + mOffset.y);
+			}
+			else if (mType == eColliderType::Circle)
+			{
+				Ellipse(hdc, pos.x - mScale.x / 2.f + mOffset.x, pos.y - mScale.y / 2.f + mOffset.y,
+					pos.x + mScale.x / 2.f + mOffset.x, pos.y + mScale.y / 2.f + mOffset.y);
+			}
+
+			SelectObject(hdc, hOldBrush);
+			DeleteObject(hTransParentBrush);
+
+			SelectObject(hdc, hOldPen);
+			DeleteObject(hPen);
+		}
 	}
 
 	void Collider::OnCollisionEnter(Collider* other)

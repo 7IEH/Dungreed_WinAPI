@@ -2299,6 +2299,11 @@ namespace EH
 			mCurState = eAnimationState::Skill;
 		}
 
+		if (Input::Getkey(eKeyCode::O).state == eKeyState::DOWN)
+		{
+			Collider::SetRender(!Collider::GetRender());
+		}
+
 		if (mCurHp <= 0.f)
 		{
 			mCurState = eAnimationState::Die;
