@@ -19,7 +19,7 @@ namespace EH
 		, mCheck1(0)
 	{
 		SetHP(40.f);
-		SetDelayTime(4.f);
+		SetDelayTime(3.f);
 		SetSubDelayTime(0.2f);
 		Transform* tr = GetComponent<Transform>();
 		tr->SetScale(Math::Vector2<float>(256.f, 256.f));
@@ -27,7 +27,7 @@ namespace EH
 		// Detection
 		mDect = object::Instantiate<Detection>(enums::eLayerType::Detect);
 		Collider* dectcol = mDect->AddComponent<Collider>();
-		dectcol->SetScale(Math::Vector2<float>(300.f, 300.f));
+		dectcol->SetScale(Math::Vector2<float>(600.f, 600.f));
 		 
 		// Collider
 		Collider* col = AddComponent<Collider>();

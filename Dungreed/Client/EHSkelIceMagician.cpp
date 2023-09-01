@@ -20,7 +20,7 @@ namespace EH
 		, mPlayerPos(Math::Vector2<float>(0.f, 0.f))
 		, mMagicCircle(nullptr)
 	{
-		SetDelayTime(4.0f);
+		SetDelayTime(3.f);
 		SetSubDelayTime(1.8f);
 		SetHP(40.f);
 		Player* player = SceneManager::GetCurScene()->GetPlayer();

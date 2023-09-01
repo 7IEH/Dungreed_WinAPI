@@ -21,7 +21,7 @@ namespace EH
         SetDelayTime(4.f);
         mDect = object::Instantiate<Detection>(enums::eLayerType::Detect);
         Collider* dectcol = mDect->AddComponent<Collider>();
-        dectcol->SetScale(Math::Vector2<float>(500.f, 16.f));
+        dectcol->SetScale(Math::Vector2<float>(600.f, 600.f));
 
         Animator* ani = AddComponent<Animator>();
         Texture* texture = Resources::Load<Texture>(L"GreySkelRightIdle", L"..\\Resources\\Enemy\\JailField\\Skell\\GreySkel\\Idle\\Right\\GraySkelIdle.bmp");

@@ -7,6 +7,8 @@
 #include "EHObject.h"
 #include "EHCollisionManager.h"
 #include "EHObjdata.h"
+#include "EHBullet.h"
+#include "EHEquipedEffect.h"
 
 namespace EH
 {
@@ -135,6 +137,45 @@ namespace EH
 						if (check1 == 1)
 							break;
 					}
+					EquipedEffect* back = object::Instantiate<EquipedEffect>(enums::eLayerType::Inventory);
+					Transform* backtr = back->GetComponent<Transform>();
+					SpriteRenderer* backsr = back->AddComponent<SpriteRenderer>();
+					Texture* texture = Resources::Load<Texture>(L"euipedback", L"..\\Resources\\UI\\ItemFont\\ItemEquip.bmp");
+					backsr->SetImg(texture);
+					backtr->SetPos(Math::Vector2<float>(640.f, 630.f));
+					backtr->SetScale(Math::Vector2<float>(330.f, 110.f));
+					back->SetDeleteTime(3.f);
+					backsr->SetAffectCamera(false);
+
+					EquipedEffect* image1 = object::Instantiate<EquipedEffect>(enums::eLayerType::Inventory);
+					backtr = image1->GetComponent<Transform>();
+					backsr = image1->AddComponent<SpriteRenderer>();
+					texture = Resources::Load<Texture>(L"equipfont", L"..\\Resources\\UI\\ItemFont\\ItemEquipedFont.bmp");
+					backsr->SetImg(texture);
+					backtr->SetPos(Math::Vector2<float>(640.f, 600.f));
+					backtr->SetScale(Math::Vector2<float>(112.f, 24.f));
+					image1->SetDeleteTime(3.f);
+					backsr->SetAffectCamera(false);
+
+					EquipedEffect* image2 = object::Instantiate<EquipedEffect>(enums::eLayerType::Inventory);
+					backtr = image2->GetComponent<Transform>();
+					backsr = image2->AddComponent<SpriteRenderer>();
+					texture = Resources::Load<Texture>(L"equipgunfont", L"..\\Resources\\UI\\ItemFont\\Gunalphabet.bmp");
+					backsr->SetImg(texture);
+					backtr->SetPos(Math::Vector2<float>(640.f, 630.f));
+					backtr->SetScale(Math::Vector2<float>(138.f, 24.f));
+					image2->SetDeleteTime(3.f);
+					backsr->SetAffectCamera(false);
+
+					EquipedEffect* image3 = object::Instantiate<EquipedEffect>(enums::eLayerType::Inventory);
+					backtr = image3->GetComponent<Transform>();
+					backsr = image3->AddComponent<SpriteRenderer>();
+					texture = Resources::Load<Texture>(L"equipgunimage", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Right\\Revolver2.png");
+					backsr->SetImg(texture);
+					backtr->SetPos(Math::Vector2<float>(530.f, 630.f));
+					backtr->SetScale(Math::Vector2<float>(64.f, 36.f));
+					image3->SetDeleteTime(3.f);
+					backsr->SetAffectCamera(false);
 				}
 				else if (mWeaponname == L"Wand")
 				{
@@ -154,6 +195,45 @@ namespace EH
 						if (check1 == 1)
 							break;
 					}
+					EquipedEffect* back = object::Instantiate<EquipedEffect>(enums::eLayerType::Inventory);
+					Transform* backtr = back->GetComponent<Transform>();
+					SpriteRenderer* backsr = back->AddComponent<SpriteRenderer>();
+					Texture* texture = Resources::Load<Texture>(L"euipedback", L"..\\Resources\\UI\\ItemFont\\ItemEquip.bmp");
+					backsr->SetImg(texture);
+					backtr->SetPos(Math::Vector2<float>(640.f, 630.f));
+					backtr->SetScale(Math::Vector2<float>(330.f, 110.f));
+					back->SetDeleteTime(3.f);
+					backsr->SetAffectCamera(false);
+
+					EquipedEffect* image1 = object::Instantiate<EquipedEffect>(enums::eLayerType::Inventory);
+					backtr = image1->GetComponent<Transform>();
+					backsr = image1->AddComponent<SpriteRenderer>();
+					texture = Resources::Load<Texture>(L"equipfont", L"..\\Resources\\UI\\ItemFont\\ItemEquipedFont.bmp");
+					backsr->SetImg(texture);
+					backtr->SetPos(Math::Vector2<float>(640.f, 600.f));
+					backtr->SetScale(Math::Vector2<float>(112.f, 24.f));
+					image1->SetDeleteTime(3.f);
+					backsr->SetAffectCamera(false);
+
+					EquipedEffect* image2 = object::Instantiate<EquipedEffect>(enums::eLayerType::Inventory);
+					backtr = image2->GetComponent<Transform>();
+					backsr = image2->AddComponent<SpriteRenderer>();
+					texture = Resources::Load<Texture>(L"equipwandfont", L"..\\Resources\\UI\\ItemFont\\Wandalphabet.bmp");
+					backsr->SetImg(texture);
+					backtr->SetPos(Math::Vector2<float>(640.f, 630.f));
+					backtr->SetScale(Math::Vector2<float>(136.f, 22.f));
+					image2->SetDeleteTime(3.f);
+					backsr->SetAffectCamera(false);
+
+					EquipedEffect* image3 = object::Instantiate<EquipedEffect>(enums::eLayerType::Inventory);
+					backtr = image3->GetComponent<Transform>();
+					backsr = image3->AddComponent<SpriteRenderer>();
+					texture = Resources::Load<Texture>(L"equipwandimage", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\Lala'sMagicWand.png");
+					backsr->SetImg(texture);
+					backtr->SetPos(Math::Vector2<float>(530.f, 630.f));
+					backtr->SetScale(Math::Vector2<float>(52.f, 52.f));
+					image3->SetDeleteTime(3.f);
+					backsr->SetAffectCamera(false);
 				}
 				else if (mWeaponname == L"TwoHand")
 				{
@@ -173,6 +253,46 @@ namespace EH
 						if (check1 == 1)
 							break;
 					}
+					EquipedEffect* back = object::Instantiate<EquipedEffect>(enums::eLayerType::Inventory);
+					Transform* backtr = back->GetComponent<Transform>();
+					SpriteRenderer* backsr = back->AddComponent<SpriteRenderer>();
+					Texture* texture = Resources::Load<Texture>(L"euipedback", L"..\\Resources\\UI\\ItemFont\\ItemEquip.bmp");
+					backsr->SetImg(texture);
+					backtr->SetPos(Math::Vector2<float>(640.f, 630.f));
+					backtr->SetScale(Math::Vector2<float>(330.f, 110.f));
+					back->SetDeleteTime(3.f);
+					backsr->SetAffectCamera(false);
+
+					EquipedEffect* image1 = object::Instantiate<EquipedEffect>(enums::eLayerType::Inventory);
+					backtr = image1->GetComponent<Transform>();
+					backsr = image1->AddComponent<SpriteRenderer>();
+					texture = Resources::Load<Texture>(L"equipfont", L"..\\Resources\\UI\\ItemFont\\ItemEquipedFont.bmp");
+					backsr->SetImg(texture);
+					backtr->SetPos(Math::Vector2<float>(640.f, 600.f));
+					backtr->SetScale(Math::Vector2<float>(112.f, 24.f));
+					image1->SetDeleteTime(3.f);
+					backsr->SetAffectCamera(false);
+
+					EquipedEffect* image2 = object::Instantiate<EquipedEffect>(enums::eLayerType::Inventory);
+					backtr = image2->GetComponent<Transform>();
+					backsr = image2->AddComponent<SpriteRenderer>();
+					texture = Resources::Load<Texture>(L"equiptwohandfont", L"..\\Resources\\UI\\ItemFont\\twohandalphabet.bmp");
+					backsr->SetImg(texture);
+					backtr->SetPos(Math::Vector2<float>(640.f, 630.f));
+					backtr->SetScale(Math::Vector2<float>(134.f, 24.f));
+					image2->SetDeleteTime(3.f);
+					backsr->SetAffectCamera(false);
+
+					EquipedEffect* image3 = object::Instantiate<EquipedEffect>(enums::eLayerType::Inventory);
+					backtr = image3->GetComponent<Transform>();
+					backsr = image3->AddComponent<SpriteRenderer>();
+					texture = Resources::Load<Texture>(L"equipedtwohandsimage", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\SkeletonKingJewelSword.png");
+					backsr->SetImg(texture);
+					backtr->SetPos(Math::Vector2<float>(530.f, 630.f));
+					backtr->SetScale(Math::Vector2<float>(68.f, 144.f));
+					image3->SetDeleteTime(3.f);
+					backsr->SetAffectCamera(false);
+
 				}
 				Objdata::SetInventory(inventory);
 				Destroy(this);

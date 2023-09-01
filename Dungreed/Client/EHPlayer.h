@@ -105,6 +105,8 @@ namespace EH
 
 		static UINT mCheck1;
 
+		UINT mInventory1;
+
 		// UI
 		GameObject* mCurhpImage1;
 		GameObject* mCurhpImage2;

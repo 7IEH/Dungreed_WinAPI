@@ -19,13 +19,13 @@ namespace EH
 		  mAttack(nullptr)
 		, mIsRight(true)
 	{
-		SetDelayTime(4.f);
+		SetDelayTime(3.f);
 		SetSubDelayTime(1.f);
 		SetHP(40.f);
 		Transform* tr = GetComponent<Transform>();
 		mDect = object::Instantiate<Detection>(enums::eLayerType::Detect);
 		Collider* dectcol = mDect->AddComponent<Collider>();
-		dectcol->SetScale(Math::Vector2<float>(300.f, 300.f));
+		dectcol->SetScale(Math::Vector2<float>(600.f, 600.f));
 		dectcol->SetAffectedCamera(true);
 
 		mBow = object::Instantiate<Weapon>(enums::eLayerType::Sword);
@@ -236,6 +236,7 @@ namespace EH
 			arrow->AddComponent<Collider>();
 			arrow->GetComponent<Collider>()->SetScale(Math::Vector2<float>(40.f, 40.f));
 			arrow->SetDeleteTime(10.f);
+			arrow->SetSpeed(3.f);
 			SetState(eState::Idle);
 			SetSubCheckTime(0.f);
 		}

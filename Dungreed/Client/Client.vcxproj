@@ -157,6 +157,7 @@
     <ClInclude Include="EHEndingScene.h" />
     <ClInclude Include="EHEnemy.h" />
     <ClInclude Include="EHEntity.h" />
+    <ClInclude Include="EHEquipedEffect.h" />
     <ClInclude Include="EHFairy.h" />
     <ClInclude Include="EHFloor.h" />
     <ClInclude Include="EHGameObject.h" />
@@ -272,6 +273,7 @@
     <ClCompile Include="EHEndingScene.cpp" />
     <ClCompile Include="EHEnemy.cpp" />
     <ClCompile Include="EHEntity.cpp" />
+    <ClCompile Include="EHEquipedEffect.cpp" />
     <ClCompile Include="EHFairy.cpp" />
     <ClCompile Include="EHFloor.cpp" />
     <ClCompile Include="EHGameObject.cpp" />

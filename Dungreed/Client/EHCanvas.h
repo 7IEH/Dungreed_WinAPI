@@ -15,7 +15,7 @@ namespace EH
 
 		class ImageObject* AddImageObject(const std::wstring& name, Texture* texture, bool affectedcamera
 			, Math::Vector2<float> pos, Math::Vector2<float> scale
-			, Math::Vector2<float> offset = Math::Vector2<float>(0.f,0.f), float alpha = 1.f);
+			, Math::Vector2<float> offset = Math::Vector2<float>(0.f,0.f), float alpha = 1.f, bool Inventory = false);
 
 		class ImageObject* Find(const std::wstring& name);
 

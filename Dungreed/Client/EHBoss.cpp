@@ -355,7 +355,7 @@ namespace EH
 			RightHandTr->SetScale(Math::Vector2<float>(280.f, 320.f));
 			RightHandani->PlayAnimation(L"BossRightHandAttack", false);
 			mCheck1++;
-			Laser* rightlaser = object::Instantiate<Laser>(enums::eLayerType::UI);
+			Laser* rightlaser = object::Instantiate<Laser>(enums::eLayerType::Laser);
 			Transform* tr1 = rightlaser->GetComponent<Transform>();
 			Transform* tr2 = mRightHand->GetComponent<Transform>();
 			rightlaser->SetRight(true);
@@ -413,7 +413,7 @@ namespace EH
 					RightHandTr->SetScale(Math::Vector2<float>(280.f, 320.f));
 					RightHandani->PlayAnimation(L"BossRightHandAttack", false);
 					mRightLaserani = true;
-					Laser* rightlaser = object::Instantiate<Laser>(enums::eLayerType::UI);
+					Laser* rightlaser = object::Instantiate<Laser>(enums::eLayerType::Laser);
 					Transform* tr1 = rightlaser->GetComponent<Transform>();
 					Transform* tr2 = mRightHand->GetComponent<Transform>();
 					rightlaser->SetRight(true);
@@ -429,7 +429,7 @@ namespace EH
 					LeftHandTr->SetScale(Math::Vector2<float>(280.f, 320.f));
 					LeftHandani->PlayAnimation(L"BossLeftHandAttack", false);
 					mLeftLaserani = true;
-					Laser* leftlaser = object::Instantiate<Laser>(enums::eLayerType::UI);
+					Laser* leftlaser = object::Instantiate<Laser>(enums::eLayerType::Laser);
 					Transform* tr1 = leftlaser->GetComponent<Transform>();
 					Transform* tr2 = mLeftHand->GetComponent<Transform>();
 					leftlaser->SetRight(false);

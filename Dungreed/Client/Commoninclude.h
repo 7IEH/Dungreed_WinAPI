@@ -54,6 +54,7 @@ namespace EH::enums
 		, Bullet
 		, Laser
 		, Detect
+		, Inventory
 		, End
 	};
 

@@ -168,10 +168,10 @@ namespace EH
 		// Inventory
 		texture = Resources::Load<Texture>(L"InventoryBase", L"..\\Resources\\UI\\InventoryBase.png");
 		texture->Enabled(false);
-		PlayerUICanvas->AddImageObject(L"InventoryBase", texture, false, Math::Vector2<float>(1034.f, 360.f), Math::Vector2<float>(492.f, 720.f));
+		PlayerUICanvas->AddImageObject(L"InventoryBase", texture, false, Math::Vector2<float>(1034.f, 360.f), Math::Vector2<float>(492.f, 720.f),Math::Vector2<float>(0.f,0.f),1.0f,true);
 
-		PlayerUICanvas->AddImageObject(L"InventoryWeapon", nullptr, false, Math::Vector2<float>(890.f, 165.f), Math::Vector2<float>(57.f, 21.f));
-		PlayerUICanvas->AddImageObject(L"InventorySubWeapon", nullptr, false, Math::Vector2<float>(1105.f, 165.f), Math::Vector2<float>(57.f, 21.f));
+		PlayerUICanvas->AddImageObject(L"InventoryWeapon", nullptr, false, Math::Vector2<float>(890.f, 165.f), Math::Vector2<float>(57.f, 21.f), Math::Vector2<float>(0.f, 0.f), 1.0f, true);
+		PlayerUICanvas->AddImageObject(L"InventorySubWeapon", nullptr, false, Math::Vector2<float>(1105.f, 165.f), Math::Vector2<float>(57.f, 21.f), Math::Vector2<float>(0.f, 0.f), 1.0f, true);
 
 		texture = Resources::Load<Texture>(L"InventoryBox", L"..\\Resources\\UI\\InventoryBox.png");
 		texture->Enabled(false);
@@ -179,11 +179,19 @@ namespace EH
 		{
 			for (size_t x = 0; x < 5; x++)
 			{
-				PlayerUICanvas->AddImageObject(L"InventoryBox" + std::to_wstring(y * 5 + x), texture, false, Math::Vector2<float>(865.f + 88.f * x, 390.f + 88.f * y), Math::Vector2<float>(76.f, 76.f));
-				PlayerUICanvas->AddImageObject(L"InventoryItem" + std::to_wstring(y * 5 + x), nullptr, false, Math::Vector2<float>(865.f + 88.f * x, 390.f + 88.f * y), Math::Vector2<float>(76.f, 76.f));
+				PlayerUICanvas->AddImageObject(L"InventoryBox" + std::to_wstring(y * 5 + x), texture, false, Math::Vector2<float>(865.f + 88.f * x, 390.f + 88.f * y), Math::Vector2<float>(76.f, 76.f), Math::Vector2<float>(0.f, 0.f), 1.0f, true);
+				PlayerUICanvas->AddImageObject(L"InventoryItem" + std::to_wstring(y * 5 + x), nullptr, false, Math::Vector2<float>(865.f + 88.f * x, 390.f + 88.f * y), Math::Vector2<float>(76.f, 76.f), Math::Vector2<float>(0.f, 0.f), 1.0f, true);
 			}
 		}
 		texture = Resources::Load<Texture>(L"InventoryBox_Selected", L"..\\Resources\\UI\\InventoryBox_Selected.png");
+		
+		texture = Resources::Load<Texture>(L"iteminfo1", L"..\\Resources\\UI\\ItemFont\\ItemEquip.bmp");
+		texture->Enabled(false);
+		PlayerUICanvas->AddImageObject(L"iteminfo1", texture, false, Math::Vector2<float>(0.f,0.f), Math::Vector2<float>(330.f, 110.f), Math::Vector2<float>(0.f, 0.f), 0.5f, true);
+		PlayerUICanvas->AddImageObject(L"iteminfo2", nullptr, false, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(0.f, 0.f), 1.0f, true);
+		PlayerUICanvas->AddImageObject(L"iteminfo3", nullptr, false, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(0.f, 0.f), 1.0f, true);
+		PlayerUICanvas->AddImageObject(L"iteminfo4", nullptr, false, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(0.f, 0.f), 1.0f, true);
+
 
 		// Sound setting
 		Sound* sound = Resources::Load<Sound>(L"PlayerRunSound", L"..\\Resources\\Sound\\Player\\Run\\step_lth1.wav");
@@ -567,9 +575,11 @@ namespace EH
 			Texture* texture = Resources::Load<Texture>(L"SwordWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword\\ShortSword.png");
 			ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
 			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			inventoryweapon->GetComponent<Transform>()->SetScale(Math::Vector2<float>(76.f, 28.f));
+
 			texture = Resources::Load<Texture>(L"Swordslot", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword\\ShortSword.png");
 			mCanvas->Find(L"Swordslot")->GetComponent<SpriteRenderer>()->SetImg(texture);
-
+			mCanvas->Find(L"Swordslot")->GetComponent<Transform>()->SetScale(Math::Vector2<float>(76.f, 28.f));
 
 			mWeapon->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
 			float radian = 0.f;
@@ -625,8 +635,11 @@ namespace EH
 			Texture* texture = Resources::Load<Texture>(L"WandWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\Lala'sMagicWand.png");
 			ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
 			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			inventoryweapon->GetComponent<Transform>()->SetScale(Math::Vector2<float>(52.f, 52.f));
+
 			texture = Resources::Load<Texture>(L"Wandslot", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\Lala'sMagicWand.png");
 			mCanvas->Find(L"Swordslot")->GetComponent<SpriteRenderer>()->SetImg(texture);
+			mCanvas->Find(L"Swordslot")->GetComponent<Transform>()->SetScale(Math::Vector2<float>(52.f, 52.f));
 
 			mIsAttack = false;
 			mWeapon->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
@@ -676,8 +689,11 @@ namespace EH
 			Texture* texture = Resources::Load<Texture>(L"GunWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Right\\Revolver2.png");
 			ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
 			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			inventoryweapon->GetComponent<Transform>()->SetScale(Math::Vector2<float>(64.f, 36.f));
+
 			texture = Resources::Load<Texture>(L"Gunslot", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Right\\Revolver2.png");
 			mCanvas->Find(L"Swordslot")->GetComponent<SpriteRenderer>()->SetImg(texture);
+			mCanvas->Find(L"Swordslot")->GetComponent<Transform>()->SetScale(Math::Vector2<float>(64.f, 36.f));
 
 			mIsAttack = false;
 			mWeapon->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
@@ -710,8 +726,11 @@ namespace EH
 			Texture* texture = Resources::Load<Texture>(L"TwoHandWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\SkeletonKingJewelSword.png");
 			ImageObject* inventoryweapon = mCanvas->Find(L"InventoryWeapon");
 			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			inventoryweapon->GetComponent<Transform>()->SetScale(Math::Vector2<float>(68.f, 144.f));
+
 			texture = Resources::Load<Texture>(L"TwoHandslot", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\SkeletonKingJewelSword.png");
 			mCanvas->Find(L"Swordslot")->GetComponent<SpriteRenderer>()->SetImg(texture);
+			mCanvas->Find(L"Swordslot")->GetComponent<Transform>()->SetScale(Math::Vector2<float>(68.f, 144.f));
 
 			mWeapon->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
 			float radian = 0.f;
@@ -785,24 +804,28 @@ namespace EH
 			Texture* texture = Resources::Load<Texture>(L"SwordWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword\\ShortSword.png");
 			ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
 			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			inventoryweapon->GetComponent<Transform>()->SetScale(Math::Vector2<float>(76.f, 28.f));
 		}
 		else if (mSubWeapon == enums::eWeapon::Wand)
 		{
 			Texture* texture = Resources::Load<Texture>(L"WandWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\Lala'sMagicWand.png");
 			ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
 			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			inventoryweapon->GetComponent<Transform>()->SetScale(Math::Vector2<float>(52.f, 52.f));
 		}
 		else if (mSubWeapon == enums::eWeapon::Gun)
 		{
 			Texture* texture = Resources::Load<Texture>(L"GunWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Right\\Revolver2.png");
 			ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
 			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			inventoryweapon->GetComponent<Transform>()->SetScale(Math::Vector2<float>(64.f, 36.f));
 		}
 		else if (mSubWeapon == enums::eWeapon::Twohand)
 		{
 			Texture* texture = Resources::Load<Texture>(L"TwoHandWeaponbox", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\SkeletonKingJewelSword.png");
 			ImageObject* inventoryweapon = mCanvas->Find(L"InventorySubWeapon");
 			inventoryweapon->GetComponent<SpriteRenderer>()->SetImg(texture);
+			inventoryweapon->GetComponent<Transform>()->SetScale(Math::Vector2<float>(68.f, 144.f));
 		}
 		else
 		{
@@ -880,6 +903,231 @@ namespace EH
 			}
 			if (inventory != -1)
 			{
+				if (mInventory[dy][dx] == L"Sword")
+				{
+					ImageObject* info1 = mCanvas->Find(L"iteminfo1");
+					if (info1->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 0)
+							info1->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info1->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+					ImageObject* info2 = mCanvas->Find(L"iteminfo2");
+					if (info2->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 0)
+							info2->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info2->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+					ImageObject* info3 = mCanvas->Find(L"iteminfo3");
+					if (info3->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 0)
+							info3->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info3->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+					ImageObject* info4 = mCanvas->Find(L"iteminfo4");
+					if (info4->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 0)
+							info4->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info4->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+
+					info1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 165.f, cursorpos.y - 55.f));
+					Texture* temp4 = Resources::Load<Texture>(L"infosword", L"..\\Resources\\UI\\ItemFont\\shortswordalphabet.bmp");
+					info2->GetComponent<SpriteRenderer>()->SetImg(temp4);
+					info2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 165.f, cursorpos.y - 80.f));
+					info2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(56.f, 26.f));
+
+					temp4 = Resources::Load<Texture>(L"infosworddamage", L"..\\Resources\\UI\\ItemFont\\Attack20.bmp");
+					info3->GetComponent<SpriteRenderer>()->SetImg(temp4);
+					info3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 165.f, cursorpos.y - 55.f));
+					info3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(46.f, 11.f));
+
+					temp4 = Resources::Load<Texture>(L"infoswordimage", L"..\\Resources\\Player\\Basic\\Attack\\ShortSword\\ShortSword.png");
+					info4->GetComponent<SpriteRenderer>()->SetImg(temp4);
+					info4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 250.f, cursorpos.y - 55.f));
+					info4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(76.f, 28.f));
+					mInventory1 = 0;
+				}
+				else if (mInventory[dy][dx] == L"Wand")
+				{
+					ImageObject* info1 = mCanvas->Find(L"iteminfo1");
+					if (info1->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 1)
+							info1->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info1->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+					ImageObject* info2 = mCanvas->Find(L"iteminfo2");
+					if (info2->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 1)
+							info2->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info2->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+					ImageObject* info3 = mCanvas->Find(L"iteminfo3");
+					if (info3->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 1)
+							info3->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info3->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+					ImageObject* info4 = mCanvas->Find(L"iteminfo4");
+					if (info4->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 1)
+							info4->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info4->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+
+					info1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 165.f, cursorpos.y - 55.f));
+					Texture* temp4 = Resources::Load<Texture>(L"infoWand", L"..\\Resources\\UI\\ItemFont\\Wandalphabet.bmp");
+					info2->GetComponent<SpriteRenderer>()->SetImg(temp4);
+					info2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 165.f, cursorpos.y - 80.f));
+					info2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(136.f, 22.f));
+
+					temp4 = Resources::Load<Texture>(L"infoWanddamage", L"..\\Resources\\UI\\ItemFont\\Attack20.bmp");
+					info3->GetComponent<SpriteRenderer>()->SetImg(temp4);
+					info3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 165.f, cursorpos.y - 55.f));
+					info3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(46.f, 11.f));
+
+					temp4 = Resources::Load<Texture>(L"infoWandimage", L"..\\Resources\\Player\\Basic\\Attack\\LalaWand\\Lala'sMagicWand.png");
+					info4->GetComponent<SpriteRenderer>()->SetImg(temp4);
+					info4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 270.f, cursorpos.y - 55.f));
+					info4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(52.f, 52.f));
+					mInventory1 = 1;
+				}
+				else if (mInventory[dy][dx]==L"Gun")
+				{
+					ImageObject* info1 = mCanvas->Find(L"iteminfo1");
+					if (info1->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 2)
+							info1->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info1->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+					ImageObject* info2 = mCanvas->Find(L"iteminfo2");
+					if (info2->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 2)
+							info2->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info2->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+					ImageObject* info3 = mCanvas->Find(L"iteminfo3");
+					if (info3->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 2)
+							info3->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info3->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+					ImageObject* info4 = mCanvas->Find(L"iteminfo4");
+					if (info4->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 2)
+							info4->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info4->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+
+					info1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 165.f, cursorpos.y - 55.f));
+					Texture* temp4 = Resources::Load<Texture>(L"infogun", L"..\\Resources\\UI\\ItemFont\\Gunalphabet.bmp");
+					info2->GetComponent<SpriteRenderer>()->SetImg(temp4);
+					info2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 165.f, cursorpos.y - 80.f));
+					info2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(138.f, 24.f));
+
+					temp4 = Resources::Load<Texture>(L"infogundamage", L"..\\Resources\\UI\\ItemFont\\Attack10.bmp");
+					info3->GetComponent<SpriteRenderer>()->SetImg(temp4);
+					info3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 165.f, cursorpos.y - 55.f));
+					info3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(46.f, 11.f));
+
+					temp4 = Resources::Load<Texture>(L"infogunimage", L"..\\Resources\\Player\\Basic\\Attack\\Gun\\Right\\Revolver2.png");
+					info4->GetComponent<SpriteRenderer>()->SetImg(temp4);
+					info4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 270.f, cursorpos.y - 55.f));
+					info4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(64.f, 36.f));
+					mInventory1 = 2;
+				}
+				else if (mInventory[dy][dx] == L"TwoHand")
+				{
+					ImageObject* info1 = mCanvas->Find(L"iteminfo1");
+					if (info1->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 3)
+							info1->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info1->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}	
+					ImageObject* info2 = mCanvas->Find(L"iteminfo2");
+					if (info2->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 3)
+							info2->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info2->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+					ImageObject* info3 = mCanvas->Find(L"iteminfo3");
+					if (info3->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 3)
+							info3->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info3->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+					ImageObject* info4 = mCanvas->Find(L"iteminfo4");
+					if (info4->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					{
+						if (mInventory1 == 3)
+							info4->GetComponent<SpriteRenderer>()->GetImg()->Enabled(true);
+						else
+							info4->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					}
+
+
+					info1->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 165.f, cursorpos.y - 55.f));
+					Texture* temp4 = Resources::Load<Texture>(L"infotwohand", L"..\\Resources\\UI\\ItemFont\\twohandalphabet.bmp");
+					info2->GetComponent<SpriteRenderer>()->SetImg(temp4);
+					info2->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 165.f, cursorpos.y - 80.f));
+					info2->GetComponent<Transform>()->SetScale(Math::Vector2<float>(134.f, 24.f));
+
+					temp4 = Resources::Load<Texture>(L"infotwohanddamage", L"..\\Resources\\UI\\ItemFont\\Attack20.bmp");
+					info3->GetComponent<SpriteRenderer>()->SetImg(temp4);
+					info3->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 165.f, cursorpos.y - 55.f));
+					info3->GetComponent<Transform>()->SetScale(Math::Vector2<float>(46.f, 11.f));
+
+					temp4 = Resources::Load<Texture>(L"infotwohandimage", L"..\\Resources\\Player\\Basic\\Attack\\TwoHand\\SkeletonKingJewelSword.png");
+					info4->GetComponent<SpriteRenderer>()->SetImg(temp4);
+					info4->GetComponent<Transform>()->SetPos(Math::Vector2<float>(cursorpos.x - 270.f, cursorpos.y - 55.f));
+					info4->GetComponent<Transform>()->SetScale(Math::Vector2<float>(68.f, 144.f));
+					mInventory1 = 3;
+				}
+				else
+				{
+					ImageObject* info1 = mCanvas->Find(L"iteminfo1");
+					if(info1->GetComponent<SpriteRenderer>()->GetImg()!=nullptr)
+						info1->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					ImageObject* info2 = mCanvas->Find(L"iteminfo2");
+					if (info2->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+						info2->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					ImageObject* info3 = mCanvas->Find(L"iteminfo3");
+					if (info3->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+						info3->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+					ImageObject* info4 = mCanvas->Find(L"iteminfo4");
+					if (info4->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+						info4->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+				}
+
 				SpriteRenderer* inventorybox = mCanvas->Find(L"InventoryBox" + std::to_wstring(inventory))->GetComponent<SpriteRenderer>();
 				texture = Resources::Load<Texture>(L"InventoryBox_Selected", L"..\\Resources\\UI\\InventoryBox_Selected.png");
 				inventorybox->SetImg(texture);
@@ -1184,6 +1432,21 @@ namespace EH
 					}
 					Objdata::SetInventory(mInventory);
 				}
+			}
+			else
+			{
+				ImageObject* info1 = mCanvas->Find(L"iteminfo1");
+				if (info1->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					info1->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+				ImageObject* info2 = mCanvas->Find(L"iteminfo2");
+				if (info2->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					info2->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+				ImageObject* info3 = mCanvas->Find(L"iteminfo3");
+				if (info3->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					info3->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
+				ImageObject* info4 = mCanvas->Find(L"iteminfo4");
+				if (info4->GetComponent<SpriteRenderer>()->GetImg() != nullptr)
+					info4->GetComponent<SpriteRenderer>()->GetImg()->Enabled(false);
 			}
 
 			// 왼쪽 선택 확인

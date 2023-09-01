@@ -48,7 +48,7 @@ namespace EH
 		ani->CreateAnimation(L"RedGiantRightAttack", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(64.f, 64.f), Math::Vector2<float>(0.f, 0.f), 10, 0.1f);
 
 		// Time
-		SetDelayTime(4.f);
+		SetDelayTime(3.f);
 		SetSubDelayTime(0.1f);
 
 		// Sound

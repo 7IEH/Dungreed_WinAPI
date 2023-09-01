@@ -376,6 +376,9 @@
     <Filter Include="Contents\GameObject\Effect\Effect2">
       <UniqueIdentifier>{79b1e355-1398-4302-ac47-569215165732}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Effect\Effect3">
+      <UniqueIdentifier>{dd4e275a-c518-4bed-b72f-1d5bf3d5e2ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -720,6 +723,9 @@
     <ClInclude Include="EHDamageEffect.h">
       <Filter>Contents\GameObject\Effect\Effect2</Filter>
     </ClInclude>
+    <ClInclude Include="EHEquipedEffect.h">
+      <Filter>Contents\GameObject\Effect\Effect3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -1052,6 +1058,9 @@
     </ClCompile>
     <ClCompile Include="EHDamageEffect.cpp">
       <Filter>Contents\GameObject\Effect\Effect2</Filter>
+    </ClCompile>
+    <ClCompile Include="EHEquipedEffect.cpp">
+      <Filter>Contents\GameObject\Effect\Effect3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

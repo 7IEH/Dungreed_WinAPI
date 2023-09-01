@@ -34,23 +34,45 @@ namespace EH
 
 	ImageObject* Canvas::AddImageObject(const std::wstring& name, Texture* texture, bool affectedcamera
 		, Math::Vector2<float> pos, Math::Vector2<float> scale
-		, Math::Vector2<float> offset, float alpha)
+		, Math::Vector2<float> offset, float alpha , bool Inventory)
 	{
-		ImageObject* image = Find(name);
-		if (image != nullptr)
+		if (!Inventory)
 		{
+			ImageObject* image = Find(name);
+			if (image != nullptr)
+			{
+				return image;
+			}
+			image = object::Instantiate<ImageObject>(enums::eLayerType::UI);
+			Transform* tr = image->GetComponent<Transform>();
+			SpriteRenderer* sr = image->GetComponent<SpriteRenderer>();
+			tr->SetPos(Math::Vector2<float>(pos.x, pos.y));
+			tr->SetScale(Math::Vector2<float>(scale.x, scale.y));
+			sr->SetImg(texture);
+			sr->SetAffectCamera(affectedcamera);
+			sr->SetAlpha(alpha);
+			mImageObjects.insert(std::make_pair(name, image));
 			return image;
 		}
-		image = object::Instantiate<ImageObject>(enums::eLayerType::UI);
-		Transform* tr = image->GetComponent<Transform>();
-		SpriteRenderer* sr = image->GetComponent<SpriteRenderer>();
-		tr->SetPos(Math::Vector2<float>(pos.x, pos.y));
-		tr->SetScale(Math::Vector2<float>(scale.x, scale.y));
-		sr->SetImg(texture);
-		sr->SetAffectCamera(affectedcamera);
-		sr->SetAlpha(alpha);
-		mImageObjects.insert(std::make_pair(name, image));
-		return image;
+		else
+		{
+			ImageObject* image = Find(name);
+			if (image != nullptr)
+			{
+				return image;
+			}
+			image = object::Instantiate<ImageObject>(enums::eLayerType::Inventory);
+			Transform* tr = image->GetComponent<Transform>();
+			SpriteRenderer* sr = image->GetComponent<SpriteRenderer>();
+			tr->SetPos(Math::Vector2<float>(pos.x, pos.y));
+			tr->SetScale(Math::Vector2<float>(scale.x, scale.y));
+			sr->SetImg(texture);
+			sr->SetAffectCamera(affectedcamera);
+			sr->SetAlpha(alpha);
+			mImageObjects.insert(std::make_pair(name, image));
+			return image;
+		}
+		
 	}
 
 	ImageObject* Canvas::Find(const std::wstring& name)
