@@ -1,6 +1,8 @@
 #include "EHLaser.h"
 #include "EHObject.h"
 #include "EHResources.h"
+#include "EHPlayer.h"
+#include "EHObjdata.h"
 
 namespace  EH
 {
@@ -44,6 +46,8 @@ namespace  EH
 			ani = mLeftLaser[i]->AddComponent<Animator>();
 			ani->CreateAnimation(L"LaserLeftBody", texture, Math::Vector2<float>(0.f, 0.f), Math::Vector2<float>(32.f, 55.f), Math::Vector2<float>(0.f, 0.f), 7, 0.2f);
 		}
+
+		mHitSound = Resources::Load<Sound>(L"playerhitsound", L"..\\Resources\\Sound\\Enemy\\public\\Hit_Player.wav");
 	}
 
 	Laser::~Laser()
@@ -135,6 +139,13 @@ namespace  EH
 
 	void Laser::OnCollisionEnter(Collider* other)
 	{
+		Player* player = dynamic_cast<Player*>(other->GetOwner());
+
+		if (player != nullptr)
+		{
+			Objdata::SetHP(Objdata::GetHP() - mDamage);
+			mHitSound->Play(false);
+		}
 	}
 
 	void Laser::OnCollisionStay(Collider* other)

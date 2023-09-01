@@ -25,6 +25,10 @@ namespace EH
 		GameObject* mRightLaser[10];
 		GameObject* mLeftLaser[10];
 
+		int mDamage;
+
+		class Sound* mHitSound;
+
 		float mCheckTime;
 		float mDeleteTime;
 	};
