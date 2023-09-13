@@ -25,6 +25,8 @@ namespace EH
 		, mAttack(nullptr)
 		, mIsRight(true)
 		, mPhase(0)
+		, mCheck4(-1)
+		, mStart(false)
 	{
 		SetHP(100.f);
 
@@ -267,16 +269,30 @@ namespace EH
 
 	void Niflheim::Attack()
 	{
-
 		if (mPhase == 0)
 		{
 			if (mType == eBossAttack::None)
-				mType = eBossAttack(rand() % (6));
+			{
+				if (mCheck4 == 5)
+				{
+					mCheck4 = -1;
+				}
+				mType = eBossAttack(mCheck4 += 1);
+			}
+				//mType = eBossAttack(rand() % (6));
 		}
 		else if (mPhase == 1)
 		{
-			if (mType == eBossAttack::None)
-				mType = eBossAttack(rand() % ((UINT)eBossAttack::None));
+			if (mStart == false)
+			{
+				mType = eBossAttack::Spear;
+				mStart = true;
+			}
+			else
+			{
+				if (mType == eBossAttack::None)
+					mType = eBossAttack(rand() % ((UINT)eBossAttack::None));
+			}
 		}
 
 		switch (mType)

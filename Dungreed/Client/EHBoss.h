@@ -80,6 +80,8 @@ namespace EH
 		UINT mCheck3;
 		UINT mCheck4;
 
+		int mCheck5;
+
 		float mMove;
 
 		// Laser

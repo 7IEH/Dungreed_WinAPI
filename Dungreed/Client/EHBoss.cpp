@@ -40,6 +40,7 @@ namespace EH
 		, mRightLaserani(false)
 		, mLeftLaserani(false)
 		, mIsStop(true)
+		, mCheck5(-1)
 	{
 		SetHP(100.f);
 
@@ -307,7 +308,14 @@ namespace EH
 		}
 
 		if (mCurType == eBossAttack::None)
-			mCurType = eBossAttack(rand() % ((UINT)eBossAttack::None));
+		{
+			if (mCheck5 == 5)
+			{
+				mCheck5 = -1;
+			}
+			mCurType = eBossAttack(mCheck5 += 1);
+		}
+			//mCurType = eBossAttack(rand() % ((UINT)eBossAttack::None));
 
 		switch (mCurType)
 		{

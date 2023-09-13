@@ -102,14 +102,27 @@ namespace EH
 					{
 						mTarget = dynamic_cast<Enemy*>(SceneManager::GetCurScene()->GetLayer(enums::eLayerType::Enemy).GetObjects().front());
 					}
-					if (mTarget == nullptr)
-					{
-						Destroy(this);
-					}
 				}
 
 				if (mTarget != nullptr)
 				{
+					bool isExist = false;
+					std::vector<GameObject*>::iterator iter = SceneManager::GetCurScene()->GetLayer(enums::eLayerType::Enemy).GetObjects().begin();
+					
+					for (;iter != SceneManager::GetCurScene()->GetLayer(enums::eLayerType::Enemy).GetObjects().end();iter++)
+					{
+						if ((*iter) == mTarget)
+						{
+							isExist = true;
+						}
+					}
+
+					if (!isExist)
+					{
+						mTarget = nullptr;
+						return;
+					}
+
 					if (mHomingTime > mHomingCheckTime)
 					{
 						Transform* tr = GetComponent<Transform>();

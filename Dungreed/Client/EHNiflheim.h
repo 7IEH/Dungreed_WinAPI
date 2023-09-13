@@ -61,6 +61,9 @@ namespace EH
 		UINT mCheck2;
 		UINT mCheck3;
 
+		int mCheck4;
+		bool mStart;
+
 		bool mStop;
 
 		// mMove
